@@ -8,6 +8,8 @@
 --macro keep('IntIterator')
 -cp C:/HaxeToolkit/haxe/lib/hscript/2,1,1
 -D hscript=2.1.1
+-cp C:/HaxeToolkit/haxe/lib/flixel-addons/2,5,0
+-D flixel-addons=2.5.0
 -cp source
 -cp C:\HaxeToolkit\haxe\lib\openfl/3,6,1/extern
 -D native-trace
@@ -23,6 +25,6 @@
 -swf-lib export/flash/obj/assets.swf
 -swf-version 11.8
 -swf export/flash/bin/HeistGame.swf
--swf-header 640:480:60:000000
+-swf-header 960:540:60:000000
 -cp export/flash/haxe
 -debug

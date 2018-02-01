@@ -1,22 +1,40 @@
 package;
 
+import flixel.FlxBasic;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.group.FlxGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.util.FlxSort;
 
 class PlayState extends FlxState
 {
-
 	private var _player:Player;
+	
+	private var _grpEntities:FlxTypedGroup<FlxObject>;
+	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
+	private var _enemy:Enemy;
 	
 	override public function create():Void
 	{
 		
+		_grpEntities = new FlxTypedGroup<FlxObject>();
+		add(_grpEntities);
+		
+		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
+		_grpEntities.add(_grpEnemies);
+		
 		_player = new Player(30, 30);
-		add(_player);
+		_grpEntities.add(_player);
+		
+		_enemy = new Enemy(200, 200, 0);
+		_grpEnemies.add(_enemy);
 		
 		super.create();
 	}
@@ -27,6 +45,13 @@ class PlayState extends FlxState
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
 		
+		if (FlxG.overlap(_player, _grpEnemies))
+		{
+			openSubState(new BattleState());
+		}
+		
 		super.update(elapsed);
+		
+		_grpEntities.sort(FlxSort.byY, FlxSort.ASCENDING);
 	}
 }

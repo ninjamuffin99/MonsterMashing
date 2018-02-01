@@ -135,7 +135,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "8",
+			build: "33",
 			company: "ninjaMuffin",
 			file: "HeistGame",
 			fps: 60,
@@ -153,13 +153,13 @@ class ApplicationMain {
 					display: 0,
 					fullscreen: false,
 					hardware: true,
-					height: 480,
+					height: 540,
 					parameters: "{}",
 					resizable: true,
 					stencilBuffer: true,
 					title: "HeistGame",
 					vsync: true,
-					width: 640,
+					width: 960,
 					x: null,
 					y: null
 				},
@@ -177,7 +177,7 @@ class ApplicationMain {
 		
 		#if (js && html5)
 		#if (munit || utest)
-		openfl.Lib.embed (null, 640, 480, "000000");
+		openfl.Lib.embed (null, 960, 540, "000000");
 		#end
 		#else
 		create ();
