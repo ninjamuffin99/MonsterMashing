@@ -12,7 +12,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite 
 {
-	private var speed:Float = 100;
+	private var speed:Float = 190;
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
@@ -93,9 +93,9 @@ class Player extends FlxSprite
 				switch(facing)
 				{
 					case FlxObject.LEFT, FlxObject.RIGHT:
-						animation.play("walklr");
+						//animation.play("walklr");
 					case FlxObject.UP, FlxObject.DOWN:
-						animation.play("walkud");
+						//animation.play("walkud");
 				}
 			}
 			
