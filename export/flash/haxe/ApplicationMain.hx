@@ -38,6 +38,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("assets/images/Playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games.swf");
+		types.push (lime.Assets.AssetType.BINARY);
+		
+		
 		urls.push ("assets/music/1683_newgrounds_lhm__e.mp3");
 		types.push (lime.Assets.AssetType.MUSIC);
 		
@@ -135,7 +139,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "33",
+			build: "71",
 			company: "ninjaMuffin",
 			file: "HeistGame",
 			fps: 60,
