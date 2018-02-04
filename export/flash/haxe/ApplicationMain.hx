@@ -34,6 +34,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("assets/data/femboy.txt");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
 		urls.push ("assets/images/images-go-here.txt");
 		types.push (lime.Assets.AssetType.TEXT);
 		
@@ -139,7 +143,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "71",
+			build: "80",
 			company: "ninjaMuffin",
 			file: "HeistGame",
 			fps: 60,
