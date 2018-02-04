@@ -64,7 +64,13 @@ class BattleState extends FlxState
 		var waveSprite = new FlxEffectSprite(_sprScreen, [waveEffect]);
 		add(waveSprite);
 		
-		_sprEnemy = new FlxSprite(150, 20).makeGraphic(275, 375, FlxColor.RED);
+		_sprEnemy = new FlxSprite(150, 20).loadGraphic(AssetPaths.spr_mush__png, false, 530, 665);
+		/*
+		 * resizes the graphic to half, retaining its aspect ratio
+		 * if you do this make sure you call updateHitbox() afterwards!
+		_sprEnemy.setGraphicSize(_sprEnemy.width / 2);
+		_sprEnemy.updateHitbox();
+		*/
 		_sprEnemy.alpha = 0;
 		add(_sprEnemy);
 		
