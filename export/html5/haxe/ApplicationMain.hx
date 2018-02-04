@@ -34,8 +34,20 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("assets/data/femboy.txt");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
 		urls.push ("assets/images/images-go-here.txt");
 		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/images/Playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games.swf");
+		types.push (lime.Assets.AssetType.BINARY);
+		
+		
+		urls.push ("assets/images/sprite_practice.png");
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("assets/music/1683_newgrounds_lhm__e.mp3");
@@ -135,7 +147,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "4",
+			build: "92",
 			company: "ninjaMuffin",
 			file: "HeistGame",
 			fps: 60,
@@ -147,19 +159,19 @@ class ApplicationMain {
 				
 				{
 					antialiasing: 0,
-					background: 0,
+					background: 10855845,
 					borderless: false,
 					depthBuffer: false,
 					display: 0,
 					fullscreen: false,
 					hardware: false,
-					height: 480,
+					height: 690,
 					parameters: "{}",
 					resizable: false,
 					stencilBuffer: true,
 					title: "HeistGame",
 					vsync: true,
-					width: 640,
+					width: 920,
 					x: null,
 					y: null
 				},
@@ -177,7 +189,7 @@ class ApplicationMain {
 		
 		#if (js && html5)
 		#if (munit || utest)
-		openfl.Lib.embed (null, 640, 480, "000000");
+		openfl.Lib.embed (null, 920, 690, "A5A5A5");
 		#end
 		#else
 		create ();

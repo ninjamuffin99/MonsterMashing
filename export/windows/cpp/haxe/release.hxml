@@ -1,0 +1,31 @@
+-main ApplicationMain 
+-cp F:/Program Files/haxe/lib/flixel/4,3,0
+-D flixel=4.3.0
+-cp F:/Program Files/haxe/lib/lime/2,9,1
+-D lime=2.9.1
+-cp F:/Program Files/haxe/lib/openfl/3,6,1
+-D openfl=3.6.1
+-cp F:/Program Files/haxe/lib/hxcpp/3,4,188
+-D hxcpp=3.4.188
+-cp F:/Program Files/haxe/lib/flixel-addons/2,5,0
+-D flixel-addons=2.5.0
+-cp source
+-cp F:\Program Files\haxe\lib\lime/2,9,1/legacy
+-D HXCPP_QUIET
+-D openfl-legacy
+-D tools=2.9.1
+-D lime-legacy
+-D no-compilation
+-D native
+-D FLX_NO_TOUCH
+-D openfl-native
+-D lime-native
+-D fdb
+-D windows
+-D desktop
+--remap flash:openfl
+--macro exclude('lime')
+--macro flixel.system.macros.FlxDefines.run()
+-cp export/windows/cpp/haxe
+-cpp export/windows/cpp/obj
+--macro keep("Main")
