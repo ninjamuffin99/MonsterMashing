@@ -8,12 +8,13 @@
 	<Battle>
 		<Menu>
 			<bm id='0'>Attack</bm>
-				<sm id ='0'></sm>
+				<sm id ='0'>Lick</sm>
 			<bm id='1'>Fuck</bm>
 			<bm id='2'>Run</bm>
 		</Menu>
 	</Battle>
 	<Hentai>
+		<line id='0'>no lolis</line>
 	</Hentai>
 	<Misc>
 	</Misc>
