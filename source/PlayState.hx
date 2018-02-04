@@ -15,6 +15,11 @@ import flixel.util.FlxSort;
 
 class PlayState extends FlxState
 {
+	static var min_x;
+	static var max_x;
+	static var min_y;
+	static var max_y;
+	
 	private var _player:Player;
 	
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
@@ -26,6 +31,9 @@ class PlayState extends FlxState
 		//Set zoom on map
 		FlxG.camera.zoom = 2;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
+		
+		//Who needs a mouse when you have Z
+		FlxG.mouse.visible = false;
 		
 		_grpEntities = new FlxTypedGroup<FlxObject>();
 		add(_grpEntities);
@@ -39,6 +47,12 @@ class PlayState extends FlxState
 		_enemy = new Enemy(200, 200, 0);
 		_grpEnemies.add(_enemy);
 		
+		//setup screen constraints
+		min_x = -FlxG.stage.stageWidth / 2;
+		max_x = FlxG.stage.stageWidth * 1.5;
+		min_y = -FlxG.stage.stageHeight / 2;
+		max_x = FlxG.stage.stageHeight * 1.5;
+				
 		super.create();
 	}
 

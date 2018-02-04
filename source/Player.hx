@@ -16,7 +16,7 @@ class Player extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		loadGraphic(AssetPaths.sprite_practice__png, true, 18, 17);
+		loadGraphic(AssetPaths.spr_player__png, true, 18, 17);
 		
 		var frameRate:Int = 6;
 		animation.add("l", [0, 1, 2], frameRate);
