@@ -23,8 +23,10 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
-		
+		FlxG.camera.zoom = 2;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
+		//Create if
+		FlxG.camera.follow(_player);
 		
 		_grpEntities = new FlxTypedGroup<FlxObject>();
 		add(_grpEntities);
