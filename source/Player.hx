@@ -45,6 +45,7 @@ class Player extends FlxSprite
 		angle = degs + 90;
 	}
 	
+	//Yo cam the movement feels like walking on ice
 	private function controls():Void
 	{
 		var _up = FlxG.keys.anyPressed([UP, W]);
