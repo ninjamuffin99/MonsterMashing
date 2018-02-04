@@ -12,7 +12,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite 
 {
-	private var speed:Float = 190;
+	private var speed:Float = 240;
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
@@ -24,7 +24,7 @@ class Player extends FlxSprite
 		animation.add("d", [6, 7, 8], frameRate);
 		animation.add("u", [9, 10, 11], frameRate);
 		
-		drag.x = drag.y = 700;
+		drag.x = drag.y = 2800;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -114,7 +114,7 @@ class Player extends FlxSprite
 		{
 			animation.curAnim.curFrame = 1;
 			animation.curAnim.pause();
+			//velocity.set(0,0);
 		}
 	}
-	
 }

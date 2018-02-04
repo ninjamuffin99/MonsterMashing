@@ -6,6 +6,12 @@
 	<Overworld>
 	</Overworld>
 	<Battle>
+		<Menu>
+			<bm id='0'>Attack</bm>
+				<sm id ='0'></sm>
+			<bm id='1'>Fuck</bm>
+			<bm id='2'>Run</bm>
+		</Menu>
 	</Battle>
 	<Hentai>
 	</Hentai>

@@ -83,6 +83,7 @@ class BattleState extends FlxSubState
 		_grpMenu.add(rect);
 		add(_grpMenu);
 		
+		//Pull from XML
 		menuText = new FlxText(100, 16, 0, "Attack\nFuck\nRun", 32);
 		menuText.color = FlxColor.BLACK;
 		_grpMenu.add(menuText);
@@ -191,6 +192,10 @@ class BattleState extends FlxSubState
 			selectorPos += 1;
 		}
 		
+		//Takes the remainder to establish pos
+		selectorPos = (selectorPos + 3) % 3;
+		
+		/*
 		if (selectorPos < 0)
 		{
 			selectorPos = 2;
@@ -198,14 +203,18 @@ class BattleState extends FlxSubState
 		if (selectorPos > 2)
 		{
 			selectorPos = 0;
-		}
+		}*/
 		
-		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.SPACE)
+		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.Z)
 		{
 			_grpMenu.kill();
 			_grpAttack.revive();
 			
 			attacking = true;
+		}
+		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z)
+		{
+			closeSubState();
 		}
 		
 		selector.y = (46 * selectorPos) + 28 + _grpMenu.y;
