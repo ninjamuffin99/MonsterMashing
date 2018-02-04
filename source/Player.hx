@@ -60,6 +60,9 @@ class Player extends FlxSprite
 		
 		if (_up || _down || _left || _right)
 		{
+			/**
+			 * Movement Angle
+			 */
 			var mA:Float = 0;
 			
 			if (_up)
