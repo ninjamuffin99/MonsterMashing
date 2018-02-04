@@ -218,9 +218,11 @@ class TiledLevel extends TiledMap
 		// objects in tiled are aligned bottom-left (top-left in flixel)
 		if (o.gid != -1)
 			y -= g.map.getGidOwner(o.gid).tileHeight;
-
+		
+		/* OLD OBJECT CODE
 		switch (o.type.toLowerCase())
 		{
+			
 			case "floor":
 				var floor = new FlxObject(x, y, o.width, o.height);
 				state.floor = floor;
@@ -236,7 +238,7 @@ class TiledLevel extends TiledMap
 				state._player = new Player(x, y);
 				group.add(state._player);
 				FlxG.log.add("Player object added");
-				/*
+				
 				case "coin":
 					var tileset = g.map.getGidOwner(o.gid);
 					var coin = new FlxSprite(x, y, c_PATH_LEVEL_TILESHEETS + tileset.imageSource);
@@ -249,8 +251,9 @@ class TiledLevel extends TiledMap
 					exit.exists = false;
 					state.exit = exit;
 					group.add(exit);
-				*/
-		}
+
+		}		
+		*/
 	}
 
 	public function loadImages()

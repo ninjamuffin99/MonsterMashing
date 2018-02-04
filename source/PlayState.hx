@@ -26,6 +26,8 @@ class PlayState extends FlxState
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
 	private var _enemy:Enemy;
 	
+	private var _map:TiledLevel;
+	
 	override public function create():Void
 	{
 		//Set zoom on map
@@ -33,7 +35,20 @@ class PlayState extends FlxState
 		FlxG.camera.bgColor = 0xFFa5a5a5;
 		
 		//Who needs a mouse when you have Z
-		FlxG.mouse.visible = false;
+		//shows the mouse only in debug mode, dont know how usefull it'll be tho idk ehehehe
+		#if !debug
+			FlxG.mouse.visible = false;
+		#end
+		
+		_map = new TiledLevel(AssetPaths.mapTest__tmx, this);
+		
+		add(_map.backgroundLayer);
+		/* misc adds pls ignore
+		add (_map.imagesLayer);
+		add(_map.foregroundTiles);
+		add(_map.BGObjects);
+		add(_map.foregroundObjects);
+		*/
 		
 		_grpEntities = new FlxTypedGroup<FlxObject>();
 		add(_grpEntities);
