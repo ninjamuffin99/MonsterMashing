@@ -60,6 +60,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -77,6 +78,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/images-go-here.txt", AssetType.TEXT);
 		className.set ("assets/images/Playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games.swf", __ASSET__assets_images_playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games_swf);
 		type.set ("assets/images/Playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games.swf", AssetType.BINARY);
+		className.set ("assets/images/sprite_practice.png", __ASSET__assets_images_sprite_practice_png);
+		type.set ("assets/images/sprite_practice.png", AssetType.IMAGE);
 		className.set ("assets/music/1683_newgrounds_lhm__e.mp3", __ASSET__assets_music_1683_newgrounds_lhm__e_mp3);
 		type.set ("assets/music/1683_newgrounds_lhm__e.mp3", AssetType.MUSIC);
 		className.set ("assets/music/music-goes-here.txt", __ASSET__assets_music_music_goes_here_txt);
@@ -116,6 +119,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.BINARY);
+		id = "assets/images/sprite_practice.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "assets/music/1683_newgrounds_lhm__e.mp3";
 		path.set (id, id);
 		
@@ -181,6 +188,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/images/Playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games.swf", __ASSET__assets_images_playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games_swf);
 		type.set ("assets/images/Playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games.swf", AssetType.BINARY);
+		
+		className.set ("assets/images/sprite_practice.png", __ASSET__assets_images_sprite_practice_png);
+		type.set ("assets/images/sprite_practice.png", AssetType.IMAGE);
 		
 		className.set ("assets/music/1683_newgrounds_lhm__e.mp3", __ASSET__assets_music_1683_newgrounds_lhm__e_mp3);
 		type.set ("assets/music/1683_newgrounds_lhm__e.mp3", AssetType.MUSIC);
@@ -857,6 +867,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_data_femboy_txt extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_images_go_here_txt extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games_swf extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_images_sprite_practice_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_music_1683_newgrounds_lhm__e_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__assets_music_music_goes_here_txt extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_sounds_go_here_txt extends flash.utils.ByteArray { }
@@ -869,6 +880,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
 
 
 
@@ -896,6 +908,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/data/femboy.txt") #if display private #end class __ASSET__assets_data_femboy_txt extends lime.utils.Bytes {}
 @:file("assets/images/images-go-here.txt") #if display private #end class __ASSET__assets_images_images_go_here_txt extends lime.utils.Bytes {}
 @:file("assets/images/Playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games.swf") #if display private #end class __ASSET__assets_images_playing_around_with_premade_animation_to_see_learn_how_to_fit_animation_in_games_swf extends lime.utils.Bytes {}
+@:image("assets/images/sprite_practice.png") #if display private #end class __ASSET__assets_images_sprite_practice_png extends lime.graphics.Image {}
 @:file("assets/music/1683_newgrounds_lhm__e.mp3") #if display private #end class __ASSET__assets_music_1683_newgrounds_lhm__e_mp3 extends lime.utils.Bytes {}
 @:file("assets/music/music-goes-here.txt") #if display private #end class __ASSET__assets_music_music_goes_here_txt extends lime.utils.Bytes {}
 @:file("assets/sounds/sounds-go-here.txt") #if display private #end class __ASSET__assets_sounds_sounds_go_here_txt extends lime.utils.Bytes {}

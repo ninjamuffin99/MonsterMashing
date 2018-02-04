@@ -46,6 +46,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.BINARY);
 		
 		
+		urls.push ("assets/images/sprite_practice.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/music/1683_newgrounds_lhm__e.mp3");
 		types.push (lime.Assets.AssetType.MUSIC);
 		
@@ -143,7 +147,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "84",
+			build: "85",
 			company: "ninjaMuffin",
 			file: "HeistGame",
 			fps: 60,
