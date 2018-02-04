@@ -49,7 +49,7 @@ class PlayState extends FlxState
 		
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
-			openSubState(new BattleState());
+			FlxG.switchState(new BattleState());
 		}
 		
 		super.update(elapsed);

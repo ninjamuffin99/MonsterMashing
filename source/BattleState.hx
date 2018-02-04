@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.addons.effects.chainable.FlxWaveEffect;
@@ -19,7 +20,7 @@ import openfl.geom.Point;
  * ...
  * @author ninjaMuffin
  */
-class BattleState extends FlxSubState 
+class BattleState extends FlxState 
 {
 	
 	public static var outcome(default, null):Outcome;
@@ -49,11 +50,14 @@ class BattleState extends FlxSubState
 	private var attackTick:FlxSprite;
 	private var attackMid:FlxSprite;
 	private var attackBar:FlxSprite;
-
+	/*
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
 	{
 		super(BGColor);
-		
+	}
+	*/
+	override public function create():Void 
+	{
 		_sprScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT);
 		var waveEffect = new FlxWaveEffect(FlxWaveMode.ALL, 4, -1, 4);
 		var waveSprite = new FlxEffectSprite(_sprScreen, [waveEffect]);
@@ -66,12 +70,13 @@ class BattleState extends FlxSubState
 		hpBar = new FlxBar(_sprEnemy.x, _sprEnemy.y - 30, FlxBarFillDirection.LEFT_TO_RIGHT, 200, 20, this, "enemyHP", 0, 10);
 		add(hpBar);
 		
-		
 		initMenu();
 		initAttackMenu();
 		initCombat();
 		
 		new FlxTimer().start(0.7, tweenMenu, 1);
+		
+		super.create();
 	}
 	
 	private function initMenu():Void
