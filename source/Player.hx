@@ -16,7 +16,13 @@ class Player extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(40, 40);
+		loadGraphic(AssetPaths.sprite_practice__png, true, 18, 17);
+		
+		var frameRate:Int = 6;
+		animation.add("l", [0, 1, 2], frameRate);
+		animation.add("r", [3, 4, 5], frameRate);
+		animation.add("d", [6, 7, 8], frameRate);
+		animation.add("u", [9, 10, 11], frameRate);
 		
 		drag.x = drag.y = 700;
 	}
@@ -25,9 +31,8 @@ class Player extends FlxSprite
 	{
 		super.update(elapsed);
 		
-		rotation();
+		//rotation();
 		controls();
-		
 	}
 	
 	private function rotation():Void
@@ -92,13 +97,22 @@ class Player extends FlxSprite
 			{
 				switch(facing)
 				{
-					case FlxObject.LEFT, FlxObject.RIGHT:
-						//animation.play("walklr");
-					case FlxObject.UP, FlxObject.DOWN:
-						//animation.play("walkud");
+					case FlxObject.LEFT:
+						animation.play("l");
+					case FlxObject.RIGHT:
+						animation.play("r");
+					case FlxObject.DOWN:
+						animation.play("d");
+					case FlxObject.UP:
+						animation.play("u");
 				}
 			}
 			
+		}
+		else if (animation.curAnim != null)
+		{
+			animation.curAnim.curFrame = 1;
+			animation.curAnim.pause();
 		}
 	}
 	
