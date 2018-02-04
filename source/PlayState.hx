@@ -31,7 +31,7 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		//Set zoom on map
-		FlxG.camera.zoom = 2;
+		FlxG.camera.zoom = 4;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
 		
 		//Who needs a mouse when you have Z
