@@ -9,6 +9,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.geom.Matrix;
@@ -34,8 +35,11 @@ class BattleState extends FlxSubState
 	private var selector:FlxSprite;
 	private var selectorPos:Int = 0;
 	private var menuText:FlxText;
+	private var hpBar:FlxBar;
+	private var hpText:FlxText;
 	
 	private var attackTick:FlxSprite;
+	private var attackMid:FlxSprite;
 	private var attackBar:FlxSprite;
 
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
@@ -50,6 +54,10 @@ class BattleState extends FlxSubState
 		_sprEnemy = new FlxSprite(150, 20).makeGraphic(275, 375, FlxColor.RED);
 		_sprEnemy.alpha = 0;
 		add(_sprEnemy);
+		
+		hpBar = new FlxBar(_sprEnemy.x, _sprEnemy.y - 30, FlxBarFillDirection.LEFT_TO_RIGHT, 200, 20, this, "enemyHP", 0, 10);
+		add(hpBar);
+		
 		
 		initMenu();
 		initAttackMenu();
@@ -71,13 +79,12 @@ class BattleState extends FlxSubState
 		menuText.color = FlxColor.BLACK;
 		_grpMenu.add(menuText);
 		
+		
 		selector = new FlxSprite(100 - 32, 16);
 		selector.makeGraphic(32, 8);
 		selector.color = FlxColor.BLACK;
 		_grpMenu.add(selector);
 	}
-	
-
 	
 	private function initAttackMenu():Void
 	{
@@ -88,6 +95,10 @@ class BattleState extends FlxSubState
 		
 		attackBar = new FlxSprite().makeGraphic(400, 30, FlxColor.BLUE);
 		_grpAttack.add(attackBar);
+		
+		attackMid = new FlxSprite().makeGraphic(50, 30, FlxColor.GREEN);
+		attackMid.x = (attackBar.width / 2) - (attackMid.width / 2);
+		_grpAttack.add(attackMid);
 		
 		attackTick = new FlxSprite().makeGraphic(8, 16, FlxColor.RED);
 		_grpAttack.add(attackTick);
@@ -114,22 +125,10 @@ class BattleState extends FlxSubState
 	{
 		super.update(elapsed);
 		
-		if (FlxG.keys.justPressed.UP)
-		{
-			selectorPos -= 1;
-		}
-		if (FlxG.keys.justPressed.DOWN)
-		{
-			selectorPos += 1;
-		}
+		hpBar.y = _sprEnemy.y - 30;
 		
-		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.SPACE)
-		{
-			_grpMenu.kill();
-			_grpAttack.revive();
-			
-			attacking = true;
-		}
+		selectorUpdate();
+		
 		
 		if (_grpAttack.alive && attacking)
 		{
@@ -143,24 +142,62 @@ class BattleState extends FlxSubState
 				tickMoveRight = true;
 			}
 			
+			
+			var tickSpeed:Float = 13;
 			if (tickMoveRight)
-				attackTick.x += 4;
+				attackTick.x += tickSpeed;
 			else
-				attackTick.x -= 4;
+				attackTick.x -= tickSpeed;
 			
 			if (FlxG.keys.justPressed.UP)
 			{
 				attacking = false;
+				
+				if (FlxG.overlap(attackMid, attackTick))
+				{
+					enemyHP -= 1;
+					FlxG.log.add(enemyHP);
+				}
 			}
-			
 		}
 		else if (_grpAttack.alive)
 		{
 			new FlxTimer().start(1, killAttacks);
 		}
 		
-		selector.y = (46 * selectorPos) + 28 + _grpMenu.y;
 		
+		
+	}
+	
+	private function selectorUpdate():Void
+	{
+		if (FlxG.keys.justPressed.UP)
+		{
+			selectorPos -= 1;
+		}
+		if (FlxG.keys.justPressed.DOWN)
+		{
+			selectorPos += 1;
+		}
+		
+		if (selectorPos < 0)
+		{
+			selectorPos = 2;
+		}
+		if (selectorPos > 2)
+		{
+			selectorPos = 0;
+		}
+		
+		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.SPACE)
+		{
+			_grpMenu.kill();
+			_grpAttack.revive();
+			
+			attacking = true;
+		}
+		
+		selector.y = (46 * selectorPos) + 28 + _grpMenu.y;
 	}
 	
 	private function killAttacks(t:FlxTimer):Void
