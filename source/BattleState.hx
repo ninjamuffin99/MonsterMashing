@@ -58,8 +58,7 @@ class BattleState extends FlxState
 	*/
 	override public function create():Void 
 	{
-		_sprScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT);
-		//loadGraphic(AssetPaths.spr_mush__png, true);
+		_sprScreen = new FlxSprite().loadGraphic(AssetPaths.spr_mush__png, true, 275, 375);
 		var waveEffect = new FlxWaveEffect(FlxWaveMode.ALL, 4, -1, 4);
 		var waveSprite = new FlxEffectSprite(_sprScreen, [waveEffect]);
 		add(waveSprite);
