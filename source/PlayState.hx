@@ -23,10 +23,9 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
+		//Set zoom on map
 		FlxG.camera.zoom = 2;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
-		//Create if
-		FlxG.camera.follow(_player);
 		
 		_grpEntities = new FlxTypedGroup<FlxObject>();
 		add(_grpEntities);
@@ -45,6 +44,8 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		//Create if
+		FlxG.camera.follow(_player);
 		
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
