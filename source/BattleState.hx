@@ -21,6 +21,9 @@ import openfl.geom.Point;
  */
 class BattleState extends FlxSubState 
 {
+	
+	public static var outcome(default, null):Outcome;
+	
 	private var _sprScreen:FlxSprite;
 	private var _sprEnemy:FlxSprite;
 	
@@ -35,8 +38,13 @@ class BattleState extends FlxSubState
 	private var selector:FlxSprite;
 	private var selectorPos:Int = 0;
 	private var menuText:FlxText;
+	
+	//REFERING TO ENEMY'S HP!!
 	private var hpBar:FlxBar;
 	private var hpText:FlxText;
+	
+	private var playerHPBar:FlxBar;
+	private var playerHPText:FlxText;
 	
 	private var attackTick:FlxSprite;
 	private var attackMid:FlxSprite;
@@ -75,10 +83,12 @@ class BattleState extends FlxSubState
 		_grpMenu.add(rect);
 		add(_grpMenu);
 		
-		menuText = new FlxText(100, 16, 0, "Attack\nFuck\nFun", 32);
+		menuText = new FlxText(100, 16, 0, "Attack\nFuck\nRun", 32);
 		menuText.color = FlxColor.BLACK;
 		_grpMenu.add(menuText);
 		
+		playerHPBar = new FlxBar(16, 8, FlxBarFillDirection.BOTTOM_TO_TOP, 32, 100, this, "playerHP", 0, 10);
+		_grpMenu.add(playerHPBar);
 		
 		selector = new FlxSprite(100 - 32, 16);
 		selector.makeGraphic(32, 8);
@@ -108,6 +118,9 @@ class BattleState extends FlxSubState
 	
 	public function initCombat():Void
 	{
+		
+		outcome = NONE;
+		
 		_sprScreen.drawFrame();
 		var screenPixels = _sprScreen.framePixels;
 		
@@ -142,7 +155,6 @@ class BattleState extends FlxSubState
 				tickMoveRight = true;
 			}
 			
-			
 			var tickSpeed:Float = 13;
 			if (tickMoveRight)
 				attackTick.x += tickSpeed;
@@ -157,6 +169,8 @@ class BattleState extends FlxSubState
 				{
 					enemyHP -= 1;
 					FlxG.log.add(enemyHP);
+					
+					playerHP -= FlxG.random.int(0, 2);
 				}
 			}
 		}
@@ -164,9 +178,6 @@ class BattleState extends FlxSubState
 		{
 			new FlxTimer().start(1, killAttacks);
 		}
-		
-		
-		
 	}
 	
 	private function selectorUpdate():Void
@@ -204,6 +215,8 @@ class BattleState extends FlxSubState
 	{
 		_grpAttack.kill();
 		_grpMenu.revive();
+		
+		
 	}
 	
 	private function tweenMenu(t:FlxTimer):Void
@@ -211,4 +224,12 @@ class BattleState extends FlxSubState
 		FlxTween.tween(_grpMenu, {y: FlxG.height * 0.6}, 1.6, {ease:FlxEase.elasticOut});
 	}
 	
+}
+
+enum Outcome
+{
+	NONE;
+	ESCAPE;
+	VICTORY;
+	DEFEAT;
 }

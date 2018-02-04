@@ -7,7 +7,7 @@ import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**
- * ...
+ * The class for the topdown player sprite. Has all the code and shit
  * @author ninjaMuffin
  */
 class Player extends FlxSprite 

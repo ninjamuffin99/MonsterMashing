@@ -6,7 +6,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 
 /**
- * ...
+ * Code for a simple little enemy sprite
  * @author ninjaMuffin
  */
 class Enemy extends FlxSprite 
