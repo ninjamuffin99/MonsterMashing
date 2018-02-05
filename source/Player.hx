@@ -12,7 +12,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite 
 {
-	private var speed:Float = 150;
+	private var speed:Float = 100;
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
@@ -45,7 +45,7 @@ class Player extends FlxSprite
 		angle = degs + 90;
 	}
 	
-	//Yo cam the movement feels like walking on ice
+	//Movement controls
 	private function controls():Void
 	{
 		var _up = FlxG.keys.anyPressed([UP, W]);
