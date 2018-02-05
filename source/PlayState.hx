@@ -44,9 +44,9 @@ class PlayState extends FlxState
 		_map = new TiledLevel(AssetPaths.mapTest__tmx, this);
 
 		add(_map.backgroundLayer);
+		add(_map.foregroundTiles);
 		/* misc adds pls ignore
 		add (_map.imagesLayer);
-		add(_map.foregroundTiles);
 		add(_map.BGObjects);
 		add(_map.foregroundObjects);
 		*/
