@@ -2,19 +2,22 @@
 <!--comment-->
 <Dialogue>
 	<Menu>
+		<option id="0">Start(ready to wank)</option>
+		<option id="1">I'm Done(wipe the keyboard)</option>
 	</Menu>
 	<Overworld>
 	</Overworld>
 	<Battle>
 		<Menu>
-			<bm id='0'>Attack</bm>
-				<sm id ='0'>Lick</sm>
-			<bm id='1'>Fuck</bm>
-			<bm id='2'>Run</bm>
+			<option id="0">Attack</option>
+				<option id ="0">Lick</option>
+				<option id="1">Touch Butt"</option>
+			<option id="1">Fuck</option>
+			<option id="2">Run</option>
 		</Menu>
 	</Battle>
 	<Hentai>
-		<line id='0'>no lolis</line>
+		<line id="0">no lolis</line>
 	</Hentai>
 	<Misc>
 	</Misc>
