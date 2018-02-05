@@ -33,9 +33,10 @@ class PlayState extends FlxState
 		//Set zoom on map
 		FlxG.camera.zoom = 4;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
+		FlxG.camera.follow(_player);
 
 		//Who needs a mouse when you have Z
-		//shows the mouse only in debug mode, dont know how usefull it'll be tho idk ehehehe
+		//shows the mouse only in debug mode, don't know how useful it'll be tho idk ehehehe
 		#if !debug
 			FlxG.mouse.visible = false;
 		#end
@@ -74,7 +75,7 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		//Create if
-		FlxG.camera.follow(_player);
+
 
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
