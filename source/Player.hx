@@ -25,6 +25,8 @@ class Player extends FlxSprite
 		animation.add("u", [9, 10, 11], frameRate);
 		
 		drag.x = drag.y = 2800;
+		
+		FlxG.log.add("added player");
 	}
 	
 	override public function update(elapsed:Float):Void 
