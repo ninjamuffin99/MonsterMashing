@@ -84,6 +84,8 @@ class PlayState extends FlxState
 		{
 			FlxG.switchState(new BattleState());
 		}
+		
+		_map.collideWithLevel(_player);
 
 		super.update(elapsed);
 
