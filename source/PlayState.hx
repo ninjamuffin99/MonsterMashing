@@ -34,13 +34,12 @@ class PlayState extends FlxState
 		FlxG.camera.zoom = 4;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
 		
-
 		//Who needs a mouse when you have Z
 		//shows the mouse only in debug mode, don't know how useful it'll be tho idk ehehehe
 		#if !debug
 			FlxG.mouse.visible = false;
 		#end
-
+		
 		_map = new TiledLevel(AssetPaths.mapTest__tmx, this);
 
 		add(_map.backgroundLayer);
@@ -68,6 +67,11 @@ class PlayState extends FlxState
 		max_x = FlxG.stage.stageWidth * 1.5;
 		min_y = -FlxG.stage.stageHeight / 2;
 		max_x = FlxG.stage.stageHeight * 1.5;
+		
+		// Loop music, Flash only
+		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__mp3);
+		// Loop music, non-Flash only
+		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__ogg);
 
 		super.create();
 	}
@@ -76,6 +80,7 @@ class PlayState extends FlxState
 	{
 		//Create if
 		FlxG.camera.follow(_player);
+		FlxG.collide(_player, _map.foregroundTiles);
 
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
