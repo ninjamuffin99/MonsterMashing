@@ -15,8 +15,8 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.geom.Matrix;
 import openfl.geom.Point;
-import ui.Strings;
-import ui.StringIDs;
+//import ui.Strings;
+//import ui.StringIDs;
 
 /**
  * ...
@@ -40,7 +40,7 @@ class BattleState extends FlxState
 	
 	private var selector:FlxSprite;
 	private var selectorPos:Int = 0;
-	private var mText;
+	//private var mText;
 	private var menuText:FlxText;
 	
 	//REFERING TO ENEMY'S HP!!
@@ -86,7 +86,7 @@ class BattleState extends FlxState
 		new FlxTimer().start(0.7, tweenMenu, 1);
 		
 		super.create();
-		Strings.instance.init();
+		//Strings.instance.init();
 	}
 	
 	private function initMenu():Void
@@ -99,8 +99,8 @@ class BattleState extends FlxState
 		add(_grpMenu);
 		
 		//Pull from XML "Attack\nFuck\nRun"
-		mText = Strings.instance.getValue(StringIDs.pup);
-		menuText = new FlxText(100, 16, 0, mText, 32);
+		//mText = Strings.instance.getValue(StringIDs.pup);
+		menuText = new FlxText(100, 16, 0, "Attack\nFuck\nRun", 32);
 		menuText.color = FlxColor.BLACK;
 		_grpMenu.add(menuText);
 		
