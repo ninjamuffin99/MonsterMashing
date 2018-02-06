@@ -1,19 +1,23 @@
 package;
 
+import haxe.xml.Fast;
+import openfl.Assets;
+
 /**
  * ...
- * @author ...
+ * @author brandybuizel
  */
-class XmlReader 
+class Strings 
 {
 	//Some magic that uses the xml dialogue data
-	public static function new() 
-	{
-		var xml:Xml = Assets.getText("assets/data/dialogue.xml");
-		Xml.parse(xml);
-		
-		var fast:Fast = new Fast(xml.firstElement());
-		trace(fast.id.0);
-	}
+	private function new(){}
 	
+	public static var instance(get, null):Strings;
+	
+	private static function get_instance():Strings{
+		if(instance == null){
+		   instance = new Strings();
+		}
+		return instance;
+	}	
 }
