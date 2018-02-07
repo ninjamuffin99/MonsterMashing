@@ -21,17 +21,20 @@ class PlayState extends FlxState
 	static var max_y;
 
 	private var _player:Player;
+	static var _camTarget;
 
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
 	private var _enemy:Enemy;
 
 	private var _map:TiledLevel;
+	
+	static var	_roomNum;
 
 	override public function create():Void
 	{
 		//Set zoom on map
-		FlxG.camera.zoom = 4;
+		FlxG.camera.zoom = 2.5;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
 		
 		//Who needs a mouse when you have Z
@@ -44,6 +47,8 @@ class PlayState extends FlxState
 
 		add(_map.backgroundLayer);
 		add(_map.foregroundTiles);
+		//add(_map.);
+		//add(_map.black);
 		/* misc adds pls ignore
 		add (_map.imagesLayer);
 		add(_map.BGObjects);
@@ -78,9 +83,11 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		//Create if
+		//Cam
 		FlxG.camera.follow(_player);
-		FlxG.collide(_player, _map.foregroundTiles);
+		
+		//Shitty Collision
+		FlxG.collide(_player, _map.foregroundObjects);
 
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
@@ -98,6 +105,10 @@ class PlayState extends FlxState
 		
 		//ROOM CODE
 		//This is gonna be a shitton of logic, hang on to your butts
-		
+		/*if (_roomNum = 0){
+			_map
+		}else if(){
+			
+		}*/
 	}
 }
