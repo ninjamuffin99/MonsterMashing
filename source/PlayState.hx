@@ -105,7 +105,7 @@ class PlayState extends FlxState
 		FlxG.camera.follow(_player);
 		
 		//Shitty Collision
-		FlxG.collide(_player, _map.foregroundObjects);
+		//FlxG.collide(_player, _map.foregroundObjects);
 
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
@@ -115,7 +115,7 @@ class PlayState extends FlxState
 			FlxG.switchState(new BattleState());
 		}
 		
-		_map.collideWithLevel(_player);
+		//_map.collideWithLevel(_player);
 
 		super.update(elapsed);
 
