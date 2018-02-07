@@ -27,7 +27,7 @@
   <LevelValueDefinitions />
   <LayerDefinitions>
     <LayerDefinition xsi:type="TileLayerDefinition">
-      <Name>Walls</Name>
+      <Name>walls</Name>
       <Grid>
         <Width>16</Width>
         <Height>16</Height>
