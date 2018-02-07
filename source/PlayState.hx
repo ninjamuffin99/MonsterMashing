@@ -32,7 +32,7 @@ class PlayState extends FlxState
 	//old map variable
 	//private var _map:TiledLevel;
 	
-	static var	_roomNum;
+	static var _roomNum;
 	
 	//MAP SHIT
 	/**
@@ -56,9 +56,13 @@ class PlayState extends FlxState
 			FlxG.mouse.visible = false;
 		#end
 		
-		_map = new FlxOgmoLoader(AssetPaths.Level__oel);
+		
+		/*
+		_map = new FlxOgmoLoader(AssetPaths.GOODASSLEVEL__oel);
 		_mWalls = _map.loadTilemap("assets/data/tile temple.png", 16, 16, "walls");
 		add(_mWalls);
+		*/
+		
 		
 		/* OLD SHIT BABY
 		_map = new TiledLevel(AssetPaths.mapTest__tmx, this);
@@ -84,13 +88,16 @@ class PlayState extends FlxState
 
 		_enemy = new Enemy(200, 200, 0);
 		_grpEnemies.add(_enemy);
-
+		
+		FlxG.log.add("Added Enemy");
+		
+		/*
 		//setup screen constraints
 		min_x = -FlxG.stage.stageWidth / 2;
 		max_x = FlxG.stage.stageWidth * 1.5;
 		min_y = -FlxG.stage.stageHeight / 2;
 		max_x = FlxG.stage.stageHeight * 1.5;
-		
+		*/
 		// Loop music, Flash only
 		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__mp3);
 		// Loop music, non-Flash only
