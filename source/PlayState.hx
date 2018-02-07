@@ -5,10 +5,12 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.text.FlxText;
+import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxSort;
@@ -27,9 +29,20 @@ class PlayState extends FlxState
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
 	private var _enemy:Enemy;
 
-	private var _map:TiledLevel;
+	//old map variable
+	//private var _map:TiledLevel;
 	
 	static var	_roomNum;
+	
+	//MAP SHIT
+	/**
+	 * The map data, laoded from Ogmo
+	 */
+	private var _map:FlxOgmoLoader;
+	/**
+	 * the actual tilemap that'll be displayed ingame
+	 */
+	private var _mWalls:FlxTilemap;
 
 	override public function create():Void
 	{
@@ -43,13 +56,18 @@ class PlayState extends FlxState
 			FlxG.mouse.visible = false;
 		#end
 		
+		_map = new FlxOgmoLoader(AssetPaths.Level__oel);
+		_mWalls = _map.loadTilemap("assets/data/tile temple.png", 16, 16, "walls");
+		add(_mWalls);
+		
+		/* OLD SHIT BABY
 		_map = new TiledLevel(AssetPaths.mapTest__tmx, this);
 
 		add(_map.backgroundLayer);
 		add(_map.foregroundTiles);
 		//add(_map.);
 		//add(_map.black);
-		/* misc adds pls ignore
+		 misc adds pls ignore
 		add (_map.imagesLayer);
 		add(_map.BGObjects);
 		add(_map.foregroundObjects);
