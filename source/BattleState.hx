@@ -53,6 +53,7 @@ class BattleState extends FlxState
 	private var attackTick:FlxSprite;
 	private var attackMid:FlxSprite;
 	private var attackBar:FlxSprite;
+	
 	/*
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
 	{
@@ -178,16 +179,32 @@ class BattleState extends FlxState
 			else
 				attackTick.x -= tickSpeed;
 			
-			if (FlxG.keys.justPressed.UP)
-			{
-				attacking = false;
-				
+			if (FlxG.keys.justPressed.X)
+			{				
 				if (FlxG.overlap(attackMid, attackTick))
 				{
 					enemyHP -= 1;
 					FlxG.log.add(enemyHP);
+					attacking = false;
 					
+					//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x * 1.5 }, .1, {onComplete: function(_){
+						//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x / 1.5 }, .1);}});
+					//Char Shake
+					FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_){
+						FlxTween.tween(_sprEnemy, { x: FlxG.height  * (1.2 - 1.21) + 150}, .5, {ease:FlxEase.elasticOut}); }});
+					/*_sprEnemy.color = 0xd12912;
+					var i:Int = 0;
+					while (i < 10) {
+						i++;
+					}
+					if (i == 10){
+						_sprEnemy.color = 0xffffff;
+						i = 0;
+					}*/
+						
 					playerHP -= FlxG.random.int(0, 2);
+				}else{
+					attacking = false;
 				}
 			}
 		}
@@ -223,10 +240,17 @@ class BattleState extends FlxState
 		
 		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.Z)
 		{
-			_grpMenu.kill();
-			_grpAttack.revive();
-			
-			attacking = true;
+			//Delay Z press
+			var i:Int = 0;
+			while (i < 10) {
+				i++;
+			}
+			if (i == 10){
+				_grpMenu.kill();
+				_grpAttack.revive();
+				attacking = true;
+				i = 0;
+			}	
 		}
 		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z)
 		{
@@ -240,8 +264,6 @@ class BattleState extends FlxState
 	{
 		_grpAttack.kill();
 		_grpMenu.revive();
-		
-		
 	}
 	
 	private function tweenMenu(t:FlxTimer):Void
