@@ -63,10 +63,10 @@ class PlayState extends FlxState
 		
 		_map = new FlxOgmoLoader("assets/data/Level.oel");
 		
-		_mFloors = _map.loadTilemap("assets/data/tile temple.png", 16, 16, "Floor");
+		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		add(_mFloors);
 		
-		_mWalls = _map.loadTilemap("assets/data/tile temple.png", 16, 16, "Walls");
+		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
 		add(_mWalls);
 		
 		
