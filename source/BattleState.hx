@@ -35,7 +35,7 @@ class BattleState extends FlxState
 	
 	private var attacking:Bool = false;
 	
-	private var enemyHP:Int = 10;
+	private var enemyHP:Int = 3;
 	private var playerHP:Int = 10;
 	
 	private var selector:FlxSprite;
