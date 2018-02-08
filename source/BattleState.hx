@@ -34,13 +34,14 @@ class BattleState extends FlxState
 	private var _grpAttack:FlxSpriteGroup;
 	
 	private var attacking:Bool = false;
+	private var tickMoveRight:Bool = true;
+	private var isKey:Bool = false;
 	
 	private var enemyHP:Int = 10;
 	private var playerHP:Int = 10;
 	
 	private var selector:FlxSprite;
 	private var selectorPos:Int = 0;
-	//private var mText;
 	private var menuText:FlxText;
 	
 	//REFERING TO ENEMY'S HP!!
@@ -174,18 +175,19 @@ class BattleState extends FlxState
 		FlxTween.tween(_sprEnemy, {y: 60, alpha: 1}, 1, {ease:FlxEase.cubeInOut});
 	}
 	
-	private var tickMoveRight:Bool = true;
-	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
 		
 		hpBar.y = _sprEnemy.y - 30;
+		if (_sprEnemy.alpha == 1){
+			isKey = true;
+		}
 		
 		selectorUpdate();
 		
-		
 		if (_grpAttack.alive && attacking && enemyHP > 0){
+			
 			var tickSpeed:Float = 4;
 			if (attackTick.x >= (attackBar.x + attackBar.width)){
 				tickMoveRight = false;
@@ -193,7 +195,28 @@ class BattleState extends FlxState
 				tickMoveRight = true;
 			}
 			
-			var tickSpeed:Float = 13;
+			//Attack Bar
+			var tickSpeed:Float = 12;
+			var speedBuffer:Float = tickSpeed;
+			
+			//Speed up on low enemy health
+			if (enemyHP <= 6){
+				tickSpeed = speedBuffer * 1.5;
+				speedBuffer = tickSpeed;
+			}else if (enemyHP <= 2){
+				tickSpeed = speedBuffer * 2;
+				speedBuffer = tickSpeed;
+			}
+			
+			//Slow your roll, health is low
+			if (playerHP <= 6){
+				tickSpeed = speedBuffer * 0.8;
+				speedBuffer = tickSpeed;
+			}else if(playerHP <= 2){
+				tickSpeed = speedBuffer * 0.4;
+				speedBuffer = tickSpeed;
+			}
+			
 			if (tickMoveRight)
 				attackTick.x += tickSpeed;
 			else
@@ -237,11 +260,11 @@ class BattleState extends FlxState
 	
 	private function selectorUpdate():Void
 	{
-		if (FlxG.keys.justPressed.UP)
+		if (FlxG.keys.justPressed.UP && isKey == true)
 		{
 			selectorPos -= 1;
 		}
-		if (FlxG.keys.justPressed.DOWN)
+		if (FlxG.keys.justPressed.DOWN && isKey == true)
 		{
 			selectorPos += 1;
 		}
@@ -259,7 +282,8 @@ class BattleState extends FlxState
 			selectorPos = 0;
 		}*/
 		
-		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.Z)
+		//Attack Option
+		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.Z && isKey == true)
 		{
 			//Delay Z press
 			var i:Int = 0;
@@ -271,11 +295,13 @@ class BattleState extends FlxState
 				_grpAttack.revive();
 				attacking = true;
 				i = 0;
-			}	
+			}
 		}
-		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z)
+		
+		//Escape Option
+		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z && isKey == true)
 		{
-			closeSubState();
+			FlxG.switchState(new PlayState());
 		}
 		
 		selector.y = (46 * selectorPos) + 28 + _grpMenu.y;
