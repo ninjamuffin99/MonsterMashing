@@ -191,7 +191,16 @@ class BattleState extends FlxState
 						//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x / 1.5 }, .1);}});
 					//Char Shake
 					FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_){
-						FlxTween.tween(_sprEnemy, { x: FlxG.height  * (1.2 - 1.21) + 150}, .5, {ease:FlxEase.elasticOut});}});
+						FlxTween.tween(_sprEnemy, { x: FlxG.height  * (1.2 - 1.21) + 150}, .5, {ease:FlxEase.elasticOut}); }});
+					/*_sprEnemy.color = 0xd12912;
+					var i:Int = 0;
+					while (i < 10) {
+						i++;
+					}
+					if (i == 10){
+						_sprEnemy.color = 0xffffff;
+						i = 0;
+					}*/
 						
 					playerHP -= FlxG.random.int(0, 2);
 				}else{
@@ -241,8 +250,7 @@ class BattleState extends FlxState
 				_grpAttack.revive();
 				attacking = true;
 				i = 0;
-			}
-			
+			}	
 		}
 		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z)
 		{
