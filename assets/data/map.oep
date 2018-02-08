@@ -2,7 +2,7 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <OgmoVersion>2.1.0.6</OgmoVersion>
   <Name>HeistMap</Name>
-  <BackgroundColor A="255" R="0" G="0" B="0" />
+  <BackgroundColor A="255" R="128" G="128" B="128" />
   <GridColor A="255" R="0" G="64" B="128" />
   <LevelDefaultSize>
     <Width>920</Width>
