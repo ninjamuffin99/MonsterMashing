@@ -92,7 +92,7 @@ class PlayState extends FlxState
 		_player = new Player(200, 575);
 		_grpEntities.add(_player);
 
-		_enemy = new Enemy(200, 500, 0);
+		_enemy = new Enemy(200, 300, 0);
 		_grpEnemies.add(_enemy);
 		
 		FlxG.log.add("Added Enemy");
