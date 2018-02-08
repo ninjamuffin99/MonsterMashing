@@ -67,7 +67,7 @@
   <Tilesets>
     <Tileset>
       <Name>Digi</Name>
-      <FilePath>tile temple.png</FilePath>
+      <FilePath>..\images\tile_temple.png</FilePath>
       <TileSize>
         <Width>16</Width>
         <Height>16</Height>
