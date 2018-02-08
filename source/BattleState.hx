@@ -35,7 +35,7 @@ class BattleState extends FlxState
 	
 	private var attacking:Bool = false;
 	
-	private var enemyHP:Int = 3;
+	private var enemyHP:Int = 10;
 	private var playerHP:Int = 10;
 	
 	private var selector:FlxSprite;
@@ -83,6 +83,10 @@ class BattleState extends FlxState
 		initMenu();
 		initAttackMenu();
 		initCombat();
+		
+		if (supRound = true){
+			enemyHP = 8;
+		}
 		
 		new FlxTimer().start(0.7, tweenMenu, 1);
 		
