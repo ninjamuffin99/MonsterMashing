@@ -24,8 +24,8 @@ import openfl.geom.Point;
  */
 class BattleState extends FlxState 
 {
-	
 	public static var outcome(default, null):Outcome;
+	//public static var outcome:String;
 	
 	private var _sprScreen:FlxSprite;
 	private var _sprEnemy:FlxSprite;
@@ -35,7 +35,7 @@ class BattleState extends FlxState
 	
 	private var attacking:Bool = false;
 	
-	private var enemyHP:Int = 3;
+	private var enemyHP:Int = 10;
 	private var playerHP:Int = 10;
 	
 	private var selector:FlxSprite;
@@ -54,6 +54,13 @@ class BattleState extends FlxState
 	private var attackMid:FlxSprite;
 	private var attackBar:FlxSprite;
 	
+	//The Girls
+	private var enemyPath:String;
+	private var mushGirl:String = AssetPaths.spr_mush__png;
+	private var sixerGirl:String = AssetPaths.spr_mush__png;
+	private var batGirl:String = AssetPaths.spr_mush__png;
+	private var mummyGirl:String = AssetPaths.spr_mush__png;
+	
 	/*
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
 	{
@@ -67,7 +74,16 @@ class BattleState extends FlxState
 		var waveSprite = new FlxEffectSprite(_sprScreen, [waveEffect]);
 		add(waveSprite);
 		
-		_sprEnemy = new FlxSprite(150, 20).loadGraphic(AssetPaths.spr_mush__png, false, 530, 665);
+		/*switch(enemyPath) 
+		{
+			case :
+				
+			default:mushGirl;
+				
+		}*/
+		
+		enemyPath = mushGirl;
+		_sprEnemy = new FlxSprite(150, 20).loadGraphic(enemyPath, false, 530, 665);
 		/*
 		 * resizes the graphic to half, retaining its aspect ratio
 		 * if you do this make sure you call updateHitbox() afterwards!
@@ -145,7 +161,6 @@ class BattleState extends FlxState
 	
 	public function initCombat():Void
 	{
-		
 		outcome = NONE;
 		
 		_sprScreen.drawFrame();
@@ -170,15 +185,11 @@ class BattleState extends FlxState
 		selectorUpdate();
 		
 		
-		if (_grpAttack.alive && attacking)
-		{
+		if (_grpAttack.alive && attacking && enemyHP > 0){
 			var tickSpeed:Float = 4;
-			if (attackTick.x >= (attackBar.x + attackBar.width))
-			{
+			if (attackTick.x >= (attackBar.x + attackBar.width)){
 				tickMoveRight = false;
-			}
-			else if (attackTick.x <= attackBar.x)
-			{
+			}else if (attackTick.x <= attackBar.x){
 				tickMoveRight = true;
 			}
 			
@@ -188,11 +199,9 @@ class BattleState extends FlxState
 			else
 				attackTick.x -= tickSpeed;
 			
-			if (FlxG.keys.justPressed.X)
-			{				
-				if (FlxG.overlap(attackMid, attackTick))
-				{
-					enemyHP -= 1;
+			if (FlxG.keys.justPressed.X){				
+				if (FlxG.overlap(attackMid, attackTick)){
+					enemyHP -= 4;
 					FlxG.log.add(enemyHP);
 					attacking = false;
 					
@@ -217,10 +226,12 @@ class BattleState extends FlxState
 					attacking = false;
 				}
 			}
-		}
-		else if (_grpAttack.alive)
-		{
+		}else if (_grpAttack.alive){
 			new FlxTimer().start(1, killAttacks);
+		}else if(enemyHP <= 0){
+			attacking = false;
+			outcome = VICTORY;
+			FlxG.switchState(new PlayState());
 		}
 	}
 	

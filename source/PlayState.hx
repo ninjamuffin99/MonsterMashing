@@ -27,7 +27,7 @@ class PlayState extends FlxState
 
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
-	private var _enemy:Enemy;
+	public var _enemy:Enemy;
 
 	//old map variable
 	//private var _map:TiledLevel;
@@ -130,6 +130,11 @@ class PlayState extends FlxState
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
 			FlxG.switchState(new BattleState());
+			if (BattleState.outcome == VICTORY){
+				if (FlxG.overlap(_player, _enemy)){
+					destroy();
+				}
+			}
 		}
 		
 		//_map.collideWithLevel(_player);
