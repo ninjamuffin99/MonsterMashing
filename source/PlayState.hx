@@ -23,7 +23,7 @@ class PlayState extends FlxState
 	static var max_y;
 
 	private var _player:Player;
-	static var _camTarget;
+	//private var _camTarget;
 
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
@@ -32,7 +32,9 @@ class PlayState extends FlxState
 	//old map variable
 	//private var _map:TiledLevel;
 	
-	static var _roomNum;
+	//private var _roomNum;
+	//private var _roomShow;
+	//private var _roomBuffer;
 	
 	//MAP SHIT
 	/**
@@ -131,7 +133,7 @@ class PlayState extends FlxState
 		//ROOM CODE
 		//This is gonna be a shitton of logic, hang on to your butts
 		/*if (_roomNum = 0){
-			_map
+			
 		}else if(){
 			
 		}*/
