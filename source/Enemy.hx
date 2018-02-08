@@ -21,7 +21,7 @@ class Enemy extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, EType:Int) 
 	{
 		super(X, Y);
-		makeGraphic(32, 32, FlxColor.YELLOW);
+		makeGraphic(16, 16, FlxColor.YELLOW);
 		//loadGraphic(AssetPaths.spr_mush__png, true, 53, 66);
 		
 		drag.x = drag.y = 10;
