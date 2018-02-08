@@ -115,25 +115,28 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		
+		super.update(elapsed);
+		
 		//Cam
 		FlxG.camera.follow(_player);
 		
 		//Shitty Collision
-		//FlxG.collide(_player, _map.foregroundObjects);
-
+		
+		
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
-
+		
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
 			FlxG.switchState(new BattleState());
 		}
 		
 		//_map.collideWithLevel(_player);
-
-		super.update(elapsed);
-
+		
+		
 		_grpEntities.sort(FlxSort.byY, FlxSort.ASCENDING);
+		FlxG.collide(_player, _mWalls);
 		
 		//ROOM CODE
 		//This is gonna be a shitton of logic, hang on to your butts
