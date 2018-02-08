@@ -45,6 +45,7 @@ class PlayState extends FlxState
 	 * the actual tilemap that'll be displayed ingame
 	 */
 	private var _mWalls:FlxTilemap;
+	private var _mFloors:FlxTilemap;
 
 	override public function create():Void
 	{
@@ -59,11 +60,14 @@ class PlayState extends FlxState
 		#end
 		
 		
-		/*
-		_map = new FlxOgmoLoader(AssetPaths.GOODASSLEVEL__oel);
-		_mWalls = _map.loadTilemap("assets/data/tile temple.png", 16, 16, "walls");
+		
+		_map = new FlxOgmoLoader("assets/data/Level.oel");
+		
+		_mFloors = _map.loadTilemap("assets/data/tile temple.png", 16, 16, "Floor");
+		add(_mFloors);
+		
+		_mWalls = _map.loadTilemap("assets/data/tile temple.png", 16, 16, "Walls");
 		add(_mWalls);
-		*/
 		
 		
 		/* OLD SHIT BABY
@@ -85,10 +89,10 @@ class PlayState extends FlxState
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
 
-		_player = new Player(190, 575);
+		_player = new Player(200, 575);
 		_grpEntities.add(_player);
 
-		_enemy = new Enemy(200, 200, 0);
+		_enemy = new Enemy(200, 300, 0);
 		_grpEnemies.add(_enemy);
 		
 		FlxG.log.add("Added Enemy");
@@ -100,11 +104,12 @@ class PlayState extends FlxState
 		min_y = -FlxG.stage.stageHeight / 2;
 		max_x = FlxG.stage.stageHeight * 1.5;
 		*/
+		/*
 		// Loop music, Flash only
 		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__mp3);
 		// Loop music, non-Flash only
 		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__ogg);
-
+		*/
 		super.create();
 	}
 

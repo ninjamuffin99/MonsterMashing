@@ -84,6 +84,10 @@ class BattleState extends FlxState
 		initAttackMenu();
 		initCombat();
 		
+		if (supRound = true){
+			enemyHP = 8;
+		}
+		
 		new FlxTimer().start(0.7, tweenMenu, 1);
 		
 		super.create();
@@ -121,14 +125,14 @@ class BattleState extends FlxState
 		_grpAttack.y = FlxG.height * 0.6;
 		add(_grpAttack);
 		
-		attackBar = new FlxSprite().makeGraphic(400, 30, FlxColor.BLUE);
+		attackBar = new FlxSprite().makeGraphic(400, 30, 0xff4286f4);
 		_grpAttack.add(attackBar);
 		
-		attackMid = new FlxSprite().makeGraphic(50, 30, FlxColor.GREEN);
+		attackMid = new FlxSprite().makeGraphic(50, 30, 0xff42f462);
 		attackMid.x = (attackBar.width / 2) - (attackMid.width / 2);
 		_grpAttack.add(attackMid);
 		
-		attackTick = new FlxSprite().makeGraphic(8, 16, FlxColor.RED);
+		attackTick = new FlxSprite().makeGraphic(8, 16, 0xffd12912);
 		_grpAttack.add(attackTick);
 		
 		_grpAttack.kill();
@@ -190,8 +194,9 @@ class BattleState extends FlxState
 					//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x * 1.5 }, .1, {onComplete: function(_){
 						//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x / 1.5 }, .1);}});
 					//Char Shake
-					FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_){
-						FlxTween.tween(_sprEnemy, { x: FlxG.height  * (1.2 - 1.21) + 150}, .5, {ease:FlxEase.elasticOut}); }});
+					FlxTween.tween(_sprEnemy, {x: FlxG.height * (-.1)}, .1, {onComplete: function(_)
+						{FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_)
+						{FlxTween.tween(_sprEnemy, {x: FlxG.height * .15 + 48}, .5, {ease:FlxEase.elasticOut});}});}});
 					/*_sprEnemy.color = 0xd12912;
 					var i:Int = 0;
 					while (i < 10) {
