@@ -121,14 +121,14 @@ class BattleState extends FlxState
 		_grpAttack.y = FlxG.height * 0.6;
 		add(_grpAttack);
 		
-		attackBar = new FlxSprite().makeGraphic(400, 30, FlxColor.fromInt(0xff4286f4));
+		attackBar = new FlxSprite().makeGraphic(400, 30, 0xff4286f4);
 		_grpAttack.add(attackBar);
 		
-		attackMid = new FlxSprite().makeGraphic(50, 30, FlxColor.fromInt(0xff42f462));
+		attackMid = new FlxSprite().makeGraphic(50, 30, 0xff42f462);
 		attackMid.x = (attackBar.width / 2) - (attackMid.width / 2);
 		_grpAttack.add(attackMid);
 		
-		attackTick = new FlxSprite().makeGraphic(8, 16, FlxColor.fromInt(0xffd12912));
+		attackTick = new FlxSprite().makeGraphic(8, 16, 0xffd12912);
 		_grpAttack.add(attackTick);
 		
 		_grpAttack.kill();
