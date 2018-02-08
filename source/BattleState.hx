@@ -35,12 +35,11 @@ class BattleState extends FlxState
 	
 	private var attacking:Bool = false;
 	
-	private var enemyHP:Int = 10;
+	private var enemyHP:Int = 3;
 	private var playerHP:Int = 10;
 	
 	private var selector:FlxSprite;
 	private var selectorPos:Int = 0;
-	
 	//private var mText;
 	private var menuText:FlxText;
 	
@@ -54,9 +53,6 @@ class BattleState extends FlxState
 	private var attackTick:FlxSprite;
 	private var attackMid:FlxSprite;
 	private var attackBar:FlxSprite;
-	
-	private var tickMoveRight:Bool = true;
-	private var supRound:Bool = false;
 	
 	/*
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
@@ -89,9 +85,13 @@ class BattleState extends FlxState
 		initCombat();
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		/*if (supRound = true){
+=======
+		if (supRound = true){
+>>>>>>> parent of dec0208... hi
 			enemyHP = 8;
-		}*/
+		}
 		
 =======
 >>>>>>> parent of 27b5e5e... Merge branch 'master' of https://github.com/ninjamuffin99/HeistGame
@@ -160,6 +160,8 @@ class BattleState extends FlxState
 		
 		FlxTween.tween(_sprEnemy, {y: 60, alpha: 1}, 1, {ease:FlxEase.cubeInOut});
 	}
+	
+	private var tickMoveRight:Bool = true;
 	
 	override public function update(elapsed:Float):Void 
 	{
@@ -279,10 +281,6 @@ class BattleState extends FlxState
 	private function tweenMenu(t:FlxTimer):Void
 	{
 		FlxTween.tween(_grpMenu, {y: FlxG.height * 0.6}, 1.6, {ease:FlxEase.elasticOut});
-	}
-	
-	private function InitRun():Void{
-		
 	}
 	
 }
