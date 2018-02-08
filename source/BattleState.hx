@@ -84,17 +84,15 @@ class BattleState extends FlxState
 		initAttackMenu();
 		initCombat();
 		
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		/*if (supRound = true){
-=======
+
 		if (supRound = true){
->>>>>>> parent of dec0208... hi
+
 			enemyHP = 8;
 		}
+		*/
 		
-=======
->>>>>>> parent of 27b5e5e... Merge branch 'master' of https://github.com/ninjamuffin99/HeistGame
 		new FlxTimer().start(0.7, tweenMenu, 1);
 		
 		super.create();
