@@ -84,6 +84,10 @@ class BattleState extends FlxState
 		initAttackMenu();
 		initCombat();
 		
+		if (supRound = true){
+			enemyHP = 8;
+		}
+		
 		new FlxTimer().start(0.7, tweenMenu, 1);
 		
 		super.create();
