@@ -189,10 +189,10 @@ class BattleState extends FlxState
 					
 					//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x * 1.5 }, .1, {onComplete: function(_){
 						//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x / 1.5 }, .1);}});
-					FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .2, {onComplete: function(_){
-						FlxTween.tween(_sprEnemy, { x: FlxG.height  * (1.2 - 1.21)}, .5, {ease:FlxEase.elasticOut});}});
+					//Char Shake
+					FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_){
+						FlxTween.tween(_sprEnemy, { x: FlxG.height  * (1.2 - 1.21) + 150}, .5, {ease:FlxEase.elasticOut});}});
 						
-					
 					playerHP -= FlxG.random.int(0, 2);
 				}else{
 					attacking = false;
