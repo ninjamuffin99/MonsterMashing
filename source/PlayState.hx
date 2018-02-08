@@ -85,7 +85,7 @@ class PlayState extends FlxState
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
 
-		_player = new Player(30, 30);
+		_player = new Player(190, 575);
 		_grpEntities.add(_player);
 
 		_enemy = new Enemy(200, 200, 0);
