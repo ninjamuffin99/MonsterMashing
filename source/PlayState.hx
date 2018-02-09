@@ -105,6 +105,7 @@ class PlayState extends FlxState
 		max_x = FlxG.stage.stageHeight * 1.5;
 		*/
 		/*
+		 
 		// Loop music, Flash only
 		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__mp3);
 		// Loop music, non-Flash only
