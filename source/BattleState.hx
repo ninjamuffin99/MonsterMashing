@@ -52,6 +52,7 @@ class BattleState extends FlxState
 	private var playerHPText:FlxText;
 	
 	private var attackTick:FlxSprite;
+	private var attackCrit:FlxSprite;
 	private var attackMid:FlxSprite;
 	private var attackBar:FlxSprite;
 	
@@ -150,9 +151,13 @@ class BattleState extends FlxState
 		attackBar = new FlxSprite().makeGraphic(400, 30, 0xff4286f4);
 		_grpAttack.add(attackBar);
 		
-		attackMid = new FlxSprite().makeGraphic(50, 30, 0xff42f462);
+		attackMid = new FlxSprite().makeGraphic(300, 30, 0xff4286f4);
 		attackMid.x = (attackBar.width / 2) - (attackMid.width / 2);
 		_grpAttack.add(attackMid);
+		
+		attackCrit = new FlxSprite().makeGraphic(50, 30, 0xff545454);
+		attackCrit.x = (attackBar.width / 2) - (attackCrit.width / 2);
+		_grpAttack.add(attackCrit);
 		
 		attackTick = new FlxSprite().makeGraphic(8, 16, 0xffd12912);
 		_grpAttack.add(attackTick);
