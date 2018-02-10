@@ -54,12 +54,7 @@ class PlayState extends FlxState
 		FlxG.camera.bgColor = 0xFFa5a5a5;
 		
 		//Who needs a mouse when you have Z
-		//shows the mouse only in debug mode, don't know how useful it'll be tho idk ehehehe
-		#if !debug
-			FlxG.mouse.visible = false;
-		#end
-		
-		
+		FlxG.mouse.visible = false;
 		
 		_map = new FlxOgmoLoader("assets/data/Level.oel");
 		
@@ -105,7 +100,7 @@ class PlayState extends FlxState
 		max_x = FlxG.stage.stageHeight * 1.5;
 		*/
 		/*
-		 
+		
 		// Loop music, Flash only
 		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__mp3);
 		// Loop music, non-Flash only
@@ -121,10 +116,7 @@ class PlayState extends FlxState
 		
 		//Cam
 		FlxG.camera.follow(_player);
-		
-		//Shitty Collision
-		
-		
+			
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
 		
@@ -140,7 +132,7 @@ class PlayState extends FlxState
 		
 		//_map.collideWithLevel(_player);
 		
-		
+		//Collision
 		_grpEntities.sort(FlxSort.byY, FlxSort.ASCENDING);
 		FlxG.collide(_player, _mWalls);
 		
