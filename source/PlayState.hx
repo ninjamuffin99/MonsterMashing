@@ -27,6 +27,7 @@ class PlayState extends FlxState
 
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
+	private var _grpDoors:FlxTypedGroup<Door>;
 	public var _enemy:Enemy;
 
 	//old map variable
@@ -63,6 +64,9 @@ class PlayState extends FlxState
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
 		add(_mWalls);
+		
+		_grpDoors = new FlxTypedGroup<Door>();
+		add(_grpDoors);
 		
 		
 		/* OLD SHIT BABY
@@ -122,6 +126,10 @@ class PlayState extends FlxState
 		{
 			_grpEnemies.add(new Enemy(x, y, 0));
 		}
+		else if (entityName == "doorTrigger")
+		{
+			_grpDoors.add(new Door(x, y, Std.parseInt(entityData.get("door"))));
+		}
 		
 	}
 
@@ -146,6 +154,8 @@ class PlayState extends FlxState
 			}
 		}
 		
+		_grpDoors.forEach(checkOverlap);
+		
 		//_map.collideWithLevel(_player);
 		
 		//Collision
@@ -160,4 +170,30 @@ class PlayState extends FlxState
 			
 		}*/
 	}
+	
+	private function checkOverlap(d:Door):Void
+	{
+		if (FlxG.overlap(_player, d))
+		{
+			//Change this or something so that its not -48 and rather something that can be more dynamic
+			_player.y = getDoor(d).y - 48;
+		}
+		
+		
+	}
+	
+	private function getDoor(d:Door):Door
+	{
+		var door:Door = d;
+		for (i in 0..._grpDoors.length)
+		{
+			if (d.doorID == _grpDoors.members[i].doorID && d != _grpDoors.members[i])
+			{
+				door = _grpDoors.members[i];
+			}
+		}
+		
+		return door;
+	}
+	
 }
