@@ -86,9 +86,6 @@ class PlayState extends FlxState
 
 		_player = new Player(200, 575);
 		_grpEntities.add(_player);
-
-		_enemy = new Enemy(200, 300, 0);
-		_grpEnemies.add(_enemy);
 		
 		_map.loadEntities(placeEntities, "Entities");
 		
@@ -120,6 +117,10 @@ class PlayState extends FlxState
 		{
 			_player.x = x;
 			_player.y = y;
+		}
+		else if (entityName == "enemy")
+		{
+			_grpEnemies.add(new Enemy(x, y, 0));
 		}
 		
 	}
