@@ -85,7 +85,7 @@ class BattleState extends FlxState
 		}*/
 		
 		enemyPath = mushGirl;
-		_sprEnemy = new FlxSprite(150, 20).loadGraphic(enemyPath, false, 530, 665);
+		_sprEnemy = new FlxSprite(150, 20).loadGraphic(enemyPath, false, 800, 1200);
 		/*
 		 * resizes the graphic to half, retaining its aspect ratio
 		 * if you do this make sure you call updateHitbox() afterwards!
@@ -333,7 +333,7 @@ class BattleState extends FlxState
 		//Escape Option
 		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z && isKey == true)
 		{
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new RhythmState());
 		}
 		
 		selector.y = (46 * selectorPos) + 28 + _grpMenu.y;

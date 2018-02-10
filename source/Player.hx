@@ -17,7 +17,6 @@ class Player extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		loadGraphic(AssetPaths.spr_player__png, true, 18, 17);
-		scale.set(1.2, 1.2);
 
 		var frameRate:Int = 6;
 		animation.add("l", [0, 1, 2], frameRate);
