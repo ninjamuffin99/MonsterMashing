@@ -58,7 +58,7 @@ class BattleState extends FlxState
 	
 	//The Girls
 	private var enemyPath:String;
-	private var mushGirl:String = AssetPaths.spr_mush__png;
+	private var mushGirl:String = AssetPaths.spr_mush_new__png;
 	private var sixerGirl:String = AssetPaths.spr_mush__png;
 	private var batGirl:String = AssetPaths.spr_mush__png;
 	private var mummyGirl:String = AssetPaths.spr_mush__png;
@@ -148,14 +148,14 @@ class BattleState extends FlxState
 		_grpAttack.y = FlxG.height * 0.6;
 		add(_grpAttack);
 		
-		attackBar = new FlxSprite().makeGraphic(400, 30, 0xff4286f4);
+		attackBar = new FlxSprite().makeGraphic(400, 30, 0xffffffff);
 		_grpAttack.add(attackBar);
 		
-		attackMid = new FlxSprite().makeGraphic(300, 30, 0xff4286f4);
+		attackMid = new FlxSprite().makeGraphic(250, 30, 0xff000000);
 		attackMid.x = (attackBar.width / 2) - (attackMid.width / 2);
 		_grpAttack.add(attackMid);
 		
-		attackCrit = new FlxSprite().makeGraphic(50, 30, 0xff545454);
+		attackCrit = new FlxSprite().makeGraphic(25, 30, 0xff545454);
 		attackCrit.x = (attackBar.width / 2) - (attackCrit.width / 2);
 		_grpAttack.add(attackCrit);
 		
@@ -177,14 +177,17 @@ class BattleState extends FlxState
 		else
 			screenPixels.draw(FlxG.camera.canvas, new Matrix(1, 0, 0, 1, 0, 0));
 		
-		FlxTween.tween(_sprEnemy, {y: 60, alpha: 1}, 1, {ease:FlxEase.cubeInOut});
+		FlxTween.tween(_sprEnemy, {y: -15, alpha: 1}, 1, {ease:FlxEase.cubeInOut});
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
 		
-		hpBar.y = _sprEnemy.y - 30;
+		//HP Position
+		hpBar.x = 120;
+		hpBar.y = _sprEnemy.y + 90;
+		
 		if (_sprEnemy.alpha == 1){
 			isKey = true;
 		}
@@ -192,7 +195,7 @@ class BattleState extends FlxState
 		selectorUpdate();
 		
 		if (_grpAttack.alive && attacking && enemyHP > 0){
-			
+			//Loop left to right
 			var tickSpeed:Float = 4;
 			if (attackTick.x >= (attackBar.x + attackBar.width)){
 				tickMoveRight = false;
@@ -227,9 +230,33 @@ class BattleState extends FlxState
 			else
 				attackTick.x -= tickSpeed;
 			
-			if (FlxG.keys.justPressed.X){				
-				if (FlxG.overlap(attackMid, attackTick)){
+			if (FlxG.keys.justPressed.X){
+				if (FlxG.overlap(attackCrit, attackTick)){
 					enemyHP -= 4;
+					
+					FlxG.log.add(enemyHP);
+					attacking = false;
+					
+					//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x * 1.5 }, .1, {onComplete: function(_){
+						//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x / 1.5 }, .1);}});
+					//Char Shake
+					FlxTween.tween(_sprEnemy, {x: FlxG.height * (-.1)}, .1, {onComplete: function(_)
+						{FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_)
+						{FlxTween.tween(_sprEnemy, {x: FlxG.height * .15 + 48}, .5, {ease:FlxEase.elasticOut});}});}});
+					/*_sprEnemy.color = 0xd12912;
+					var i:Int = 0;
+					while (i < 10) {
+						i++;
+					}
+					if (i == 10){
+						_sprEnemy.color = 0xffffff;
+						i = 0;
+					}*/
+						
+					playerHP -= FlxG.random.int(0, 2);
+				}else if (FlxG.overlap(attackMid, attackTick)){
+					enemyHP -= 2;
+					
 					FlxG.log.add(enemyHP);
 					attacking = false;
 					
