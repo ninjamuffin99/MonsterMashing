@@ -90,6 +90,8 @@ class PlayState extends FlxState
 		_enemy = new Enemy(200, 300, 0);
 		_grpEnemies.add(_enemy);
 		
+		_map.loadEntities(placeEntities, "Entities");
+		
 		FlxG.log.add("Added Enemy");
 		
 		/*
@@ -107,6 +109,19 @@ class PlayState extends FlxState
 		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__ogg);
 		*/
 		super.create();
+	}
+	
+	private function placeEntities(entityName:String, entityData:Xml):Void
+	{
+		var x:Int = Std.parseInt(entityData.get("x"));
+		var y:Int = Std.parseInt(entityData.get("y"));
+		
+		if (entityName == "player")
+		{
+			_player.x = x;
+			_player.y = y;
+		}
+		
 	}
 
 	override public function update(elapsed:Float):Void
