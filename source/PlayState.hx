@@ -130,12 +130,10 @@ class PlayState extends FlxState
 		{
 			_grpDoors.add(new Door(x, y, Std.parseInt(entityData.get("door"))));
 		}
-		
 	}
 
 	override public function update(elapsed:Float):Void
 	{
-		
 		super.update(elapsed);
 		
 		//Cam
@@ -195,5 +193,4 @@ class PlayState extends FlxState
 		
 		return door;
 	}
-	
 }
