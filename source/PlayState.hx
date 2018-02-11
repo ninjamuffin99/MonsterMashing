@@ -40,7 +40,7 @@ class PlayState extends FlxState
 	
 	//MAP SHIT
 	/**
-	 * The map data, laoded from Ogmo
+	 * The map data, loaded from Ogmo
 	 */
 	private var _map:FlxOgmoLoader;
 	/**
@@ -178,7 +178,7 @@ class PlayState extends FlxState
 		if (FlxG.overlap(_player, d))
 		{
 			//Change this or something so that its not -48 and rather something that can be more dynamic
-			_player.y = getDoor(d).y - 24;
+			_player.y = getDoor(d).y - 48;
 		}
 		
 		
