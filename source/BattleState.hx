@@ -122,7 +122,7 @@ class BattleState extends FlxState
 		_grpMenu = new FlxSpriteGroup();
 		_grpMenu.y = FlxG.height;
 		_grpMenu.x = FlxG.width * 0.05;
-		var rect:FlxSprite = new FlxSprite().makeGraphic(Std.int(FlxG.width * 0.9), Std.int(FlxG.height * 0.275), 0xCCFFFFFF);
+		var rect:FlxSprite = new FlxSprite().makeGraphic(Std.int(FlxG.width * 0.9), Std.int(FlxG.height * 0.2), 0xCCFFFFFF);
 		_grpMenu.add(rect);
 		add(_grpMenu);
 		
@@ -232,31 +232,12 @@ class BattleState extends FlxState
 				attackTick.x -= tickSpeed;
 			
 			if (FlxG.keys.justPressed.X){
-				if (FlxG.overlap(attackCrit, attackTick)){
-					enemyHP -= 4;
-					
-					FlxG.log.add(enemyHP);
-					attacking = false;
-					
-					//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x * 1.5 }, .1, {onComplete: function(_){
-						//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x / 1.5 }, .1);}});
-					//Char Shake
-					FlxTween.tween(_sprEnemy, {x: FlxG.height * (-.1)}, .1, {onComplete: function(_)
-						{FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_)
-						{FlxTween.tween(_sprEnemy, {x: FlxG.height * .15 + 48}, .5, {ease:FlxEase.elasticOut});}});}});
-					/*_sprEnemy.color = 0xd12912;
-					var i:Int = 0;
-					while (i < 10) {
-						i++;
-					}
-					if (i == 10){
-						_sprEnemy.color = 0xffffff;
-						i = 0;
-					}*/
-					
-					playerHP -= FlxG.random.int(0, 1);
-				}else if (FlxG.overlap(attackMid, attackTick)){
+				if (FlxG.overlap(attackMid, attackTick)){
 					enemyHP -= 2;
+					
+					if (FlxG.overlap(attackCrit, attackTick)){
+						enemyHP -= 2;
+					}
 					
 					FlxG.log.add(enemyHP);
 					attacking = false;
@@ -316,28 +297,44 @@ class BattleState extends FlxState
 		}*/
 		
 		//Attack Option
-		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.Z && isKey == true)
-		{
-			//Delay Z press
-			var i:Int = 0;
-			while (i < 10) {
-				i++;
+		if (selectorPos == 0 && _grpMenu.alive){
+			selector.y = 445;
+			
+			if (FlxG.keys.justPressed.Z && isKey == true){
+				//Delay Z press
+				var i:Int = 0;
+				while (i < 10) {
+					i++;
+				}
+				if (i == 10){
+					_grpMenu.kill();
+					_grpAttack.revive();
+					attacking = true;
+					i = 0;
+				}
 			}
-			if (i == 10){
-				_grpMenu.kill();
-				_grpAttack.revive();
-				attacking = true;
-				i = 0;
+
+		}
+		
+		//**** Option
+		if (selectorPos == 1 && _grpMenu.alive){
+			selector.y = 482.5;
+			
+			if(FlxG.keys.justPressed.Z && isKey == true){
+				FlxG.switchState(new RhythmState());
 			}
 		}
 		
 		//Escape Option
-		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z && isKey == true)
-		{
-			FlxG.switchState(new RhythmState());
+		if (selectorPos == 2 && _grpMenu.alive){
+			selector.y = 520;
+			
+			if (FlxG.keys.justPressed.Z && isKey == true){
+				FlxG.switchState(new PlayState());
+			}
 		}
 		
-		selector.y = (46 * selectorPos) + 28 + _grpMenu.y;
+		//selector.y = (35 * selectorPos) + 20 + _grpMenu.y;
 	}
 	
 	private function killAttacks(t:FlxTimer):Void
@@ -350,7 +347,6 @@ class BattleState extends FlxState
 	{
 		FlxTween.tween(_grpMenu, {y: FlxG.height * 0.6}, 1.6, {ease:FlxEase.elasticOut});
 	}
-	
 }
 
 enum Outcome
