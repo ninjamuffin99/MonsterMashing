@@ -25,6 +25,9 @@ class Player extends FlxSprite
 		animation.add("u", [9, 10, 11], frameRate);
 
 		drag.x = drag.y = 2800;
+		
+		height = 8;
+		offset.y = 8;
 
 		FlxG.log.add("added player");
 	}
