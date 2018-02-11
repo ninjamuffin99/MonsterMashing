@@ -34,12 +34,11 @@ class PlayState extends FlxState
 	static var max_y;
 
 	private var _player:Player;
-	//private var _camTarget;
-
+	public var _enemy:Enemy;
+	
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
 	private var _grpDoors:FlxTypedGroup<Door>;
-	public var _enemy:Enemy;
 
 	//old map variable
 	//private var _map:TiledLevel;
@@ -50,7 +49,7 @@ class PlayState extends FlxState
 	
 	//MAP SHIT
 	/**
-	 * The map data, laoded from Ogmo
+	 * The map data, loaded from Ogmo
 	 */
 	private var _map:FlxOgmoLoader;
 	/**
@@ -58,6 +57,7 @@ class PlayState extends FlxState
 	 */
 	private var _mWalls:FlxTilemap;
 	private var _mFloors:FlxTilemap;
+	private var _camTarget:FlxTilemap;
 
 	override public function create():Void
 	{
@@ -68,7 +68,7 @@ class PlayState extends FlxState
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
 		
-		_map = new FlxOgmoLoader("assets/data/Level.oel");
+		_map = new FlxOgmoLoader("assets/data/level.oel");
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		add(_mFloors);
@@ -92,9 +92,18 @@ class PlayState extends FlxState
 		
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
+<<<<<<< HEAD
 		
 		_player = new Player(200, 575);
+=======
+
+		_player = new Player();
+>>>>>>> a474140af4f059f72eb6ba176b26eadae9a83d96
 		_grpEntities.add(_player);
+		
+		//Camera
+		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
+		//FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON, 0.1);
 		
 		_map.loadEntities(placeEntities, "Entities");
 		
@@ -114,16 +123,13 @@ class PlayState extends FlxState
 		min_y = -FlxG.stage.stageHeight / 2;
 		max_x = FlxG.stage.stageHeight * 1.5;
 		*/
-		/*
 		
-		// Loop music, Flash only
-		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__mp3);
-		// Loop music, non-Flash only
-		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__ogg);
-		*/
 		
-		//Cam
-		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
+		#if flash
+			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
+		#else
+			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__ogg);
+        #end
 		
 		
 		super.create();
