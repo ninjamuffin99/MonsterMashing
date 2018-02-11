@@ -10,43 +10,48 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * The class for the topdown player sprite. Has all the code and shit
  * @author ninjaMuffin
  */
-class Player extends FlxSprite 
+class Player extends FlxSprite
 {
-	private var speed:Float = 100;
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
+	private var speed:Float = 150;
+	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
 		loadGraphic(AssetPaths.spr_player__png, true, 18, 17);
-		
+
 		var frameRate:Int = 6;
 		animation.add("l", [0, 1, 2], frameRate);
 		animation.add("r", [3, 4, 5], frameRate);
 		animation.add("d", [6, 7, 8], frameRate);
 		animation.add("u", [9, 10, 11], frameRate);
-		
+
 		drag.x = drag.y = 2800;
 		
+		width = 13;
+		offset.x = 3;
+		height = 8;
+		offset.y = 8;
+
 		FlxG.log.add("added player");
 	}
-	
-	override public function update(elapsed:Float):Void 
+
+	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		
+
 		//rotation();
 		controls();
 	}
-	
+
 	private function rotation():Void
 	{
 		var rads:Float = Math.atan2(FlxG.mouse.y - this.y, FlxG.mouse.x - this.x);
 		FlxG.watch.addQuick("Rads", Math.atan2(FlxG.mouse.y - this.y, FlxG.mouse.x - this.x));
-		
+
 		var degs = rads * 180 / Math.PI;
 		FlxG.watch.addQuick("Degs/Angle", degs);
 		angle = degs + 90;
 	}
-	
+
 	//Movement controls
 	private function controls():Void
 	{
@@ -54,19 +59,19 @@ class Player extends FlxSprite
 		var _down = FlxG.keys.anyPressed([DOWN, S]);
 		var _left = FlxG.keys.anyPressed([LEFT, A]);
 		var _right = FlxG.keys.anyPressed([RIGHT, D]);
-		
+
 		if (_up && _down)
 			_up = _down = false;
 		if (_left && _right)
 			_left = _right = false;
-		
+
 		if (_up || _down || _left || _right)
 		{
 			/**
 			 * Movement Angle
 			 */
 			var mA:Float = 0;
-			
+
 			if (_up)
 			{
 				mA = -90;
@@ -97,8 +102,8 @@ class Player extends FlxSprite
 			}
 			velocity.set(speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
-			
-			
+
+
 			if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)
 			{
 				switch(facing)
@@ -113,7 +118,7 @@ class Player extends FlxSprite
 						animation.play("u");
 				}
 			}
-			
+
 		}
 		else if (animation.curAnim != null)
 		{

@@ -30,6 +30,8 @@
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
 	<assets path="assets" />
+	<assets path="assets" exclude="*.ogg" if="flash"/>
+	<assets path="assets" exclude="*.mp3" unless="flash"/>
 	
 	<!-- _______________________________ Libraries ______________________________ -->
 
