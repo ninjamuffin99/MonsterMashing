@@ -37,8 +37,7 @@ class RhythmState extends FlxState
 			newNote.strumTime = FlxG.random.float(0, 8000);
 			grpNotes.add(newNote);
 		}
-		
-		
+			
 		super.create();
 	}
 	
