@@ -58,7 +58,7 @@ class PlayState extends FlxState
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
 		
-		_map = new FlxOgmoLoader("assets/data/Level.oel");
+		_map = new FlxOgmoLoader("assets/data/level.oel");
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		add(_mFloors);
@@ -178,7 +178,7 @@ class PlayState extends FlxState
 		if (FlxG.overlap(_player, d))
 		{
 			//Change this or something so that its not -48 and rather something that can be more dynamic
-			_player.y = getDoor(d).y - 48;
+			_player.y = getDoor(d).y - 24;
 		}
 		
 		
