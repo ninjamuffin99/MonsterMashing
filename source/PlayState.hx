@@ -14,10 +14,20 @@ import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
 import flixel.util.FlxSort;
+import nape.geom.Vec2List;
+import openfl.display.BlendMode;
+using flixel.util.FlxSpriteUtil;
 
 class PlayState extends FlxState
 {
+	private static inline var SHADOW_COLOR = 0xff2a2963;
+	private static inline var OVERLAY_COLOR = 0xff887fff;
+	
+	private var shadowCanvas:FlxSprite;
+	private var shadowOverlay:FlxSprite;
+	
 	static var min_x;
 	static var max_x;
 	static var min_y;
@@ -63,6 +73,13 @@ class PlayState extends FlxState
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		add(_mFloors);
 		
+		
+		shadowCanvas = new FlxSprite();
+		shadowCanvas.blend = BlendMode.MULTIPLY;
+		shadowCanvas.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
+		//add(shadowCanvas);
+		
+		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
 		add(_mWalls);
 		
@@ -70,29 +87,23 @@ class PlayState extends FlxState
 		add(_grpDoors);
 		
 		
-		/* OLD SHIT BABY
-		_map = new TiledLevel(AssetPaths.mapTest__tmx, this);
-
-		add(_map.backgroundLayer);
-		add(_map.foregroundTiles);
-		//add(_map.);
-		//add(_map.black);
-		 misc adds pls ignore
-		add (_map.imagesLayer);
-		add(_map.BGObjects);
-		add(_map.foregroundObjects);
-		*/
-
 		_grpEntities = new FlxTypedGroup<FlxObject>();
 		add(_grpEntities);
-
+		
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
-
+		
 		_player = new Player(200, 575);
 		_grpEntities.add(_player);
 		
 		_map.loadEntities(placeEntities, "Entities");
+		
+		
+		shadowOverlay = new FlxSprite();
+		shadowOverlay.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
+		shadowOverlay.blend = BlendMode.MULTIPLY;
+		//add(shadowOverlay);
+		
 		
 		FlxG.log.add("Added Enemy");
 		
@@ -140,6 +151,8 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		//processShadows();
+		
 		super.update(elapsed);
 		
 			
@@ -172,6 +185,30 @@ class PlayState extends FlxState
 			
 		}*/
 	}
+	
+	private function processShadows():Void
+	{
+		shadowCanvas.fill(FlxColor.TRANSPARENT);
+		shadowOverlay.fill(OVERLAY_COLOR);
+		
+		shadowOverlay.drawCircle(
+			_player.x + FlxG.random.float( -.6, .6), 
+			_player.y + FlxG.random.float( -.6, 0.6),
+			(FlxG.random.bool(5) ? 16 : 16.5), 0xffff5f5f);
+			
+		shadowOverlay.drawCircle(
+			_player.x + FlxG.random.float( -0.25, 0.25), 
+			_player.y + FlxG.random.float( -0.25, 0.25),
+			(FlxG.random.bool(5) ? 13 : 13.5), 0xffff7070);
+		
+		processBodyShapes();
+	}
+	
+	private function processBodyShapes()
+	{
+		//var verts:Vec2List = 
+	}
+	
 	
 	private function checkOverlap(d:Door):Void
 	{
