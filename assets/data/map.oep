@@ -62,10 +62,10 @@
       </ScrollFactor>
     </LayerDefinition>
     <LayerDefinition xsi:type="TileLayerDefinition">
-      <Name>Black</Name>
+      <Name>Collision</Name>
       <Grid>
-        <Width>16</Width>
-        <Height>16</Height>
+        <Width>8</Width>
+        <Height>8</Height>
       </Grid>
       <ScrollFactor>
         <X>1</X>
@@ -131,6 +131,21 @@
       <ValueDefinitions>
         <ValueDefinition xsi:type="IntValueDefinition" Name="door" Default="0" Min="0" Max="100" ShowSlider="false" />
       </ValueDefinitions>
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="camera" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Rectangle" ImagePath="" Tiled="false">
+        <RectColor A="255" R="128" G="0" B="255" />
+      </ImageDefinition>
+      <ValueDefinitions />
       <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
     </EntityDefinition>
   </EntityDefinitions>
