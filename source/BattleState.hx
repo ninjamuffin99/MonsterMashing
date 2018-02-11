@@ -253,7 +253,7 @@ class BattleState extends FlxState
 						_sprEnemy.color = 0xffffff;
 						i = 0;
 					}*/
-						
+					
 					playerHP -= FlxG.random.int(0, 1);
 				}else if (FlxG.overlap(attackMid, attackTick)){
 					enemyHP -= 2;
