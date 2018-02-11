@@ -24,12 +24,11 @@ class PlayState extends FlxState
 	static var max_y;
 
 	private var _player:Player;
-	//private var _camTarget;
-
+	public var _enemy:Enemy;
+	
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
 	private var _grpDoors:FlxTypedGroup<Door>;
-	public var _enemy:Enemy;
 
 	//old map variable
 	//private var _map:TiledLevel;
@@ -48,6 +47,7 @@ class PlayState extends FlxState
 	 */
 	private var _mWalls:FlxTilemap;
 	private var _mFloors:FlxTilemap;
+	private var _camTarget:FlxTilemap;
 
 	override public function create():Void
 	{
@@ -89,8 +89,12 @@ class PlayState extends FlxState
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
 
-		_player = new Player(200, 575);
+		_player = new Player();
 		_grpEntities.add(_player);
+		
+		//Camera
+		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
+		//FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON, 0.1);
 		
 		_map.loadEntities(placeEntities, "Entities");
 		
@@ -110,10 +114,6 @@ class PlayState extends FlxState
 		// Loop music, non-Flash only
 		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__ogg);
 		*/
-		
-		//Cam
-		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
-		
 		
 		super.create();
 	}
