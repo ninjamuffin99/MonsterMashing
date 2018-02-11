@@ -16,7 +16,6 @@ class RhythmState extends FlxState
 	private var bar:FlxSprite;
 	private var grpNotes:FlxTypedGroup<Note>;
 	
-	
 	override public function create():Void 
 	{
 		song = new FlxSound();
@@ -62,5 +61,4 @@ class RhythmState extends FlxState
 	{
 		note.y = bar.y - (Conductor.songPos - note.strumTime);
 	}
-	
 }

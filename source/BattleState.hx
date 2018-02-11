@@ -15,6 +15,8 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.geom.Matrix;
 import openfl.geom.Point;
+//import ui.Strings;
+//import ui.StringIDs;
 
 /**
  * ...
@@ -22,8 +24,8 @@ import openfl.geom.Point;
  */
 class BattleState extends FlxState 
 {
-	
 	public static var outcome(default, null):Outcome;
+	//public static var outcome:String;
 	
 	private var _sprScreen:FlxSprite;
 	private var _sprEnemy:FlxSprite;
@@ -32,6 +34,8 @@ class BattleState extends FlxState
 	private var _grpAttack:FlxSpriteGroup;
 	
 	private var attacking:Bool = false;
+	private var tickMoveRight:Bool = true;
+	private var isKey:Bool = false;
 	
 	private var enemyHP:Int = 10;
 	private var playerHP:Int = 10;
@@ -48,8 +52,17 @@ class BattleState extends FlxState
 	private var playerHPText:FlxText;
 	
 	private var attackTick:FlxSprite;
+	private var attackCrit:FlxSprite;
 	private var attackMid:FlxSprite;
 	private var attackBar:FlxSprite;
+	
+	//The Girls
+	private var enemyPath:String;
+	private var mushGirl:String = AssetPaths.spr_mush_new__png;
+	private var sixerGirl:String = AssetPaths.spr_mush__png;
+	private var batGirl:String = AssetPaths.spr_mush__png;
+	private var mummyGirl:String = AssetPaths.spr_mush__png;
+	
 	/*
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
 	{
@@ -63,7 +76,16 @@ class BattleState extends FlxState
 		var waveSprite = new FlxEffectSprite(_sprScreen, [waveEffect]);
 		add(waveSprite);
 		
-		_sprEnemy = new FlxSprite(150, 20).loadGraphic(AssetPaths.spr_mush__png, false, 530, 665);
+		/*switch(enemyPath) 
+		{
+			case :
+				
+			default:mushGirl;
+				
+		}*/
+		
+		enemyPath = mushGirl;
+		_sprEnemy = new FlxSprite(150, 20).loadGraphic(enemyPath, false, 800, 1200);
 		/*
 		 * resizes the graphic to half, retaining its aspect ratio
 		 * if you do this make sure you call updateHitbox() afterwards!
@@ -80,9 +102,19 @@ class BattleState extends FlxState
 		initAttackMenu();
 		initCombat();
 		
+
+		/*if (supRound = true){
+
+		if (supRound = true){
+
+			enemyHP = 8;
+		}
+		*/
+		
 		new FlxTimer().start(0.7, tweenMenu, 1);
 		
 		super.create();
+		//Strings.instance.init();
 	}
 	
 	private function initMenu():Void
@@ -94,7 +126,8 @@ class BattleState extends FlxState
 		_grpMenu.add(rect);
 		add(_grpMenu);
 		
-		//Pull from XML
+		//Pull from XML "Attack\nFuck\nRun"
+		//mText = Strings.instance.getValue(StringIDs.pup);
 		menuText = new FlxText(100, 16, 0, "Attack\nFuck\nRun", 32);
 		menuText.color = FlxColor.BLACK;
 		_grpMenu.add(menuText);
@@ -115,14 +148,19 @@ class BattleState extends FlxState
 		_grpAttack.y = FlxG.height * 0.6;
 		add(_grpAttack);
 		
-		attackBar = new FlxSprite().makeGraphic(400, 30, FlxColor.BLUE);
+		//Setup Hit Bar sizes
+		attackBar = new FlxSprite().makeGraphic(400, 30, 0xffffffff);
 		_grpAttack.add(attackBar);
 		
-		attackMid = new FlxSprite().makeGraphic(50, 30, FlxColor.GREEN);
+		attackMid = new FlxSprite().makeGraphic(240, 30, 0xff000000);
 		attackMid.x = (attackBar.width / 2) - (attackMid.width / 2);
 		_grpAttack.add(attackMid);
 		
-		attackTick = new FlxSprite().makeGraphic(8, 16, FlxColor.RED);
+		attackCrit = new FlxSprite().makeGraphic(15, 30, 0xff545454);
+		attackCrit.x = (attackBar.width / 2) - (attackCrit.width / 2);
+		_grpAttack.add(attackCrit);
+		
+		attackTick = new FlxSprite().makeGraphic(8, 16, 0xffd12912);
 		_grpAttack.add(attackTick);
 		
 		_grpAttack.kill();
@@ -130,7 +168,6 @@ class BattleState extends FlxState
 	
 	public function initCombat():Void
 	{
-		
 		outcome = NONE;
 		
 		_sprScreen.drawFrame();
@@ -141,64 +178,126 @@ class BattleState extends FlxState
 		else
 			screenPixels.draw(FlxG.camera.canvas, new Matrix(1, 0, 0, 1, 0, 0));
 		
-		FlxTween.tween(_sprEnemy, {y: 60, alpha: 1}, 1, {ease:FlxEase.cubeInOut});
+		FlxTween.tween(_sprEnemy, {y: -15, alpha: 1}, 1, {ease:FlxEase.cubeInOut});
 	}
-	
-	private var tickMoveRight:Bool = true;
 	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
 		
-		hpBar.y = _sprEnemy.y - 30;
+		//HP Position
+		hpBar.x = 120;
+		hpBar.y = _sprEnemy.y + 90;
+		
+		if (_sprEnemy.alpha == 1){
+			isKey = true;
+		}
 		
 		selectorUpdate();
 		
-		
-		if (_grpAttack.alive && attacking)
-		{
+		if (_grpAttack.alive && attacking && enemyHP > 0){
+			//Loop left to right
 			var tickSpeed:Float = 4;
-			if (attackTick.x >= (attackBar.x + attackBar.width))
-			{
+			if (attackTick.x >= (attackBar.x + attackBar.width)){
 				tickMoveRight = false;
-			}
-			else if (attackTick.x <= attackBar.x)
-			{
+			}else if (attackTick.x <= attackBar.x){
 				tickMoveRight = true;
 			}
 			
-			var tickSpeed:Float = 13;
+			//Attack Bar
+			var tickSpeed:Float = 12;
+			var speedBuffer:Float = tickSpeed;
+			
+			//Speed up on low enemy health
+			if (enemyHP <= 6){
+				tickSpeed = speedBuffer * 1.5;
+				speedBuffer = tickSpeed;
+			}else if (enemyHP <= 2){
+				tickSpeed = speedBuffer * 2;
+				speedBuffer = tickSpeed;
+			}
+			
+			//Slow your roll, health is low
+			if (playerHP <= 6){
+				tickSpeed = speedBuffer * 0.8;
+				speedBuffer = tickSpeed;
+			}else if(playerHP <= 2){
+				tickSpeed = speedBuffer * 0.4;
+				speedBuffer = tickSpeed;
+			}
+			
 			if (tickMoveRight)
 				attackTick.x += tickSpeed;
 			else
 				attackTick.x -= tickSpeed;
 			
-			if (FlxG.keys.justPressed.UP)
-			{
-				attacking = false;
-				
-				if (FlxG.overlap(attackMid, attackTick))
-				{
-					enemyHP -= 1;
-					FlxG.log.add(enemyHP);
+			if (FlxG.keys.justPressed.X){
+				if (FlxG.overlap(attackCrit, attackTick)){
+					enemyHP -= 4;
 					
+					FlxG.log.add(enemyHP);
+					attacking = false;
+					
+					//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x * 1.5 }, .1, {onComplete: function(_){
+						//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x / 1.5 }, .1);}});
+					//Char Shake
+					FlxTween.tween(_sprEnemy, {x: FlxG.height * (-.1)}, .1, {onComplete: function(_)
+						{FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_)
+						{FlxTween.tween(_sprEnemy, {x: FlxG.height * .15 + 48}, .5, {ease:FlxEase.elasticOut});}});}});
+					/*_sprEnemy.color = 0xd12912;
+					var i:Int = 0;
+					while (i < 10) {
+						i++;
+					}
+					if (i == 10){
+						_sprEnemy.color = 0xffffff;
+						i = 0;
+					}*/
+						
+					playerHP -= FlxG.random.int(0, 1);
+				}else if (FlxG.overlap(attackMid, attackTick)){
+					enemyHP -= 2;
+					
+					FlxG.log.add(enemyHP);
+					attacking = false;
+					
+					//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x * 1.5 }, .1, {onComplete: function(_){
+						//FlxTween.tween(_sprEnemy, { x: _sprEnemy.x / 1.5 }, .1);}});
+					//Char Shake
+					FlxTween.tween(_sprEnemy, {x: FlxG.height * (-.1)}, .1, {onComplete: function(_)
+						{FlxTween.tween(_sprEnemy, {x: FlxG.height * 1.2}, .15, {onComplete: function(_)
+						{FlxTween.tween(_sprEnemy, {x: FlxG.height * .15 + 48}, .5, {ease:FlxEase.elasticOut});}});}});
+					/*_sprEnemy.color = 0xd12912;
+					var i:Int = 0;
+					while (i < 10) {
+						i++;
+					}
+					if (i == 10){
+						_sprEnemy.color = 0xffffff;
+						i = 0;
+					}*/
+						
 					playerHP -= FlxG.random.int(0, 2);
+				}else{
+					attacking = false;
 				}
 			}
-		}
-		else if (_grpAttack.alive)
-		{
+		}else if (_grpAttack.alive){
 			new FlxTimer().start(1, killAttacks);
+		}else if(enemyHP <= 0){
+			attacking = false;
+			outcome = VICTORY;
+			FlxG.switchState(new PlayState());
 		}
 	}
 	
 	private function selectorUpdate():Void
 	{
-		if (FlxG.keys.justPressed.UP)
+		if (FlxG.keys.justPressed.UP && isKey == true)
 		{
 			selectorPos -= 1;
 		}
-		if (FlxG.keys.justPressed.DOWN)
+		if (FlxG.keys.justPressed.DOWN && isKey == true)
 		{
 			selectorPos += 1;
 		}
@@ -216,16 +315,26 @@ class BattleState extends FlxState
 			selectorPos = 0;
 		}*/
 		
-		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.Z)
+		//Attack Option
+		if (selectorPos == 0 && _grpMenu.alive && FlxG.keys.justPressed.Z && isKey == true)
 		{
-			_grpMenu.kill();
-			_grpAttack.revive();
-			
-			attacking = true;
+			//Delay Z press
+			var i:Int = 0;
+			while (i < 10) {
+				i++;
+			}
+			if (i == 10){
+				_grpMenu.kill();
+				_grpAttack.revive();
+				attacking = true;
+				i = 0;
+			}
 		}
-		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z)
+		
+		//Escape Option
+		if (selectorPos == 2 && _grpMenu.alive && FlxG.keys.justPressed.Z && isKey == true)
 		{
-			closeSubState();
+			FlxG.switchState(new RhythmState());
 		}
 		
 		selector.y = (46 * selectorPos) + 28 + _grpMenu.y;
@@ -235,8 +344,6 @@ class BattleState extends FlxState
 	{
 		_grpAttack.kill();
 		_grpMenu.revive();
-		
-		
 	}
 	
 	private function tweenMenu(t:FlxTimer):Void
