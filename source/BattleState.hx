@@ -101,7 +101,6 @@ class BattleState extends FlxState
 		initMenu();
 		initAttackMenu();
 		initCombat();
-		
 
 		/*if (supRound = true){
 
@@ -127,7 +126,6 @@ class BattleState extends FlxState
 		add(_grpMenu);
 		
 		//Pull from XML "Attack\nFuck\nRun"
-		//mText = Strings.instance.getValue(StringIDs.pup);
 		menuText = new FlxText(100, 16, 0, "Attack\nFuck\nRun", 32);
 		menuText.color = FlxColor.BLACK;
 		_grpMenu.add(menuText);
@@ -318,7 +316,7 @@ class BattleState extends FlxState
 		
 		//**** Option
 		if (selectorPos == 1 && _grpMenu.alive){
-			selector.y = 482.5;
+			selector.y = 480;
 			
 			if(FlxG.keys.justPressed.Z && isKey == true){
 				FlxG.switchState(new RhythmState());
