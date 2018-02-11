@@ -14,7 +14,7 @@ class MenuState extends FlxState
 	
 	override public function create():Void
 	{
-		mTxt = new FlxText("Press Z Play");
+		//mTxt = new FlxText("Press Z Play");
 		mTxt.color = FlxColor.BLACK;
 		FlxG.camera.bgColor =  0xFFa5a5a5;
 		
