@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.system.FlxSound;
+import format.swf.SWFLibrary;
 
 /**
  * ...
@@ -15,6 +16,8 @@ class RhythmState extends FlxState
 	private var song:FlxSound;
 	private var bar:FlxSprite;
 	private var grpNotes:FlxTypedGroup<Note>;
+
+	private var SWFLoader:SWFLibrary;
 	
 	override public function create():Void 
 	{
