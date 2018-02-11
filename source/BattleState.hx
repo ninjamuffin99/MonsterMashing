@@ -148,14 +148,15 @@ class BattleState extends FlxState
 		_grpAttack.y = FlxG.height * 0.6;
 		add(_grpAttack);
 		
+		//Setup Hit Bar sizes
 		attackBar = new FlxSprite().makeGraphic(400, 30, 0xffffffff);
 		_grpAttack.add(attackBar);
 		
-		attackMid = new FlxSprite().makeGraphic(250, 30, 0xff000000);
+		attackMid = new FlxSprite().makeGraphic(240, 30, 0xff000000);
 		attackMid.x = (attackBar.width / 2) - (attackMid.width / 2);
 		_grpAttack.add(attackMid);
 		
-		attackCrit = new FlxSprite().makeGraphic(25, 30, 0xff545454);
+		attackCrit = new FlxSprite().makeGraphic(15, 30, 0xff545454);
 		attackCrit.x = (attackBar.width / 2) - (attackCrit.width / 2);
 		_grpAttack.add(attackCrit);
 		
