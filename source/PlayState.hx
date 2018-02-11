@@ -107,13 +107,13 @@ class PlayState extends FlxState
 		min_y = -FlxG.stage.stageHeight / 2;
 		max_x = FlxG.stage.stageHeight * 1.5;
 		*/
-		/*
 		
-		// Loop music, Flash only
-		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__mp3);
-		// Loop music, non-Flash only
-		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__ogg);
-		*/
+		
+		//Loop music, Flash only
+		FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
+		//Loop music, non-Flash only
+		FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__ogg);
+		
 		
 		super.create();
 	}
