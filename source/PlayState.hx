@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxBasic;
+import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -109,6 +110,11 @@ class PlayState extends FlxState
 		// Loop music, non-Flash only
 		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__ogg);
 		*/
+		
+		//Cam
+		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
+		
+		
 		super.create();
 	}
 	
@@ -136,8 +142,6 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		//Cam
-		FlxG.camera.follow(_player);
 			
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
