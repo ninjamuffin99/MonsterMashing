@@ -109,10 +109,11 @@ class PlayState extends FlxState
 		*/
 		
 		
-		//Loop music, Flash only
-		FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
-		//Loop music, non-Flash only
-		FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__ogg);
+		#if flash
+			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
+		#else
+			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__ogg);
+        #end
 		
 		
 		super.create();
