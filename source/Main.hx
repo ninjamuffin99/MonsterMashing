@@ -12,7 +12,7 @@ class Main extends Sprite
 		super();
 		addChild(new FlxGame(0, 0, PlayState));
 		
-		var clip = new SWFObject.embedSWF(AssetPaths.mush__swf, mush, 920, 690, 9);
+		//var clip = new SWFObject.embedSWF(AssetPaths.mush__swf, mush, 920, 690, 9);
 		addChild(clip);
 	}
 }
