@@ -92,13 +92,8 @@ class PlayState extends FlxState
 		
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
-<<<<<<< HEAD
 		
-		_player = new Player(200, 575);
-=======
-
 		_player = new Player();
->>>>>>> a474140af4f059f72eb6ba176b26eadae9a83d96
 		_grpEntities.add(_player);
 		
 		//Camera
@@ -168,8 +163,10 @@ class PlayState extends FlxState
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
 			FlxG.switchState(new BattleState());
-			if (BattleState.outcome == VICTORY){
-				if (FlxG.overlap(_player, _enemy)){
+			if (BattleState.outcome == VICTORY)
+			{
+				if (FlxG.overlap(_player, _enemy))
+				{
 					destroy();
 				}
 			}
