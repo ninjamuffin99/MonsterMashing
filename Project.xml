@@ -47,11 +47,11 @@
 	<haxelib name="nape" />
 	
 	<!--SWF-->
-	<source path="Source" />
+	<!--<source path="Source" />-->
 	
-	<library path="Assets/library.swf" preload="true" generate="true" />
+	<!--<library path="Assets/library.swf" preload="true" generate="true" />-->
 	
-	<assets path="Assets" rename="assets" exclude="*.swf" />
+	<!--<assets path="Assets" rename="assets" exclude="*.swf" />-->
 	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 	
