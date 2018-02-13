@@ -22,26 +22,12 @@ using flixel.util.FlxSpriteUtil;
 
 class PlayState extends FlxState
 {
-	private static inline var SHADOW_COLOR = 0xff2a2963;
-	private static inline var OVERLAY_COLOR = 0xff887fff;
-	
-	private var shadowCanvas:FlxSprite;
-	private var shadowOverlay:FlxSprite;
-	
-	static var min_x;
-	static var max_x;
-	static var min_y;
-	static var max_y;
-
 	private var _player:Player;
 	public var _enemy:Enemy;
 	
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
 	private var _grpDoors:FlxTypedGroup<Door>;
-
-	//old map variable
-	//private var _map:TiledLevel;
 	
 	//private var _roomNum;
 	//private var _roomShow;
@@ -68,17 +54,10 @@ class PlayState extends FlxState
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
 		
-		_map = new FlxOgmoLoader("assets/data/level.oel");
+		_map = new FlxOgmoLoader("assets/data/Level.oel");
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		add(_mFloors);
-		
-		
-		shadowCanvas = new FlxSprite();
-		shadowCanvas.blend = BlendMode.MULTIPLY;
-		shadowCanvas.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
-		//add(shadowCanvas);
-		
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
 		add(_mWalls);
@@ -92,13 +71,8 @@ class PlayState extends FlxState
 		
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
-<<<<<<< HEAD
 		
-		_player = new Player(200, 575);
-=======
-
 		_player = new Player();
->>>>>>> a474140af4f059f72eb6ba176b26eadae9a83d96
 		_grpEntities.add(_player);
 		
 		//Camera
@@ -108,21 +82,7 @@ class PlayState extends FlxState
 		_map.loadEntities(placeEntities, "Entities");
 		
 		
-		shadowOverlay = new FlxSprite();
-		shadowOverlay.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
-		shadowOverlay.blend = BlendMode.MULTIPLY;
-		//add(shadowOverlay);
-		
-		
 		FlxG.log.add("Added Enemy");
-		
-		/*
-		//setup screen constraints
-		min_x = -FlxG.stage.stageWidth / 2;
-		max_x = FlxG.stage.stageWidth * 1.5;
-		min_y = -FlxG.stage.stageHeight / 2;
-		max_x = FlxG.stage.stageHeight * 1.5;
-		*/
 		
 		
 		#if flash
@@ -168,8 +128,10 @@ class PlayState extends FlxState
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
 			FlxG.switchState(new BattleState());
-			if (BattleState.outcome == VICTORY){
-				if (FlxG.overlap(_player, _enemy)){
+			if (BattleState.outcome == VICTORY)
+			{
+				if (FlxG.overlap(_player, _enemy))
+				{
 					destroy();
 				}
 			}
@@ -191,31 +153,7 @@ class PlayState extends FlxState
 			
 		}*/
 	}
-	
-	private function processShadows():Void
-	{
-		shadowCanvas.fill(FlxColor.TRANSPARENT);
-		shadowOverlay.fill(OVERLAY_COLOR);
-		
-		shadowOverlay.drawCircle(
-			_player.x + FlxG.random.float( -.6, .6), 
-			_player.y + FlxG.random.float( -.6, 0.6),
-			(FlxG.random.bool(5) ? 16 : 16.5), 0xffff5f5f);
-			
-		shadowOverlay.drawCircle(
-			_player.x + FlxG.random.float( -0.25, 0.25), 
-			_player.y + FlxG.random.float( -0.25, 0.25),
-			(FlxG.random.bool(5) ? 13 : 13.5), 0xffff7070);
-		
-		processBodyShapes();
-	}
-	
-	private function processBodyShapes()
-	{
-		//var verts:Vec2List = 
-	}
-	
-	
+
 	private function checkOverlap(d:Door):Void
 	{
 		if (FlxG.overlap(_player, d))
@@ -223,8 +161,6 @@ class PlayState extends FlxState
 			//Change this or something so that its not -48 and rather something that can be more dynamic
 			_player.y = getDoor(d).y - 48;
 		}
-		
-		
 	}
 	
 	private function getDoor(d:Door):Door
