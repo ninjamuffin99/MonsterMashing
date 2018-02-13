@@ -29,5 +29,8 @@ class Enemy extends FlxSprite
 		playerPos = FlxPoint.get();
 		
 	}
-	
+	override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+	}
 }
