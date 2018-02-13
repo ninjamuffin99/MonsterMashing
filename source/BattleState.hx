@@ -86,6 +86,7 @@ class BattleState extends FlxState
 		
 		enemyPath = mushGirl;
 		_sprEnemy = new FlxSprite(150, 20).loadGraphic(enemyPath, false, 800, 1200);
+		
 		/*
 		 * resizes the graphic to half, retaining its aspect ratio
 		 * if you do this make sure you call updateHitbox() afterwards!
@@ -207,19 +208,25 @@ class BattleState extends FlxState
 			var speedBuffer:Float = tickSpeed;
 			
 			//Speed up on low enemy health
-			if (enemyHP <= 6){
+			if (enemyHP <= 6)
+			{
 				tickSpeed = speedBuffer * 1.5;
 				speedBuffer = tickSpeed;
-			}else if (enemyHP <= 2){
+			}
+			else if (enemyHP <= 2)
+			{
 				tickSpeed = speedBuffer * 2;
 				speedBuffer = tickSpeed;
 			}
 			
 			//Slow your roll, health is low
-			if (playerHP <= 6){
+			if (playerHP <= 6)
+			{
 				tickSpeed = speedBuffer * 0.8;
 				speedBuffer = tickSpeed;
-			}else if(playerHP <= 2){
+			}
+			else if (playerHP <= 2)
+			{
 				tickSpeed = speedBuffer * 0.4;
 				speedBuffer = tickSpeed;
 			}
@@ -229,11 +236,14 @@ class BattleState extends FlxState
 			else
 				attackTick.x -= tickSpeed;
 			
-			if (FlxG.keys.justPressed.X){
-				if (FlxG.overlap(attackMid, attackTick)){
+			if (FlxG.keys.justPressed.X)
+			{
+				if (FlxG.overlap(attackMid, attackTick))
+				{
 					enemyHP -= 2;
 					
-					if (FlxG.overlap(attackCrit, attackTick)){
+					if (FlxG.overlap(attackCrit, attackTick))
+					{
 						enemyHP -= 2;
 					}
 					
@@ -257,13 +267,19 @@ class BattleState extends FlxState
 					}*/
 						
 					playerHP -= FlxG.random.int(0, 2);
-				}else{
+				}
+				else
+				{
 					attacking = false;
 				}
 			}
-		}else if (_grpAttack.alive){
+		}
+		else if (_grpAttack.alive)
+		{
 			new FlxTimer().start(1, killAttacks);
-		}else if(enemyHP <= 0){
+		}
+		else if (enemyHP <= 0)
+		{
 			attacking = false;
 			outcome = VICTORY;
 			FlxG.switchState(new PlayState());
@@ -295,10 +311,12 @@ class BattleState extends FlxState
 		}*/
 		
 		//Attack Option
-		if (selectorPos == 0 && _grpMenu.alive){
+		if (selectorPos == 0 && _grpMenu.alive)
+		{
 			selector.y = 445;
 			
-			if (FlxG.keys.justPressed.Z && isKey == true){
+			if (FlxG.keys.justPressed.Z && isKey == true)
+			{
 				//Delay Z press
 				var i:Int = 0;
 				while (i < 10) {
@@ -315,19 +333,23 @@ class BattleState extends FlxState
 		}
 		
 		//**** Option
-		if (selectorPos == 1 && _grpMenu.alive){
+		if (selectorPos == 1 && _grpMenu.alive)
+		{
 			selector.y = 480;
 			
-			if(FlxG.keys.justPressed.Z && isKey == true){
+			if (FlxG.keys.justPressed.Z && isKey == true)
+			{
 				FlxG.switchState(new RhythmState());
 			}
 		}
 		
 		//Escape Option
-		if (selectorPos == 2 && _grpMenu.alive){
+		if (selectorPos == 2 && _grpMenu.alive)
+		{
 			selector.y = 520;
 			
-			if (FlxG.keys.justPressed.Z && isKey == true){
+			if (FlxG.keys.justPressed.Z && isKey == true)
+			{
 				FlxG.switchState(new PlayState());
 			}
 		}
