@@ -77,13 +77,10 @@ class PlayState extends FlxState
 		
 		//Camera
 		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
-		//FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON, 0.1);
 		
 		_map.loadEntities(placeEntities, "Entities");
 		
-		
 		FlxG.log.add("Added Enemy");
-		
 		
 		#if flash
 			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
