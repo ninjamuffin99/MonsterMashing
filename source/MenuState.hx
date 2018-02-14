@@ -14,8 +14,11 @@ class MenuState extends FlxState
 	
 	override public function create():Void
 	{
-		//mTxt = new FlxText("Press Z Play");
+		mTxt = new FlxText(0, 0, 0, "Press Z Play", 32);
+		mTxt.screenCenter();
 		mTxt.color = FlxColor.BLACK;
+		add(mTxt);
+		
 		FlxG.camera.bgColor =  0xFFa5a5a5;
 		
 		super.create();
@@ -23,7 +26,8 @@ class MenuState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.justPressed.Z){
+		if (FlxG.keys.justPressed.Z)
+		{
 			FlxG.switchState(new PlayState());
 		}
 		
