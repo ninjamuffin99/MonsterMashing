@@ -54,7 +54,7 @@ class PlayState extends FlxState
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
 		
-		_map = new FlxOgmoLoader("assets/data/Level.oel");
+		_map = new FlxOgmoLoader("assets/data/map.oel");
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		add(_mFloors);
