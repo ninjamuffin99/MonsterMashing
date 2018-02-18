@@ -124,8 +124,8 @@ class PlayState extends FlxState
 		
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
-			FlxG.switchState(new BattleState());
-			if (BattleState.outcome == VICTORY)
+			FlxG.switchState(new MashState());
+			if (MashState.outcome == VICTORY)
 			{
 				if (FlxG.overlap(_player, _enemy))
 				{
