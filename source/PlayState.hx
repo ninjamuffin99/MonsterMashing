@@ -14,25 +14,20 @@ import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
 import flixel.util.FlxSort;
+import nape.geom.Vec2List;
+import openfl.display.BlendMode;
+using flixel.util.FlxSpriteUtil;
 
 class PlayState extends FlxState
 {
-	static var min_x;
-	static var max_x;
-	static var min_y;
-	static var max_y;
-
 	private var _player:Player;
-	//private var _camTarget;
-
+	public var _enemy:Enemy;
+	
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
 	private var _grpDoors:FlxTypedGroup<Door>;
-	public var _enemy:Enemy;
-
-	//old map variable
-	//private var _map:TiledLevel;
 	
 	//private var _roomNum;
 	//private var _roomShow;
@@ -48,6 +43,7 @@ class PlayState extends FlxState
 	 */
 	private var _mWalls:FlxTilemap;
 	private var _mFloors:FlxTilemap;
+	private var _camTarget:FlxTilemap;
 
 	override public function create():Void
 	{
@@ -58,7 +54,7 @@ class PlayState extends FlxState
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
 		
-		_map = new FlxOgmoLoader("assets/data/level.oel");
+		_map = new FlxOgmoLoader("assets/data/map.oel");
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		add(_mFloors);
@@ -70,49 +66,27 @@ class PlayState extends FlxState
 		add(_grpDoors);
 		
 		
-		/* OLD SHIT BABY
-		_map = new TiledLevel(AssetPaths.mapTest__tmx, this);
-
-		add(_map.backgroundLayer);
-		add(_map.foregroundTiles);
-		//add(_map.);
-		//add(_map.black);
-		 misc adds pls ignore
-		add (_map.imagesLayer);
-		add(_map.BGObjects);
-		add(_map.foregroundObjects);
-		*/
-
 		_grpEntities = new FlxTypedGroup<FlxObject>();
 		add(_grpEntities);
-
+		
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
-
-		_player = new Player(200, 575);
+		
+		_player = new Player();
 		_grpEntities.add(_player);
+		
+		//Camera
+		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
 		
 		_map.loadEntities(placeEntities, "Entities");
 		
 		FlxG.log.add("Added Enemy");
 		
-		/*
-		//setup screen constraints
-		min_x = -FlxG.stage.stageWidth / 2;
-		max_x = FlxG.stage.stageWidth * 1.5;
-		min_y = -FlxG.stage.stageHeight / 2;
-		max_x = FlxG.stage.stageHeight * 1.5;
-		*/
-		/*
-		
-		// Loop music, Flash only
-		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__mp3);
-		// Loop music, non-Flash only
-		FlxG.sound.playMusic(AssetPaths.newgrounds_lhm__e__ogg);
-		*/
-		
-		//Cam
-		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
+		#if flash
+			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
+		#else
+			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__ogg);
+        #end
 		
 		
 		super.create();
@@ -140,6 +114,8 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		//processShadows();
+		
 		super.update(elapsed);
 		
 			
@@ -149,8 +125,10 @@ class PlayState extends FlxState
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
 			FlxG.switchState(new BattleState());
-			if (BattleState.outcome == VICTORY){
-				if (FlxG.overlap(_player, _enemy)){
+			if (BattleState.outcome == VICTORY)
+			{
+				if (FlxG.overlap(_player, _enemy))
+				{
 					destroy();
 				}
 			}
@@ -172,7 +150,7 @@ class PlayState extends FlxState
 			
 		}*/
 	}
-	
+
 	private function checkOverlap(d:Door):Void
 	{
 		if (FlxG.overlap(_player, d))
@@ -180,8 +158,6 @@ class PlayState extends FlxState
 			//Change this or something so that its not -48 and rather something that can be more dynamic
 			_player.y = getDoor(d).y - 48;
 		}
-		
-		
 	}
 	
 	private function getDoor(d:Door):Door
