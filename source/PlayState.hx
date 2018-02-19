@@ -121,7 +121,7 @@ class PlayState extends FlxState
 		
 		super.update(elapsed);
 		
-		//sets the camTarget to be always 
+		//sets the camTarget to be always 4.5 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 4.5);
 		
 		if (FlxG.keys.justPressed.TWO)
