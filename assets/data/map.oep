@@ -5,18 +5,18 @@
   <BackgroundColor A="255" R="128" G="128" B="128" />
   <GridColor A="255" R="0" G="64" B="128" />
   <LevelDefaultSize>
-    <Width>144</Width>
-    <Height>690</Height>
+    <Width>112</Width>
+    <Height>192</Height>
   </LevelDefaultSize>
   <LevelMinimumSize>
-    <Width>920</Width>
-    <Height>690</Height>
+    <Width>16</Width>
+    <Height>16</Height>
   </LevelMinimumSize>
   <LevelMaximumSize>
     <Width>920</Width>
     <Height>690</Height>
   </LevelMaximumSize>
-  <Filename>K:\Animations\HeistGame\assets\data\map.oep</Filename>
+  <Filename>C:\Users\NinjaMuffin\Documents\GitHub\HeistGame\assets\data\map.oep</Filename>
   <AngleMode>Degrees</AngleMode>
   <CameraEnabled>false</CameraEnabled>
   <CameraSize>
@@ -27,7 +27,7 @@
   <LevelValueDefinitions />
   <LayerDefinitions>
     <LayerDefinition xsi:type="TileLayerDefinition">
-      <Name>Walls</Name>
+      <Name>Floor</Name>
       <Grid>
         <Width>16</Width>
         <Height>16</Height>
@@ -39,7 +39,7 @@
       <ExportMode>CSV</ExportMode>
     </LayerDefinition>
     <LayerDefinition xsi:type="TileLayerDefinition">
-      <Name>Floor</Name>
+      <Name>Walls</Name>
       <Grid>
         <Width>16</Width>
         <Height>16</Height>
