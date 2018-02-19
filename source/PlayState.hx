@@ -16,7 +16,6 @@ import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
-import nape.geom.Vec2List;
 import openfl.display.BlendMode;
 using flixel.util.FlxSpriteUtil;
 
@@ -125,6 +124,8 @@ class PlayState extends FlxState
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
 			FlxG.switchState(new MashState());
+			
+			/*
 			if (MashState.outcome == VICTORY)
 			{
 				if (FlxG.overlap(_player, _enemy))
@@ -132,6 +133,7 @@ class PlayState extends FlxState
 					destroy();
 				}
 			}
+			*/
 		}
 		
 		_grpDoors.forEach(checkOverlap);

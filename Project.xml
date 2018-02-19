@@ -14,10 +14,10 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 	
 	<!--These window settings apply to all targets-->
-	<window width="920" height="690" fps="60" background="#000000" hardware="true" vsync="true" />
+	<window width="540" height="860" fps="60" background="#000000" hardware="true" vsync="true" />
 	
 	<!--HTML5-specific-->
-	<window if="html5" resizable="false" />
+	<window if="html5" resizable="true" />
 	
 	<!--Desktop-specific-->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
@@ -44,7 +44,7 @@
 	<!--<haxelib name="flixel-ui"/>-->
 	
 	<!--In case you want to use nape with flixel-->
-	<haxelib name="nape" />
+	<!--<haxelib name="nape" />-->
 	
 	<!--SWF-->
 	<!--<source path="Source" />-->
