@@ -42,18 +42,18 @@ class PlayState extends FlxState
 	 */
 	private var _mWalls:FlxTilemap;
 	private var _mFloors:FlxTilemap;
-	private var _camTarget:FlxTilemap;
+	private var _camTarget:FlxSprite;
 
 	override public function create():Void
 	{
 		//Set zoom on map
-		FlxG.camera.zoom = 2.5;
+		FlxG.camera.zoom = 5;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
 		
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
 		
-		_map = new FlxOgmoLoader("assets/data/map.oel");
+		_map = new FlxOgmoLoader("assets/data/sampleLevel1.oel");
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		add(_mFloors);
@@ -74,12 +74,16 @@ class PlayState extends FlxState
 		_player = new Player();
 		_grpEntities.add(_player);
 		
-		//Camera
-		FlxG.camera.follow(_player, FlxCameraFollowStyle.LOCKON, 0.1);
-		
 		_map.loadEntities(placeEntities, "Entities");
+		FlxG.log.add("Added Entities");
 		
-		FlxG.log.add("Added Enemy");
+		
+		//Camera
+		_camTarget = new FlxSprite(_player.x, _player.y);
+		_camTarget.makeGraphic(16, 16, FlxColor.TRANSPARENT);
+		add(_camTarget);
+		FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON, 0.1);
+		FlxG.log.add("Init Camera");
 		
 		#if flash
 			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
@@ -117,7 +121,9 @@ class PlayState extends FlxState
 		
 		super.update(elapsed);
 		
-			
+		//sets the camTarget to be always 
+		_camTarget.y = _player.y - (16 * 4.5);
+		
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
 		
