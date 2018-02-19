@@ -22,6 +22,13 @@ import openfl.geom.Point;
  * ...
  * @author brandybuizel
  */
-class MashState extends FlxState{
+class MashState extends FlxState
+{
+	override public function create():Void 
+	{
+		
+		
+		super.create();
+	}
 
 }
