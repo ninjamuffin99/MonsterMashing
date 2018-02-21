@@ -45,6 +45,7 @@ class PlayState extends FlxState
 	private var _mFloors2:FlxTilemap;
 	
 	private var _grpTilemaps:FlxTypedGroup<FlxTilemap>;
+	private var _grpWalls:FlxTypedGroup<FlxTilemap>;
 	
 	
 	private var _camTarget:FlxSprite;
@@ -58,9 +59,11 @@ class PlayState extends FlxState
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
 		
-		initTilemap();
+		_grpTilemaps = new FlxTypedGroup<FlxTilemap>();
+		add(_grpTilemaps);
 		
-		generateTilemap();
+		_grpWalls = new FlxTypedGroup<FlxTilemap>();
+		add(_grpWalls);
 		
 		_grpDoors = new FlxTypedGroup<Door>();
 		add(_grpDoors);
@@ -75,7 +78,8 @@ class PlayState extends FlxState
 		_player = new Player();
 		_grpEntities.add(_player);
 		
-		_map.loadEntities(placeEntities, "Entities");
+		initTilemap();
+		
 		FlxG.log.add("Added Entities");
 		
 		
@@ -84,6 +88,9 @@ class PlayState extends FlxState
 		_camTarget.makeGraphic(16, 16, FlxColor.TRANSPARENT);
 		add(_camTarget);
 		FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON);
+		//sets the camTarget to be always 4.5 tiles ahead of the player
+		_camTarget.y = _player.y - (16 * 4);
+		
 		FlxG.log.add("Init Camera");
 		
 		#if flash
@@ -98,16 +105,18 @@ class PlayState extends FlxState
 	
 	private function initTilemap():Void
 	{
-		_map = new FlxOgmoLoader("assets/data/01.oel");
+		_map = new FlxOgmoLoader("assets/data/start.oel");
+		_map.loadEntities(placeEntities, "Entities");
 		
-		_grpTilemaps = new FlxTypedGroup<FlxTilemap>();
-		add(_grpTilemaps);
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		_grpTilemaps.add(_mFloors);
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
-		_grpTilemaps.add(_mWalls);
+		_grpWalls.add(_mWalls);
+		
+		_map = new FlxOgmoLoader("assets/data/1.oel");
+		
 		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		_mFloors2.y -= _mFloors2.height;
@@ -115,7 +124,7 @@ class PlayState extends FlxState
 		
 		_mWalls2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
 		_mWalls2.y -= _mWalls2.height;
-		_grpTilemaps.add(_mWalls2);
+		_grpWalls.add(_mWalls2);
 		
 		
 		FlxG.watch.add(_mFloors, "y");
@@ -124,10 +133,20 @@ class PlayState extends FlxState
 		
 	}
 	
-	private function generateTilemap():Void
-	{
-		//This code does nothing right now! Don't bother uncommenting it!
-		//_map = new FlxOgmoLoader("assets/data/sampleLevel" + FlxG.random.int(1, 3) + ".oel");
+	private function generateTilemap(t:FlxTilemap, type:String):Void
+	{	
+		if (type == "Walls")
+			_grpWalls.remove(t);
+		if (type == "Floor")
+			_grpTilemaps.remove(t);
+		
+		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
+		t.y = 0 - t.height;
+		
+		if (type == "Walls")
+			_grpWalls.add(t);
+		if (type == "Floor")
+			_grpTilemaps.add(t);
 	}
 	
 	private function placeEntities(entityName:String, entityData:Xml):Void
@@ -152,17 +171,14 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		//processShadows();
-		
-		
 		super.update(elapsed);
 		
-		//sets the camTarget to be always 4.5 tiles ahead of the player
-		_camTarget.y = _player.y - (16 * 4.5);
+		
 		
 		//Runs every frame to move each tilemaps position, and also moves it up when appropriate.
 		_grpTilemaps.forEach(checkTilemapPos);
-
+		_grpWalls.forEach(checkWallPos);
+		
 		
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
@@ -188,8 +204,7 @@ class PlayState extends FlxState
 		
 		//Collision
 		_grpEntities.sort(FlxSort.byY, FlxSort.ASCENDING);
-		FlxG.collide(_player, _mWalls);
-		FlxG.collide(_player, _mWalls2);
+		FlxG.collide(_player, _grpWalls);
 		
 		//ROOM CODE
 		//This is gonna be a shitton of logic, hang on to your butts
@@ -202,15 +217,26 @@ class PlayState extends FlxState
 	
 	private function checkTilemapPos(t:FlxTilemap):Void
 	{
+		updatePos(t, "Floor");
+	}
+	
+	private function checkWallPos(w:FlxTilemap):Void
+	{
+		updatePos(w, "Walls");
+	}
+	
+	private function updatePos(t:FlxTilemap, type:String)
+	{
 		var speed:Float = 2;
 		t.y += speed;
 		
 		// if the tilemap's y pos, is greater than the height(864) divided by 5(because of the zoom), 
-		//and plus 2.5 tiles height(because of the _camTarget's position
 		//then it moves it 2 tilemap's up
-		if (t.y > FlxG.height / 5 + (16 * 2.5))
+		if (t.y > FlxG.height / 5)
 		{
-			t.y -= t.height * 2;
+			FlxG.log.add("Move tilemaps");
+			
+			generateTilemap(t, type);
 		}
 	}
 	
