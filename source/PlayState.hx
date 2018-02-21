@@ -37,11 +37,16 @@ class PlayState extends FlxState
 	 * The map data, loaded from Ogmo
 	 */
 	private var _map:FlxOgmoLoader;
-	/**
-	 * the actual tilemap that'll be displayed ingame
-	 */
+	
 	private var _mWalls:FlxTilemap;
 	private var _mFloors:FlxTilemap;
+	//The second group of tilemaps
+	private var _mWalls2:FlxTilemap;
+	private var _mFloors2:FlxTilemap;
+	
+	private var _grpTilemaps:FlxTypedGroup<FlxTilemap>;
+	
+	
 	private var _camTarget:FlxSprite;
 
 	override public function create():Void
@@ -53,13 +58,9 @@ class PlayState extends FlxState
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
 		
-		_map = new FlxOgmoLoader("assets/data/sampleLevel1.oel");
+		initTilemap();
 		
-		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
-		add(_mFloors);
-		
-		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
-		add(_mWalls);
+		generateTilemap();
 		
 		_grpDoors = new FlxTypedGroup<Door>();
 		add(_grpDoors);
@@ -95,6 +96,40 @@ class PlayState extends FlxState
 		super.create();
 	}
 	
+	private function initTilemap():Void
+	{
+		_map = new FlxOgmoLoader("assets/data/sampleLevel1.oel");
+		
+		_grpTilemaps = new FlxTypedGroup<FlxTilemap>();
+		add(_grpTilemaps);
+		
+		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
+		_grpTilemaps.add(_mFloors);
+		
+		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
+		_grpTilemaps.add(_mWalls);
+		
+		_mFloors2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
+		_mFloors2.y -= _mFloors2.height;
+		_grpTilemaps.add(_mFloors2);
+		
+		_mWalls2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
+		_mWalls2.y -= _mWalls2.height;
+		_grpTilemaps.add(_mWalls2);
+		
+		
+		FlxG.watch.add(_mFloors, "y");
+		FlxG.watch.add(_mFloors2, "y");
+		FlxG.log.add(FlxG.height);
+		
+	}
+	
+	private function generateTilemap():Void
+	{
+		//This code does nothing right now! Don't bother uncommenting it!
+		//_map = new FlxOgmoLoader("assets/data/sampleLevel" + FlxG.random.int(1, 3) + ".oel");
+	}
+	
 	private function placeEntities(entityName:String, entityData:Xml):Void
 	{
 		var x:Int = Std.parseInt(entityData.get("x"));
@@ -119,10 +154,14 @@ class PlayState extends FlxState
 	{
 		//processShadows();
 		
+		
 		super.update(elapsed);
 		
 		//sets the camTarget to be always 4.5 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 4.5);
+		
+		_grpTilemaps.forEach(checkTilemapPos);
+
 		
 		if (FlxG.keys.justPressed.TWO)
 			FlxG.switchState(new RhythmState());
@@ -149,6 +188,7 @@ class PlayState extends FlxState
 		//Collision
 		_grpEntities.sort(FlxSort.byY, FlxSort.ASCENDING);
 		FlxG.collide(_player, _mWalls);
+		FlxG.collide(_player, _mWalls2);
 		
 		//ROOM CODE
 		//This is gonna be a shitton of logic, hang on to your butts
@@ -158,6 +198,19 @@ class PlayState extends FlxState
 			
 		}*/
 	}
+	
+	private function checkTilemapPos(t:FlxTilemap):Void
+	{
+		var speed:Float = 2;
+		t.y += speed;
+		
+		if (t.y > FlxG.height / 5)
+		{
+			t.y -= t.height * 2;
+			FlxG.log.add("Moved Tilemap");
+		}
+	}
+	
 
 	private function checkOverlap(d:Door):Void
 	{
