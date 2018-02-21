@@ -98,7 +98,7 @@ class PlayState extends FlxState
 	
 	private function initTilemap():Void
 	{
-		_map = new FlxOgmoLoader("assets/data/sampleLevel1.oel");
+		_map = new FlxOgmoLoader("assets/data/01.oel");
 		
 		_grpTilemaps = new FlxTypedGroup<FlxTilemap>();
 		add(_grpTilemaps);
