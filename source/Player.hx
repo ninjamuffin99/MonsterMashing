@@ -73,7 +73,7 @@ class Player extends FlxSprite
 			 * Movement Angle
 			 */
 			var mA:Float = 0;
-			/*
+			
 			if (_up)
 			{
 				mA = -90;
@@ -92,9 +92,7 @@ class Player extends FlxSprite
 					mA -= 45;
 				facing = FlxObject.DOWN;
 			}
-			*/
-			
-			if (_left)
+			else if (_left)
 			{
 				facing = FlxObject.LEFT;
 				mA = 180;
