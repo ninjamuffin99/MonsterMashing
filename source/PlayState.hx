@@ -83,7 +83,7 @@ class PlayState extends FlxState
 		_camTarget = new FlxSprite(_player.x, _player.y);
 		_camTarget.makeGraphic(16, 16, FlxColor.TRANSPARENT);
 		add(_camTarget);
-		FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON, 0.1);
+		FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON);
 		FlxG.log.add("Init Camera");
 		
 		#if flash
@@ -160,6 +160,7 @@ class PlayState extends FlxState
 		//sets the camTarget to be always 4.5 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 4.5);
 		
+		//Runs every frame to move each tilemaps position, and also moves it up when appropriate.
 		_grpTilemaps.forEach(checkTilemapPos);
 
 		
@@ -204,10 +205,12 @@ class PlayState extends FlxState
 		var speed:Float = 2;
 		t.y += speed;
 		
-		if (t.y > FlxG.height / 5)
+		// if the tilemap's y pos, is greater than the height(864) divided by 5(because of the zoom), 
+		//and plus 2.5 tiles height(because of the _camTarget's position
+		//then it moves it 2 tilemap's up
+		if (t.y > FlxG.height / 5 + (16 * 2.5))
 		{
 			t.y -= t.height * 2;
-			FlxG.log.add("Moved Tilemap");
 		}
 	}
 	
