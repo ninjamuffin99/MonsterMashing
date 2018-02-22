@@ -137,6 +137,8 @@ class PlayState extends FlxState
 		if (type == "Floor")
 			_grpTilemaps.remove(t);
 		
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 3) + ".oel");
+		
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
 		t.y = 0 - t.height;
 		
