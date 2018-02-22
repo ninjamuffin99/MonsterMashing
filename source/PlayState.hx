@@ -53,7 +53,7 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		//Set zoom on map
-		FlxG.camera.zoom = 5;
+		FlxG.camera.zoom = 3;
 		FlxG.camera.bgColor = 0xFFa5a5a5;
 		
 		//Who needs a mouse when you have Z
@@ -108,7 +108,6 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		_map.loadEntities(placeEntities, "Entities");
 		
-		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		_grpTilemaps.add(_mFloors);
 		
@@ -116,8 +115,7 @@ class PlayState extends FlxState
 		_grpWalls.add(_mWalls);
 		
 		_map = new FlxOgmoLoader("assets/data/1.oel");
-		
-		
+				
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		_mFloors2.y -= _mFloors2.height;
 		_grpTilemaps.add(_mFloors2);
@@ -125,7 +123,6 @@ class PlayState extends FlxState
 		_mWalls2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
 		_mWalls2.y -= _mWalls2.height;
 		_grpWalls.add(_mWalls2);
-		
 		
 		FlxG.watch.add(_mFloors, "y");
 		FlxG.watch.add(_mFloors2, "y");
