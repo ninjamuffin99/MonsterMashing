@@ -124,19 +124,19 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/1.oel");
 				
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
-		_mFloors2.y -= _mFloors2.height;
+		_mFloors2.y -= 16 * 12;
 		_grpTilemaps.add(_mFloors2);
 		
 		_mWalls2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
-		_mWalls2.y -= _mWalls2.height;
+		_mWalls2.y -= 16 * 12;
 		_grpWalls.add(_mWalls2);
 				
 		_mFloors3 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
-		_mFloors3.y -= _mFloors3.height * 2;
+		_mFloors3.y -= 16 * 12 * 2;
 		_grpTilemaps.add(_mFloors3);
 		
 		_mWalls3 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
-		_mWalls3.y -= _mWalls3.height * 2;
+		_mWalls3.y -= 16 * 12 * 2;
 		_grpWalls.add(_mWalls3);
 		
 		FlxG.log.add(_mFloors.y);
@@ -251,7 +251,7 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 3) + ".oel");
 		
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
-		t.y -= t.height;
+		t.y -= 16 * 12;
 		
 		if (type == "Walls")
 		{
