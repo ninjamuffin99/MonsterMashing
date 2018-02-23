@@ -95,7 +95,7 @@ class PlayState extends FlxState
 		add(_camTarget);
 		FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON);
 		//sets the camTarget to be always 4.5 tiles ahead of the player
-		_camTarget.y = _player.y - (16 * 4);
+		_camTarget.y = _player.y - (16 * 8);
 		_camTarget.x += 16 * 1.5;
 		
 		FlxG.log.add("Init Camera");
@@ -243,8 +243,6 @@ class PlayState extends FlxState
 	
 	private function generateTilemap(t:FlxTilemap, type:String):Void
 	{	
-		t.y -= t.height * 2;
-		
 		if (type == "Walls")
 			_grpWalls.remove(t);
 		if (type == "Floor")
@@ -253,7 +251,7 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 3) + ".oel");
 		
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
-		
+		t.y -= t.height;
 		
 		if (type == "Walls")
 		{
