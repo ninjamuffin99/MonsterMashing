@@ -16,10 +16,7 @@ class MenuState extends FlxState
 	{
 		mTxt = new FlxText(0, 0, 0, "Press Z Play", 32);
 		mTxt.screenCenter();
-		mTxt.color = FlxColor.BLACK;
 		add(mTxt);
-		
-		FlxG.camera.bgColor =  0xFFa5a5a5;
 		
 		super.create();
 	}
