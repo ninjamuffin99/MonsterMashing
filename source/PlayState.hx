@@ -12,6 +12,8 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
@@ -21,6 +23,8 @@ using flixel.util.FlxSpriteUtil;
 
 class PlayState extends FlxState
 {
+	private var speed:Float = 2;
+	
 	private var _player:Player;
 	public var _enemy:Enemy;
 	
@@ -54,7 +58,6 @@ class PlayState extends FlxState
 	{
 		//Set zoom on map
 		FlxG.camera.zoom = 3;
-		FlxG.camera.bgColor = 0xFFa5a5a5;
 		
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
@@ -90,6 +93,7 @@ class PlayState extends FlxState
 		FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON);
 		//sets the camTarget to be always 4.5 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 4);
+		_camTarget.x += 16 * 1.5;
 		
 		FlxG.log.add("Init Camera");
 		
@@ -168,11 +172,25 @@ class PlayState extends FlxState
 		}
 	}
 
+	private var speedAccel:Float = 1;
+	
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
 		
-		
+		if (_player._up)
+		{
+			speedAccel += 0.01;
+			speed = 2.8 * speedAccel;
+		}
+		else
+		{
+			if (speedAccel > 1)
+			{
+				speedAccel -= 0.015;
+			}
+			speed = 2 * speedAccel;
+		}
 		
 		//Runs every frame to move each tilemaps position, and also moves it up when appropriate.
 		_grpTilemaps.forEach(checkTilemapPos);
@@ -226,7 +244,6 @@ class PlayState extends FlxState
 	
 	private function updatePos(t:FlxTilemap, type:String)
 	{
-		var speed:Float = 2;
 		t.y += speed;
 		
 		// if the tilemap's y pos, is greater than the height(864) divided by 5(because of the zoom), 

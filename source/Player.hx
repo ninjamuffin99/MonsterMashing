@@ -13,6 +13,10 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 class Player extends FlxSprite
 {
 	private var speed:Float = 150;
+	
+	public var _up:Bool = false;
+	public var _upR:Bool = false;
+	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
@@ -55,10 +59,12 @@ class Player extends FlxSprite
 	//Movement controls
 	private function controls():Void
 	{
-		var _up = FlxG.keys.anyPressed([UP, W]);
+		_up = FlxG.keys.anyPressed([UP, W]);
 		var _down = FlxG.keys.anyPressed([DOWN, S]);
 		var _left = FlxG.keys.anyPressed([LEFT, A]);
 		var _right = FlxG.keys.anyPressed([RIGHT, D]);
+		
+		_upR = FlxG.keys.anyJustReleased([UP, W]);
 		
 		if (_up && _down)
 			_up = _down = false;
@@ -67,13 +73,13 @@ class Player extends FlxSprite
 		
 		animation.play("u");
 		
-		if (_up || _down || _left || _right)
+		if (/*_up || _down || */_left || _right)
 		{
 			/**
 			 * Movement Angle
 			 */
 			var mA:Float = 0;
-			
+			/*
 			if (_up)
 			{
 				mA = -90;
@@ -92,7 +98,8 @@ class Player extends FlxSprite
 					mA -= 45;
 				facing = FlxObject.DOWN;
 			}
-			else if (_left)
+			*/
+			if (_left)
 			{
 				facing = FlxObject.LEFT;
 				mA = 180;
