@@ -122,7 +122,7 @@ class PlayState extends FlxState
 		_grpWalls.add(_mWalls);
 		
 		_map = new FlxOgmoLoader("assets/data/1.oel");
-				
+		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
 		_mFloors2.y -= 16 * 12;
 		_grpTilemaps.add(_mFloors2);
@@ -130,9 +130,9 @@ class PlayState extends FlxState
 		_mWalls2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
 		_mWalls2.y -= 16 * 12;
 		_grpWalls.add(_mWalls2);
-				
+		
 		_mFloors3 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
-		_mFloors3.y -= 16 * 12 * 2;
+		_mFloors3.y = 16 * 12 * 2;
 		_grpTilemaps.add(_mFloors3);
 		
 		_mWalls3 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
@@ -235,7 +235,7 @@ class PlayState extends FlxState
 		
 		// if the tilemap's y pos, is greater than the height(864) divided by 5(because of the zoom), 
 		//then it moves it 2 tilemap's up
-		if (t.y >= FlxG.height / FlxG.camera.zoom)
+		if (t.y >= _player.y + (16 * 4))
 		{
 			generateTilemap(t, type);
 		}
@@ -251,7 +251,8 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 3) + ".oel");
 		
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
-		t.y -= 16 * 12;
+		t.y -= t.height * 2;
+		FlxG.log.add(t.y);
 		
 		if (type == "Walls")
 		{
