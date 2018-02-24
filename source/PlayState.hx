@@ -24,6 +24,7 @@ using flixel.util.FlxSpriteUtil;
 class PlayState extends FlxState
 {
 	private var speed:Float = 2;
+	private var maxSpeed:Float = 17;
 	
 	private var _player:Player;
 	public var _enemy:Enemy;
@@ -174,29 +175,27 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		FlxG.watch.add(_grpTilemaps.members[0], "y");
-		FlxG.watch.add(_grpTilemaps.members[1], "y");
-		FlxG.watch.add(_grpTilemaps.members[2], "y");
-		
 		FlxG.watch.add(_grpTilemaps, "members");
+		FlxG.watch.add(this, "speed");
+		
+		if (speed > maxSpeed)
+		{
+			speed = maxSpeed;
+		}
 		
 		if (_player._up)
 		{
-			speedAccel += 0.01;
-			speed = Std.int(2.8 * speedAccel);
+			speed *= 1.035;
 		}
 		else
 		{
-			if (FlxG.random.bool(5 / 60))
-			{
-				speed *= 0.75;
-			}
-			speed = FlxMath.roundDecimal(speed, 0);
+			speed -= 0.5 / 60;
 		}
 		
 		//Runs every frame to move each tilemaps position, and also moves it up when appropriate.
 		_grpTilemaps.forEach(checkTilemapPos);
 		_grpWalls.forEach(checkWallPos);
+		_grpEnemies.forEach(updateEnemyPos);
 		
 		if (FlxG.overlap(_player, _grpEnemies))
 		{
@@ -219,6 +218,16 @@ class PlayState extends FlxState
 		
 		//Collision
 		FlxG.collide(_player, _grpWalls);
+	}
+	
+	private function updateEnemyPos(e:Enemy):Void
+	{
+		e.y += speed;
+		
+		if (e.y > FlxG.height / FlxG.camera.zoom)
+		{
+			_grpEnemies.remove(e, true);
+		}
 	}
 	
 	private function checkTilemapPos(t:FlxTilemap):Void
@@ -268,6 +277,17 @@ class PlayState extends FlxState
 		{
 			t.y = _grpTilemaps.members[0].y - t.height * 2;
 			_grpTilemaps.add(t);
+			
+			//also spawns enemy
+			var enemyAmount:Int = FlxG.random.int(0, 3);
+			while (enemyAmount > 0)
+			{
+				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(1, 4)), t.y + (16 * FlxG.random.int(0, 12)), 0));
+				FlxG.log.add("Added enemy");
+				
+				enemyAmount -= 1;
+			}
+			
 		}
 	}
 	
