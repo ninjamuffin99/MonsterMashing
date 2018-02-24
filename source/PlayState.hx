@@ -178,18 +178,20 @@ class PlayState extends FlxState
 		FlxG.watch.add(_grpTilemaps.members[1], "y");
 		FlxG.watch.add(_grpTilemaps.members[2], "y");
 		
+		FlxG.watch.add(_grpTilemaps, "members");
+		
 		if (_player._up)
 		{
 			speedAccel += 0.01;
-			speed = 2.8 * speedAccel;
+			speed = Std.int(2.8 * speedAccel);
 		}
 		else
 		{
-			if (speedAccel > 1)
+			if (FlxG.random.bool(5 / 60))
 			{
-				speedAccel -= 0.015;
+				speed *= 0.75;
 			}
-			speed = 2 * speedAccel;
+			speed = FlxMath.roundDecimal(speed, 0);
 		}
 		
 		//Runs every frame to move each tilemaps position, and also moves it up when appropriate.
@@ -244,22 +246,27 @@ class PlayState extends FlxState
 	private function generateTilemap(t:FlxTilemap, type:String):Void
 	{	
 		if (type == "Walls")
-			_grpWalls.remove(t);
+		{
+			_grpWalls.remove(t, true);
+		}
 		if (type == "Floor")
-			_grpTilemaps.remove(t);
+		{
+			_grpTilemaps.remove(t, true);
+		}
 		
 		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 3) + ".oel");
 		
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
-		t.y = 0 - t.height * 2;
-		FlxG.log.add(t.y);
+		//t.y = 0 - t.height * 2;
 		
 		if (type == "Walls")
 		{
+			t.y = _grpWalls.members[0].y - t.height * 2;
 			_grpWalls.add(t);
 		}
 		if (type == "Floor")
 		{
+			t.y = _grpTilemaps.members[0].y - t.height * 2;
 			_grpTilemaps.add(t);
 		}
 	}
