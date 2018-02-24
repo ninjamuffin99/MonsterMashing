@@ -155,7 +155,7 @@ class Player extends FlxSprite
 			
 			if (boostTimer <= 0)
 			{
-				boostTimer = 1;
+				boostTimer = 0.25;
 				FlxG.log.add("left pressed boost up");
 				
 				if (_leftP)
@@ -166,7 +166,7 @@ class Player extends FlxSprite
 			}
 			else
 			{
-				var dash:Float = 850;
+				var dash:Float = 1000;
 				if (_leftP && boostLorR == "left")
 				{
 					velocity.x -= dash;
