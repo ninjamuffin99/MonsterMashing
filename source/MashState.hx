@@ -18,9 +18,9 @@ class MashState extends FlxSubState
 	public static var outcome:Outcome;
 	
 	private var _enemySprite:FlxSprite;
-	
 	private var thisCam:FlxCamera;
 	
+	private var maxShake:Float = 0.05;
 	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
 	{
@@ -47,6 +47,19 @@ class MashState extends FlxSubState
 		
 		
 		super.create();
+	}
+	
+	override public function update(elapsed:Float):Void 
+	{
+		super.update(elapsed);
+		
+		if (FlxG.keys.justPressed.SPACE)
+		{
+			thisCam.shake(FlxG.random.float(0.01, maxShake), FlxG.random.float(0.05, 0.2));
+			maxShake += FlxG.random.float(0.01, 0.02);
+			
+		}
+		
 	}
 	
 	
