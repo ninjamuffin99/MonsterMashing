@@ -4,6 +4,8 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 
 /**
@@ -25,7 +27,6 @@ class MashState extends FlxSubState
 		super(BGColor);
 		FlxG.camera.flash();
 		
-		
 		outcome = NONE;
 		
 	}
@@ -36,12 +37,13 @@ class MashState extends FlxSubState
 		FlxG.cameras.add(thisCam);
 		thisCam.bgColor = FlxColor.TRANSPARENT;
 		
-		_enemySprite = new FlxSprite(0,0);
+		_enemySprite = new FlxSprite(0, 0);
 		_enemySprite.loadGraphic(AssetPaths.spr_mush_new__png, false, 800, 1200);
 		add(_enemySprite);
 		
 		thisCam.focusOn(_enemySprite.getMidpoint());
 		
+		FlxTween.tween(_enemySprite, {y: _enemySprite.y + 180}, 1.3, {ease:FlxEase.elasticOut});
 		
 		
 		super.create();
