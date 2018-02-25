@@ -1,34 +1,60 @@
 package;
 
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.FlxSubState;
-import flixel.addons.effects.chainable.FlxEffectSprite;
-import flixel.addons.effects.chainable.FlxWaveEffect;
-import flixel.group.FlxSpriteGroup;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import openfl.geom.Matrix;
-import openfl.geom.Point;
-//import ui.Strings;
-//import ui.StringIDs;
 
 /**
  * ...
- * @author brandybuizel
+ * @author ninjaMuffin
  */
-class MashState extends FlxState
+class MashState extends FlxSubState 
 {
+	
+	public static var outcome:Outcome;
+	
+	private var _enemySprite:FlxSprite;
+	
+	private var thisCam:FlxCamera;
+	
+	
+	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
+	{
+		super(BGColor);
+		FlxG.camera.flash();
+		
+		
+		outcome = NONE;
+		
+	}
+	
 	override public function create():Void 
 	{
+		thisCam = new FlxCamera(0, 0, FlxG.width, FlxG.height, 1);
+		FlxG.cameras.add(thisCam);
+		thisCam.bgColor = FlxColor.TRANSPARENT;
+		
+		_enemySprite = new FlxSprite(0,0);
+		_enemySprite.loadGraphic(AssetPaths.spr_mush_new__png, false, 800, 1200);
+		add(_enemySprite);
+		
+		thisCam.focusOn(_enemySprite.getMidpoint());
+		
 		
 		
 		super.create();
 	}
+	
+	
+	
+}
 
+enum Outcome
+{
+	NONE;
+	ESCAPE;
+	VICTORY;//COMPLETION
+	DEFEAT;//SUBMISSION
 }
