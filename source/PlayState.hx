@@ -197,20 +197,7 @@ class PlayState extends FlxState
 		_grpWalls.forEach(checkWallPos);
 		_grpEnemies.forEach(updateEnemyPos);
 		
-		if (FlxG.overlap(_player, _grpEnemies))
-		{
-			openSubState(new MashState(0x77000000));
-			
-			/*
-			if (MashState.outcome == VICTORY)
-			{
-				if (FlxG.overlap(_player, _enemy))
-				{
-					destroy();
-				}
-			}
-			*/
-		}
+		
 		
 		_grpDoors.forEach(checkOverlap);
 		
@@ -222,6 +209,22 @@ class PlayState extends FlxState
 	
 	private function updateEnemyPos(e:Enemy):Void
 	{
+		//also check if overlapping player in this func uh oh lol
+		
+		if (FlxG.overlap(_player, e))
+		{
+			if (MashState.outcome == MashState.Outcome.VICTORY)
+			{
+				e.kill();
+				MashState.outcome = MashState.Outcome.NONE;
+			}
+			else
+			{
+				openSubState(new MashState(0x77000000));
+			}
+		}
+		
+		//ok heres the real shit
 		e.y += speed;
 		
 		if (e.y > FlxG.height / FlxG.camera.zoom)
