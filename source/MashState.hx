@@ -67,6 +67,7 @@ class MashState extends FlxSubState
 		{
 			outcome = VICTORY;
 			
+			
 			FlxTween.tween(_enemySprite, {y: FlxG.height + 400}, 1.25, {ease:FlxEase.quartInOut});
 			FlxTween.tween(_barTimer, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
 			
@@ -78,8 +79,8 @@ class MashState extends FlxSubState
 		
 		if (FlxG.keys.justPressed.SPACE)
 		{
-			thisCam.shake(FlxG.random.float(0.01, maxShake), FlxG.random.float(0.05, 0.2));
-			maxShake += FlxG.random.float(0.01, 0.02);
+			thisCam.shake(FlxG.random.float(0.01, 0.015), FlxG.random.float(0.05, 0.2));
+			maxShake += FlxG.random.float(0.005, 0.01);
 			
 			_enemyHealth -= FlxG.random.float(0.8, 2.3);
 		}
@@ -89,6 +90,7 @@ class MashState extends FlxSubState
 	private function finishTween(tween:FlxTween):Void
 	{
 		FlxG.camera.flash();
+		FlxG.cameras.remove(thisCam);
 		close();
 	}
 	
