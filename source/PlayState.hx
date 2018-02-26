@@ -215,6 +215,7 @@ class PlayState extends FlxState
 		{
 			if (MashState.outcome == MashState.Outcome.VICTORY)
 			{
+				speed += FlxG.random.float(2.5, 4);
 				e.kill();
 				MashState.outcome = MashState.Outcome.NONE;
 			}
@@ -285,7 +286,7 @@ class PlayState extends FlxState
 			var enemyAmount:Int = FlxG.random.int(0, 3);
 			while (enemyAmount > 0)
 			{
-				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(1, 4)), t.y + (16 * FlxG.random.int(0, 12)), 0));
+				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(0, 12)), 0));
 				FlxG.log.add("Added enemy");
 				
 				enemyAmount -= 1;
