@@ -55,6 +55,9 @@ class PlayState extends FlxState
 	private var _grpTilemaps:FlxTypedGroup<FlxTilemap>;
 	private var _grpWalls:FlxTypedGroup<FlxTilemap>;
 	
+	private var _txtScore:FlxText;
+	private var score:Float;
+	
 	
 	private var _camTarget:FlxSprite;
 
@@ -100,6 +103,8 @@ class PlayState extends FlxState
 		_camTarget.x += 16 * 1.5;
 		
 		FlxG.log.add("Init Camera");
+		
+		initHUD();
 		
 		#if flash
 			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
@@ -149,6 +154,15 @@ class PlayState extends FlxState
 		
 	}
 	
+	private function initHUD():Void
+	{
+		score = 0;
+		
+		_txtScore = new FlxText( 8, 25, 0, "", 8);
+		_txtScore.y = _player.y - 16 * 15;
+		add(_txtScore);
+	}
+	
 	private function placeEntities(entityName:String, entityData:Xml):Void
 	{
 		var x:Int = Std.parseInt(entityData.get("x"));
@@ -191,6 +205,10 @@ class PlayState extends FlxState
 		{
 			speed -= 0.5 / 60;
 		}
+		
+		score += speed;
+		_txtScore.text = "Distance: " + Std.int(score);
+		
 		
 		//Runs every frame to move each tilemaps position, and also moves it up when appropriate.
 		_grpTilemaps.forEach(checkTilemapPos);
