@@ -98,8 +98,9 @@ class PlayState extends FlxState
 		_camTarget.makeGraphic(16, 16, FlxColor.TRANSPARENT);
 		add(_camTarget);
 		FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON);
-		//sets the camTarget to be always 4.5 tiles ahead of the player
+		//sets the camTarget to be always 8 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 8);
+		//and 1.5 tiles to the right, so that the gameplay is offset to the left
 		_camTarget.x += 16 * 1.5;
 		
 		FlxG.log.add("Init Camera");
@@ -118,6 +119,7 @@ class PlayState extends FlxState
 	
 	private function initTilemap():Void
 	{
+		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		_map.loadEntities(placeEntities, "Entities");
 		
@@ -127,6 +129,7 @@ class PlayState extends FlxState
 		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
 		_grpWalls.add(_mWalls);
 		
+		//loads a new oel to use, this time one with seamless tops and bottoms
 		_map = new FlxOgmoLoader("assets/data/1.oel");
 		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
@@ -194,11 +197,13 @@ class PlayState extends FlxState
 		FlxG.watch.add(_grpTilemaps, "members");
 		FlxG.watch.add(this, "speed");
 		
+		//if speed is greater than maxSpeed(15 as of writing), it lowers it to maxSpeed
 		if (speed > maxSpeed)
 		{
 			speed = maxSpeed;
 		}
 		
+		//gives the player a few seconds before it starts to decrease the speed
 		if (startingTimer > 0)
 		{
 			startingTimer -= FlxG.elapsed;
@@ -209,7 +214,9 @@ class PlayState extends FlxState
 		}
 		
 		
-		
+		//if the players speed gets too low, it returns to MenuState
+		//eventually this will be replaced with a small little sequence
+		//of stuff rather than just jump straight to a game over style screen
 		if (speed < 0.25)
 		{
 			FlxG.switchState(new MenuState());
@@ -224,12 +231,8 @@ class PlayState extends FlxState
 		_grpTilemaps.forEach(checkTilemapPos);
 		_grpWalls.forEach(checkWallPos);
 		_grpEnemies.forEach(updateEnemyPos);
-		
-		
-		
 		_grpDoors.forEach(checkOverlap);
 		
-		//_map.collideWithLevel(_player);
 		
 		//Collision
 		FlxG.collide(_player, _grpWalls);
@@ -241,6 +244,9 @@ class PlayState extends FlxState
 		
 		if (FlxG.overlap(_player, e))
 		{
+			//if the MashState's outcome is VICTORY(from a battle)
+			//it kills the enemy, and increases your speed
+			//and changes the outcome to NONE so that its not constantly increasing the speed
 			if (MashState.outcome == MashState.Outcome.VICTORY)
 			{
 				speed += FlxG.random.float(1.5, 3);
@@ -249,6 +255,7 @@ class PlayState extends FlxState
 			}
 			else
 			{
+				//if the state isnt VICTORY, then it opens a new battle
 				openSubState(new MashState(0x77000000));
 			}
 		}
@@ -256,6 +263,7 @@ class PlayState extends FlxState
 		//ok heres the real shit
 		e.y += speed;
 		
+		//if an enemy is below the camera's lower bounds, then it fuccin dies
 		if (e.y > FlxG.height / FlxG.camera.zoom)
 		{
 			_grpEnemies.remove(e, true);
@@ -272,6 +280,12 @@ class PlayState extends FlxState
 		updatePos(w, "Walls");
 	}
 	
+	/**
+	 * 
+	 * @param	t A FlxTilemap that'll get moved down the screen, and checked if it should be re-generated or shit
+	 * @param	type A string, with what the layer name is called in the oel/oep, mostly used
+	 * in the generateTilemap() function to keep _grpWalls and _grpTilemaps seperated. It should only be either "Walls" or "Floor"
+	 */
 	private function updatePos(t:FlxTilemap, type:String)
 	{
 		t.y += speed;
@@ -286,6 +300,9 @@ class PlayState extends FlxState
 	
 	private function generateTilemap(t:FlxTilemap, type:String):Void
 	{	
+		//basically, the tilemap actually needs to be removed entirely to be updated with a new _map/.oel file
+		//to keep the _grpWalls/_grpTilemaps simple, it also has splice set to true
+		//which also helps with the positioning shit i guess
 		if (type == "Walls")
 		{
 			_grpWalls.remove(t, true);
@@ -295,11 +312,14 @@ class PlayState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
+		//loads new tilemap data to _map, from a .oel file
 		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 3) + ".oel");
 		
+		//loads the _map data to the current tilemap(t), and has type shit too
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
-		//t.y = 0 - t.height * 2;
 		
+		//if the type is "Walls", it simply adds the tilemap back in
+		//if it's "Floor", then it also spawns some enemies, more info below
 		if (type == "Walls")
 		{
 			t.y = _grpWalls.members[0].y - t.height * 2;
@@ -311,7 +331,9 @@ class PlayState extends FlxState
 			_grpTilemaps.add(t);
 			
 			//also spawns enemy
+			//picks a random amount of enemies from 0-3
 			var enemyAmount:Int = FlxG.random.int(0, 3);
+			//loops 
 			while (enemyAmount > 0)
 			{
 				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(0, 12)), 0));
