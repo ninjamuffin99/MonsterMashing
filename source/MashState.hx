@@ -50,7 +50,7 @@ class MashState extends FlxSubState
 		add(_enemySprite);
 		
 		//then the health bar is added, which tracks the _enemyHealth variable
-		_barhealth = new FlxBar(32, 0-16, FlxBarFillDirection.LEFT_TO_RIGHT, FlxG.width - 64, 16, this, "_enemyHealth", 0, 10);
+		_barHealth = new FlxBar(32, 0-16, FlxBarFillDirection.LEFT_TO_RIGHT, FlxG.width - 64, 16, this, "_enemyHealth", 0, 10);
 		add(_barHealth);
 		
 		//scroll factor set to 0 since it's HUD shits
