@@ -185,6 +185,8 @@ class PlayState extends FlxState
 
 	private var speedAccel:Float = 1;
 	
+	private var startingTimer:Float = 4;
+	
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
@@ -197,14 +199,22 @@ class PlayState extends FlxState
 			speed = maxSpeed;
 		}
 		
-		if (_player._up)
+		if (startingTimer > 0)
 		{
-			speed *= 1.035;
+			startingTimer -= FlxG.elapsed;
 		}
 		else
 		{
 			speed -= 0.5 / 60;
 		}
+		
+		
+		
+		if (speed < 0.25)
+		{
+			FlxG.switchState(new MenuState());
+		}
+		
 		
 		score += speed;
 		_txtScore.text = "Distance: " + Std.int(score);
@@ -233,7 +243,7 @@ class PlayState extends FlxState
 		{
 			if (MashState.outcome == MashState.Outcome.VICTORY)
 			{
-				speed += FlxG.random.float(2.5, 4);
+				speed += FlxG.random.float(1.5, 3);
 				e.kill();
 				MashState.outcome = MashState.Outcome.NONE;
 			}
