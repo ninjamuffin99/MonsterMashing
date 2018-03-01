@@ -31,15 +31,17 @@ class MenuState extends FlxState
 		bg.screenCenter(X);
 		add(bg);
 		
-		mTxt = new FlxText(0, 0, 0, "MONSTER MASHING\nWIP TITLE SCREEN LMAOO\nPress Z Play", 32);
+		mTxt = new FlxText(0, 0, 0, "MONSTER MASHING\nPress Z Play", 32);
 		mTxt.screenCenter();
+		mTxt.y += 40;
 		add(mTxt);
-		mScore = new FlxText(0, FlxG.height / 2 + 70, 0, "High Score: " + HighScore.score, 32);
+		
+		mScore = new FlxText(0, FlxG.height / 2 + 110, 0, "High Score: " + HighScore.score, 32);
 		mScore.screenCenter(X);
 		add(mScore);
 		
 		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
 		#if flash
 			if (API.isNewgrounds)
