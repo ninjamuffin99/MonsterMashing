@@ -108,9 +108,9 @@ class PlayState extends FlxState
 		initHUD();
 		
 		#if flash
-			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
+			FlxG.sound.playMusic(AssetPaths.Silverline__mp3);
 		#else
-			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__ogg);
+			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);
         #end
 		
 		
@@ -337,7 +337,7 @@ class PlayState extends FlxState
 			//loops 
 			while (enemyAmount > 0)
 			{
-				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(0, 12)), 0));
+				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), 0));
 				FlxG.log.add("Added enemy");
 				
 				enemyAmount -= 1;
