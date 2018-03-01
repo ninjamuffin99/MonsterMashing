@@ -4,6 +4,8 @@ import flixel.FlxGame;
 //import js.SWFObject;
 import openfl.display.Sprite;
 import openfl.Assets;
+import com.newgrounds.*;
+import com.newgrounds.components.*;
 
 class Main extends Sprite
 {
