@@ -79,7 +79,7 @@ class MashState extends FlxSubState
 		//thisCam is then set to center on the middle of _enemySprite
 		thisCam.focusOn(_enemySprite.getMidpoint());
 		
-		_mashSprite = new FlxSprite(0, 0);
+		_mashSprite = new FlxSprite(0, 800);
 		_mashSprite.loadGraphic("assets/images/left and right.png", true, 64, 32);
 		_mashSprite.animation.add("mashin", [0, 1], 6);
 		_mashSprite.animation.play("mashin");
@@ -91,7 +91,7 @@ class MashState extends FlxSubState
 		//then shit gets tweened
 		FlxTween.tween(_barHealth, {y: 16}, 0.7, {ease:FlxEase.cubeInOut});
 		FlxTween.tween(_enemySprite, {y: _enemySprite.y + 210}, 0.7, {ease:FlxEase.quadIn});
-		FlxTween.tween(_mashSprite, {y: 800}, 0.7, {ease:FlxEase.quadIn});
+		//FlxTween.tween(_mashSprite, {y: 800}, 0.7, {ease:FlxEase.quadIn});
 		
 		super.create();
 	}
@@ -115,7 +115,7 @@ class MashState extends FlxSubState
 		{
 			//always increases the y for some visual polish i guess hey i think its cool get off my dick bitch
 			_enemySprite.y += 0.5;
-			_mashSprite.y += 0.75;
+			//_mashSprite.y += 0.75;
 		}
 		
 		if (_enemyHealth <= 0)
