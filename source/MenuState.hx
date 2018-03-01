@@ -23,7 +23,6 @@ class MenuState extends FlxState
 		mScore.screenCenter(X);
 		add(mScore);
 		
-
 		//add(hScore);
 		
 		super.create();

@@ -222,6 +222,7 @@ class PlayState extends FlxState
 		//of stuff rather than just jump straight to a game over style screen
 		if (speed < 0.25 || _player.y > 247)
 		{
+			//Add score here
 			FlxG.switchState(new MenuState());
 		}
 		
@@ -326,7 +327,7 @@ class PlayState extends FlxState
 		}
 		
 		//loads new tilemap data to _map, from a .oel file
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 7) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 8) + ".oel");
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
