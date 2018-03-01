@@ -347,6 +347,7 @@ class PlayState extends FlxState
 			//also spawns enemy
 			//picks a random amount of enemies from 0-3
 			var enemyAmount:Int = FlxG.random.int(1, 3);
+			var enemyType:Int = FlxG.random.int(1, 2);
 			//loops 
 			while (enemyAmount > 0)
 			{
