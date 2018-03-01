@@ -193,7 +193,7 @@ class Player extends FlxSprite
 			{
 				if (touch.pressed) 
 				{
-					if (touch.screenX >= x)
+					if (touch.x >= x)
 					{
 						_right = true;
 					}

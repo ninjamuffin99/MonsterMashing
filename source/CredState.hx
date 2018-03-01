@@ -78,6 +78,8 @@ class CredState extends FlxState
 	
 	private function mobileShit():Void
 	{
+		
+		
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.justPressed) 
