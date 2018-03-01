@@ -351,7 +351,7 @@ class PlayState extends FlxState
 		}
 		
 		//loads new tilemap data to _map, from a .oel file
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 8) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
