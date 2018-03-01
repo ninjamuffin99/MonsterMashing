@@ -49,7 +49,21 @@ class MashState extends FlxSubState
 		//alright so basically the enemy's sprite is rendered offscreen, pretty much to the right, and down a little bit
 		//then the _enemySprite is created and loaded(will get different sprites goin in a bit)
 		_enemySprite = new FlxSprite(48, 0);
-		_enemySprite.loadGraphic(AssetPaths.spr_mush_new__png, false, 800, 1200);
+		
+		switch (enemyType) 
+		{
+			case 0:
+				_enemySprite.loadGraphic(AssetPaths.mushSheet__png, true, 800, 1200);
+				_enemySprite.animation.add("normal", [0]);
+				_enemySprite.animation.add("hit", [1]);
+				_enemySprite.animation.add("stripped", [2]);
+				_enemySprite.animation.play("normal");
+			case 1:
+				
+			default:
+				_enemySprite.loadGraphic(AssetPaths.spr_mush_new__png, false, 800, 1200);
+		}
+		
 		add(_enemySprite);
 		
 		//then the health bar is added, which tracks the _enemyHealth variable
@@ -89,19 +103,28 @@ class MashState extends FlxSubState
 			_enemySprite.y += 0.5;
 		}
 		
+		if (_enemyHealth <= 0)
+		{
+			_enemySprite.animation.play("stripped");
+		}
+		
 		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N", "LEFT", "RIGHT", "A", "D"]))
 		{
 			if (mashX)
 			{
 				if (FlxG.keys.anyJustPressed(["M", "X", "RIGHT", "D"]))
 				{
+					_enemySprite.animation.play("normal");
 					mash();
 				}
 			}
 			else
 			{
 				if (FlxG.keys.anyJustPressed(["Z", "N", "LEFT", "A"]))
+				{
+					_enemySprite.animation.play("hit");
 					mash();
+				}
 			}
 			
 		}
