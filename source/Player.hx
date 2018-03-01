@@ -12,7 +12,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite
 {
-	private var speed:Float = 150;
+	private var speed:Float = 320;
 	
 	public var _up:Bool = false;
 	public var _down:Bool = false;
@@ -37,12 +37,12 @@ class Player extends FlxSprite
 
 		var frameRate:Int = 6;
 		animation.add("u", [0, 1, 2], frameRate);
-		drag.x = drag.y = 1700;
+		//drag.x = drag.y = 9000000;
 		
-		width = 13;
-		offset.x = 3;
+		width = 12;
+		offset.x = 1;
 		height = 8;
-		offset.y = 8;
+		offset.y = 5;
 
 		FlxG.log.add("added player");
 	}
@@ -136,6 +136,16 @@ class Player extends FlxSprite
 			}
 			*/
 		}
+<<<<<<< HEAD
+=======
+		else if (animation.curAnim != null)
+		{
+			animation.curAnim.curFrame = 1;
+			animation.curAnim.pause();
+			velocity.set(0,0);
+		}
+		
+>>>>>>> 01d4c1119610bad8c7d3b1c28e5b63a57a00344d
 		
 		animation.play("u");
 		
