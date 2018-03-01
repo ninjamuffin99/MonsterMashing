@@ -27,6 +27,7 @@ class PlayState extends FlxState
 	private var maxSpeed:Float = 16;
 	
 	private var _player:Player;
+	private var playerYPosInit:Float = 0;
 	public var _enemy:Enemy;
 	
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
@@ -99,7 +100,7 @@ class PlayState extends FlxState
 		add(_camTarget);
 		FlxG.camera.follow(_camTarget, FlxCameraFollowStyle.LOCKON);
 		//sets the camTarget to be always 8 tiles ahead of the player
-		_camTarget.y = _player.y - (16 * 8);
+		_camTarget.y = _player.y - (16 * 4);
 		//and 1.5 tiles to the right, so that the gameplay is offset to the left
 		_camTarget.x += 16 * 1.5;
 		
@@ -173,6 +174,8 @@ class PlayState extends FlxState
 		{
 			_player.x = x;
 			_player.y = y;
+			
+			playerYPosInit = _player.y;
 		}
 		else if (entityName == "enemy")
 		{
@@ -216,9 +219,14 @@ class PlayState extends FlxState
 		//if the players speed gets too low, it returns to MenuState
 		//eventually this will be replaced with a small little sequence
 		//of stuff rather than just jump straight to a game over style screen
-		if (speed < 0.25 || _player.y > 172)
+		if (speed < 0.25 || _player.y > 247)
 		{
 			FlxG.switchState(new MenuState());
+		}
+		
+		if (_player.y > playerYPosInit)
+		{
+			_player.y += 0.5 * FlxG.elapsed;
 		}
 		
 		
@@ -291,7 +299,7 @@ class PlayState extends FlxState
 		
 		// if the tilemap's y pos, is greater than the height(864) divided by 5(because of the zoom), 
 		//then it moves it 2 tilemap's up
-		if (t.y >= t.height)
+		if (t.y >= t.height + 16 * 4)
 		{
 			generateTilemap(t, type);
 		}
