@@ -23,8 +23,8 @@ using flixel.util.FlxSpriteUtil;
 
 class PlayState extends FlxState
 {
-	private var speed:Float = 3.2;
-	private var maxSpeed:Float = 16;
+	private var speed:Float = 3;
+	private var maxSpeed:Float = 14;
 	
 	private var _player:Player;
 	private var playerYPosInit:Float = 0;
@@ -102,11 +102,13 @@ class PlayState extends FlxState
 		//sets the camTarget to be always 8 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 4);
 		//and 1.5 tiles to the right, so that the gameplay is offset to the left
-		_camTarget.x += 16 * 1.5;
+		//_camTarget.x += 16 * 1.5;
 		
 		FlxG.log.add("Init Camera");
 		
 		initHUD();
+		
+		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
 		
 		#if flash
 			FlxG.sound.playMusic(AssetPaths.Silverline__mp3);
@@ -161,7 +163,7 @@ class PlayState extends FlxState
 		score = 0;
 		
 		_txtScore = new FlxText( 8, 25, 0, "", 8);
-		_txtScore.y = _player.y - 16 * 15;
+		_txtScore.y = _player.y - 16 * 10;
 		add(_txtScore);
 	}
 	
@@ -188,7 +190,6 @@ class PlayState extends FlxState
 	}
 
 	private var speedAccel:Float = 1;
-	
 	private var startingTimer:Float = 4;
 	
 	override public function update(elapsed:Float):Void
@@ -212,7 +213,7 @@ class PlayState extends FlxState
 		}
 		else
 		{
-			speed -= 0.5 / 60;
+			speed -= 0.75 / 60;
 		}
 		
 		
@@ -226,7 +227,7 @@ class PlayState extends FlxState
 		
 		if (_player.y > playerYPosInit)
 		{
-			_player.y += 0.5 * FlxG.elapsed;
+			_player.y -= 8 * FlxG.elapsed;
 		}
 		
 		
@@ -249,6 +250,11 @@ class PlayState extends FlxState
 	{
 		//also check if overlapping player in this func uh oh lol
 		
+		if (FlxG.collide(e, _grpWalls))
+		{
+			e.kill();
+		}
+		
 		if (FlxG.overlap(_player, e))
 		{
 			//if the MashState's outcome is VICTORY(from a battle)
@@ -256,7 +262,7 @@ class PlayState extends FlxState
 			//and changes the outcome to NONE so that its not constantly increasing the speed
 			if (MashState.outcome == MashState.Outcome.VICTORY)
 			{
-				speed += FlxG.random.float(1.5, 3);
+				speed += FlxG.random.float(1.2, 2);
 				e.kill();
 				MashState.outcome = MashState.Outcome.NONE;
 			}
