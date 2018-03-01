@@ -195,6 +195,7 @@ class PlayState extends FlxState
 		super.update(elapsed);
 		
 		FlxG.watch.add(_grpTilemaps, "members");
+		FlxG.watch.add(_player, "y");
 		FlxG.watch.add(this, "speed");
 		
 		//if speed is greater than maxSpeed(15 as of writing), it lowers it to maxSpeed
@@ -313,7 +314,7 @@ class PlayState extends FlxState
 		}
 		
 		//loads new tilemap data to _map, from a .oel file
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 3) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 4) + ".oel");
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
