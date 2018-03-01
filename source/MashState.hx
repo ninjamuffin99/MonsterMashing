@@ -33,7 +33,6 @@ class MashState extends FlxSubState
 		
 		//sets the outcome to NONE just in-case
 		outcome = NONE;
-		
 	}
 	
 	override public function create():Void 
@@ -51,7 +50,7 @@ class MashState extends FlxSubState
 		
 		//then the health bar is added, which tracks the _enemyHealth variable
 		_barHealth = new FlxBar(32, 0-16, FlxBarFillDirection.LEFT_TO_RIGHT, FlxG.width - 64, 16, this, "_enemyHealth", 0, 10);
-		add(_barHealth);
+		//add(_barHealth);
 		
 		//scroll factor set to 0 since it's HUD shits
 		_barHealth.scrollFactor.set(0, 0);
@@ -61,7 +60,7 @@ class MashState extends FlxSubState
 		
 		//then shit gets tweened
 		FlxTween.tween(_barHealth, {y: 16}, 0.7, {ease:FlxEase.cubeInOut});
-		FlxTween.tween(_enemySprite, {y: _enemySprite.y + 180}, 0.7, {ease:FlxEase.quadIn});
+		FlxTween.tween(_enemySprite, {y: _enemySprite.y + 210}, 0.7, {ease:FlxEase.quadIn});
 		
 		super.create();
 	}
@@ -89,7 +88,7 @@ class MashState extends FlxSubState
 		if (FlxG.keys.anyJustPressed(["SPACE", "Z"]))
 		{
 			//shakes the camera
-			thisCam.shake(FlxG.random.float(0.01, 0.015), FlxG.random.float(0.05, 0.2));
+			thisCam.shake(FlxG.random.float(0.05, 0.015), FlxG.random.float(0.05, 0.2));
 			
 			//maxShake += FlxG.random.float(0.005, 0.01);
 			
