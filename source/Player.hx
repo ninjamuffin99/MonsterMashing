@@ -37,12 +37,12 @@ class Player extends FlxSprite
 
 		var frameRate:Int = 6;
 		animation.add("u", [0, 1, 2], frameRate);
-		drag.x = drag.y = 1700;
+		//drag.x = drag.y = 9000000;
 		
-		width = 13;
-		offset.x = 3;
+		width = 12;
+		offset.x = 1;
 		height = 8;
-		offset.y = 8;
+		offset.y = 5;
 
 		FlxG.log.add("added player");
 	}
@@ -140,7 +140,7 @@ class Player extends FlxSprite
 		{
 			animation.curAnim.curFrame = 1;
 			animation.curAnim.pause();
-			//velocity.set(0,0);
+			velocity.set(0,0);
 		}
 		
 		

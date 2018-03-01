@@ -135,10 +135,12 @@ class TiledLevel extends TiledMap
 		var special = new FlxTileSpecial(1, false, false, 0);
 		var n:Int = props.animationFrames.length;
 		var offset = Std.random(n);
+		
 		special.addAnimation(
 			[for (i in 0...n) props.animationFrames[(i + offset) % n].tileID + tileset.firstGID],
 			(1000 / props.animationFrames[0].duration)
 		);
+		
 		return special;
 	}
 
