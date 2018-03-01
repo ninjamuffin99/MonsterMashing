@@ -21,7 +21,7 @@ class MenuState extends FlxState
 		mTxt = new FlxText(0, 0, 0, "Press Z Play", 32);
 		mTxt.screenCenter();
 		add(mTxt);
-		mScore = new FlxText(0, FlxG.height / 2 + 48, 0, "Score: " + Score.score, 32);
+		mScore = new FlxText(0, FlxG.height / 2 + 48, 0, "High Score: " + Score.score, 32);
 		mScore.screenCenter(X);
 		add(mScore);
 		
