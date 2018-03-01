@@ -161,7 +161,7 @@ class PlayState extends FlxState
 		score = 0;
 		
 		_txtScore = new FlxText( 8, 25, 0, "", 8);
-		_txtScore.y = _player.y - 16 * 15;
+		_txtScore.y = _player.y - 16 * 10;
 		add(_txtScore);
 	}
 	
@@ -188,7 +188,6 @@ class PlayState extends FlxState
 	}
 
 	private var speedAccel:Float = 1;
-	
 	private var startingTimer:Float = 4;
 	
 	override public function update(elapsed:Float):Void
@@ -226,7 +225,7 @@ class PlayState extends FlxState
 		
 		if (_player.y > playerYPosInit)
 		{
-			_player.y += 0.5 * FlxG.elapsed;
+			_player.y -= 8 * FlxG.elapsed;
 		}
 		
 		
