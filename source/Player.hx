@@ -136,13 +136,6 @@ class Player extends FlxSprite
 			}
 			*/
 		}
-		else if (animation.curAnim != null)
-		{
-			animation.curAnim.curFrame = 1;
-			animation.curAnim.pause();
-			//velocity.set(0,0);
-		}
-		
 		
 		animation.play("u");
 		
