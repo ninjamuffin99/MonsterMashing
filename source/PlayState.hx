@@ -21,6 +21,9 @@ import flixel.util.FlxSort;
 import openfl.display.BlendMode;
 using flixel.util.FlxSpriteUtil;
 
+import com.newgrounds.*;
+import com.newgrounds.components.*;
+
 class PlayState extends FlxState
 {
 	private var speed:Float = 3;
@@ -229,6 +232,14 @@ class PlayState extends FlxState
 		{
 			if (score > HighScore.score)
 			{
+				#if (flash)
+					if (API.isNewgrounds)
+					{
+						API.postScore("Distance", score);
+					}
+				#end
+				
+				
 				HighScore.score = Std.int(score);
 				HighScore.save();
 			}

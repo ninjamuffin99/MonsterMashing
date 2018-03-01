@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxGame;
+import openfl.Lib;
 //import js.SWFObject;
 import openfl.display.Sprite;
 import openfl.Assets;
@@ -19,7 +20,8 @@ class Main extends Sprite
 			{
 				var popup:MedalPopup = new MedalPopup();
 				addChild(popup);
-				
+				popup.x = 130;
+				popup.y = 32;
 			}
 		#end
 		
