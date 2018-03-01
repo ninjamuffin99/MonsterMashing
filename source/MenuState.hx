@@ -11,12 +11,14 @@ import flixel.util.FlxColor;
 class MenuState extends FlxState
 {
 	private var mTxt:FlxText;
+	private var hScore = 0;
 	
 	override public function create():Void
 	{
 		mTxt = new FlxText(0, 0, 0, "Press Z Play", 32);
 		mTxt.screenCenter();
 		add(mTxt);
+		add(hScore);
 		
 		super.create();
 	}
