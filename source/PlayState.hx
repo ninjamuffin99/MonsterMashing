@@ -152,9 +152,7 @@ class PlayState extends FlxState
 		FlxG.log.add(_mFloors2.y);
 		FlxG.log.add(_mFloors3.y);
 		
-		
 		FlxG.log.add(FlxG.height);
-		
 	}
 	
 	private function initHUD():Void
