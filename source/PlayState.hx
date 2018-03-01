@@ -24,7 +24,7 @@ using flixel.util.FlxSpriteUtil;
 class PlayState extends FlxState
 {
 	private var speed:Float = 3;
-	private var maxSpeed:Float = 14;
+	private var maxSpeed:Float = 9;
 	
 	private var _player:Player;
 	private var playerYPosInit:Float = 0;
@@ -213,21 +213,27 @@ class PlayState extends FlxState
 		}
 		else
 		{
-			speed -= 0.75 / 60;
+			speed -= 0.5 / 60;
 		}
 		
 		
 		//if the players speed gets too low, it returns to MenuState
 		//eventually this will be replaced with a small little sequence
 		//of stuff rather than just jump straight to a game over style screen
-		if (speed < 0.25 || _player.y > 247)
+		if (speed < 0.21 || _player.y > 247)
 		{
+			if (score > Score.
+			Score.score = Std.int(score);
+			Score.save();
+			
+			//Add score here
+			//MenuState.hScore = score;
 			FlxG.switchState(new MenuState());
 		}
 		
 		if (_player.y > playerYPosInit)
 		{
-			_player.y -= 8 * FlxG.elapsed;
+			_player.y -= 75 * FlxG.elapsed;
 		}
 		
 		
@@ -239,7 +245,7 @@ class PlayState extends FlxState
 		_grpTilemaps.forEach(checkTilemapPos);
 		_grpWalls.forEach(checkWallPos);
 		_grpEnemies.forEach(updateEnemyPos);
-		_grpDoors.forEach(checkOverlap);
+		//_grpDoors.forEach(checkOverlap);
 		
 		
 		//Collision
@@ -262,7 +268,7 @@ class PlayState extends FlxState
 			//and changes the outcome to NONE so that its not constantly increasing the speed
 			if (MashState.outcome == MashState.Outcome.VICTORY)
 			{
-				speed += FlxG.random.float(1.2, 2);
+				speed += FlxG.random.float(0.8, 1.2);
 				e.kill();
 				MashState.outcome = MashState.Outcome.NONE;
 			}
@@ -326,7 +332,7 @@ class PlayState extends FlxState
 		}
 		
 		//loads new tilemap data to _map, from a .oel file
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 7) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 8) + ".oel");
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
@@ -345,7 +351,8 @@ class PlayState extends FlxState
 			
 			//also spawns enemy
 			//picks a random amount of enemies from 0-3
-			var enemyAmount:Int = FlxG.random.int(0, 3);
+			var enemyAmount:Int = FlxG.random.int(1, 3);
+			var enemyType:Int = FlxG.random.int(1, 2);
 			//loops 
 			while (enemyAmount > 0)
 			{
@@ -359,7 +366,7 @@ class PlayState extends FlxState
 	}
 	
 	
-
+/*
 	private function checkOverlap(d:Door):Void
 	{
 		if (FlxG.overlap(_player, d))
@@ -381,5 +388,5 @@ class PlayState extends FlxState
 		}
 		
 		return door;
-	}
+	}*/
 }
