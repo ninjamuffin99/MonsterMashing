@@ -17,21 +17,23 @@ class MashState extends FlxSubState
 {
 	//a public static variable of the outcome, so that it can be accessed in the PlayState
 	public static var outcome:Outcome;
+	private var enemyType:Int = 0;
 	
 	private var _enemySprite:FlxSprite;
 	private var _enemyHealth:Float = 10;
 	private var thisCam:FlxCamera;
 	private var mashX:Bool = false;
 	
-	
 	private var maxShake:Float = 0.05;
 	
 	private var _barHealth:FlxBar;
 	
-	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
+	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int) 
 	{
 		super(BGColor);
 		FlxG.camera.flash();
+		
+		enemyType = EType;
 		
 		//sets the outcome to NONE just in-case
 		outcome = NONE;
