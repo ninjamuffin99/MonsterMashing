@@ -33,14 +33,10 @@ class Player extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
-		loadGraphic(AssetPaths.spr_player__png, true, 18, 17);
+		loadGraphic(AssetPaths.spr_player__png, true, 16, 16);
 
 		var frameRate:Int = 6;
-		animation.add("l", [0, 1, 2], frameRate);
-		animation.add("r", [3, 4, 5], frameRate);
-		animation.add("d", [6, 7, 8], frameRate);
-		animation.add("u", [9, 10, 11], frameRate);
-
+		animation.add("u", [0, 1, 2], frameRate);
 		drag.x = drag.y = 1700;
 		
 		width = 13;
@@ -77,7 +73,7 @@ class Player extends FlxSprite
 		if (_left && _right)
 			_left = _right = false;
 		
-		animation.play("u");
+		
 		
 		
 		if (/*_up || _down || */_left || _right)
@@ -147,6 +143,8 @@ class Player extends FlxSprite
 			//velocity.set(0,0);
 		}
 		
+		
+		animation.play("u");
 		
 		
 		boostTimer -= FlxG.elapsed;
