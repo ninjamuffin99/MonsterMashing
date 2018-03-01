@@ -108,6 +108,8 @@ class PlayState extends FlxState
 		
 		initHUD();
 		
+		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
+		
 		#if flash
 			FlxG.sound.playMusic(AssetPaths.Silverline__mp3);
 		#else
@@ -211,7 +213,7 @@ class PlayState extends FlxState
 		}
 		else
 		{
-			speed -= 0.5 / 60;
+			speed -= 0.75 / 60;
 		}
 		
 		
