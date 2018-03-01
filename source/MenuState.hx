@@ -84,6 +84,31 @@ class MenuState extends FlxState
 			FlxG.switchState(new CredState());
 		}
 		
+		#if html5
+			
+			if (FlxG.html5.onMobile)
+			{
+				mTxt.text = "MONSTER MASHING\nTouch to play";
+				
+				for (touch in FlxG.touches.list)
+				{
+					if (touch.justPressed) 
+					{
+						if (touch.y < credsTxt.y)
+						{
+							FlxG.switchState(new PlayState());
+						}
+						else
+						{
+							FlxG.switchState(new CredState());
+						}
+					}
+					
+				}
+			}
+			
+		#end
+		
 		super.update(elapsed);
 	}
 }
