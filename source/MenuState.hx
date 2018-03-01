@@ -12,7 +12,7 @@ class MenuState extends FlxState
 {
 	private var mTxt:FlxText;
 	private var mScore:FlxText;
-	private var hScore = 0;
+	public var hScore = 0;
 	
 	override public function create():Void
 	{
