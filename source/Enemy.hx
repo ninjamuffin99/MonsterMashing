@@ -12,7 +12,7 @@ import flixel.util.FlxColor;
 class Enemy extends FlxSprite 
 {
 	public var speed:Float = 80;
-	public var etype(default, null):Int;
+	public var etype:Int;
 	private var _idleTmr:Float;
 	private var _moveDir:Float;
 	public var seesPlayer:Bool = false;
@@ -32,6 +32,8 @@ class Enemy extends FlxSprite
 			default:
 				
 		}
+		
+		etype = EType;
 		
 		animation.play("walk");
 		
