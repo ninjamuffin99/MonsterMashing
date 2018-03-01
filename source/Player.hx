@@ -12,7 +12,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite
 {
-	private var speed:Float = 320;
+	private var speed:Float = 240;
 	
 	public var _up:Bool = false;
 	public var _down:Bool = false;
@@ -178,8 +178,6 @@ class Player extends FlxSprite
 				FlxG.log.add("left pressed speed up");
 				
 			}
-		}
-		
-		
+		}		
 	}
 }
