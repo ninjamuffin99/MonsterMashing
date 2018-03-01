@@ -115,7 +115,7 @@ class PlayState extends FlxState
 		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
 		
 		#if flash
-			FlxG.sound.playMusic(AssetPaths.Silverline__mp3);
+			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7);
 		#else
 			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);
         #end
