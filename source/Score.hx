@@ -1,5 +1,7 @@
 package;
 import flixel.FlxG;
+import com.newgrounds.*;
+import com.newgrounds.components.*;
 
 /**
  * ...
