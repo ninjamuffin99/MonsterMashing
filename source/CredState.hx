@@ -70,7 +70,7 @@ class CredState extends FlxState
 			FlxG.switchState(new MenuState());
 		}
 		
-		#if mobile
+		#if html5
 			mobileShit();
 		#end
 		super.update(elapsed);

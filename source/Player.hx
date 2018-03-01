@@ -74,7 +74,9 @@ class Player extends FlxSprite
 			_left = _right = false;
 		
 		
-		
+		#if html5
+			mobileChecks();
+		#end
 		
 		if (/*_up || _down || */_left || _right)
 		{
@@ -182,4 +184,32 @@ class Player extends FlxSprite
 			}
 		}		
 	}
+	
+	private function mobileChecks():Void
+	{
+		if (FlxG.html5.onMobile)
+		{
+			for (touch in FlxG.touches.list)
+			{
+				if (touch.pressed) 
+				{
+					if (touch.screenX >= x)
+					{
+						_right = true;
+					}
+					else
+					{
+						_left  = true;
+					}
+				}
+				else
+				{
+					_right = false;
+					_left = false;
+				}
+			}
+		}
+		
+	}
+	
 }

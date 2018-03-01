@@ -142,6 +142,19 @@ class MashState extends FlxSubState
 				}
 			}
 		}
+		
+		#if html5
+			if (FlxG.html5.onMobile)
+			{
+				for (touch in FlxG.touches.list)
+				{
+					if (touch.justPressed) 
+					{
+						mash();
+					}
+				}
+			}
+		#end
 	}
 	
 	private function mash():Void
