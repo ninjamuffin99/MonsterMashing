@@ -146,6 +146,11 @@ class MashState extends FlxSubState
 	
 	private function mash():Void
 	{
+		if (FlxG.random.bool(40))
+		{
+			FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 0.7);
+		}
+		
 		
 		//shakes the camera
 		thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
