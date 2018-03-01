@@ -16,11 +16,20 @@ class MenuState extends FlxState
 {
 	private var mTxt:FlxText;
 	private var mScore:FlxText;
+	private var bg:FlxSprite;
 	
 	override public function create():Void
 	{
 		FlxG.save.bind("File");
 		HighScore.load();
+		
+		FlxG.camera.fade(FlxColor.BLACK, 0.8, true);
+		
+		bg = new FlxSprite().loadGraphic(AssetPaths.starting__PNG, false, 545, 201);
+		bg.setGraphicSize(Std.int(bg.width * 2));
+		bg.updateHitbox();
+		bg.screenCenter(X);
+		add(bg);
 		
 		mTxt = new FlxText(0, 0, 0, "MONSTER MASHING\nWIP TITLE SCREEN LMAOO\nPress Z Play", 32);
 		mTxt.screenCenter();
@@ -57,6 +66,8 @@ class MenuState extends FlxState
 	{
 		if (FlxG.keys.justPressed.Z)
 		{
+			FlxG.camera.flash();
+			FlxG.sound.play(AssetPaths.flash__wav);
 			FlxG.switchState(new PlayState());
 		}
 		

@@ -239,7 +239,6 @@ class PlayState extends FlxState
 					}
 				#end
 				
-				
 				HighScore.score = Std.int(score);
 				HighScore.save();
 			}
