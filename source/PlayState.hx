@@ -222,9 +222,12 @@ class PlayState extends FlxState
 		//of stuff rather than just jump straight to a game over style screen
 		if (speed < 0.21 || _player.y > 247)
 		{
-			if (score > Score.
-			Score.score = Std.int(score);
-			Score.save();
+			if (score > Score.score)
+			{
+				Score.score = Std.int(score);
+				Score.save();
+			}
+			
 			
 			//Add score here
 			//MenuState.hScore = score;
@@ -275,7 +278,7 @@ class PlayState extends FlxState
 			else
 			{
 				//if the state isnt VICTORY, then it opens a new battle
-				openSubState(new MashState(0x77000000));
+				openSubState(new MashState(0x77000000, e.etype));
 			}
 		}
 		
