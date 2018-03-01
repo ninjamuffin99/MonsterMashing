@@ -54,15 +54,16 @@ class MashState extends FlxSubState
 		{
 			case 0:
 				_enemySprite.loadGraphic(AssetPaths.mushSheet__png, true, 800, 1200);
-				_enemySprite.animation.add("normal", [0]);
-				_enemySprite.animation.add("hit", [1]);
-				_enemySprite.animation.add("stripped", [2]);
-				_enemySprite.animation.play("normal");
 			case 1:
+				_enemySprite.loadGraphic(AssetPaths.vineSheet__png, true, 800, 1200);
+				
 				
 			default:
-				_enemySprite.loadGraphic(AssetPaths.spr_mush_new__png, false, 800, 1200);
 		}
+		_enemySprite.animation.add("normal", [0]);
+		_enemySprite.animation.add("hit", [1]);
+		_enemySprite.animation.add("stripped", [2]);
+		_enemySprite.animation.play("normal");
 		
 		add(_enemySprite);
 		

@@ -278,6 +278,7 @@ class PlayState extends FlxState
 			else
 			{
 				//if the state isnt VICTORY, then it opens a new battle
+				FlxG.log.add("ENEMY TYPE" + e.etype);
 				openSubState(new MashState(0x77000000, e.etype));
 			}
 		}
