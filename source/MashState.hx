@@ -86,7 +86,7 @@ class MashState extends FlxSubState
 			_enemySprite.y += 0.5;
 		}
 		
-		if (FlxG.keys.justPressed.Z)
+		if (FlxG.keys.anyJustPressed(["SPACE", "Z"])
 		{
 			//shakes the camera
 			thisCam.shake(FlxG.random.float(0.01, 0.015), FlxG.random.float(0.05, 0.2));
