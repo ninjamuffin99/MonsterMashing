@@ -23,8 +23,8 @@ using flixel.util.FlxSpriteUtil;
 
 class PlayState extends FlxState
 {
-	private var speed:Float = 2;
-	private var maxSpeed:Float = 17;
+	private var speed:Float = 3;
+	private var maxSpeed:Float = 16;
 	
 	private var _player:Player;
 	public var _enemy:Enemy;
