@@ -87,18 +87,30 @@ class MashState extends FlxSubState
 			_enemySprite.y += 0.5;
 		}
 		
+<<<<<<< HEAD
 		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N", "A", "D"]))
 		{
 			if (mashX)
 			{
 				if (FlxG.keys.anyJustPressed(["M", "X", "D"]))
+=======
+		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N", "LEFT", "RIGHT"]))
+		{
+			if (mashX)
+			{
+				if (FlxG.keys.anyJustPressed(["M", "X", "RIGHT"]))
+>>>>>>> 2618ba63c7374bb556d7983ad987c646cbb26e70
 				{
 					mash();
 				}
 			}
 			else
 			{
+<<<<<<< HEAD
 				if (FlxG.keys.anyJustPressed(["Z", "N", "A"]))
+=======
+				if (FlxG.keys.anyJustPressed(["Z", "N", "LEFT"]))
+>>>>>>> 2618ba63c7374bb556d7983ad987c646cbb26e70
 					mash();
 			}
 			
