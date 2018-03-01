@@ -102,7 +102,7 @@ class PlayState extends FlxState
 		//sets the camTarget to be always 8 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 4);
 		//and 1.5 tiles to the right, so that the gameplay is offset to the left
-		_camTarget.x += 16 * 1.5;
+		//_camTarget.x += 16 * 1.5;
 		
 		FlxG.log.add("Init Camera");
 		
@@ -247,6 +247,11 @@ class PlayState extends FlxState
 	private function updateEnemyPos(e:Enemy):Void
 	{
 		//also check if overlapping player in this func uh oh lol
+		
+		if (FlxG.collide(e, _grpWalls))
+		{
+			e.kill();
+		}
 		
 		if (FlxG.overlap(_player, e))
 		{
