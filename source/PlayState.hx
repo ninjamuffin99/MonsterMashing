@@ -222,6 +222,7 @@ class PlayState extends FlxState
 		//of stuff rather than just jump straight to a game over style screen
 		if (speed < 0.21 || _player.y > 247)
 		{
+			if (score > Score.
 			Score.score = Std.int(score);
 			Score.save();
 			
