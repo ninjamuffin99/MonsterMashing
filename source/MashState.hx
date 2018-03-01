@@ -86,7 +86,7 @@ class MashState extends FlxSubState
 			_enemySprite.y += 0.5;
 		}
 		
-		if (FlxG.keys.justPressed.SPACE)
+		if (FlxG.keys.justPressed.Z)
 		{
 			//shakes the camera
 			thisCam.shake(FlxG.random.float(0.01, 0.015), FlxG.random.float(0.05, 0.2));
@@ -102,7 +102,7 @@ class MashState extends FlxSubState
 	//flashes the camera, removes the camera from showing, then closes the substate(hopefully with outcome set to VICTORY)
 	private function finishTween(tween:FlxTween):Void
 	{
-		FlxG.camera.flash();
+		//FlxG.camera.flash();
 		FlxG.cameras.remove(thisCam);
 		close();
 	}
