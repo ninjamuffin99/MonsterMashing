@@ -187,6 +187,7 @@ class Player extends FlxSprite
 	
 	private function mobileChecks():Void
 	{
+		#if html5
 		if (FlxG.html5.onMobile)
 		{
 			for (touch in FlxG.touches.list)
@@ -209,6 +210,7 @@ class Player extends FlxSprite
 				}
 			}
 		}
+		#end
 		
 	}
 	
