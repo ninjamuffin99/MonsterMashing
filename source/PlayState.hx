@@ -240,7 +240,7 @@ class PlayState extends FlxState
 		_grpTilemaps.forEach(checkTilemapPos);
 		_grpWalls.forEach(checkWallPos);
 		_grpEnemies.forEach(updateEnemyPos);
-		_grpDoors.forEach(checkOverlap);
+		//_grpDoors.forEach(checkOverlap);
 		
 		
 		//Collision
@@ -360,7 +360,7 @@ class PlayState extends FlxState
 	}
 	
 	
-
+/*
 	private function checkOverlap(d:Door):Void
 	{
 		if (FlxG.overlap(_player, d))
@@ -382,5 +382,5 @@ class PlayState extends FlxState
 		}
 		
 		return door;
-	}
+	}*/
 }
