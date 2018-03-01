@@ -14,6 +14,15 @@ class Main extends Sprite
 		super();
 		addChild(new FlxGame(0, 0, MenuState));
 		
+		#if flash
+			if (API.isNewgrounds)
+			{
+				var popup:MedalPopup = new MedalPopup();
+				addChild(popup);
+				
+			}
+		#end
+		
 		//var clip = new SWFObject.embedSWF(AssetPaths.mush__swf, mush, 920, 690, 9);
 		//addChild(clip);
 	}

@@ -167,7 +167,7 @@ class PlayState extends FlxState
 		_txtScore.y = _player.y + 16 * 4;
 		add(_txtScore);
 		
-		_txtHighScore = new FlxText(-18, 25, 0, "Current High Score: " + Score.score, 8);
+		_txtHighScore = new FlxText(-18, 25, 0, "Current High Score: " + HighScore.score, 8);
 		_txtHighScore.y = _player.y + 16 * 4.5;
 		add(_txtHighScore);
 	}
@@ -227,10 +227,10 @@ class PlayState extends FlxState
 		//of stuff rather than just jump straight to a game over style screen
 		if (speed < 0.21 || _player.y > 247)
 		{
-			if (score > Score.score)
+			if (score > HighScore.score)
 			{
-				Score.score = Std.int(score);
-				Score.save();
+				HighScore.score = Std.int(score);
+				HighScore.save();
 			}
 			
 			

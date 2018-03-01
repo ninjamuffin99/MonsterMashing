@@ -1,13 +1,11 @@
 package;
 import flixel.FlxG;
-import com.newgrounds.*;
-import com.newgrounds.components.*;
 
 /**
  * ...
  * @author ninjaMuffin
  */
-class Score 
+class HighScore 
 {
 
 	public static var score:Int = 0;
