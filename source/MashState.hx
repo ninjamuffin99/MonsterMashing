@@ -21,6 +21,8 @@ class MashState extends FlxSubState
 	private var _enemySprite:FlxSprite;
 	private var _enemyHealth:Float = 10;
 	private var thisCam:FlxCamera;
+	private var mashX:Bool = false;
+	
 	
 	private var maxShake:Float = 0.05;
 	
@@ -44,7 +46,7 @@ class MashState extends FlxSubState
 		
 		//alright so basically the enemy's sprite is rendered offscreen, pretty much to the right, and down a little bit
 		//then the _enemySprite is created and loaded(will get different sprites goin in a bit)
-		_enemySprite = new FlxSprite(0, 0);
+		_enemySprite = new FlxSprite(48, 0);
 		_enemySprite.loadGraphic(AssetPaths.spr_mush_new__png, false, 800, 1200);
 		add(_enemySprite);
 		
@@ -85,16 +87,37 @@ class MashState extends FlxSubState
 			_enemySprite.y += 0.5;
 		}
 		
-		if (FlxG.keys.anyJustPressed(["SPACE", "Z"]))
+		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N"]))
 		{
-			//shakes the camera
-			thisCam.shake(FlxG.random.float(0.05, 0.015), FlxG.random.float(0.05, 0.2));
+			if (mashX)
+			{
+				if (FlxG.keys.anyJustPressed(["M", "X"]))
+				{
+					mash();
+				}
+			}
+			else
+			{
+				if (FlxG.keys.anyJustPressed(["Z", "N"]))
+					mash();
+			}
 			
-			//maxShake += FlxG.random.float(0.005, 0.01);
-			
-			//reduces the enemy's health
-			_enemyHealth -= FlxG.random.float(0.8, 2.3);
 		}
+		
+	}
+	
+	private function mash():Void
+	{
+		
+		//shakes the camera
+		thisCam.shake(FlxG.random.float(0.05, 0.015), FlxG.random.float(0.05, 0.2));
+		
+		//maxShake += FlxG.random.float(0.005, 0.01);
+		
+		//reduces the enemy's health
+		_enemyHealth -= FlxG.random.float(0.8, 2.3);
+		
+		mashX = !mashX;
 		
 	}
 	
