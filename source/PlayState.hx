@@ -108,9 +108,9 @@ class PlayState extends FlxState
 		initHUD();
 		
 		#if flash
-			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__mp3);
+			FlxG.sound.playMusic(AssetPaths.Silverline__mp3);
 		#else
-			FlxG.sound.playMusic(AssetPaths.eigi_in_a_well__ogg);
+			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);
         #end
 		
 		
