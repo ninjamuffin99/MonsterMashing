@@ -57,6 +57,7 @@ class PlayState extends FlxState
 	private var _grpWalls:FlxTypedGroup<FlxTilemap>;
 	
 	private var _txtScore:FlxText;
+	private var _txtHighScore:FlxText;
 	private var score:Float;
 	
 	
@@ -162,9 +163,13 @@ class PlayState extends FlxState
 	{
 		score = 0;
 		
-		_txtScore = new FlxText( 8, 25, 0, "", 8);
-		_txtScore.y = _player.y - 16 * 10;
+		_txtScore = new FlxText(-18, 25, 0, "", 8);
+		_txtScore.y = _player.y + 16 * 4;
 		add(_txtScore);
+		
+		_txtHighScore = new FlxText(-18, 25, 0, "Current High Score: " + Score.score, 8);
+		_txtHighScore.y = _player.y + 16 * 4.5;
+		add(_txtHighScore);
 	}
 	
 	private function placeEntities(entityName:String, entityData:Xml):Void
