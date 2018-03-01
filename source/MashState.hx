@@ -164,7 +164,14 @@ class MashState extends FlxSubState
 			FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1);
 		}
 		
-		FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.3);
+		var fileExt:String = "";
+		#if flash
+			fileExt = ".mp3";
+		#else
+			fileExt = ".ogg";
+		#end
+		
+		FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + fileExt, 0.3);
 		
 		
 		//shakes the camera
