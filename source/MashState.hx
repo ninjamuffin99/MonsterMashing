@@ -127,9 +127,7 @@ class MashState extends FlxSubState
 					mash();
 				}
 			}
-			
 		}
-		
 	}
 	
 	private function mash():Void
