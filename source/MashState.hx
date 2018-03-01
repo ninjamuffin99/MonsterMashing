@@ -136,7 +136,7 @@ class MashState extends FlxSubState
 	{
 		
 		//shakes the camera
-		thisCam.shake(FlxG.random.float(0.05, 0.015), FlxG.random.float(0.05, 0.2));
+		thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
 		
 		//maxShake += FlxG.random.float(0.005, 0.01);
 		

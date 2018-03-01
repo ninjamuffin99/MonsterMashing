@@ -12,7 +12,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite
 {
-	private var speed:Float = 210;
+	private var speed:Float = 180;
 	
 	public var _up:Bool = false;
 	public var _down:Bool = false;
@@ -37,7 +37,7 @@ class Player extends FlxSprite
 
 		var frameRate:Int = 6;
 		animation.add("u", [0, 1, 2], frameRate);
-		drag.x = drag.y = 2000;
+		drag.x = drag.y = 200;
 		
 		width = 12;
 		offset.x = 1;
