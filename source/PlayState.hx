@@ -23,8 +23,8 @@ using flixel.util.FlxSpriteUtil;
 
 class PlayState extends FlxState
 {
-	private var speed:Float = 2;
-	private var maxSpeed:Float = 17;
+	private var speed:Float = 3;
+	private var maxSpeed:Float = 16;
 	
 	private var _player:Player;
 	public var _enemy:Enemy;
@@ -218,7 +218,7 @@ class PlayState extends FlxState
 		//if the players speed gets too low, it returns to MenuState
 		//eventually this will be replaced with a small little sequence
 		//of stuff rather than just jump straight to a game over style screen
-		if (speed < 0.25)
+		if (speed < 0.25 || _player.y > 172)
 		{
 			FlxG.switchState(new MenuState());
 		}
@@ -314,7 +314,7 @@ class PlayState extends FlxState
 		}
 		
 		//loads new tilemap data to _map, from a .oel file
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 4) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 7) + ".oel");
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
 		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
@@ -337,7 +337,7 @@ class PlayState extends FlxState
 			//loops 
 			while (enemyAmount > 0)
 			{
-				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(0, 12)), 0));
+				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), FlxG.random.int(0, 1)));
 				FlxG.log.add("Added enemy");
 				
 				enemyAmount -= 1;

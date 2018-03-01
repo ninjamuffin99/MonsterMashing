@@ -21,7 +21,18 @@ class Enemy extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, EType:Int) 
 	{
 		super(X, Y);
-		makeGraphic(16, 16, FlxColor.YELLOW);
+		loadGraphic(AssetPaths.trimmedAndFixedSprites__png, true, 16, 16);
+		
+		switch (EType) 
+		{
+			case 0:
+				animation.add("walk", [0, 3, 6], 6);
+			case 1:
+				animation.add("walk", [1, 4, 7], 6);
+			default:
+				
+		}
+		
 		//loadGraphic(AssetPaths.spr_mush__png, true, 53, 66);
 		
 		drag.x = drag.y = 10;
