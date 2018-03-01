@@ -222,6 +222,9 @@ class PlayState extends FlxState
 		//of stuff rather than just jump straight to a game over style screen
 		if (speed < 0.21 || _player.y > 247)
 		{
+			Score.score = Std.int(score);
+			Score.save();
+			
 			//Add score here
 			//MenuState.hScore = score;
 			FlxG.switchState(new MenuState());
