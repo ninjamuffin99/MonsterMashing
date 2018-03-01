@@ -23,8 +23,8 @@ using flixel.util.FlxSpriteUtil;
 
 class PlayState extends FlxState
 {
-	private var speed:Float = 3.2;
-	private var maxSpeed:Float = 16;
+	private var speed:Float = 3;
+	private var maxSpeed:Float = 14;
 	
 	private var _player:Player;
 	private var playerYPosInit:Float = 0;
@@ -256,7 +256,7 @@ class PlayState extends FlxState
 			//and changes the outcome to NONE so that its not constantly increasing the speed
 			if (MashState.outcome == MashState.Outcome.VICTORY)
 			{
-				speed += FlxG.random.float(1.5, 3);
+				speed += FlxG.random.float(1.2, 2);
 				e.kill();
 				MashState.outcome = MashState.Outcome.NONE;
 			}
