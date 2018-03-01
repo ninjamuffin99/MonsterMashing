@@ -26,12 +26,14 @@ class Enemy extends FlxSprite
 		switch (EType) 
 		{
 			case 0:
-				animation.add("walk", [0, 3, 6], 6);
+				animation.add("walk", [0, 1, 2], 6);
 			case 1:
-				animation.add("walk", [1, 4, 7], 6);
+				animation.add("walk", [3, 4, 5], 6);
 			default:
 				
 		}
+		
+		animation.play("walk");
 		
 		//loadGraphic(AssetPaths.spr_mush__png, true, 53, 66);
 		
