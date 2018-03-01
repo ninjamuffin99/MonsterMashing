@@ -61,7 +61,7 @@ class MashState extends FlxSubState
 		
 		//then shit gets tweened
 		FlxTween.tween(_barHealth, {y: 16}, 0.7, {ease:FlxEase.cubeInOut});
-		FlxTween.tween(_enemySprite, {y: _enemySprite.y + 180}, 0.3, {ease:FlxEase.quadIn});
+		FlxTween.tween(_enemySprite, {y: _enemySprite.y + 180}, 0.7, {ease:FlxEase.quadIn});
 		
 		super.create();
 	}
