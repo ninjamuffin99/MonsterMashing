@@ -274,9 +274,14 @@ class PlayState extends FlxState
 	{
 		//also check if overlapping player in this func uh oh lol
 		
-		if (FlxG.collide(e, _grpWalls))
+		if (FlxG.collide(e, _grpWalls) || FlxG.collide(e, _grpEnemies))
 		{
 			e.kill();
+		}
+		
+		if (e.ID == 1)
+		{
+			boost(e);
 		}
 		
 		if (FlxG.overlap(_player, e))
@@ -286,13 +291,12 @@ class PlayState extends FlxState
 			//and changes the outcome to NONE so that its not constantly increasing the speed
 			if (MashState.outcome == MashState.Outcome.VICTORY)
 			{
-				speed += FlxG.random.float(0.8, 1.2);
-				e.kill();
-				MashState.outcome = MashState.Outcome.NONE;
+				boost(e);
 			}
 			else
 			{
 				//if the state isnt VICTORY, then it opens a new battle
+				e.ID = 1;
 				FlxG.log.add("ENEMY TYPE" + e.etype);
 				openSubState(new MashState(0x77000000, e.etype));
 			}
@@ -306,6 +310,14 @@ class PlayState extends FlxState
 		{
 			_grpEnemies.remove(e, true);
 		}
+	}
+	
+	private function boost(e:Enemy):Void
+	{
+		speed += FlxG.random.float(0.8, 1.2);
+		e.ID = 0;
+		e.kill();
+		MashState.outcome = MashState.Outcome.NONE;
 	}
 	
 	private function checkTilemapPos(t:FlxTilemap):Void
