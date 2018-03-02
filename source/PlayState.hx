@@ -235,7 +235,7 @@ class PlayState extends FlxState
 				#if (flash)
 					if (API.isNewgrounds)
 					{
-						API.postScore("Distance", score);
+						API.postScore("Distance", Std.int(score));
 					}
 				#end
 				
