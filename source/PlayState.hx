@@ -230,15 +230,16 @@ class PlayState extends FlxState
 		//of stuff rather than just jump straight to a game over style screen
 		if (speed < 0.21 || _player.y > 247)
 		{
+			
+			#if (flash)
+				if (API.isNewgrounds)
+				{
+					API.postScore("Distance", Std.int(score));
+				}
+			#end
+				
 			if (score > HighScore.score)
 			{
-				#if (flash)
-					if (API.isNewgrounds)
-					{
-						API.postScore("Distance", Std.int(score));
-					}
-				#end
-				
 				HighScore.score = Std.int(score);
 				HighScore.save();
 			}
