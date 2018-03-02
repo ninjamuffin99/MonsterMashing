@@ -212,6 +212,12 @@ class PlayState extends FlxState
 		if (speed > maxSpeed)
 		{
 			speed = maxSpeed;
+			#if (flash)
+				if (API.isNewgrounds)
+				{
+					API.unlockMedal("HORNY AF");
+				}
+			#end
 		}
 		
 		//gives the player a few seconds before it starts to decrease the speed
@@ -237,7 +243,7 @@ class PlayState extends FlxState
 					API.postScore("Distance", Std.int(score));
 				}
 			#end
-				
+			
 			if (score > HighScore.score)
 			{
 				HighScore.score = Std.int(score);
