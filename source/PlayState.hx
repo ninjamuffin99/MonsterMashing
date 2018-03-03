@@ -200,6 +200,8 @@ class PlayState extends FlxState
 	private var speedAccel:Float = 1;
 	private var startingTimer:Float = 4;
 	
+	private var godReached:Bool = false;
+	
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
@@ -212,6 +214,23 @@ class PlayState extends FlxState
 		if (speed > maxSpeed)
 		{
 			speed = maxSpeed;
+			#if (flash)
+				if (API.isNewgrounds)
+				{
+					API.unlockMedal("HORNY AF");
+				}
+			#end
+		}
+		
+		if (score >= 10000)
+		{
+			#if (flash)
+				if (API.isNewgrounds && !godReached)
+				{
+					API.unlockMedal("Horny God");
+					godReached = true;
+				}
+			#end
 		}
 		
 		//gives the player a few seconds before it starts to decrease the speed
@@ -237,13 +256,14 @@ class PlayState extends FlxState
 					API.postScore("Distance", Std.int(score));
 				}
 			#end
-				
+			
 			if (score > HighScore.score)
 			{
 				HighScore.score = Std.int(score);
 				HighScore.save();
 			}
 			
+			HighScore.recentScore = Std.int(score);
 			
 			//Add score here
 			//MenuState.hScore = score;
