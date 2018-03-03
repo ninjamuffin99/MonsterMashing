@@ -9,6 +9,7 @@ class HighScore
 {
 
 	public static var score:Int = 0;
+	public static var recentScore:Int = 0;
 	
 	public static function save():Void
 	{

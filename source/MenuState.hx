@@ -43,6 +43,11 @@ class MenuState extends FlxState
 		mScore.screenCenter(X);
 		add(mScore);
 		
+		if (HighScore.recentScore > 0)
+		{
+			mScore.text += "\nRecent Score: " + HighScore.recentScore;
+		}
+		
 		credsTxt = new FlxText(8, FlxG.height - 62, 0, "Programming: BrandyBuizel & ninja_muffin99\nArt:Digimin & BrandyBuizel\nPress C for more creds", 16);
 		add(credsTxt);
 		
