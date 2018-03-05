@@ -243,7 +243,6 @@ class PlayState extends FlxState
 			speed -= 0.5 / 60;
 		}
 		
-		
 		//if the players speed gets too low, it returns to MenuState
 		//eventually this will be replaced with a small little sequence
 		//of stuff rather than just jump straight to a game over style screen
