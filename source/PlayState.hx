@@ -130,28 +130,28 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		_map.loadEntities(placeEntities, "Entities");
 		
-		_mFloors = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
+		_mFloors = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_grpTilemaps.add(_mFloors);
 		
-		_mWalls = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
+		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_grpWalls.add(_mWalls);
 		
 		//loads a new oel to use, this time one with seamless tops and bottoms
 		_map = new FlxOgmoLoader("assets/data/1.oel");
 		
-		_mFloors2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
+		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_mFloors2.y -= 16 * 12;
 		_grpTilemaps.add(_mFloors2);
 		
-		_mWalls2 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
+		_mWalls2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_mWalls2.y -= 16 * 12;
 		_grpWalls.add(_mWalls2);
 		
-		_mFloors3 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Floor");
+		_mFloors3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_mFloors3.y -= 16 * 12 * 2;
 		_grpTilemaps.add(_mFloors3);
 		
-		_mWalls3 = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, "Walls");
+		_mWalls3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_mWalls3.y -= 16 * 12 * 2;
 		_grpWalls.add(_mWalls3);
 		
@@ -397,7 +397,7 @@ class PlayState extends FlxState
 		}
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
-		t = _map.loadTilemap("assets/data/tile_temple.png", 16, 16, type);
+		t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		
 		//if the type is "Walls", it simply adds the tilemap back in
 		//if it's "Floor", then it also spawns some enemies, more info below
