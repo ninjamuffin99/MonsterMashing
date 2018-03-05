@@ -21,6 +21,9 @@ class MenuState extends FlxState
 	
 	private var bg:FlxSprite;
 	
+	private var debugInfo:FlxText;
+	private var currentVersion:String = "v1.1.0";
+	
 	override public function create():Void
 	{
 		FlxG.save.bind("File");
@@ -50,6 +53,24 @@ class MenuState extends FlxState
 		
 		credsTxt = new FlxText(8, FlxG.height - 62, 0, "Programming: BrandyBuizel & ninja_muffin99\nArt:Digimin & BrandyBuizel\nPress C for more creds", 16);
 		add(credsTxt);
+		
+		debugInfo = new FlxText(8, credsTxt.y - 18, 0, currentVersion, 16);
+		add(debugInfo);
+		
+		#if flash
+			debugInfo.text += " Flash Version";
+		#elseif html5
+			debugInfo.text += " HTML5 Version ";
+			debugInfo.text += "(" + Std.string(FlxG.html5.platform) + " " +  Std.string(FlxG.html5.browser) + ")";
+			
+			if (FlxG.html5.onMobile)
+			{
+				debugInfo.text += "mobile";
+			}
+			
+		#end
+		
+		
 		
 		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
