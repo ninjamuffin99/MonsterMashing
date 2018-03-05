@@ -383,13 +383,16 @@ class PlayState extends FlxState
 		}
 		
 		//loads new tilemap data to _map, from a .oel file
-		if(score < 5000){
+		if (score < 5000)
+		{
 			_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
 		}
-		else if(score > 5000 && score < 10000){
+		else if (score > 5000 && score < 10000)
+		{
 			_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(10, 19) + ".oel");
 		}
-		else if(score > 10000){
+		else if (score > 10000)
+		{
 			_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(20, 29) + ".oel");
 		}
 		
