@@ -16,7 +16,7 @@
     <Width>920</Width>
     <Height>690</Height>
   </LevelMaximumSize>
-  <Filename>K:\Animations\HeistGame\assets\data\map.oep</Filename>
+  <Filename>C:\Users\NinjaMuffin\Documents\GitHub\HeistGame\assets\data\map.oep</Filename>
   <AngleMode>Degrees</AngleMode>
   <CameraEnabled>false</CameraEnabled>
   <CameraSize>
@@ -77,7 +77,7 @@
   <Tilesets>
     <Tileset>
       <Name>Digi</Name>
-      <FilePath>tile_temple.png</FilePath>
+      <FilePath>tile_temple_0.png</FilePath>
       <TileSize>
         <Width>16</Width>
         <Height>16</Height>
