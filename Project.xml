@@ -93,6 +93,6 @@
 	
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
 	<!--RUN THIS TO INSTALL BABY: haxelib git newgrounds https://github.com/Geokureli/Newgrounds.hx-->
-	<haxelib name="newgrounds" />
+	<classpath path="newgroundsAPI/lib"/>
 	
 </project>
