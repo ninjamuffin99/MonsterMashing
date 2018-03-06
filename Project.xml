@@ -92,7 +92,7 @@
 	<haxeflag name="-swf-lib" value="NewgroundsAPI.swc" if="flash"/>
 	
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
-	<!--RUN THIS TO INSTALL BABY: haxelib git newgrounds https://github.com/Geokureli/Newgrounds.hx-->
-	<classpath path="newgroundsAPI/lib"/>
+	<!--https://github.com/Geokureli/Newgrounds.hx-->
+	<classpath path="newgroundsAPI/lib/src"/>
 	
 </project>

@@ -22,7 +22,7 @@
     <class path="C:\HaxeToolkit\haxe\lib\flixel-addons\2,5,0" />
     <class path="source" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\3,6,1\extern" />
-    <class path="newgroundsAPI\lib" />
+    <class path="newgroundsAPI\lib\src" />
     <class path="export\flash\haxe" />
   </classpaths>
   <!-- Build options -->
