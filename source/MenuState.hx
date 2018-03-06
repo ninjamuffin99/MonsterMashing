@@ -11,6 +11,7 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import com.newgrounds.*;
 import com.newgrounds.components.*;
+import io.newgrounds.NG;
 
 class MenuState extends FlxState
 {
@@ -75,21 +76,23 @@ class MenuState extends FlxState
 		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
-		#if flash
-			if (API.isNewgrounds)
-			{
-				/*
-				var scoreBrowser:ScoreBrowser = new ScoreBrowser();
-				scoreBrowser.scoreBoardName = "Distance";
-				scoreBrowser.x += 50;
-				scoreBrowser.period = ScoreBoard.ALL_TIME;
-				scoreBrowser.loadScores();
-				FlxG.stage.addChild(scoreBrowser);
-				*/
-				
-				API.unlockMedal("MedalTest");
-			}
-		#end
+		/*
+		FlxG.log.add("Before medals");
+		
+		var medal = NG.core.medals.get(54303);
+		trace("${medal.name} is worth ${medal.value}");
+		FlxG.log.add("init medals");
+		
+		if (!medal.unlocked)
+		{
+			//medal.onUnlock.add(function():Void{ trace('${medal.name} unlocked:${medal.unlocked}'); });
+			FlxG.log.add("on unlock");
+			medal.sendUnlock();
+			FlxG.log.add("after unlock");
+		}
+		
+		FlxG.log.add("After medals");
+		*/
 		
 		//add(hScore);
 		
