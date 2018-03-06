@@ -16,14 +16,15 @@ import openfl.display.Sprite;
 import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFormat;
+/*
 import com.newgrounds.*;
 import com.newgrounds.components.*;
+*/
 
 /**
  * ...
  * @author ninjaMuffin
  */
-
 class Preloader extends FlxBasePreloader 
 {
 
@@ -70,7 +71,7 @@ class Preloader extends FlxBasePreloader
 		
 		if (!NG.core.loggedIn)
 		{
-			NG.core.requestLogin(function():Void { trace("logged on"): });
+			NG.core.requestLogin(function():Void { trace("logged on"); });
 		}
 		
 		NG.core.initEncryption(APIStuff.EncKey);
