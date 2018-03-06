@@ -91,4 +91,8 @@
 	<haxedef name="as3_native" if="flash"/>
 	<haxeflag name="-swf-lib" value="NewgroundsAPI.swc" if="flash"/>
 	
+	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
+	<!--RUN THIS TO INSTALL BABY: haxelib git newgrounds https://github.com/Geokureli/Newgrounds.hx-->
+	<haxelib name="newgrounds" />
+	
 </project>

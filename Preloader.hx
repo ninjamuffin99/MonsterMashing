@@ -4,11 +4,13 @@
 
 package;
 
+import flixel.FlxG;
 import flixel.system.FlxBasePreloader;
 import flash.display.*;
 import flash.text.*;
 import flash.Lib;
 import flixel.text.FlxText;
+import io.newgrounds.NG;
 import lime.audio.FlashAudioContext;
 import openfl.display.Sprite;
 import flash.text.Font;
@@ -63,6 +65,17 @@ class Preloader extends FlxBasePreloader
 		text.text = "Loading";
 		addChild(text);
 		*/
+		
+		NG.createAndCheckSession(this.stage, APIStuff.APIID);
+		
+		if (!NG.core.loggedIn)
+		{
+			NG.core.requestLogin(function():Void { trace("logged on"): });
+		}
+		
+		NG.core.initEncryption(APIStuff.EncKey);
+		
+		/*
 		#if (flash)
 			API.connect(root, APIStuff.APIID, APIStuff.EncKey);
 			
@@ -75,6 +88,7 @@ class Preloader extends FlxBasePreloader
 				minDisplayTime = 8;
 			}
 		#end
+		*/
 		
 		super.create();
 	}
