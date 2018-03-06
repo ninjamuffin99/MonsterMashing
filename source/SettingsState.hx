@@ -19,8 +19,6 @@ class SettingsState extends FlxSubState
 	override public function create():Void 
 	{
 		
-		
-		
 		super.create();
 	}
 	
