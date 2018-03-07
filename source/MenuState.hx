@@ -83,6 +83,7 @@ class MenuState extends FlxState
 		
 		super.create();
 		
+		new FlxTimer().start(1, finTim);
 		
 	}
 	
@@ -94,7 +95,7 @@ class MenuState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
-		new FlxTimer().start(1, finTim);
+		
 		
 		if (FlxG.keys.justPressed.Z)
 		{
