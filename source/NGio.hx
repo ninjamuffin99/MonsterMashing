@@ -4,6 +4,7 @@ import io.newgrounds.NG;
 import io.newgrounds.objects.Medal;
 import io.newgrounds.objects.ScoreBoard;
 import io.newgrounds.components.ScoreBoardComponent.Period;
+import openfl.display.Stage;
 
 import flixel.FlxG;
 
@@ -13,9 +14,13 @@ import flixel.FlxG;
  */
 class NGio
 {
-    public function initNG():Void
+	public function new()
+	{
+	}
+	
+    public function initNG(stage:Stage):Void
     {
-        NG.createAndCheckSession(FlxG.stage, APIStuff.APIID);
+        NG.createAndCheckSession(stage, APIStuff.APIID);
         // Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
         NG.core.initEncryption(APIStuff.EncKey);// Found in you NG project view
         
@@ -57,7 +62,7 @@ class NGio
         }
 		
         // Unlocking medals
-        var unlockingMedal = NG.core.medals.get(54001);// medal ids are listed in your NG project viewer 
+        var unlockingMedal = NG.core.medals.get(54304);// medal ids are listed in your NG project viewer 
         if (!unlockingMedal.unlocked)
             unlockingMedal.sendUnlock();
     }
