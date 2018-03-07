@@ -22,9 +22,9 @@ class NGio
 	
     public function initNG(stage:Stage):Void
     {
-        NG.createAndCheckSession(stage, APIStuff.APIID);
+        NG.createAndCheckSession(stage, "");
         // Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
-        NG.core.initEncryption(APIStuff.EncKey);// Found in you NG project view
+        NG.core.initEncryption("");// Found in you NG project view
         
         if (NG.core.attemptingLogin)
         {
