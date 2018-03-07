@@ -43,7 +43,7 @@ class MenuState extends FlxState
 		bg.screenCenter(X);
 		add(bg);
 		
-		mTxt = new FlxText(0, 0, 0, "MONSTER MASHING\nPress Z Play", 32);
+		mTxt = new FlxText(0, 0, 0, "MONSTER MASHING\nPress Z to Play\nPress X to Shop", 32);
 		mTxt.screenCenter();
 		mTxt.y += 40;
 		add(mTxt);
