@@ -94,5 +94,6 @@
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
 	<!--https://github.com/Geokureli/Newgrounds.hx-->
 	<classpath path="newgroundsAPI/lib/src"/>
+	<classpath path="APIStuff.hx"/>
 	
 </project>

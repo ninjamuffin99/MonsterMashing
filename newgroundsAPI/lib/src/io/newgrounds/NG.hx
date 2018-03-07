@@ -372,7 +372,7 @@ class NG extends NGLite {
 	
 	inline static public function getLoaderVar(stage:Stage, name:String):String {
 		
-		if (Reflect.hasField(stage.loaderInfo.parameters, name))
+		if (stage.loaderInfo != null && Reflect.hasField(stage.loaderInfo.parameters, name))
 			return Reflect.field(stage.loaderInfo.parameters, name);
 		
 		return null;
