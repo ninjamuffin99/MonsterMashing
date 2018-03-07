@@ -6,8 +6,6 @@ import io.newgrounds.objects.ScoreBoard;
 import io.newgrounds.components.ScoreBoardComponent.Period;
 import openfl.display.Stage;
 
-import APIStuff;
-
 import flixel.FlxG;
 
 /**
