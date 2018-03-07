@@ -72,9 +72,9 @@ class MenuState extends FlxState
 			}
 			
 		#end
-		
+		/*
 		initNG();
-		
+		*/
 		
 		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
