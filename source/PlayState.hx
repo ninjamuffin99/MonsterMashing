@@ -95,9 +95,6 @@ class PlayState extends FlxState
 		
 		initTilemap();
 		
-		FlxG.log.add("Added Entities");
-		
-		
 		//Camera
 		_camTarget = new FlxSprite(_player.x, _player.y);
 		_camTarget.makeGraphic(16, 16, FlxColor.TRANSPARENT);
@@ -107,8 +104,6 @@ class PlayState extends FlxState
 		_camTarget.y = _player.y - (16 * 4);
 		//and 1.5 tiles to the right, so that the gameplay is offset to the left
 		//_camTarget.x += 16 * 1.5;
-		
-		FlxG.log.add("Init Camera");
 		
 		initHUD();
 		
@@ -155,11 +150,6 @@ class PlayState extends FlxState
 		_mWalls3.y -= 16 * 12 * 2;
 		_grpWalls.add(_mWalls3);
 		
-		FlxG.log.add(_mFloors.y);
-		FlxG.log.add(_mFloors2.y);
-		FlxG.log.add(_mFloors3.y);
-		
-		FlxG.log.add(FlxG.height);
 	}
 	
 	private function initHUD():Void
@@ -317,7 +307,6 @@ class PlayState extends FlxState
 			{
 				//if the state isnt VICTORY, then it opens a new battle
 				e.ID = 1;
-				FlxG.log.add("ENEMY TYPE" + e.etype);
 				openSubState(new MashState(0x77000000, e.etype));
 			}
 		}
@@ -335,9 +324,12 @@ class PlayState extends FlxState
 	private function boost(e:Enemy):Void
 	{
 		speed += FlxG.random.float(0.8, 1.2);
+		//speed += MashState.horniness;
+		
 		e.ID = 0;
 		e.kill();
 		MashState.outcome = MashState.Outcome.NONE;
+		//MashState.horniness = 0;
 	}
 	
 	private function checkTilemapPos(t:FlxTilemap):Void
@@ -423,7 +415,6 @@ class PlayState extends FlxState
 			while (enemyAmount > 0)
 			{
 				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), FlxG.random.int(0, 1)));
-				FlxG.log.add("Added enemy");
 				
 				enemyAmount -= 1;
 			}
