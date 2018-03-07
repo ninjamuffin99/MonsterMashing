@@ -139,7 +139,8 @@ class MashState extends FlxSubState
 			_enemySprite.animation.play("stripped");
 		}
 		
-		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N", "LEFT", "RIGHT", "A", "D"]) && outcome != VICTORY)
+		
+		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N", "LEFT", "RIGHT", "A", "D"]) && outcome != VICTORY)//BEEP BEEP MAYBE CHANGE THIS BACK TO ENEMYHEALTH???
 		{
 			if (mashX)
 			{

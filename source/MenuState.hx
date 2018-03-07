@@ -83,7 +83,7 @@ class MenuState extends FlxState
 		
 		super.create();
 		
-		//new FlxTimer().start(1, finTim);
+		new FlxTimer().start(1, finTim);
 		
 	}
 	
