@@ -8,6 +8,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 /**
  * ...
@@ -27,6 +28,13 @@ class MashState extends FlxSubState
 	private var mashX:Bool = false;
 	
 	private var maxShake:Float = 0.05;
+	
+	public static var horniness:Float = 0;
+	private var hornyBarValue:Float = 0;
+	private var hornyPerSecond:Float = 1;
+	
+	//the time it takes before you get cucked
+	private var timerEnding:Float = 4;
 	
 	private var _barHealth:FlxBar;
 	
@@ -70,7 +78,7 @@ class MashState extends FlxSubState
 		add(_enemySprite);
 		
 		//then the health bar is added, which tracks the _enemyHealth variable
-		_barHealth = new FlxBar(32, 0-16, FlxBarFillDirection.LEFT_TO_RIGHT, FlxG.width - 64, 16, this, "_enemyHealth", 0, 10);
+		_barHealth = new FlxBar(32, 0-16, FlxBarFillDirection.LEFT_TO_RIGHT, FlxG.width - 64, 16, this, "hornyBarValue", 0, hornyPerSecond * timerEnding);
 		//add(_barHealth);
 		
 		//scroll factor set to 0 since it's HUD shits
@@ -93,7 +101,15 @@ class MashState extends FlxSubState
 		FlxTween.tween(_enemySprite, {y: _enemySprite.y + 210}, 0.7, {ease:FlxEase.quadIn});
 		//FlxTween.tween(_mashSprite, {y: 800}, 0.7, {ease:FlxEase.quadIn});
 		
+		new FlxTimer().start(4.5, getCucked);
+		
 		super.create();
+	}
+	
+	private function getCucked(t:FlxTimer):Void
+	{
+		endTweens();
+		outcome = VICTORY;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -105,16 +121,16 @@ class MashState extends FlxSubState
 		{
 			outcome = VICTORY;
 			
-			FlxTween.tween(_enemySprite, {y: FlxG.height + 400}, 1.25, {ease:FlxEase.quartInOut});
-			FlxTween.tween(_mashSprite, {y: FlxG.height + 400}, 0.75, {ease:FlxEase.quartInOut});
-			//after this health bar tween is done, it calls finishTween(), more info there I guess
-			FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
+			endTweens();
 			
 		}
 		else if (_enemyHealth > 0)
 		{
 			//always increases the y for some visual polish i guess hey i think its cool get off my dick bitch
 			_enemySprite.y += 0.5;
+			
+			horniness += hornyPerSecond * FlxG.elapsed;
+			hornyBarValue += hornyPerSecond * FlxG.elapsed;
 			//_mashSprite.y += 0.75;
 		}
 		
@@ -123,7 +139,7 @@ class MashState extends FlxSubState
 			_enemySprite.animation.play("stripped");
 		}
 		
-		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
+		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N", "LEFT", "RIGHT", "A", "D"]) && outcome != VICTORY)
 		{
 			if (mashX)
 			{
@@ -172,7 +188,6 @@ class MashState extends FlxSubState
 		
 		
 		
-		
 		//shakes the camera
 		thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
 		
@@ -183,6 +198,14 @@ class MashState extends FlxSubState
 		
 		mashX = !mashX;
 		
+	}
+	
+	private function endTweens():Void
+	{	
+		FlxTween.tween(_enemySprite, {y: FlxG.height + 400}, 1.25, {ease:FlxEase.quartInOut});
+		FlxTween.tween(_mashSprite, {y: FlxG.height + 400}, 0.75, {ease:FlxEase.quartInOut});
+		//after this health bar tween is done, it calls finishTween(), more info there I guess
+		FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});	
 	}
 	
 	//flashes the camera, removes the camera from showing, then closes the substate(hopefully with outcome set to VICTORY)
