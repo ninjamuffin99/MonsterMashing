@@ -66,7 +66,7 @@ class Preloader extends FlxBasePreloader
 		text.text = "Loading";
 		addChild(text);
 		*/
-		
+		/*
 		NG.createAndCheckSession(this.stage, APIStuff.APIID);
 		
 		if (!NG.core.loggedIn)
@@ -75,7 +75,7 @@ class Preloader extends FlxBasePreloader
 		}
 		
 		NG.core.initEncryption(APIStuff.EncKey);
-		
+		*/
 		/*
 		#if (flash)
 			API.connect(root, APIStuff.APIID, APIStuff.EncKey);
