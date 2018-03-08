@@ -222,7 +222,6 @@ class MenuState extends FlxState
 						}
 						if (touch.overlaps(_grpMenu.members[1]))
 						{
-							FlxG.mouse.visible = true;
 							FlxG.switchState(new CredState());
 						}
 					}
@@ -291,6 +290,7 @@ class MenuState extends FlxState
 		#if flash
 		if (API.isNewgrounds)
 		{
+			FlxG.mouse.visible = true;
 			ad.visible = !ad.visible;
 		}
 		else
@@ -305,6 +305,7 @@ class MenuState extends FlxState
 		#if flash
 		if (API.isNewgrounds)
 		{
+			FlxG.mouse.visible = false;
 			ad.visible = false;
 		}
 		#end
