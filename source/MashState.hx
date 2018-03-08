@@ -4,6 +4,8 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.math.FlxMath;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
@@ -29,6 +31,7 @@ class MashState extends FlxSubState
 	private var maxShake:Float = 0.05;
 	
 	private var mashTimer:Float = 4.5;
+	private var txtTimer:FlxText;
 	
 	private var _barHealth:FlxBar;
 	
@@ -90,9 +93,15 @@ class MashState extends FlxSubState
 		_mashSprite.x = 350;
 		add(_mashSprite);
 		
+		txtTimer = new FlxText(32, -34, 0, "", 32);
+		txtTimer.scrollFactor.set();
+		add(txtTimer);
+		
 		//then shit gets tweened
 		FlxTween.tween(_barHealth, {y: 16}, 0.7, {ease:FlxEase.cubeInOut});
 		FlxTween.tween(_enemySprite, {y: _enemySprite.y + 210}, 0.7, {ease:FlxEase.quadIn});
+		FlxTween.tween(txtTimer, {y: txtTimer.y + 165}, 0.7, {ease:FlxEase.quadIn});
+		
 		//FlxTween.tween(_mashSprite, {y: 800}, 0.7, {ease:FlxEase.quadIn});
 		
 		super.create();
@@ -108,15 +117,24 @@ class MashState extends FlxSubState
 			outcome = VICTORY;
 			
 			FlxTween.tween(_enemySprite, {y: FlxG.height + 400}, 1.25, {ease:FlxEase.quartInOut});
+			FlxTween.tween(txtTimer, {y: FlxG.height + 400}, 1.4, {ease:FlxEase.quartInOut});
 			FlxTween.tween(_mashSprite, {y: FlxG.height + 400}, 0.75, {ease:FlxEase.quartInOut});
 			//after this health bar tween is done, it calls finishTween(), more info there I guess
 			FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
 		}
-		else if (_enemyHealth > 0)
+		else if (_enemyHealth > 0 && outcome != VICTORY)
 		{
 			//always increases the y for some visual polish i guess hey i think its cool get off my dick bitch
-			_enemySprite.y += 0.5;
+			_enemySprite.y += 0.4;
+			txtTimer.y += 0.39;
 			mashTimer -= FlxG.elapsed;
+			txtTimer.text = Std.string(FlxMath.roundDecimal(mashTimer, 2));
+			
+			if (mashTimer < 0)
+			{
+				txtTimer.text = "0.00";
+			}
+			
 			//_mashSprite.y += 0.75;
 		}
 		
