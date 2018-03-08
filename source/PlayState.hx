@@ -393,7 +393,20 @@ class PlayState extends FlxState
 		*/
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
-		t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
+		
+		if (score > 10000)
+		{
+			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
+		}
+		else if (score > 5000)
+		{
+			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
+		}
+		else
+		{
+			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
+		}
+		
 		
 		//if the type is "Walls", it simply adds the tilemap back in
 		//if it's "Floor", then it also spawns some enemies, more info below
