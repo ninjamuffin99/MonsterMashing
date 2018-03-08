@@ -224,6 +224,7 @@ class MenuState extends FlxState
 						}
 						if (touch.overlaps(_grpMenu.members[1]))
 						{
+							FlxG.mouse.visible = true;
 							FlxG.switchState(new CredState());
 						}
 					}
