@@ -27,10 +27,11 @@ class MenuState extends FlxState
 	private var credsTxt:FlxText;
 	
 	private var debugInfo:FlxText;
-	private var currentVersion:String = "v8.0.0.8.5";
+	private var currentVersion:String = "v1.1.0";
 	
 	private var sprMonster:FlxSprite;
 	private var sprMashing:FlxSprite;
+	private var bg:FlxSprite;
 	
 	//MAP SHIT
 	/**
@@ -66,11 +67,15 @@ class MenuState extends FlxState
 		
 		initTilemap();
 		
+		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bg.alpha = 0.5;
+		add(bg);
+		
 		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.monster__png, false, 492, 166);
 		sprMonster.screenCenter(X);
 		add(sprMonster);
 		
-		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
+		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 63);
 		sprMashing.screenCenter(X);
 		add(sprMashing);
 		
@@ -121,7 +126,6 @@ class MenuState extends FlxState
 		
 		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-		FlxTween.tween(sprMashing, {y: sprMashing.y + 24}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
 		//add(hScore);
 		
@@ -139,7 +143,6 @@ class MenuState extends FlxState
 		_grpWalls = new FlxTypedGroup<FlxTilemap>();
 		add(_grpWalls);
 		
-		/*
 		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		
@@ -148,7 +151,6 @@ class MenuState extends FlxState
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_grpWalls.add(_mWalls);
-		*/
 		
 		//loads a new oel to use, this time one with seamless tops and bottoms
 		_map = new FlxOgmoLoader("assets/data/1.oel");
@@ -176,7 +178,7 @@ class MenuState extends FlxState
 	
 	private function scaleUp(t:FlxTilemap):Void
 	{
-		t.scale.set(5, 5);
+		t.scale.set(3, 3);
 	}
 	
 	private function finTim(t:FlxTimer):Void
