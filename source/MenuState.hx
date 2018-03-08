@@ -20,7 +20,6 @@ class MenuState extends FlxState
 {
 	private var mTxt:FlxText;
 	private var mScore:FlxText;
-	
 	private var credsTxt:FlxText;
 	
 	private var bg:FlxSprite;

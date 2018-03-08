@@ -28,6 +28,8 @@ class MashState extends FlxSubState
 	
 	private var maxShake:Float = 0.05;
 	
+	private var mashTimer:Float = 4.5;
+	
 	private var _barHealth:FlxBar;
 	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int) 
@@ -101,7 +103,7 @@ class MashState extends FlxSubState
 		super.update(elapsed);
 		
 		//if the enemy's health is less than 0, and the outcome isn't VICTORY, then it finishes shit up
-		if (_enemyHealth <= 0 && outcome != VICTORY)
+		if ((_enemyHealth <= 0 || mashTimer < 0) && outcome != VICTORY)
 		{
 			outcome = VICTORY;
 			
@@ -109,12 +111,12 @@ class MashState extends FlxSubState
 			FlxTween.tween(_mashSprite, {y: FlxG.height + 400}, 0.75, {ease:FlxEase.quartInOut});
 			//after this health bar tween is done, it calls finishTween(), more info there I guess
 			FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
-			
 		}
 		else if (_enemyHealth > 0)
 		{
 			//always increases the y for some visual polish i guess hey i think its cool get off my dick bitch
 			_enemySprite.y += 0.5;
+			mashTimer -= FlxG.elapsed;
 			//_mashSprite.y += 0.75;
 		}
 		
