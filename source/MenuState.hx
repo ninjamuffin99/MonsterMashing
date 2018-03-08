@@ -75,8 +75,69 @@ class MenuState extends FlxState
 		initImages();
 		initText();
 		
+<<<<<<< HEAD
+		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bg.alpha = 0.4;
+		add(bg);
+		
+		sprMonster = new FlxSprite(0, 40).loadGraphic(AssetPaths.monster__png, false, 492, 166);
+		sprMonster.screenCenter(X);
+		add(sprMonster);
+		
+		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
+		sprMashing.screenCenter(X);
+		add(sprMashing);
+		
+		_grpMenu = new FlxTypedGroup<FlxText>();
+		add(_grpMenu);
+		
+		selMax = menuItems.length - 1;
+		
+		for (i in 0...menuItems.length)
+		{
+			var text:FlxText = new FlxText(0, (i * 36) + 370, 0, menuItems[i], 32);
+			text.screenCenter(X);
+			_grpMenu.add(text);
+		}
+		
+		mTxt = new FlxText(0, 0, 0, "Press Z to Play\nPress X to Shop", 32);
+		mTxt.screenCenter();
+		mTxt.y += 40;
+		//add(mTxt);
+		
+		mScore = new FlxText(0, FlxG.height / 2 + 110, 0, "High Score: " + HighScore.score, 32);
+		mScore.screenCenter(X);
+		add(mScore);
+		
+		if (HighScore.recentScore > 0)
+		{
+			mScore.text += "\nRecent Score: " + HighScore.recentScore;
+		}
+		
+		credsTxt = new FlxText(8, FlxG.height - 62, 0, "Programming: BrandyBuizel & ninja_muffin99\nArt:Digimin & BrandyBuizel\nPress C for more creds", 16);
+		//add(credsTxt);
+		
+		debugInfo = new FlxText(8, credsTxt.y - 18, 0, currentVersion, 16);
+		add(debugInfo);
+		
+		#if flash
+			debugInfo.text += " Flash Version";
+		#elseif html5
+			debugInfo.text += " HTML5 Version ";
+			debugInfo.text += "(" + Std.string(FlxG.html5.platform) + " " +  Std.string(FlxG.html5.browser) + ")";
+			
+			if (FlxG.html5.onMobile)
+			{
+				debugInfo.text += "mobile";
+			}
+			
+		#end
+		
+		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+=======
+>>>>>>> 784ffd44659ef973c9f7125e624618f2d3a9ab1a
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-		FlxTween.tween(sprMashing, {y: sprMashing.y + 24}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
 		super.create();
 		
