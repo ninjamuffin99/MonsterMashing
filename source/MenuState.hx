@@ -51,7 +51,7 @@ class MenuState extends FlxState
 	private var speed:Float = 3;
 	
 	private var _grpMenu:FlxTypedGroup<FlxText>;
-	private var menuItems:Array<String> = ["Play", "Credits", "IDK"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame"];
 	private var selected:Int = 0;
 	private var selMax:Int = 0;//gets set later
 	
@@ -148,6 +148,7 @@ class MenuState extends FlxState
 		
 		var scaleFixin:Float = 12 * mapZoom;
 		
+		/*
 		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		
@@ -157,10 +158,10 @@ class MenuState extends FlxState
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_grpWalls.add(_mWalls);
-		
+		*/
 		
 		//loads a new oel for the _map variable
-		_map = new FlxOgmoLoader("assets/data/1.oel");
+		_map = new FlxOgmoLoader("assets/data/7.oel");
 		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_mFloors2.y -= 16 * scaleFixin;
@@ -310,7 +311,7 @@ class MenuState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(2, 9) + ".oel");
 		
 		t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		scaleUp(t);
