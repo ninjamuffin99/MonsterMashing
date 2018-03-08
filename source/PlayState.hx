@@ -375,22 +375,7 @@ class PlayState extends FlxState
 		}
 		
 		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
-		
-		/* this will work fine once we get levels 10-29
-		loads new tilemap data to _map, from a .oel file
-		if (score < 5000)
-		{
-			_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
-		}
-		else if (score > 5000 && score < 10000)
-		{
-			_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(10, 19) + ".oel");
-		}
-		else if (score > 10000)
-		{
-			_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(20, 29) + ".oel");
-		}
-		*/
+
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
 		
