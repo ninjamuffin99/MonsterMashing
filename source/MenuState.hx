@@ -11,6 +11,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import com.newgrounds.*;
 import com.newgrounds.components.*;
@@ -50,6 +51,11 @@ class MenuState extends FlxState
 	private var _grpWalls:FlxTypedGroup<FlxTilemap>;
 	private var speed:Float = 3;
 	
+	private var _grpMenu:FlxTypedGroup<FlxText>;
+	private var menuItems:Array<String> = ["Play", "Credits", "IDK"];
+	private var selected:Int = 0;
+	private var selMax:Int = 0;//gets set later
+	
 	
 	override public function create():Void
 	{
@@ -60,7 +66,6 @@ class MenuState extends FlxState
 		
 		initTilemap();
 		
-		
 		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.monster__png, false, 492, 166);
 		sprMonster.screenCenter(X);
 		add(sprMonster);
@@ -69,11 +74,22 @@ class MenuState extends FlxState
 		sprMashing.screenCenter(X);
 		add(sprMashing);
 		
+		_grpMenu = new FlxTypedGroup<FlxText>();
+		add(_grpMenu);
+		
+		selMax = menuItems.length - 1;
+		
+		for (i in 0...menuItems.length)
+		{
+			var text:FlxText = new FlxText(0, (i * 36) + 370, 0, menuItems[i], 32);
+			text.screenCenter(X);
+			_grpMenu.add(text);
+		}
 		
 		mTxt = new FlxText(0, 0, 0, "Press Z to Play\nPress X to Shop", 32);
 		mTxt.screenCenter();
 		mTxt.y += 40;
-		add(mTxt);
+		//add(mTxt);
 		
 		mScore = new FlxText(0, FlxG.height / 2 + 110, 0, "High Score: " + HighScore.score, 32);
 		mScore.screenCenter(X);
@@ -85,7 +101,7 @@ class MenuState extends FlxState
 		}
 		
 		credsTxt = new FlxText(8, FlxG.height - 62, 0, "Programming: BrandyBuizel & ninja_muffin99\nArt:Digimin & BrandyBuizel\nPress C for more creds", 16);
-		add(credsTxt);
+		//add(credsTxt);
 		
 		debugInfo = new FlxText(8, credsTxt.y - 18, 0, currentVersion, 16);
 		add(debugInfo);
@@ -168,7 +184,7 @@ class MenuState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
-		
+		menuHandling();
 		
 		if (FlxG.keys.justPressed.Z)
 		{
@@ -212,6 +228,30 @@ class MenuState extends FlxState
 		_grpWalls.forEach(checkWallPos);
 		
 		super.update(elapsed);
+	}
+	
+	private function menuHandling():Void
+	{
+		for (i in 0..._grpMenu.members.length)
+		{
+			_grpMenu.members[i].color = FlxColor.WHITE;
+		}
+		_grpMenu.members[selected].color = FlxColor.YELLOW;
+		
+		if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
+		{
+			selected -= 1;
+		}
+		if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
+		{
+			selected += 1;
+		}
+		
+		if (selected > selMax)
+			selected = 0;
+		if (selected < 0)
+			selected = selMax;
+		
 	}
 	
 	
