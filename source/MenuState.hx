@@ -70,7 +70,7 @@ class MenuState extends FlxState
 		sprMonster.screenCenter(X);
 		add(sprMonster);
 		
-		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 63);
+		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		sprMashing.screenCenter(X);
 		add(sprMashing);
 		
@@ -121,6 +121,7 @@ class MenuState extends FlxState
 		
 		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+		FlxTween.tween(sprMashing, {y: sprMashing.y + 24}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
 		//add(hScore);
 		
@@ -173,7 +174,7 @@ class MenuState extends FlxState
 	
 	private function scaleUp(t:FlxTilemap):Void
 	{
-		t.scale.set(3, 3);
+		t.scale.set(5, 5);
 	}
 	
 	private function finTim(t:FlxTimer):Void
