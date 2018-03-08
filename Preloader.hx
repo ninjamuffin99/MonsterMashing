@@ -16,10 +16,9 @@ import openfl.display.Sprite;
 import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFormat;
-/*
 import com.newgrounds.*;
 import com.newgrounds.components.*;
-*/
+
 
 /**
  * ...
@@ -76,7 +75,7 @@ class Preloader extends FlxBasePreloader
 		
 		NG.core.initEncryption(APIStuff.EncKey);
 		*/
-		/*
+		
 		#if (flash)
 			API.connect(root, APIStuff.APIID, APIStuff.EncKey);
 			
@@ -89,7 +88,7 @@ class Preloader extends FlxBasePreloader
 				minDisplayTime = 8;
 			}
 		#end
-		*/
+		
 		
 		super.create();
 	}

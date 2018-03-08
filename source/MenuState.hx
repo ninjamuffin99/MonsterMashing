@@ -16,10 +16,11 @@ import flixel.util.FlxColor;
 import com.newgrounds.*;
 import com.newgrounds.components.*;
 import flixel.util.FlxTimer;
+/*
 import io.newgrounds.NG;
 import io.newgrounds.objects.Medal;
 import io.newgrounds.objects.ScoreBoard;
-
+*/
 class MenuState extends FlxState
 {
 	private var mTxt:FlxText;
@@ -51,12 +52,21 @@ class MenuState extends FlxState
 	private var speed:Float = 3;
 	
 	private var _grpMenu:FlxTypedGroup<FlxText>;
+	
+	#if flash
 	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame"];
+	private var ad:ScoreBrowser = new ScoreBrowser();
+	#else
+	private var menuItems:Array<String> = ["Play", "Credits"];
+	#end
+	
 	private var selected:Int = 0;
 	private var selMax:Int = 0;//gets set later
 	
 	private var mapZoom:Float = 5;
 	private var mapOffsetX:Float = -86;
+	
+	
 	
 	
 	override public function create():Void
@@ -108,6 +118,16 @@ class MenuState extends FlxState
 		
 		credsTxt = new FlxText(8, FlxG.height - 62, 0, "Programming: BrandyBuizel & ninja_muffin99\nArt:Digimin & BrandyBuizel\nPress C for more creds", 16);
 		//add(credsTxt);
+		
+		#if (flash)
+			if (API.isNewgrounds)
+			{
+				ad.x = (FlxG.width / 2) - (ad.width/2);
+				ad.y = (FlxG.height / 2.5) - (ad.height/2);
+				FlxG.stage.addChild(ad);
+				toggleScores();
+			}
+		#end
 		
 		debugInfo = new FlxText(8, credsTxt.y - 18, 0, currentVersion, 16);
 		add(debugInfo);
@@ -249,6 +269,16 @@ class MenuState extends FlxState
 			selected += 1;
 		}
 		
+		#if flash
+		if (API.isNewgrounds)
+		{
+			if (ad.visible && FlxG.keys.justPressed.ANY)
+			{
+				ripScoreboard();
+			}
+		}
+		#end
+		
 		if (selected > selMax)
 			selected = 0;
 		if (selected < 0)
@@ -262,12 +292,37 @@ class MenuState extends FlxState
 					FlxG.switchState(new PlayState());
 				case 1:
 					FlxG.switchState(new CredState());
+				case 2:
+					toggleScores();
 				default:
 					
 			}
 		}
 	}
 	
+	private function toggleScores():Void
+	{
+		#if flash
+		if (API.isNewgrounds)
+		{
+			ad.visible = !ad.visible;
+		}
+		else
+		{
+			FlxG.openURL("https://www.newgrounds.com/portal/view/707498");
+		}
+		#end
+	}
+	
+	private function ripScoreboard():Void
+	{
+		#if flash
+		if (API.isNewgrounds)
+		{
+			ad.visible = false;
+		}
+		#end
+	}
 	
 	private function checkTilemapPos(t:FlxTilemap):Void
 	{
