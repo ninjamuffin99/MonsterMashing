@@ -55,6 +55,9 @@ class MenuState extends FlxState
 	private var selected:Int = 0;
 	private var selMax:Int = 0;//gets set later
 	
+	private var mapZoom:Float = 5;
+	private var mapOffsetX:Float = -86;
+	
 	
 	override public function create():Void
 	{
@@ -142,27 +145,37 @@ class MenuState extends FlxState
 		_grpWalls = new FlxTypedGroup<FlxTilemap>();
 		add(_grpWalls);
 		
+		
+		var scaleFixin:Float = 12 * mapZoom;
+		
+		//loads a new oel for the _map variable
+		_map = new FlxOgmoLoader("assets/data/start.oel");
+		
+		
+		_mFloors = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
+		_grpTilemaps.add(_mFloors);
+		
+		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
+		_grpWalls.add(_mWalls);
+		
+		
 		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/1.oel");
 		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_mFloors2.y -= 16 * 36;
-		_mFloors2.x = -86;
+		_mFloors2.y -= 16 * scaleFixin;
 		_grpTilemaps.add(_mFloors2);
 		
 		_mWalls2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_mWalls2.y -= 16 * 36;
-		_mWalls2.x = -86;
+		_mWalls2.y -= 16 * scaleFixin;
 		_grpWalls.add(_mWalls2);
 		
 		_mFloors3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_mFloors3.y -= 16 * 36 * 2;
-		_mFloors3.x = -86;
+		_mFloors3.y -= 16 * scaleFixin * 2;
 		_grpTilemaps.add(_mFloors3);
 		
 		_mWalls3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_mWalls3.y -= 16 * 36 * 2;
-		_mWalls3.x = -86;
+		_mWalls3.y -= 16 * scaleFixin * 2;
 		_grpWalls.add(_mWalls3);
 		
 		_grpTilemaps.forEach(scaleUp);
@@ -172,7 +185,8 @@ class MenuState extends FlxState
 	
 	private function scaleUp(t:FlxTilemap):Void
 	{
-		t.scale.set(5, 5);
+		t.scale.set(mapZoom, mapZoom);
+		t.x = mapOffsetX;
 	}
 	
 	private function finTim(t:FlxTimer):Void
