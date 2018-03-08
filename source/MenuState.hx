@@ -79,9 +79,7 @@ class MenuState extends FlxState
 		
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.15, x: sprMonster.scale.x * 1.15}, 1.15, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-		
-		
+		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
 		super.create();
 		
