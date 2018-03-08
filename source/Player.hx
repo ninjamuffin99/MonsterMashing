@@ -40,9 +40,9 @@ class Player extends FlxSprite
 		drag.x = drag.y = 200;
 		
 		width = 8;
-		offset.x = 5;
+		offset.x = 4;
 		height = 8;
-		offset.y = 5;
+		offset.y = 6;
 
 		FlxG.log.add("added player");
 	}
