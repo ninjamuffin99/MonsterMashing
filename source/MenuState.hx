@@ -207,12 +207,8 @@ class MenuState extends FlxState
 		menuHandling();
 		
 		#if html5
-			
 			if (FlxG.html5.onMobile)
 			{
-				mTxt.text = "MONSTER MASHING\nTouch to play";
-				credsTxt.text = "Programming: ninja_muffin99 & BrandyBuizel\nArt:Digimin & BrandyBuizel\nTap here for more creds";
-				
 				for (touch in FlxG.touches.list)
 				{
 					if (touch.justPressed) 
