@@ -75,7 +75,6 @@ class MenuState extends FlxState
 		initImages();
 		initText();
 		
-<<<<<<< HEAD
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0.4;
 		add(bg);
@@ -134,8 +133,6 @@ class MenuState extends FlxState
 		#end
 		
 		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-=======
->>>>>>> 784ffd44659ef973c9f7125e624618f2d3a9ab1a
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
