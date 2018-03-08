@@ -27,7 +27,7 @@ class MenuState extends FlxState
 	private var credsTxt:FlxText;
 	
 	private var debugInfo:FlxText;
-	private var currentVersion:String = "v1.1.0";
+	private var currentVersion:String = "v8.0.0.8.5";
 	
 	private var sprMonster:FlxSprite;
 	private var sprMashing:FlxSprite;
@@ -139,6 +139,7 @@ class MenuState extends FlxState
 		_grpWalls = new FlxTypedGroup<FlxTilemap>();
 		add(_grpWalls);
 		
+		/*
 		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		
@@ -147,6 +148,7 @@ class MenuState extends FlxState
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_grpWalls.add(_mWalls);
+		*/
 		
 		//loads a new oel to use, this time one with seamless tops and bottoms
 		_map = new FlxOgmoLoader("assets/data/1.oel");
