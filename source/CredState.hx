@@ -67,6 +67,7 @@ class CredState extends FlxState
 	{
 		if (FlxG.keys.justPressed.ENTER)
 		{
+			FlxG.mouse.visible = false;
 			FlxG.switchState(new MenuState());
 		}
 		
