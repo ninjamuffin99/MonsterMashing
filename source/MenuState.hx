@@ -23,12 +23,10 @@ import io.newgrounds.objects.ScoreBoard;
 */
 class MenuState extends FlxState
 {
-	private var mTxt:FlxText;
 	private var mScore:FlxText;
-	private var credsTxt:FlxText;
 	
 	private var debugInfo:FlxText;
-	private var currentVersion:String = "v8.0.0.8.5";
+	private var currentVersion:String = "v1.1.0";
 	
 	private var sprMonster:FlxSprite;
 	private var sprMashing:FlxSprite;
@@ -43,7 +41,7 @@ class MenuState extends FlxState
 	//The second group of tilemaps
 	private var _mWalls2:FlxTilemap;
 	private var _mFloors2:FlxTilemap;
-	
+	//Third group
 	private var _mWalls3:FlxTilemap;
 	private var _mFloors3:FlxTilemap;
 	
@@ -66,9 +64,6 @@ class MenuState extends FlxState
 	private var mapZoom:Float = 5;
 	private var mapOffsetX:Float = -86;
 	
-	
-	
-	
 	override public function create():Void
 	{
 		FlxG.save.bind("File");
@@ -77,84 +72,15 @@ class MenuState extends FlxState
 		FlxG.camera.fade(FlxColor.BLACK, 0.8, true);
 		
 		initTilemap();
+		initImages();
+		initText();
 		
-		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0.4;
-		add(bg);
-		
-		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.monster__png, false, 492, 166);
-		sprMonster.screenCenter(X);
-		add(sprMonster);
-		
-		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
-		sprMashing.screenCenter(X);
-		add(sprMashing);
-		
-		_grpMenu = new FlxTypedGroup<FlxText>();
-		add(_grpMenu);
-		
-		selMax = menuItems.length - 1;
-		
-		for (i in 0...menuItems.length)
-		{
-			var text:FlxText = new FlxText(0, (i * 36) + 370, 0, menuItems[i], 32);
-			text.screenCenter(X);
-			_grpMenu.add(text);
-		}
-		
-		mTxt = new FlxText(0, 0, 0, "Press Z to Play\nPress X to Shop", 32);
-		mTxt.screenCenter();
-		mTxt.y += 40;
-		//add(mTxt);
-		
-		mScore = new FlxText(0, FlxG.height / 2 + 110, 0, "High Score: " + HighScore.score, 32);
-		mScore.screenCenter(X);
-		add(mScore);
-		
-		if (HighScore.recentScore > 0)
-		{
-			mScore.text += "\nRecent Score: " + HighScore.recentScore;
-		}
-		
-		credsTxt = new FlxText(8, FlxG.height - 62, 0, "Programming: BrandyBuizel & ninja_muffin99\nArt:Digimin & BrandyBuizel\nPress C for more creds", 16);
-		//add(credsTxt);
-		
-		#if (flash)
-			if (API.isNewgrounds)
-			{
-				ad.x = (FlxG.width / 2) - (ad.width/2);
-				ad.y = (FlxG.height / 2.5) - (ad.height/2);
-				FlxG.stage.addChild(ad);
-				toggleScores();
-			}
-		#end
-		
-		debugInfo = new FlxText(8, credsTxt.y - 18, 0, currentVersion, 16);
-		add(debugInfo);
-		
-		#if flash
-			debugInfo.text += " Flash Version";
-		#elseif html5
-			debugInfo.text += " HTML5 Version ";
-			debugInfo.text += "(" + Std.string(FlxG.html5.platform) + " " +  Std.string(FlxG.html5.browser) + ")";
-			
-			if (FlxG.html5.onMobile)
-			{
-				debugInfo.text += "mobile";
-			}
-			
-		#end
-		
-		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 24}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-		
-		//add(hScore);
 		
 		super.create();
 		
 		//new FlxTimer().start(1, finTim);
-		
 	}
 	
 	private function initTilemap():Void
@@ -165,20 +91,16 @@ class MenuState extends FlxState
 		_grpWalls = new FlxTypedGroup<FlxTilemap>();
 		add(_grpWalls);
 		
-		
 		var scaleFixin:Float = 12 * mapZoom;
 		
-		/*
 		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/start.oel");
-		
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_grpTilemaps.add(_mFloors);
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_grpWalls.add(_mWalls);
-		*/
 		
 		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/7.oel");
@@ -201,7 +123,71 @@ class MenuState extends FlxState
 		
 		_grpTilemaps.forEach(scaleUp);
 		_grpWalls.forEach(scaleUp);
+	}
+	
+	private function initImages():Void
+	{
+		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bg.alpha = 0.4;
+		add(bg);
 		
+		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.monster__png, false, 492, 166);
+		sprMonster.screenCenter(X);
+		add(sprMonster);
+		
+		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
+		sprMashing.screenCenter(X);
+		add(sprMashing);
+	}
+	
+	private function initText():Void
+	{
+		_grpMenu = new FlxTypedGroup<FlxText>();
+		add(_grpMenu);
+		
+		selMax = menuItems.length - 1;
+		
+		for (i in 0...menuItems.length)
+		{
+			var text:FlxText = new FlxText(0, (i * 36) + 370, 0, menuItems[i], 32);
+			text.screenCenter(X);
+			_grpMenu.add(text);
+		}
+		
+		mScore = new FlxText(0, FlxG.height / 2 + 110, 0, "High Score: " + HighScore.score, 32);
+		mScore.screenCenter(X);
+		add(mScore);
+		
+		if (HighScore.recentScore > 0)
+		{
+			mScore.text += "\nRecent Score: " + HighScore.recentScore;
+		}
+		
+		#if (flash)
+			if (API.isNewgrounds)
+			{
+				ad.x = (FlxG.width / 2) - (ad.width/2);
+				ad.y = (FlxG.height / 2.5) - (ad.height/2);
+				FlxG.stage.addChild(ad);
+				toggleScores();
+			}
+		#end
+		
+		debugInfo = new FlxText(8, FlxG.height - 20, 0, currentVersion, 16);
+		add(debugInfo);
+		
+		#if flash
+			debugInfo.text += " Flash Version";
+		#elseif html5
+			debugInfo.text += " HTML5 Version ";
+			debugInfo.text += "(" + Std.string(FlxG.html5.platform) + " " +  Std.string(FlxG.html5.browser) + ")";
+			
+			if (FlxG.html5.onMobile)
+			{
+				debugInfo.text += "mobile";
+			}
+			
+		#end
 	}
 	
 	private function scaleUp(t:FlxTilemap):Void
