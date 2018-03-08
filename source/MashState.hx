@@ -22,6 +22,7 @@ class MashState extends FlxSubState
 	private var enemyType:Int = 0;
 	
 	private var _mashSprite:FlxSprite;
+	private var bg:FlxSprite;
 	
 	private var _enemySprite:FlxSprite;
 	private var _enemyHealth:Float = 10;
@@ -39,6 +40,10 @@ class MashState extends FlxSubState
 	{
 		super(BGColor);
 		FlxG.camera.flash();
+		
+		bg = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+		bg.alpha = 0.4;
+		add(bg);
 		
 		enemyType = EType;
 		

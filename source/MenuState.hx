@@ -27,16 +27,14 @@ class MenuState extends FlxState
 	private var credsTxt:FlxText;
 	
 	private var debugInfo:FlxText;
-	private var currentVersion:String = "v1.1.0";
+	private var currentVersion:String = "v8.0.0.8.5";
 	
 	private var sprMonster:FlxSprite;
 	private var sprMashing:FlxSprite;
 	private var bg:FlxSprite;
 	
 	//MAP SHIT
-	/**
-	 * The map data, loaded from Ogmo
-	 */
+	//The map data, loaded from Ogmo
 	private var _map:FlxOgmoLoader;
 	
 	private var _mWalls:FlxTilemap;
@@ -68,14 +66,14 @@ class MenuState extends FlxState
 		initTilemap();
 		
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0.5;
+		bg.alpha = 0.4;
 		add(bg);
 		
 		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.monster__png, false, 492, 166);
 		sprMonster.screenCenter(X);
 		add(sprMonster);
 		
-		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 63);
+		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		sprMashing.screenCenter(X);
 		add(sprMashing);
 		
@@ -126,6 +124,7 @@ class MenuState extends FlxState
 		
 		FlxTween.tween(mTxt, {y: mTxt.y + 40}, 0.9, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(mScore, {y: mScore.y + 40}, 0.905, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+		FlxTween.tween(sprMashing, {y: sprMashing.y + 24}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
 		//add(hScore);
 		
@@ -144,31 +143,26 @@ class MenuState extends FlxState
 		add(_grpWalls);
 		
 		//loads a new oel for the _map variable
-		_map = new FlxOgmoLoader("assets/data/start.oel");
-		
-		_mFloors = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_grpTilemaps.add(_mFloors);
-		
-		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_grpWalls.add(_mWalls);
-		
-		//loads a new oel to use, this time one with seamless tops and bottoms
 		_map = new FlxOgmoLoader("assets/data/1.oel");
 		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_mFloors2.y -= 16 * 36;
+		_mFloors2.x = -86;
 		_grpTilemaps.add(_mFloors2);
 		
 		_mWalls2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_mWalls2.y -= 16 * 36;
+		_mWalls2.x = -86;
 		_grpWalls.add(_mWalls2);
 		
 		_mFloors3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_mFloors3.y -= 16 * 36 * 2;
+		_mFloors3.x = -86;
 		_grpTilemaps.add(_mFloors3);
 		
 		_mWalls3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_mWalls3.y -= 16 * 36 * 2;
+		_mWalls3.x = -86;
 		_grpWalls.add(_mWalls3);
 		
 		_grpTilemaps.forEach(scaleUp);
@@ -178,7 +172,7 @@ class MenuState extends FlxState
 	
 	private function scaleUp(t:FlxTilemap):Void
 	{
-		t.scale.set(3, 3);
+		t.scale.set(5, 5);
 	}
 	
 	private function finTim(t:FlxTimer):Void
@@ -306,7 +300,6 @@ class MenuState extends FlxState
 		
 		t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		scaleUp(t);
-		
 		
 		//if the type is "Walls", it simply adds the tilemap back in
 		//if it's "Floor", then it also spawns some enemies, more info below
