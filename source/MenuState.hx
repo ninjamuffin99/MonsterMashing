@@ -200,18 +200,6 @@ class MenuState extends FlxState
 	{
 		menuHandling();
 		
-		if (FlxG.keys.justPressed.Z)
-		{
-			FlxG.camera.flash();
-			FlxG.sound.play(AssetPaths.flash__wav);
-			FlxG.switchState(new PlayState());
-		}
-		
-		if (FlxG.keys.justPressed.C)
-		{
-			FlxG.switchState(new CredState());
-		}
-		
 		#if html5
 			
 			if (FlxG.html5.onMobile)
@@ -223,11 +211,11 @@ class MenuState extends FlxState
 				{
 					if (touch.justPressed) 
 					{
-						if (touch.y < credsTxt.y)
+						if (touch.overlaps(_grpMenu.members[0]))
 						{
 							FlxG.switchState(new PlayState());
 						}
-						else
+						if (touch.overlaps(_grpMenu.members[1]))
 						{
 							FlxG.switchState(new CredState());
 						}
@@ -266,6 +254,18 @@ class MenuState extends FlxState
 		if (selected < 0)
 			selected = selMax;
 		
+		if (FlxG.keys.anyJustPressed(["ENTER", "SPACE", "Z", "X"]))
+		{
+			switch (selected) 
+			{
+				case 0:
+					FlxG.switchState(new PlayState());
+				case 1:
+					FlxG.switchState(new CredState());
+				default:
+					
+			}
+		}
 	}
 	
 	
