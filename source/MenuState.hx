@@ -83,8 +83,6 @@ class MenuState extends FlxState
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
 		super.create();
-		
-		new FlxTimer().start(1, finTim);
 	}
 	
 	private function initTilemap():Void
@@ -200,20 +198,15 @@ class MenuState extends FlxState
 		t.x = mapOffsetX;
 	}
 	
-	private function finTim(t:FlxTimer):Void
-	{
-		var newgrounds:NGio = new NGio();
-	}
-	
 	override public function update(elapsed:Float):Void
 	{
 		menuHandling();
-		
+		/*
 		if (NG.core.user.supporter)
 		{
 			debugInfo.text = "supporter YO";
 		}
-		
+		*/
 		#if html5
 			if (FlxG.html5.onMobile)
 			{
