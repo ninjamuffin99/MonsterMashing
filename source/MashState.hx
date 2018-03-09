@@ -31,7 +31,7 @@ class MashState extends FlxSubState
 	
 	private var maxShake:Float = 0.05;
 	
-	private var mashTimer:Float = 3;
+	private var mashTimer:Float = 2.5;
 	private var txtTimer:FlxText;
 	
 	private var _barHealth:FlxBar;
@@ -127,7 +127,7 @@ class MashState extends FlxSubState
 			//after this health bar tween is done, it calls finishTween(), more info there I guess
 			FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
 		}
-		else if ((_enemyHealth <= 6 || mashTimer < 0) && outcome != VICTORY){
+		else if ((_enemyHealth <= 4 || mashTimer < 0) && outcome != VICTORY){
 			outcome = DEFEAT;
 			
 			_enemySprite.y += 0.4;
