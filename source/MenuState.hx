@@ -201,12 +201,7 @@ class MenuState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		menuHandling();
-		/*
-		if (NG.core.user.supporter)
-		{
-			debugInfo.text = "supporter YO";
-		}
-		*/
+		
 		#if html5
 			if (FlxG.html5.onMobile)
 			{
@@ -226,7 +221,6 @@ class MenuState extends FlxState
 					
 				}
 			}
-			
 		#end
 		
 		_grpTilemaps.forEach(checkTilemapPos);

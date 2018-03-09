@@ -65,30 +65,6 @@ class Preloader extends FlxBasePreloader
 		text.text = "Loading";
 		addChild(text);
 		*/
-		/*
-		NG.createAndCheckSession(this.stage, APIStuff.APIID);
-		
-		if (!NG.core.loggedIn)
-		{
-			NG.core.requestLogin(function():Void { trace("logged on"); });
-		}
-		
-		NG.core.initEncryption(APIStuff.EncKey);
-		*/
-		/*
-		#if (flash)
-			API.connect(root, APIStuff.APIID, APIStuff.EncKey);
-			
-			if (API.isNewgrounds)
-			{
-				var ad:FlashAd = new FlashAd();
-				ad.x = (_width / 2) - (ad.width/2);
-				ad.y = (_width / 2.5) - (ad.height/2);
-				addChild(ad);
-				minDisplayTime = 8;
-			}
-		#end
-		*/
 		
 		finTim();
 		
@@ -98,10 +74,8 @@ class Preloader extends FlxBasePreloader
 	
 	private function finTim():Void
 	{
-		var newgrounds:NGio = new NGio();
+		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 	}
-	
-	
 	
 	override function update(Percent:Float):Void
 	{
