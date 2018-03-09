@@ -166,7 +166,7 @@ class NG extends NGLite {
 		if (_session.status == SessionStatus.REQUEST_LOGIN) {
 			
 			logVerbose('loading passport: ${_session.passportUrl}');
-			Lib.getURL(new URLRequest(_session.passportUrl));//TODO: pop non fullscreen web page
+			Lib.getURL(new URLRequest(_session.passportUrl),"_blank");//TODO: pop non fullscreen web page
 		}
 		
 		checkSession(null, onSuccess, onCancel);
@@ -398,6 +398,9 @@ class NG extends NGLite {
 	static var urlParser:EReg = ~/^(?:http[s]?:\/\/)?([^:\/\s]+)(:[0-9]+)?((?:\/\w+)*\/)([\w\-\.]+[^#?\s]+)([^#\s]*)?(#[\w\-]+)?$/i;//TODO:trim
 	/** Used to get the current web host of your game. */
 	static public function getHost(stage:Stage):String {
+		
+		if (stage.loaderInfo == null)
+			return "<Unknown>";
 		
 		var url = stage.loaderInfo.url;
 		
