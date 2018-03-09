@@ -15,14 +15,14 @@ import flixel.FlxG;
 class NGio
 {
 	
-	public function new() {
+	public function new(api:String, encKey:String) {
 		
 		trace("connecting to newgrounds");
 		
-		NG.createAndCheckSession(FlxG.stage, "47215:Ip8uDj9v");
+		NG.createAndCheckSession(FlxG.stage, api);
 		NG.core.verbose = true;
 		// Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
-		NG.core.initEncryption("LUp0Zg4f1lukgKgSwchZnQ==");// Found in you NG project view
+		NG.core.initEncryption(encKey);// Found in you NG project view
 		
 		if (NG.core.attemptingLogin)
 		{
@@ -63,7 +63,7 @@ class NGio
 		}
 		
 		// Unlocking medals
-		var unlockingMedal = NG.core.medals.get(54001);// medal ids are listed in your NG project viewer 
+		var unlockingMedal = NG.core.medals.get(54352);// medal ids are listed in your NG project viewer 
 		if (!unlockingMedal.unlocked)
 			unlockingMedal.sendUnlock();
 	}
