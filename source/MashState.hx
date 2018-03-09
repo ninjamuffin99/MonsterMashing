@@ -31,7 +31,7 @@ class MashState extends FlxSubState
 	
 	private var maxShake:Float = 0.05;
 	
-	private var mashTimer:Float = 4.5;
+	private var mashTimer:Float = 3;
 	private var txtTimer:FlxText;
 	
 	private var _barHealth:FlxBar;
@@ -194,9 +194,6 @@ class MashState extends FlxSubState
 		#else
 			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".ogg", 0.3);
 		#end
-		
-		
-		
 		
 		//shakes the camera
 		thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
