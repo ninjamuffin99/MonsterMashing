@@ -59,6 +59,7 @@ class CredState extends FlxState
 		"",
 		"If you are reading this Tom Fulp i lov u",
 		"In loving memory of EiGiBeast",
+		"Hall of Shame suggested by BurstAppendix",
 		"",
 		"Press Z to go back"
 	];
