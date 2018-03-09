@@ -75,7 +75,7 @@ class Preloader extends FlxBasePreloader
 		
 		NG.core.initEncryption(APIStuff.EncKey);
 		*/
-		
+		/*
 		#if (flash)
 			API.connect(root, APIStuff.APIID, APIStuff.EncKey);
 			
@@ -88,10 +88,19 @@ class Preloader extends FlxBasePreloader
 				minDisplayTime = 8;
 			}
 		#end
+		*/
 		
+		finTim();
 		
 		super.create();
 	}
+	
+	
+	private function finTim():Void
+	{
+		var newgrounds:NGio = new NGio();
+	}
+	
 	
 	
 	override function update(Percent:Float):Void
