@@ -43,7 +43,7 @@ class MashState extends FlxSubState
 		
 		bg = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
 		bg.alpha = 0.4;
-		add(bg);
+		//add(bg);
 		
 		enemyType = EType;
 		
@@ -100,7 +100,7 @@ class MashState extends FlxSubState
 		
 		txtTimer = new FlxText(32, -34, 0, "", 32);
 		txtTimer.scrollFactor.set();
-		add(txtTimer);
+		//add(txtTimer);
 		
 		//then shit gets tweened
 		FlxTween.tween(_barHealth, {y: 16}, 0.7, {ease:FlxEase.cubeInOut});
@@ -127,8 +127,23 @@ class MashState extends FlxSubState
 			//after this health bar tween is done, it calls finishTween(), more info there I guess
 			FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
 		}
+		else if ((_enemyHealth <= 6 || mashTimer < 0) && outcome != VICTORY){
+			outcome = DEFEAT;
+			
+			_enemySprite.y += 0.4;
+			txtTimer.y += 0.39;
+			mashTimer -= FlxG.elapsed;
+			txtTimer.text = Std.string(FlxMath.roundDecimal(mashTimer, 2));
+			
+			if (mashTimer < 0)
+			{
+				txtTimer.text = "0.00";
+			}
+		}
 		else if (_enemyHealth > 0 && outcome != VICTORY)
 		{
+			outcome = ESCAPE;
+			
 			//always increases the y for some visual polish i guess hey i think its cool get off my dick bitch
 			_enemySprite.y += 0.4;
 			txtTimer.y += 0.39;
