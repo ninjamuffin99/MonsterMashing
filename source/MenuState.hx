@@ -269,7 +269,7 @@ class MenuState extends FlxState
 		if (selected < 0)
 			selected = selMax;
 		
-		if (FlxG.keys.anyJustPressed(["ENTER", "Z"]))
+		if (FlxG.keys.anyJustPressed(["ENTER", "Z", "SPACE"]))
 		{
 			switch (selected) 
 			{
