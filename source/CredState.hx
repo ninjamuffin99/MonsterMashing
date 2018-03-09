@@ -6,6 +6,7 @@ import flixel.addons.text.FlxTextField;
 import flixel.text.FlxText;
 import com.newgrounds.*;
 import com.newgrounds.components.*;
+import io.newgrounds.NG;
 
 /**
  * ...
@@ -29,10 +30,20 @@ class CredState extends FlxState
 		creds = new FlxText(24, 24, FlxG.width - 24, "", 16);
 		add(creds);
 		
+		
+		if (NG.core.user.supporter)
+		{
+			credsArray.insert(21, "and thank you for being a Newgrounds Supporter!");
+		}
+		
+		
+		
 		for (i in 0...credsArray.length)
 		{
 			creds.text += credsArray[i] + "\n";
 		}
+		
+		
 		
 		super.create();
 	}
