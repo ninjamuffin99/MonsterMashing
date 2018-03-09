@@ -380,11 +380,11 @@ class PlayState extends FlxState
 		
 		//loads the _map data to the current tilemap(t), and has type shit too
 		
-		if (score > 99000)
+		if (score > 9750)
 		{
 			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
 		}
-		else if (score > 4900)
+		else if (score > 4750)
 		{
 			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
 		}
