@@ -30,13 +30,12 @@ class CredState extends FlxState
 		creds = new FlxText(24, 24, FlxG.width - 24, "", 16);
 		add(creds);
 		
-		
+		/*
 		if (NG.core.user.supporter)
 		{
 			credsArray.insert(21, "and thank you for being a Newgrounds Supporter!");
 		}
-		
-		
+		*/
 		
 		for (i in 0...credsArray.length)
 		{
@@ -70,6 +69,8 @@ class CredState extends FlxState
 		"",
 		"If you are reading this Tom Fulp i lov u",
 		"In loving memory of EiGiBeast",
+		"",
+		"Communit creds",
 		"Hall of Shame suggested by BurstAppendix",
 		"",
 		"Press Z to go back"
