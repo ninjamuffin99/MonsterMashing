@@ -45,7 +45,7 @@ class CredState extends FlxState
 		"",
 		"Art:",
 		"Digimin (@deegeemin)",
-		"BrandyBuizel",
+		"BrandyBuizel (same guy)",
 		"",
 		"Music: Silverline by tripledigit on Newgrounds",
 		"Moans from the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
@@ -60,12 +60,12 @@ class CredState extends FlxState
 		"If you are reading this Tom Fulp i lov u",
 		"In loving memory of EiGiBeast",
 		"",
-		"Press ENTER to go back"
+		"Press Z to go back"
 	];
 	
 	override public function update(elapsed:Float):Void 
 	{
-		if (FlxG.keys.justPressed.ENTER)
+		if (FlxG.keys.justPressed.Z)
 		{
 			FlxG.switchState(new MenuState());
 		}
@@ -78,8 +78,6 @@ class CredState extends FlxState
 	
 	private function mobileShit():Void
 	{
-		
-		
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.justPressed) 
