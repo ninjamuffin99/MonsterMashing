@@ -148,11 +148,11 @@ class MashState extends FlxSubState
 			_enemySprite.animation.play("stripped");
 		}
 		
-		if (FlxG.keys.anyJustPressed(["X", "Z", "M", "N", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
+		if (FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
 		{
 			if (mashX)
 			{
-				if (FlxG.keys.anyJustPressed(["M", "X", "RIGHT", "D"]))
+				if (FlxG.keys.anyJustPressed(["L", "RIGHT", "D"]))
 				{
 					_enemySprite.animation.play("normal");
 					mash();
@@ -160,7 +160,7 @@ class MashState extends FlxSubState
 			}
 			else
 			{
-				if (FlxG.keys.anyJustPressed(["Z", "N", "LEFT", "A"]))
+				if (FlxG.keys.anyJustPressed(["J", "LEFT", "A"]))
 				{
 					_enemySprite.animation.play("hit");
 					mash();
