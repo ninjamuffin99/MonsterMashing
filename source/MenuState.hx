@@ -16,8 +16,9 @@ import flixel.util.FlxColor;
 import com.newgrounds.*;
 import com.newgrounds.components.*;
 import flixel.util.FlxTimer;
-/*
 import io.newgrounds.NG;
+
+/*
 import io.newgrounds.objects.Medal;
 import io.newgrounds.objects.ScoreBoard;
 */
@@ -83,7 +84,7 @@ class MenuState extends FlxState
 		
 		super.create();
 		
-		//new FlxTimer().start(1, finTim);
+		new FlxTimer().start(1, finTim);
 	}
 	
 	private function initTilemap():Void
@@ -201,13 +202,17 @@ class MenuState extends FlxState
 	
 	private function finTim(t:FlxTimer):Void
 	{
-		var Ng:NGio = new NGio();
-		Ng.initNG(FlxG.stage);
+		var newgrounds:NGio = new NGio();
 	}
 	
 	override public function update(elapsed:Float):Void
 	{
 		menuHandling();
+		
+		if (NG.core.user.supporter)
+		{
+			debugInfo.text = "supporter YO";
+		}
 		
 		#if html5
 			if (FlxG.html5.onMobile)

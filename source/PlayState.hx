@@ -18,6 +18,7 @@ import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
+import flixel.util.FlxTimer;
 import openfl.display.BlendMode;
 using flixel.util.FlxSpriteUtil;
 
@@ -62,7 +63,6 @@ class PlayState extends FlxState
 	private var _txtScore:FlxText;
 	private var _txtHighScore:FlxText;
 	private var score:Float;
-	
 	
 	private var _camTarget:FlxSprite;
 
@@ -115,7 +115,6 @@ class PlayState extends FlxState
 		#else
 			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);
         #end
-		
 		
 		super.create();
 	}
