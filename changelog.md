@@ -2,8 +2,8 @@
 #----------------------------#
 Monster Mashing Changelog
 #----------------------------#
-A game by @ninjamuffin99, @BrandyBuizel, and @DIGIMIN
-
+- Programming by @ninjamuffin99 & @BrandyBuizel
+- Art by @DIGIMIN
 
 #----------------------------#
 Version 1.1.0 - March 11, 2018
