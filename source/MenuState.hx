@@ -53,6 +53,7 @@ class MenuState extends FlxState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	
 	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "\nEnter Brandy's\n    Giveaway"];
+	private var leadItems:Array<String>;
 	
 	private var selected:Int = 0;
 	private var selMax:Int = 0;//gets set later
@@ -269,7 +270,8 @@ class MenuState extends FlxState
 				case 2:
 					toggleScores();
 				case 3:
-					FlxG.openURL("https://www.newgrounds.com/");
+					//News Tab for new news
+					FlxG.openURL("https://www.newgrounds.com/bbs/topic/1430215");
 				default:
 					
 			}
