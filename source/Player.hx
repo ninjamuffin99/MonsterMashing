@@ -165,7 +165,7 @@ class Player extends FlxSprite
 					boostLorR = "right";
 				
 			}
-			else
+			/*else
 			{
 				var dash:Float = 1000;
 				if (_leftP && boostLorR == "left")
@@ -181,7 +181,7 @@ class Player extends FlxSprite
 				
 				FlxG.log.add("left pressed speed up");
 				
-			}
+			}*/
 		}		
 	}
 	
