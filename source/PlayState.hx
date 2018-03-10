@@ -236,7 +236,7 @@ class PlayState extends FlxState
 		//if the players speed gets too low, it returns to MenuState
 		//eventually this will be replaced with a small little sequence
 		//of stuff rather than just jump straight to a game over style screen
-		if (speed < 0.21 || _player.y > 247)
+		if (speed < 0.18 || _player.y > 247)
 		{
 			
 			#if (flash)

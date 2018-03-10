@@ -62,7 +62,7 @@ class Player extends FlxSprite
 		_right = FlxG.keys.anyPressed([RIGHT, D]);
 		
 		_upP = FlxG.keys.anyJustPressed([UP, W]);
-		_downP = FlxG.keys.anyJustPressed([DOWN, "S"]);
+		_downP = FlxG.keys.anyJustPressed([DOWN, S]);
 		_leftP = FlxG.keys.anyJustPressed(["LEFT", "A"]);
 		_rightP = FlxG.keys.anyJustPressed(["RIGHT", "D"]);
 		

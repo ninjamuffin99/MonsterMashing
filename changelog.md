@@ -1,9 +1,9 @@
 
 #----------------------------#
-Monster Mashing Changelog
+Monster Mashing - Changelog
 #----------------------------#
 - Programming by @ninjamuffin99 & @BrandyBuizel
-- Art by @DIGIMIN
+- Art by @DIGIMIN & I guess @BrandyBuizel did some too
 
 #----------------------------#
 Version 1.1.0 - March 11, 2018
