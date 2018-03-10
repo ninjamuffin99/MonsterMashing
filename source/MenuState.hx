@@ -53,7 +53,7 @@ class MenuState extends FlxState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	
 	#if flash
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Enter Brandy's Giveaway"];
 	private var ad:ScoreBrowser = new ScoreBrowser();
 	#else
 	private var menuItems:Array<String> = ["Play", "Credits"];
@@ -137,7 +137,7 @@ class MenuState extends FlxState
 		sprMonster.screenCenter(X);
 		add(sprMonster);
 		
-		sprMashing = new FlxSprite(0, 160).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
+		sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		sprMashing.screenCenter(X);
 		add(sprMashing);
 	}
@@ -271,6 +271,8 @@ class MenuState extends FlxState
 					FlxG.switchState(new CredState());
 				case 2:
 					toggleScores();
+				case 3:
+					FlxG.openURL("https://www.newgrounds.com/");
 				default:
 					
 			}

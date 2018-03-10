@@ -264,10 +264,8 @@ class PlayState extends FlxState
 			_player.y -= 75 * FlxG.elapsed;
 		}
 		
-		
 		score += speed;
 		_txtScore.text = "Distance: " + Std.int(score);
-		
 		
 		//Runs every frame to move each tilemaps position, and also moves it up when appropriate.
 		_grpTilemaps.forEach(checkTilemapPos);
@@ -331,7 +329,6 @@ class PlayState extends FlxState
 		}else if (MashState.outcome == MashState.Outcome.ESCAPE){
 			speed += FlxG.random.float(0.5, 2.1);
 		}
-		
 		//speed += MashState.horniness;
 		
 		e.ID = 0;
