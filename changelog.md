@@ -19,6 +19,7 @@ Version 1.1.0 - March 11, 2018
 - Created consequences for failing to mash within a given time
 - Multiple balance changes, added speed consistency, and adjusted enemy spawns
 - Re-mapped and removed uneccessary keyboard controls
+- Removed the bullshit double-tap move that was only ever used on accident and ****ed you up
 
 #----------------------------#
 Version 1.0.0 - March 2, 2018
