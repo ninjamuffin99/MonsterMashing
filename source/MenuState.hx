@@ -53,10 +53,10 @@ class MenuState extends FlxState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	
 	#if flash
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Enter Brandy's Giveaway"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "\nEnter Brandy's\n    Giveaway"];
 	private var ad:ScoreBrowser = new ScoreBrowser();
 	#else
-	private var menuItems:Array<String> = ["Play", "Credits"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "\nEnter Brandy's\n    Giveaway"];
 	#end
 	
 	private var selected:Int = 0;
@@ -135,11 +135,12 @@ class MenuState extends FlxState
 		
 		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.monster__png, false, 492, 166);
 		sprMonster.screenCenter(X);
-		add(sprMonster);
-		
+				
 		sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		sprMashing.screenCenter(X);
+		
 		add(sprMashing);
+		add(sprMonster);
 	}
 	
 	private function initText():Void
@@ -151,12 +152,12 @@ class MenuState extends FlxState
 		
 		for (i in 0...menuItems.length)
 		{
-			var text:FlxText = new FlxText(0, (i * 36) + 370, 0, menuItems[i], 32);
+			var text:FlxText = new FlxText(0, (i * 36) + 320, 0, menuItems[i], 32);
 			text.screenCenter(X);
 			_grpMenu.add(text);
 		}
 		
-		mScore = new FlxText(0, FlxG.height / 2 + 110, 0, "High Score: " + HighScore.score, 32);
+		mScore = new FlxText(0, FlxG.height / 2 + 160, 0, "High Score: " + HighScore.score, 32);
 		mScore.screenCenter(X);
 		add(mScore);
 		
