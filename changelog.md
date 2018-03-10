@@ -14,11 +14,13 @@ Version 1.1.0 - March 11, 2018
 - Made the player hitbox a little more generous
 - Added timer to the mashing bit so that you can't just wait until the girl is off screen and whatnot
 - Created consequences for failing to mash within a given time
-- Multiple balance changes
+- Multiple balance changes, added speed consistency, and adjusted enemy spawns
+- Re-mapped and removed uneccessary keyboard controls
 
 #----------------------------#
 Version 1.0.0 - March 2, 2018
 #----------------------------#
 - Initial Release for Strawberry Jam 2
 - Features Mush Girl and Vine Girl
-- Infinate runner is infinate
+- Infinite runner is infinite
+- Introduced a mashing economy
