@@ -52,12 +52,7 @@ class MenuState extends FlxState
 	
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	
-	#if flash
 	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "\nEnter Brandy's\n    Giveaway"];
-	private var ad:ScoreBrowser = new ScoreBrowser();
-	#else
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "\nEnter Brandy's\n    Giveaway"];
-	#end
 	
 	private var selected:Int = 0;
 	private var selMax:Int = 0;//gets set later
@@ -258,10 +253,10 @@ class MenuState extends FlxState
 		}
 		#end
 		
-		if (selected > selMax)
+		if (selected > _grpMenu.members.length - 1)
 			selected = 0;
 		if (selected < 0)
-			selected = selMax;
+			selected = _grpMenu.members.length - 1;
 		
 		if (FlxG.keys.anyJustPressed(["ENTER", "Z", "SPACE"]))
 		{
