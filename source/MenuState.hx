@@ -176,6 +176,7 @@ class MenuState extends FlxState
 			}
 		#end
 		
+		//What device are you on?
 		debugInfo = new FlxText(8, FlxG.height - 20, 0, currentVersion, 16);
 		add(debugInfo);
 		

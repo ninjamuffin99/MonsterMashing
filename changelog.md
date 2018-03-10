@@ -1,6 +1,8 @@
 
+#----------------------------#
 #Monster Mashing Changelog#
 A game by @ninjamuffin99, @BrandyBuizel, and @DIGIMIN
+#----------------------------#
 
 #----------------------------#
 Version 1.1.0 - March 11, 2018
