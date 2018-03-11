@@ -162,16 +162,6 @@ class MenuState extends FlxState
 			mScore.text += "\nRecent Score: " + HighScore.recentScore;
 		}
 		
-		#if (flash)
-			if (API.isNewgrounds)
-			{
-				ad.x = (FlxG.width / 2) - (ad.width/2);
-				ad.y = (FlxG.height / 2.5) - (ad.height/2);
-				FlxG.stage.addChild(ad);
-				toggleScores();
-			}
-		#end
-		
 		//What device are you on?
 		debugInfo = new FlxText(8, FlxG.height - 20, 0, currentVersion, 16);
 		add(debugInfo);
@@ -244,16 +234,6 @@ class MenuState extends FlxState
 			selected += 1;
 		}
 		
-		#if flash
-		if (API.isNewgrounds)
-		{
-			if (ad.visible && FlxG.keys.justPressed.ANY)
-			{
-				ripScoreboard();
-			}
-		}
-		#end
-		
 		if (selected > _grpMenu.members.length - 1)
 			selected = 0;
 		if (selected < 0)
@@ -280,28 +260,12 @@ class MenuState extends FlxState
 	
 	private function toggleScores():Void
 	{
-		#if flash
-		if (API.isNewgrounds)
-		{
-			FlxG.mouse.visible = true;
-			ad.visible = !ad.visible;
-		}
-		else
-		{
-			FlxG.openURL("https://www.newgrounds.com/portal/view/707498");
-		}
-		#end
+		
 	}
 	
 	private function ripScoreboard():Void
 	{
-		#if flash
-		if (API.isNewgrounds)
-		{
-			FlxG.mouse.visible = false;
-			ad.visible = false;
-		}
-		#end
+		
 	}
 	
 	private function checkTilemapPos(t:FlxTilemap):Void
