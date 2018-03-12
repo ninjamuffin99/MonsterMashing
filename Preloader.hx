@@ -16,14 +16,9 @@ import openfl.display.Sprite;
 import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFormat;
-import com.newgrounds.*;
-import com.newgrounds.components.*;
 
-
-/**
- * ...
- * @author ninjaMuffin
- */
+@:font() class CustomFont extends Font {}
+@:bitmap("assets/images/howMany.png") class LogoImage extends BitmapData { }
 class Preloader extends FlxBasePreloader 
 {
 
@@ -43,16 +38,19 @@ class Preloader extends FlxBasePreloader
 		
 		var ratio:Float = this._width / 800; //This allows us to scale assets depending on the size of the screen.
 		
-		//logo = new Sprite();
-		//logo.addChild(new Bitmap(new LogoImage(0, 0))); //Sets the graphic of the sprite to a bitmap object, which uses our embedded bitmapData class
+		logo = new Sprite();
+		logo.addChild(new Bitmap(new LogoImage(0, 0))); //Sets the graphic of the sprite to a bitmap object, which uses our embedded bitmapData class
+		logo.scaleX = 1.6;
+		logo.scaleY = 2.8;
 		//logo.scaleX = logo.scaleY = ratio;
 		//logo.x = ((this._width) / 2) - ((logo.width) / 2);
 		//logo.y = (this._height / 2) - ((logo.height) / 2);
-		//addChild(logo);
+		addChild(logo);
 		/*
 		var font:CustomFont = new CustomFont();
 		
 		Font.registerFont(CustomFont);
+		
 		text = new TextField();
 		text.defaultTextFormat = new TextFormat(font.fontName, 24, 0xffffff, false, false, false, "", "", TextFormatAlign.CENTER);
 		text.embedFonts = true;
