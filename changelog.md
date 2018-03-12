@@ -6,7 +6,7 @@ Monster Mashing - Changelog
 - Art by @DIGIMIN & I guess @BrandyBuizel did some too
 
 #----------------------------#
-Version 1.1.0 - March 11, 2018
+Version 1.1.0 - March XX, 2018
 #----------------------------#
 - Introducing Bat Girl! Not the Batgirl, but a bat-girl
 - Updated Newgrounds API to v3 (newgrounds.io baby). Now scoreboards and medals should work in both HTML5 and Flash as long as the user is signed in.
