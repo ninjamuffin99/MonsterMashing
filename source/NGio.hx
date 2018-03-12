@@ -81,7 +81,7 @@ class NGio
 		var board = NG.core.scoreBoards.get(7971);// ID found in NG project view
 		
 		// Posting a score thats OVER 9000!
-		board.postScore(9001);
+		//board.postScore(9001);
 		
 		// --- To view the scores you first need to select the range of scores you want to see --- 
 		
@@ -95,7 +95,7 @@ class NGio
 	{
 		for (score in NG.core.scoreBoards.get(7971).scores)
 		{
-			 trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
+			trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
 		}
 	}
 }
