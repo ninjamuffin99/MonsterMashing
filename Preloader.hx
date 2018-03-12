@@ -18,11 +18,11 @@ import flash.text.TextField;
 import flash.text.TextFormat;
 
 @:font() class CustomFont extends Font {}
-@:bitmap("assets/images/howMany.png") class LogoImage extends BitmapData { }
+@:bitmap("assets/images/preloaderArt.png") class LogoImage extends BitmapData { }
 class Preloader extends FlxBasePreloader 
 {
 
-	public function new(MinDisplayTime:Float=2, ?AllowedURLs:Array<String>) 
+	public function new(MinDisplayTime:Float=5, ?AllowedURLs:Array<String>) 
 	{
 		super(MinDisplayTime, AllowedURLs);
 	}
@@ -40,8 +40,8 @@ class Preloader extends FlxBasePreloader
 		
 		logo = new Sprite();
 		logo.addChild(new Bitmap(new LogoImage(0, 0))); //Sets the graphic of the sprite to a bitmap object, which uses our embedded bitmapData class
-		logo.scaleX = 1.6;
-		logo.scaleY = 2.8;
+		//logo.scaleX = 1.6;
+		//logo.scaleY = 2.8;
 		//logo.scaleX = logo.scaleY = ratio;
 		//logo.x = ((this._width) / 2) - ((logo.width) / 2);
 		//logo.y = (this._height / 2) - ((logo.height) / 2);
