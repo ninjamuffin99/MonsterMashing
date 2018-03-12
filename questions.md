@@ -9,7 +9,7 @@
 - We're all degenerates here, no judging if you favorite our game
 - If you cheat I'll make sure to spread those ass cheeks of yours far beyond infinity
 - Garfield loves lasagna... I do too.
-- Tom Fulp i lov u. Cam stop creeping Tom out!
+- "Tom Fulp i lov u" -Cam \n"Cam stop creeping Tom out!" -brandy
 - I would do anything for love. I'm serious, I make horny video games, please love me.
 - Don't lurk the cirque if you can't work the jerk
 - Yo Corey, thanks for finding that bug in TSGO, patched.
