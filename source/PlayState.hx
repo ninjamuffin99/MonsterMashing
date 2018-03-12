@@ -19,6 +19,7 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
+import io.newgrounds.NG;
 import openfl.display.BlendMode;
 using flixel.util.FlxSpriteUtil;
 
@@ -68,6 +69,8 @@ class PlayState extends FlxState
 
 	override public function create():Void
 	{
+		FlxG.log.add(NG.core.host);
+		
 		//Set zoom on map
 		FlxG.camera.zoom = 3;
 		FlxG.camera.fade(FlxColor.WHITE, 0.24, true);
