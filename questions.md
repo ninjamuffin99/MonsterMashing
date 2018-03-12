@@ -1,4 +1,6 @@
-- How many homeless people in san francisco?
+- How many homeless people are in san francisco?
 - Is this your first time wanking with us? If so, leave a rating!
 - Is nutella actually good by itself? Be honest.
-- 
+- "I'll strangle you" -digi
+- We've got loli unless you're the FBI, then it's just traditional, wholesome monster banging; missionary style.
+- You into feet? Call me, if you can tell which dev I am hahaha #lonely
