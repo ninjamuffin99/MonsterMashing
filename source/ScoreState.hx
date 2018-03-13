@@ -39,19 +39,41 @@ class ScoreState extends FlxSubState
 		
 		var leaderBoardPlacement:Int = 1;
 		
+		
 		for (score in NG.core.scoreBoards.get(8004).scores)
 		{
+			var dev:Bool = false;
+			var isPlayer:Bool = false;
 			var userName:String = score.user.name;
+			
+			if (NG.core.user.name == score.user.name)
+			{
+				isPlayer = true;
+			}
+			
 			if (userName == "ninjamuffin99" || userName == "BrandyBuizel" || userName == "DIGIMIN")
 			{
+				dev = true;
 				userName += " (dev)";
 			}
 			
 			var text:String = Std.string(leaderBoardPlacement + ". " + userName + " - " + score.formatted_value);
 			
-			
 			var name:FlxText = new FlxText(20, 32 + (34 * _grpText.members.length), FlxG.width - 20, text, 24);
 			_grpText.add(name);
+			
+			if (dev)
+			{
+				name.color = FlxColor.YELLOW;
+			}
+			
+			if (isPlayer)
+			{
+				name.color = FlxColor.RED;
+			}
+			
+			
+			
 			
 			leaderBoardPlacement += 1;
 			
