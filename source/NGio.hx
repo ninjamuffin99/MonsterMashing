@@ -78,10 +78,10 @@ class NGio
 			trace('loaded scoreboard id:$id, name:${board.name}');
 		}
 		
-		var board = NG.core.scoreBoards.get(8061);// ID found in NG project view
+		var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
 		
 		// Posting a score thats OVER 9000!
-		board.postScore(FlxG.random.int(0, 1000));
+		//board.postScore(FlxG.random.int(0, 1000));
 		
 		// --- To view the scores you first need to select the range of scores you want to see --- 
 		
@@ -93,7 +93,7 @@ class NGio
 	
 	function onNGScoresFetch():Void
 	{
-		for (score in NG.core.scoreBoards.get(8061).scores)
+		for (score in NG.core.scoreBoards.get(8004).scores)
 		{
 			trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
 		}
