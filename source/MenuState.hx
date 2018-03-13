@@ -196,7 +196,7 @@ class MenuState extends FlxState
 	{
 		if (FlxG.keys.justPressed.E)
 		{
-			openSubState(new ScoreState(0xAA000000));
+			openSubState(new ScoreState(0xCC000000));
 		}
 		
 		menuHandling();
