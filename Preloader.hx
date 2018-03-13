@@ -64,7 +64,7 @@ class Preloader extends FlxBasePreloader
 		addChild(text);
 		*/
 		
-		finTim();
+		//finTim();
 		
 		super.create();
 	}
