@@ -35,10 +35,16 @@ class ScoreState extends FlxSubState
 		
 		FlxG.log.redirectTraces = true;
 		
-		for (score in NG.core.scoreBoards.get(8061).scores)
+		var leaderBoardPlacement:Int = 1;
+		
+		for (score in NG.core.scoreBoards.get(8004).scores)
 		{
-			var name:FlxText = new FlxText(20, 34 * _grpText.members.length, FlxG.width - 20, Std.string(score.user.name + ":" + score.formatted_value), 16);
+			var text:String = Std.string(leaderBoardPlacement + ". " + score.user.name + " - " + score.formatted_value);
+			
+			var name:FlxText = new FlxText(20, 32 + (34 * _grpText.members.length), FlxG.width - 20, text, 32);
 			_grpText.add(name);
+			
+			leaderBoardPlacement += 1;
 			
 			trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
 		}
