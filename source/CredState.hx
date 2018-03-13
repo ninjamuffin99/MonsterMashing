@@ -30,18 +30,16 @@ class CredState extends FlxState
 		creds = new FlxText(24, 24, FlxG.width - 24, "", 16);
 		add(creds);
 		
-		/*
-		if (NG.core.user.supporter)
-		{
-			credsArray.insert(21, "and thank you for being a Newgrounds Supporter!");
-		}
-		*/
-		
 		for (i in 0...credsArray.length)
 		{
 			creds.text += credsArray[i] + "\n";
 		}
 		
+		
+		if (NG.core.user.supporter)
+		{
+			credsArray.insert(21, "and thank you for being a Newgrounds Supporter!");
+		}
 		
 		
 		super.create();

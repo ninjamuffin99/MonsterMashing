@@ -78,8 +78,12 @@ class MenuState extends FlxState
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
+		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.stage);
+		
 		super.create();
 	}
+	
+
 	
 	private function initTilemap():Void
 	{
@@ -188,6 +192,11 @@ class MenuState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
+		if (FlxG.keys.justPressed.E)
+		{
+			openSubState(new ScoreState(0xAA000000));
+		}
+		
 		menuHandling();
 		
 		#if html5
