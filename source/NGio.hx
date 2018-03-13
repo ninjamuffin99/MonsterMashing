@@ -87,7 +87,7 @@ class NGio
 		
 		// add an update listener so we know when we get the new scores
 		board.onUpdate.add(onNGScoresFetch);
-		board.requestScores(10);// get the best 10 scores ever logged
+		board.requestScores(20);// get the best 10 scores ever logged
 		// more info on scores --- http://www.newgrounds.io/help/components/#scoreboard-getscores
 	}
 	

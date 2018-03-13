@@ -115,7 +115,7 @@ class PlayState extends FlxState
 		#if flash
 			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7);
 		#else
-			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);a
+			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);
         #end
 		
 		super.create();
