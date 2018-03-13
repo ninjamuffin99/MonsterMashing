@@ -80,6 +80,8 @@ class MenuState extends FlxState
 		
 		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.stage);
 		
+		persistentUpdate = true;
+		
 		super.create();
 	}
 	
