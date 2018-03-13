@@ -72,7 +72,7 @@ class Preloader extends FlxBasePreloader
 	
 	private function finTim():Void
 	{
-		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, this.stage);
 	}
 	
 	override function update(Percent:Float):Void
