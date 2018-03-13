@@ -107,8 +107,7 @@ class PlayState extends FlxState
 		//sets the camTarget to be always 8 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 4);
 		//and 1.5 tiles to the right, so that the gameplay is offset to the left
-		//_camTarget.x += 16 * 1.5;
-		
+		//_camTarget.x += 16 * 1.5;d
 		initHUD();
 		
 		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
@@ -116,10 +115,24 @@ class PlayState extends FlxState
 		#if flash
 			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7);
 		#else
-			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);
+			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);a
         #end
 		
 		super.create();
+	}
+	
+	private var timesClickedOffScreen:Int = 0;
+	
+	override public function onFocusLost():Void 
+	{
+		timesClickedOffScreen += 1;
+		
+		if (timesClickedOffScreen >= 15)
+		{
+			trace("cheater!");
+		}
+		
+		super.onFocusLost();
 	}
 	
 	private function initTilemap():Void
