@@ -10,7 +10,6 @@ import flixel.FlxG;
 
 /**
  * MADE BY GEOKURELI THE LEGENED GOD HERO MVP
- * Most of this is pretty much just used as reference!
  */
 class NGio
 {
