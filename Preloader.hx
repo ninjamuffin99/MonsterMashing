@@ -74,5 +74,4 @@ class Preloader extends FlxBasePreloader
 		logo.scaleY = Percent;
 		_bmpBar.scaleX = Percent * (_width - 8);
 	}
-	
 }
