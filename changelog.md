@@ -20,6 +20,7 @@ Version 1.1.0 - March XX, 2018
 - Multiple balance changes, added speed consistency, and adjusted enemy spawns
 - Re-mapped and removed uneccessary keyboard controls
 - Removed the bullshit double-tap move that was only ever used on accident and ****ed you up
+- Removed the awkward black overlay during mashing
 - Created a preloader(ft. @PhantomArcade) so people don't think the game is broken after 3 seconds
 
 #----------------------------#
