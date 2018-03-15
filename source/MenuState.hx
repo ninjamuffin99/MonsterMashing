@@ -194,11 +194,6 @@ class MenuState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.justPressed.E)
-		{
-			openSubState(new ScoreState(0xCC000000));
-		}
-		
 		menuHandling();
 		
 		#if html5
@@ -259,7 +254,7 @@ class MenuState extends FlxState
 				case 1:
 					FlxG.switchState(new CredState());
 				case 2:
-					toggleScores();
+					openSubState(new ScoreState(0xCC000000));
 				case 3:
 					//News Tab for new news
 					FlxG.openURL("https://www.newgrounds.com/");
@@ -268,17 +263,7 @@ class MenuState extends FlxState
 			}
 		}
 	}
-	
-	private function toggleScores():Void
-	{
-		
-	}
-	
-	private function ripScoreboard():Void
-	{
-		
-	}
-	
+
 	private function checkTilemapPos(t:FlxTilemap):Void
 	{
 		updatePos(t, "Floor");

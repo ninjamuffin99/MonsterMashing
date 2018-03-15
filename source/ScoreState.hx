@@ -85,7 +85,7 @@ class ScoreState extends FlxSubState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		if (FlxG.keys.justPressed.Q)
+		if (FlxG.keys.justPressed.ANY)
 		{
 			close();
 		}
