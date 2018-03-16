@@ -221,21 +221,18 @@ class PlayState extends FlxState
 		{
 			speed = maxSpeed;
 			#if (flash)
-				if (API.isNewgrounds)
-				{
-					API.unlockMedal("HORNY AF");
-				}
+				var hornyMedal = NG.core.medals.get(54299);
+				if (!hornyMedal.unlocked)
+					hornyMedal.sendUnlock();
 			#end
 		}
 		
 		if (score >= 10000)
 		{
 			#if (flash)
-				if (API.isNewgrounds && !godReached)
-				{
-					API.unlockMedal("Horny God");
-					godReached = true;
-				}
+				var hornyGodMedal = NG.core.medals.get(54300);
+				if (!hornyGodMedal.unlocked)
+					hornyGodMedal.sendUnlock();
 			#end
 		}
 		
