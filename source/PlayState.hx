@@ -253,10 +253,12 @@ class PlayState extends FlxState
 		{
 			
 			#if (flash)
-				if (API.isNewgrounds)
-				{
-					API.postScore("Distance", Std.int(score));
-				}
+				var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
+				
+				// Posting a score thats OVER 9000!
+				board.postScore(Std.int(score));
+				
+				
 			#end
 			
 			if (score > HighScore.score)

@@ -13,8 +13,6 @@ import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
-import com.newgrounds.*;
-import com.newgrounds.components.*;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 
@@ -80,9 +78,7 @@ class MenuState extends FlxState
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
-		#if flash
-			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.stage);
-		#end
+		
 		persistentUpdate = true;
 		
 		super.create();
