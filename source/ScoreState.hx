@@ -84,8 +84,6 @@ class ScoreState extends FlxSubState
 			}
 			
 			
-			
-			
 			leaderBoardPlacement += 1;
 			
 			trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
@@ -100,7 +98,7 @@ class ScoreState extends FlxSubState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		if (FlxG.keys.justPressed.ANY)
+		if (FlxG.keys.anyJustPressed(["ENTER", "Z", "SPACE"]))
 		{
 			close();
 		}

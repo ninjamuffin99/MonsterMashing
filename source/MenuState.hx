@@ -59,7 +59,7 @@ class MenuState extends FlxState
 	private var mapZoom:Float = 5;
 	private var mapOffsetX:Float = -86;
 	
-	private var votingLink:String = "https://www.newgrounds.com/";
+	private var votingLink:String = "https://www.newgrounds.com/bbs/topic/1430563";
 	
 	override public function create():Void
 	{
