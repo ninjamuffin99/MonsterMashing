@@ -60,7 +60,7 @@ class CredState extends FlxState
 		"",
 		"Misc. sounds found/made/idk by PhantomArcade",
 		"",
-		"Preloader hunk: Phantom \"PhantomArcade3000\" Arcade",
+		"Preloader hunk: Phantom \"lil D thick bitch\" Arcade",
 		"",
 		"Made with HaxeFlixel, in like a idk a week or two shit man",
 		"",
