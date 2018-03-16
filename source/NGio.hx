@@ -14,7 +14,7 @@ import flixel.FlxG;
 class NGio
 {
 	
-	public function new(api:String, encKey:String, stage:Stage) {
+	public function new(api:String, encKey:String) {
 		
 		trace("connecting to newgrounds");
 		

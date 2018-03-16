@@ -4,8 +4,6 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.text.FlxTextField;
 import flixel.text.FlxText;
-import com.newgrounds.*;
-import com.newgrounds.components.*;
 import io.newgrounds.NG;
 
 /**
@@ -18,11 +16,6 @@ class CredState extends FlxState
 	
 	override public function create():Void 
 	{
-		#if flash
-			var credMedal = NG.core.medals.get(54286);
-				if (!credMedal.unlocked)
-					credMedal.sendUnlock();
-		#end
 		
 		
 		
@@ -34,11 +27,18 @@ class CredState extends FlxState
 			creds.text += credsArray[i] + "\n";
 		}
 		
+		#if flash
 		
-		if (NG.core.user.supporter)
-		{
-			credsArray.insert(21, "and thank you for being a Newgrounds Supporter!");
-		}
+			if (NG.core.user.supporter)
+			{
+				credsArray.insert(26, "and thank you for being a Newgrounds Supporter!");
+			}
+			
+			
+			var credMedal = NG.core.medals.get(54286);
+				if (!credMedal.unlocked)
+					credMedal.sendUnlock();
+		#end
 		
 		
 		super.create();
@@ -73,6 +73,7 @@ class CredState extends FlxState
 		"",
 		"Community Creds:",
 		"Hall of Shame suggested by BurstAppendix",
+		"",
 		"",
 		"Press Z to go back"
 	];
