@@ -19,10 +19,9 @@ class CredState extends FlxState
 	override public function create():Void 
 	{
 		#if flash
-			if (API.isNewgrounds)
-			{
-				API.unlockMedal("The Degenerates Responsible");
-			}
+			var credMedal = NG.core.medals.get(54286);
+				if (!credMedal.unlocked)
+					credMedal.sendUnlock();
 		#end
 		
 		
