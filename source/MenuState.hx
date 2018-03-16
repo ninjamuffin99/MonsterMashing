@@ -154,14 +154,33 @@ class MenuState extends FlxState
 		
 		for (i in 0...menuItems.length)
 		{
-			var text:FlxText = new FlxText(0, (i * 36) + 320, 0, menuItems[i], 32);
-			text.screenCenter(X);
-			_grpMenu.add(text);
+			if (FlxG.onMobile)
+			{
+				var text:FlxText = new FlxText(0, (i * 48) + 320, 0, menuItems[i], 40);
+				text.screenCenter(X);
+				_grpMenu.add(text);
+			}
+			else
+			{
+				var text:FlxText = new FlxText(0, (i * 36) + 320, 0, menuItems[i], 32);
+				text.screenCenter(X);
+				_grpMenu.add(text);
+			}
 		}
 		
-		mScore = new FlxText(0, FlxG.height / 2 + 160, 0, "High Score: " + HighScore.score, 32);
-		mScore.screenCenter(X);
-		add(mScore);
+		if (FlxG.onMobile)
+		{
+			mScore = new FlxText(0, FlxG.height / 2 + 210, 0, "High Score: " + HighScore.score, 40);
+			mScore.screenCenter(X);
+			add(mScore);
+		}
+		else
+		{
+			mScore = new FlxText(0, FlxG.height / 2 + 160, 0, "High Score: " + HighScore.score, 32);
+			mScore.screenCenter(X);
+			add(mScore);
+		}
+		
 		
 		if (HighScore.recentScore > 0)
 		{
