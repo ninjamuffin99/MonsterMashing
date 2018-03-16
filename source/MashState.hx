@@ -68,7 +68,8 @@ class MashState extends FlxSubState
 				_enemySprite.loadGraphic(AssetPaths.mushSheet__png, true, 800, 1200);
 			case 1:
 				_enemySprite.loadGraphic(AssetPaths.vineSheet__png, true, 800, 1200);
-				
+			case 2: 
+				_enemySprite.loadGraphic(AssetPaths.batSheet__png, true, 800, 1200);
 				
 			default:
 		}
