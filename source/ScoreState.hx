@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
@@ -26,6 +27,14 @@ class ScoreState extends FlxSubState
 	
 	override public function create():Void 
 	{
+		#if html5
+		
+		//the normal transparent BG don't work right on HTML5 so makin my own
+		var goodBg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xCC000000);
+		add(goodBg);
+		
+		#end
+		
 		_grpText = new FlxSpriteGroup();
 		add(_grpText);
 		
@@ -34,6 +43,8 @@ class ScoreState extends FlxSubState
 		_grpText.add(hallOfShame);
 		
 		FlxG.log.redirectTraces = true;
+		
+		#if flash
 		
 		NG.core.scoreBoards.get(8004).requestScores(20);
 		
@@ -79,6 +90,10 @@ class ScoreState extends FlxSubState
 			
 			trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
 		}
+		
+		#else
+		hallOfShame.text += "\nScoreboards not yet \nimplemented\n on HTML5 \n\nComing soon!";
+		#end
 		
 		super.create();
 	}

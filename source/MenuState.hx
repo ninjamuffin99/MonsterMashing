@@ -61,6 +61,8 @@ class MenuState extends FlxState
 	private var mapZoom:Float = 5;
 	private var mapOffsetX:Float = -86;
 	
+	private var votingLink:String = "https://www.newgrounds.com/";
+	
 	override public function create():Void
 	{
 		FlxG.save.bind("File");
@@ -78,8 +80,9 @@ class MenuState extends FlxState
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
-		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.stage);
-		
+		#if flash
+			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.stage);
+		#end
 		persistentUpdate = true;
 		
 		super.create();
@@ -230,6 +233,15 @@ class MenuState extends FlxState
 						{
 							FlxG.switchState(new CredState());
 						}
+						if (touch.overlaps(_grpMenu.members[2]))
+						{
+							openSubState(new ScoreState(0xCC000000));
+						}
+						if (touch.overlaps(_grpMenu.members[3]))
+						{
+							FlxG.openURL(votingLink);
+						}
+						
 					}
 					
 				}
@@ -276,7 +288,7 @@ class MenuState extends FlxState
 					openSubState(new ScoreState(0xCC000000));
 				case 3:
 					//News Tab for new news
-					FlxG.openURL("https://www.newgrounds.com/");
+					FlxG.openURL(votingLink);
 				default:
 					
 			}
