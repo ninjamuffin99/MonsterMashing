@@ -98,9 +98,20 @@ class ScoreState extends FlxSubState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		if (FlxG.keys.anyJustPressed(["ENTER", "Z", "SPACE"]))
+		if (FlxG.keys.justPressed.ANY)
 		{
 			close();
+		}
+		
+		if (FlxG.onMobile)
+		{
+			for (toucn in FlxG.touches.list)
+			{
+				if (toucn.justPressed)
+				{
+					close();
+				}
+			}
 		}
 		
 		super.update(elapsed);

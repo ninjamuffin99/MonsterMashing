@@ -282,6 +282,7 @@ class MenuState extends FlxState
 					FlxG.switchState(new CredState());
 				case 2:
 					openSubState(new ScoreState(0xCC000000));
+					selected -= 1;
 				case 3:
 					//News Tab for new news
 					FlxG.openURL(votingLink);
