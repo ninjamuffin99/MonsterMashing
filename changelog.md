@@ -6,7 +6,7 @@ Monster Mashing - Changelog
 - Art by @DIGIMIN & I guess @BrandyBuizel did some too
 
 #----------------------------#
-Version 1.1.0 - March XX, 2018
+Version 1.1.0 - March 16, 2018
 #----------------------------#
 - Introducing Bat Girl! Not the Batgirl, but a bat-girl
 - Updated Newgrounds API to v3 (newgrounds.io baby). Now scoreboards and medals should work in both HTML5 and Flash as long as the user is signed in.
@@ -20,8 +20,10 @@ Version 1.1.0 - March XX, 2018
 - Multiple balance changes, added speed consistency, and adjusted enemy spawns
 - Re-mapped and removed uneccessary keyboard controls
 - Removed the bullshit double-tap move that was only ever used on accident and ****ed you up
-- Removed the awkward black overlay during mashing
+- Removed the awkward black overlay during mashing (haha idk maybe not idiot)
 - Created a preloader(ft. @PhantomArcade) so people don't think the game is broken after 3 seconds
+
+
 
 #----------------------------#
 Version 1.0.0 - March 2, 2018
