@@ -69,8 +69,6 @@ class PlayState extends FlxState
 
 	override public function create():Void
 	{
-		FlxG.log.add(NG.core.host);
-		
 		//Set zoom on map
 		FlxG.camera.zoom = 3;
 		FlxG.camera.fade(FlxColor.WHITE, 0.24, true);
