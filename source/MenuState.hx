@@ -283,18 +283,29 @@ class MenuState extends FlxState
 		if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
 		{
 			selected -= 1;
-			resetBarFill();
 		}
 		if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
 		{
+			
 			selected += 1;
-			resetBarFill();
+			
 		}
+		
+		FlxG.watch.addQuick("selected 1: ", selected);
+		
 		
 		if (selected > _grpMenu.members.length - 1)
 			selected = 0;
 		if (selected < 0)
 			selected = _grpMenu.members.length - 1;
+		
+		FlxG.watch.addQuick("selected 2: ", selected);
+		
+		if (FlxG.keys.justPressed.ANY)
+		{
+			resetBarFill();
+		}
+		
 		
 		if (FlxG.keys.anyJustPressed(["ENTER", "Z", "SPACE"]))
 		{
@@ -316,6 +327,7 @@ class MenuState extends FlxState
 		}
 	}
 
+	
 	private function resetBarFill():Void
 	{
 		selector.y = (selected * 54) + 315;
