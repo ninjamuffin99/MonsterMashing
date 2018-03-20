@@ -55,6 +55,7 @@ class MenuState extends FlxState
 	private var leadItems:Array<String>;
 	
 	private var selected:Int = 0;
+	private var selector:FlxSprite;
 	private var selMax:Int = 0;//gets set later
 	
 	private var mapZoom:Float = 5;
@@ -148,10 +149,17 @@ class MenuState extends FlxState
 		//add(sprMonster);
 	}
 	
+	
 	private function initText():Void
 	{
 		_grpMenuBar = new FlxTypedGroup<FlxSprite>();
 		add(_grpMenuBar);
+		
+		selector = new FlxSprite(0, 315);
+		selector.makeGraphic(FlxG.width, 36, FlxColor.MAGENTA);
+		add(selector);
+		resetBarFill();
+		
 		
 		_grpMenu = new FlxTypedGroup<FlxText>();
 		add(_grpMenu);
@@ -264,19 +272,23 @@ class MenuState extends FlxState
 	
 	private function menuHandling():Void
 	{
+		/*
 		for (i in 0..._grpMenu.members.length)
 		{
 			_grpMenu.members[i].color = FlxColor.BLACK;
 		}
-		_grpMenu.members[selected].color = FlxColor.YELLOW;
+		*/
+		//_grpMenu.members[selected].color = FlxColor.YELLOW;
 		
 		if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
 		{
 			selected -= 1;
+			resetBarFill();
 		}
 		if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
 		{
 			selected += 1;
+			resetBarFill();
 		}
 		
 		if (selected > _grpMenu.members.length - 1)
@@ -302,6 +314,13 @@ class MenuState extends FlxState
 					
 			}
 		}
+	}
+
+	private function resetBarFill():Void
+	{
+		selector.y = (selected * 54) + 315;
+		selector.scale.x = 0;
+		FlxTween.tween(selector.scale, {x: 1}, 0.5, {ease:FlxEase.quadInOut});
 	}
 
 	private function checkTilemapPos(t:FlxTilemap):Void
