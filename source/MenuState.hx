@@ -74,6 +74,9 @@ class MenuState extends FlxState
 		initImages();
 		initText();
 		
+		var tempBg:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.menuMockup__png, false, 544, 816);
+		add(tempBg);
+		
 		FlxTween.tween(mScore, {y: mScore.y + 24}, 0.86, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
@@ -140,8 +143,8 @@ class MenuState extends FlxState
 		sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		sprMashing.screenCenter(X);
 		
-		add(sprMashing);
-		add(sprMonster);
+		//add(sprMashing);
+		//add(sprMonster);
 	}
 	
 	private function initText():Void
