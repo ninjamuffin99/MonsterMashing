@@ -49,8 +49,9 @@ class MenuState extends FlxState
 	private var speed:Float = 3;
 	
 	private var _grpMenu:FlxTypedGroup<FlxText>;
+	private var _grpMenuBar:FlxTypedGroup<FlxSprite>;
 	
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "\nVote on New\nMonster Girl"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Vote on New Monster Girl"];
 	private var leadItems:Array<String>;
 	
 	private var selected:Int = 0;
@@ -75,7 +76,7 @@ class MenuState extends FlxState
 		initText();
 		
 		var tempBg:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.menuMockup__png, false, 544, 816);
-		add(tempBg);
+		//add(tempBg);
 		
 		FlxTween.tween(mScore, {y: mScore.y + 24}, 0.86, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
@@ -149,6 +150,9 @@ class MenuState extends FlxState
 	
 	private function initText():Void
 	{
+		_grpMenuBar = new FlxTypedGroup<FlxSprite>();
+		add(_grpMenuBar);
+		
 		_grpMenu = new FlxTypedGroup<FlxText>();
 		add(_grpMenu);
 		
@@ -164,7 +168,12 @@ class MenuState extends FlxState
 			}
 			else
 			{
-				var text:FlxText = new FlxText(0, (i * 36) + 320, 0, menuItems[i], 32);
+				var whiteBar:FlxSprite = new FlxSprite(0, (i * 54) + 315);
+				whiteBar.makeGraphic(FlxG.width, 36);
+				_grpMenuBar.add(whiteBar);
+				
+				var text:FlxText = new FlxText(0, (i * 54) + 312, 0, menuItems[i], 32);
+				text.color = FlxColor.BLACK;
 				text.screenCenter(X);
 				_grpMenu.add(text);
 			}
@@ -257,7 +266,7 @@ class MenuState extends FlxState
 	{
 		for (i in 0..._grpMenu.members.length)
 		{
-			_grpMenu.members[i].color = FlxColor.WHITE;
+			_grpMenu.members[i].color = FlxColor.BLACK;
 		}
 		_grpMenu.members[selected].color = FlxColor.YELLOW;
 		
