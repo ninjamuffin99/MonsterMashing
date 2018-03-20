@@ -332,7 +332,7 @@ class MenuState extends FlxState
 	{
 		selector.y = (selected * 54) + 315;
 		selector.scale.x = 0;
-		FlxTween.tween(selector.scale, {x: 1}, 0.5, {ease:FlxEase.quadInOut});
+		FlxTween.tween(selector.scale, {x: 1}, 0.4, {ease:FlxEase.quadInOut});
 	}
 
 	private function checkTilemapPos(t:FlxTilemap):Void
