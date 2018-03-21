@@ -337,9 +337,9 @@ class PlayState extends FlxState
 		//Varies speed consistency based on victory
 		if (MashState.outcome == MashState.Outcome.VICTORY){
 			speed += FlxG.random.float(0.9, 1.1);
-		}else if (MashState.outcome == MashState.Outcome.DEFEAT){
+		//}else if (MashState.outcome == MashState.Outcome.DEFEAT){
 			//speed += FlxG.random.float(0.8, 1.3);
-		}else if (MashState.outcome == MashState.Outcome.ESCAPE){
+		}else if (MashState.outcome != MashState.Outcome.VICTORY){
 			speed -= FlxG.random.float(0.5, 2.1);
 		}
 		//speed += MashState.horniness;
@@ -395,8 +395,18 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
 
 		
-		//loads the _map data to the current tilemap(t), and has type shit too
-		if (score > 14750){
+		//loads the _map data to the current tilemap(t) up to 40k
+		if (score > 39750){
+			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
+		}else if (score > 34750){
+			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
+		}else if (score > 29750){
+			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
+		}else if (score > 24750){
+			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
+		}else if (score > 19750){
+			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
+		}else if (score > 14750){
 			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		}else if (score > 9750){
 			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
