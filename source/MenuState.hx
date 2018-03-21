@@ -25,7 +25,7 @@ class MenuState extends FlxState
 	private var mScore:FlxText;
 	
 	private var debugInfo:FlxText;
-	private var currentVersion:String = "v1.1.0";
+	private var currentVersion:String = "v1.1.1";
 	
 	private var sprMonster:FlxSprite;
 	private var sprMashing:FlxSprite;
@@ -145,8 +145,8 @@ class MenuState extends FlxState
 		sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		sprMashing.screenCenter(X);
 		
-		//add(sprMashing);
-		//add(sprMonster);
+		add(sprMashing);
+		add(sprMonster);
 	}
 	
 	
@@ -272,13 +272,13 @@ class MenuState extends FlxState
 	
 	private function menuHandling():Void
 	{
-		/*
+		
 		for (i in 0..._grpMenu.members.length)
 		{
 			_grpMenu.members[i].color = FlxColor.BLACK;
 		}
-		*/
-		//_grpMenu.members[selected].color = FlxColor.YELLOW;
+		
+		_grpMenu.members[selected].color = FlxColor.WHITE;
 		
 		if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
 		{
