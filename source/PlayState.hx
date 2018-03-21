@@ -310,7 +310,7 @@ class PlayState extends FlxState
 			//if the MashState's outcome is VICTORY(from a battle)
 			//it kills the enemy, and increases your speed
 			//and changes the outcome to NONE so that its not constantly increasing the speed
-			if (MashState.outcome == MashState.Outcome.VICTORY || MashState.outcome == MashState.Outcome.DEFEAT || MashState.outcome == MashState.Outcome.ESCAPE)
+			if (MashState.outcome == MashState.Outcome.VICTORY)
 			{
 				boost(e);
 			}
@@ -340,7 +340,7 @@ class PlayState extends FlxState
 		//}else if (MashState.outcome == MashState.Outcome.DEFEAT){
 			//speed += FlxG.random.float(0.8, 1.3);
 		}else if (MashState.outcome != MashState.Outcome.VICTORY){
-			speed -= FlxG.random.float(0.5, 2.1);
+			speed -= FlxG.random.float(2.4, 3.2);
 		}
 		//speed += MashState.horniness;
 		
