@@ -6,6 +6,12 @@ Monster Mashing - Changelog
 - Art by @DIGIMIN & I guess @BrandyBuizel did some too
 
 #----------------------------#
+Version 1.1.1 - March XX, 2018
+#----------------------------#
+- Added new tile palette and adjusted systen to swap palettes up to 40k distance
+- Shrunk enemy hurtbox
+
+#----------------------------#
 Version 1.1.0 - March 16, 2018
 #----------------------------#
 - Introducing Bat Girl! Not the Batgirl, but a bat-girl
