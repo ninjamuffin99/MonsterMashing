@@ -170,8 +170,9 @@ class MashState extends FlxSubState
 			{
 				if (FlxG.keys.anyJustPressed(["L", "RIGHT", "D"]))
 				{
-					_enemySprite.animation.play("normal");
+					_enemySprite.animation.play("hit");
 					mash();
+					_enemySprite.animation.play("normal");
 				}
 			}
 			else
@@ -180,6 +181,7 @@ class MashState extends FlxSubState
 				{
 					_enemySprite.animation.play("hit");
 					mash();
+					_enemySprite.animation.play("normal");
 				}
 			}
 		}
@@ -220,7 +222,6 @@ class MashState extends FlxSubState
 		_enemyHealth -= FlxG.random.float(0.8, 2.3);
 		
 		mashX = !mashX;
-		
 	}
 	
 	//flashes the camera, removes the camera from showing, then closes the substate(hopefully with outcome set to VICTORY)
