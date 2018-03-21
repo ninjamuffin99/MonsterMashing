@@ -168,23 +168,15 @@ class MenuState extends FlxState
 		
 		for (i in 0...menuItems.length)
 		{
-			if (FlxG.onMobile)
-			{
-				var text:FlxText = new FlxText(0, (i * 48) + 320, 0, menuItems[i], 40);
-				text.screenCenter(X);
-				_grpMenu.add(text);
-			}
-			else
-			{
-				var whiteBar:FlxSprite = new FlxSprite(0, (i * 54) + 315);
-				whiteBar.makeGraphic(FlxG.width, 36);
-				_grpMenuBar.add(whiteBar);
+			
+			var whiteBar:FlxSprite = new FlxSprite(0, (i * 54) + 315);
+			whiteBar.makeGraphic(FlxG.width, 36);
+			_grpMenuBar.add(whiteBar);
 				
-				var text:FlxText = new FlxText(0, (i * 54) + 312, 0, menuItems[i], 32);
-				text.color = FlxColor.BLACK;
-				text.screenCenter(X);
-				_grpMenu.add(text);
-			}
+			var text:FlxText = new FlxText(0, (i * 54) + 312, 0, menuItems[i], 32);
+			text.color = FlxColor.BLACK;
+			text.screenCenter(X);
+			_grpMenu.add(text);
 		}
 		
 		if (FlxG.onMobile)
