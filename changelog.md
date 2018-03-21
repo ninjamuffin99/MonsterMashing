@@ -9,7 +9,10 @@ Monster Mashing - Changelog
 Version 1.1.1 - March XX, 2018
 #----------------------------#
 - Added new tile palette and adjusted systen to swap palettes up to 40k distance
-- Shrunk enemy hurtbox
+- Made it so the menu displays the color palette you died on previously
+- Shrunk enemy hurtbox a tad(metric)
+- Made it so failing to mash a monster girl within 2.5 seconds causes a reduction in speed
+- Fixed a bug keeping monster girl hurt sprites from diplaying
 
 #----------------------------#
 Version 1.1.0 - March 16, 2018
@@ -28,8 +31,6 @@ Version 1.1.0 - March 16, 2018
 - Removed the bullshit double-tap move that was only ever used on accident and ****ed you up
 - Removed the awkward black overlay during mashing (haha idk maybe not idiot)
 - Created a preloader(ft. @PhantomArcade) so people don't think the game is broken after 3 seconds
-
-
 
 #----------------------------#
 Version 1.0.0 - March 2, 2018
