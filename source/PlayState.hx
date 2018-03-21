@@ -336,7 +336,7 @@ class PlayState extends FlxState
 	{
 		//Varies speed consistency based on victory
 		if (MashState.outcome == MashState.Outcome.VICTORY){
-			speed += FlxG.random.float(0.9, 1.1);
+			speed += FlxG.random.float(0.8, 1.2);
 		//}else if (MashState.outcome == MashState.Outcome.DEFEAT){
 			//speed += FlxG.random.float(0.8, 1.3);
 		}else if (MashState.outcome != MashState.Outcome.VICTORY){
