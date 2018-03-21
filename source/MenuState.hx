@@ -331,8 +331,8 @@ class MenuState extends FlxState
 	private function resetBarFill():Void
 	{
 		selector.y = (selected * 54) + 315;
-		selector.scale.x = 0;
-		FlxTween.tween(selector.scale, {x: 1}, 0.4, {ease:FlxEase.quadInOut});
+		selector.x = -selector.width;
+		FlxTween.tween(selector, {x: 0}, 0.35, {ease:FlxEase.quartOut});
 	}
 
 	private function checkTilemapPos(t:FlxTilemap):Void
