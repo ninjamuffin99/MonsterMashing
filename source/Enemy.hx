@@ -41,6 +41,11 @@ class Enemy extends FlxSprite
 		
 		//loadGraphic(AssetPaths.spr_mush__png, true, 53, 66);
 		
+		width -= 8;
+		height -= 8;
+		offset.x = 4;
+		offset.y = 4;
+		
 		drag.x = drag.y = 10;
 		_idleTmr = 0;
 		playerPos = FlxPoint.get();
