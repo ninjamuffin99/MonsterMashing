@@ -9,7 +9,7 @@ Monster Mashing - Changelog
 Version 1.1.0 - March 16, 2018
 #----------------------------#
 - Introducing Bat Girl! Not the Batgirl, but a bat-girl
-- Updated Newgrounds API to v3 (newgrounds.io baby). Now scoreboards and medals should work in both HTML5 and Flash as long as the user is signed in.
+- Updated Newgrounds API to v3 (newgrounds.io baby). Now scoreboards and medals should work in both HTML5(oops jk lol) and Flash as long as the user is signed in.
 - Created an actual main menu
 - Added new color swaps for levels every 5000 units of distance
 - RIP FLASH ADS ON THE PRELOADER 2018-2018
