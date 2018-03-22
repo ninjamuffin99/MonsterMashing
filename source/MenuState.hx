@@ -51,7 +51,7 @@ class MenuState extends FlxState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	private var _grpMenuBar:FlxTypedGroup<FlxSprite>;
 	
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Vote on New Monster Girl"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Vote on New \nMonster Girl"];
 	private var leadItems:Array<String>;
 	
 	private var selected:Int = 0;
@@ -86,8 +86,6 @@ class MenuState extends FlxState
 		
 		super.create();
 	}
-	
-
 	
 	private function initTilemap():Void
 	{
