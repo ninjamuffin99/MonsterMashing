@@ -84,8 +84,6 @@ class MenuState extends FlxState
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
 		
-		persistentUpdate = true;
-		
 		super.create();
 	}
 	
@@ -309,7 +307,6 @@ class MenuState extends FlxState
 					FlxG.switchState(new CredState());
 				case 2:
 					openSubState(new ScoreState(0xCC000000));
-					selected -= 1;
 				case 3:
 					//News Tab for new news
 					FlxG.openURL(votingLink);
