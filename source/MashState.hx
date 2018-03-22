@@ -170,18 +170,14 @@ class MashState extends FlxSubState
 			{
 				if (FlxG.keys.anyJustPressed(["L", "RIGHT", "D"]))
 				{
-					_enemySprite.animation.play("hit");
 					mash();
-					_enemySprite.animation.play("normal");
 				}
 			}
 			else
 			{
 				if (FlxG.keys.anyJustPressed(["J", "LEFT", "A"]))
 				{
-					_enemySprite.animation.play("hit");
 					mash();
-					_enemySprite.animation.play("normal");
 				}
 			}
 		}
@@ -215,6 +211,8 @@ class MashState extends FlxSubState
 		
 		//shakes the camera
 		thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
+		_enemySprite.animation.play("hit");
+		//_enemySprite.animation.play("normal");
 		
 		//maxShake += FlxG.random.float(0.005, 0.01);
 		
