@@ -65,6 +65,8 @@ class MenuState extends FlxState
 	
 	override public function create():Void
 	{
+		FlxG.timeScale = 1;
+		
 		FlxG.save.bind("File");
 		HighScore.load();
 		
@@ -221,6 +223,11 @@ class MenuState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
+		if (FlxG.keys.justPressed.T)
+		{
+			FlxG.switchState(new SettingState());
+		}
+		
 		menuHandling();
 		
 		#if html5

@@ -128,7 +128,8 @@ class MashState extends FlxSubState
 			//after this health bar tween is done, it calls finishTween(), more info there I guess
 			FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
 		}
-		else if ((_enemyHealth <= 4 || mashTimer < 0) && outcome != VICTORY){
+		else if ((_enemyHealth <= 4 || mashTimer < 0) && outcome != VICTORY)
+		{
 			outcome = DEFEAT;
 			
 			_enemySprite.y += 0.4;
@@ -200,13 +201,13 @@ class MashState extends FlxSubState
 	{
 		if (FlxG.random.bool(35))
 		{
-			FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1);
+			FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol);
 		}
 		
 		#if flash
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.3);
+			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.3 * SettingState.soundVol);
 		#else
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".ogg", 0.3);
+			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".ogg", 0.3 * SettingState.soundVol);
 		#end
 		
 		//shakes the camera

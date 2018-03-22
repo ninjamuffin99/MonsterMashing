@@ -69,6 +69,8 @@ class PlayState extends FlxState
 
 	override public function create():Void
 	{
+		FlxG.timeScale = SettingState.gameSpeed;
+		
 		//Set zoom on map
 		FlxG.camera.zoom = 3;
 		FlxG.camera.fade(FlxColor.WHITE, 0.24, true);
@@ -111,9 +113,9 @@ class PlayState extends FlxState
 		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
 		
 		#if flash
-			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7);
+			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7 * SettingState.musicVol);
 		#else
-			FlxG.sound.playMusic(AssetPaths.Silverline__ogg);
+			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingState.musicVol);
         #end
 		
 		super.create();
@@ -210,8 +212,8 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		FlxG.watch.add(_grpTilemaps, "members");
-		FlxG.watch.add(_player, "y");
+		//FlxG.watch.add(_grpTilemaps, "members");
+		//FlxG.watch.add(_player, "y");
 		FlxG.watch.add(this, "speed");
 		
 		//if speed is greater than maxSpeed(15 as of writing), it lowers it to maxSpeed
@@ -247,7 +249,7 @@ class PlayState extends FlxState
 		//if the players speed gets too low, it returns to MenuState
 		//eventually this will be replaced with a small little sequence
 		//of stuff rather than just jump straight to a game over style screen
-		if (speed < 0.18 || _player.y > 247)
+		if (speed < 0.2 || _player.y > 247)
 		{
 			
 			#if (flash)
@@ -338,7 +340,7 @@ class PlayState extends FlxState
 		if (MashState.outcome == MashState.Outcome.VICTORY)
 		{
 			speed += FlxG.random.float(0.8, 1.2);
-		//}else if (MashState.outcome == MashState.Outcome.DEFEAT){
+			//}else if (MashState.outcome == MashState.Outcome.DEFEAT){
 			//speed += FlxG.random.float(0.8, 1.3);
 		}
 		else if (MashState.outcome != MashState.Outcome.VICTORY)
