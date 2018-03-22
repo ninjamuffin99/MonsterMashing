@@ -266,7 +266,7 @@ class MenuState extends FlxState
 		
 		for (i in 0..._grpMenu.members.length)
 		{
-			_grpMenu.members[i].color = FlxColor.BLACK;
+			_grpMenu.members[i].color = FlxColor.WHITE;
 		}
 		
 		_grpMenu.members[selected].color = FlxColor.YELLOW;
