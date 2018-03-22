@@ -155,8 +155,8 @@ class MenuState extends FlxState
 		
 		selector = new FlxSprite(0, 315);
 		selector.makeGraphic(FlxG.width, 36, FlxColor.MAGENTA);
-		add(selector);
-		resetBarFill();
+		//add(selector);
+		//resetBarFill();
 		
 		
 		_grpMenu = new FlxTypedGroup<FlxText>();
@@ -166,11 +166,12 @@ class MenuState extends FlxState
 		
 		for (i in 0...menuItems.length)
 		{
-			
+			/*
 			var whiteBar:FlxSprite = new FlxSprite(0, (i * 54) + 315);
 			whiteBar.makeGraphic(FlxG.width, 36);
 			_grpMenuBar.add(whiteBar);
-				
+			*/
+			
 			var text:FlxText = new FlxText(0, (i * 54) + 312, 0, menuItems[i], 32);
 			text.color = FlxColor.BLACK;
 			text.screenCenter(X);
@@ -268,7 +269,7 @@ class MenuState extends FlxState
 			_grpMenu.members[i].color = FlxColor.BLACK;
 		}
 		
-		_grpMenu.members[selected].color = FlxColor.WHITE;
+		_grpMenu.members[selected].color = FlxColor.YELLOW;
 		
 		if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
 		{
@@ -291,11 +292,12 @@ class MenuState extends FlxState
 		
 		FlxG.watch.addQuick("selected 2: ", selected);
 		
+		/* Change this so it only chekcs if up or down keys get pressed
 		if (FlxG.keys.justPressed.ANY)
 		{
 			resetBarFill();
 		}
-		
+		*/
 		
 		if (FlxG.keys.anyJustPressed(["ENTER", "Z", "SPACE"]))
 		{
