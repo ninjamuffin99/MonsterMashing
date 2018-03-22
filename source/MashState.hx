@@ -74,7 +74,7 @@ class MashState extends FlxSubState
 			default:
 		}
 		_enemySprite.animation.add("normal", [0]);
-		_enemySprite.animation.add("hit", [1]);
+		_enemySprite.animation.add("hit", [1, 1, 1, 0], 12, false);
 		_enemySprite.animation.add("stripped", [2]);
 		_enemySprite.animation.play("normal");
 		
