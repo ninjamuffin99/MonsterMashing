@@ -372,23 +372,40 @@ class MenuState extends FlxState
 		
 		//t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		//loads the _map data to the current tilemap(t) up to 40k from current score
-		if (HighScore.recentScore > 39750){
+		if (HighScore.recentScore > 39750)
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		}else if (HighScore.recentScore > 34750){
+		}
+		else if (HighScore.recentScore > 34750)
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
-		}else if (HighScore.recentScore > 29750){
+		}
+		else if (HighScore.recentScore > 29750)
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		}else if (HighScore.recentScore > 24750){
+		}
+		else if (HighScore.recentScore > 24750)
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
-		}else if (HighScore.recentScore > 19750){
+		}
+		else if (HighScore.recentScore > 19750)
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		}else if (HighScore.recentScore > 14750){
+		}
+		else if (HighScore.recentScore > 14750)
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
-		}else if (HighScore.recentScore > 9750){
+		}
+		else if (HighScore.recentScore > 9750)
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		}else if (HighScore.recentScore > 4750){
+		}
+		else if (HighScore.recentScore > 4750)
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
-		}else{
+		}
+		else
+		{
 			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		}
 		
