@@ -3,6 +3,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxMath;
 import flixel.text.FlxText;
 
 /**
@@ -20,6 +21,7 @@ class SettingState extends FlxState
 	private var musicTxt:FlxText;
 	private var speedTxt:FlxText;
 	
+	//make master volume later, and so that each sound is multiplied by it
 	private var settingsArray:Array<Dynamic> = 
 	[
 		["Music Volume", "SFX Volume", "Moan Volume", "Game Speed"], 
@@ -55,7 +57,7 @@ class SettingState extends FlxState
 			var settingText:FlxText = new FlxText(32, yPos, 0, settingsArray[0][i], 32);
 			add(settingText);
 			
-			var settingValue:FlxText = new FlxText(FlxG.width - 80, yPos, 0, Std.string(settingsArray[1][i]), 32);
+			var settingValue:FlxText = new FlxText(FlxG.width - 96, yPos, 0, Std.string(settingsArray[1][i]), 32);
 			_grpValues.add(settingValue);
 		}
 		
@@ -130,7 +132,7 @@ class SettingState extends FlxState
 		}
 		if (FlxG.keys.justPressed.D)
 		{
-			chagneValue(0.1);
+			changeValue(0.1);
 		}
 	}
 	
@@ -139,7 +141,9 @@ class SettingState extends FlxState
 		settingsArray[1][_selection] += diff;
 		
 		if (settingsArray[1][_selection] < settingsArray[2][_selection])
-			settingsArray[1][_selection] = settingsArray[2][_selection]
+			settingsArray[1][_selection] = settingsArray[2][_selection];
+		
+		settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
 		
 	}
 
