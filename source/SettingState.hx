@@ -145,6 +145,12 @@ class SettingState extends FlxState
 		
 		settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
 		
+		
+		musicVol = settingsArray[1][0];
+		soundVol = settingsArray[1][1];
+		moanVol = settingsArray[1][2];
+		gameSpeed = settingsArray[1][3];
+		
 	}
 
 	private function changePos():Void
