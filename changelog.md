@@ -8,7 +8,7 @@ Monster Mashing - Changelog
 #----------------------------#
 Version 1.1.1 - March XX, 2018
 #----------------------------#
-- Added new tile palette and adjusted systen to swap palettes up to 40k distance
+- Added 2 new tile palettes and adjusted systen to swap palettes up to 50k distance
 - Made it so the menu displays the color palette you died on previously
 - Shrunk enemy hurtbox a tad(metric)
 - Made it so failing to mash a monster girl within 2.5 seconds causes a reduction in speed
