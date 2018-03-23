@@ -51,7 +51,7 @@ class MenuState extends FlxState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	private var _grpMenuBar:FlxTypedGroup<FlxSprite>;
 	
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Vote on New \nMonster Girl"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Settings", "Vote on New \nMonster Girl"];
 	private var leadItems:Array<String>;
 	
 	private var selected:Int = 0;
@@ -172,7 +172,7 @@ class MenuState extends FlxState
 			_grpMenuBar.add(whiteBar);
 			*/
 			
-			var text:FlxText = new FlxText(0, (i * 54) + 312, 0, menuItems[i], 32);
+			var text:FlxText = new FlxText(0, (i * 54) + 280, 0, menuItems[i], 32);
 			text.color = FlxColor.BLACK;
 			text.screenCenter(X);
 			_grpMenu.add(text);
@@ -186,7 +186,7 @@ class MenuState extends FlxState
 		}
 		else
 		{
-			mScore = new FlxText(0, FlxG.height / 2 + 160, 0, "High Score: " + HighScore.score, 32);
+			mScore = new FlxText(0, FlxG.height / 2 + 180, 0, "High Score: " + HighScore.score, 32);
 			mScore.screenCenter(X);
 			add(mScore);
 		}
@@ -251,6 +251,10 @@ class MenuState extends FlxState
 						}
 						if (touch.overlaps(_grpMenu.members[3]))
 						{
+							FlxG.switchState(new SettingState());
+						}
+						if (touch.overlaps(_grpMenu.members[4]))
+						{
 							FlxG.openURL(votingLink);
 						}
 						
@@ -282,9 +286,7 @@ class MenuState extends FlxState
 		}
 		if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
 		{
-			
 			selected += 1;
-			
 		}
 		
 		FlxG.watch.addQuick("selected 1: ", selected);
