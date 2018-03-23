@@ -1,6 +1,7 @@
 package;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 
@@ -19,16 +20,27 @@ class SettingState extends FlxState
 	private var musicTxt:FlxText;
 	private var speedTxt:FlxText;
 	
-	private var settingsArray:Array<Dynamic> = [["Music Volume", "Sound Effect Volume", "Moan Volume", "Game Speed"], [musicVol, soundVol, moanVol, gameSpeed]];
+	private var settingsArray:Array<Dynamic> = 
+	[
+		["Music Volume", "SFX Volume", "Moan Volume", "Game Speed"], 
+		[musicVol, soundVol, moanVol, gameSpeed],
+		[0, 0, 0, 0.1]
+	];
 	
+	private var _selection:Int = 0;
 	private var _selector:FlxSpriteGroup;
 	private var _selLeft:FlxText;
 	private var _selRight:FlxText;
+	
+	private var _grpValues:FlxTypedGroup<FlxText>;
 	
 	override public function create():Void 
 	{
 		_selector = new FlxSpriteGroup();
 		add(_selector);
+		
+		_grpValues = new FlxTypedGroup<FlxText>();
+		add(_grpValues);
 		
 		_selLeft = new FlxText(0, 0, 0, "<", 32);
 		_selector.add(_selLeft);
@@ -38,9 +50,18 @@ class SettingState extends FlxState
 		
 		for (i in 0...settingsArray[0].length)
 		{
-			var settingText:FlxText = new FlxText(32, (34 * i) + 100, 0, settingsArray[0][i], 32);
+			var yPos:Float = (34 * i) + 100;
+			
+			var settingText:FlxText = new FlxText(32, yPos, 0, settingsArray[0][i], 32);
 			add(settingText);
+			
+			var settingValue:FlxText = new FlxText(FlxG.width - 80, yPos, 0, Std.string(settingsArray[1][i]), 32);
+			_grpValues.add(settingValue);
 		}
+		
+		
+		_selector.x = FlxG.width - 130;
+		changePos();
 		
 		super.create();
 	}
@@ -49,16 +70,18 @@ class SettingState extends FlxState
 	{
 		super.update(elapsed);
 		
-		speedTxt.text = "Game Speed: " + gameSpeed;
+		//speedTxt.text = "Game Speed: " + gameSpeed;
 		
-		if (FlxG.keys.justPressed.W)
-		{
-			_selector.y -= 64;
-		}
-		else if (FlxG.keys.justPressed.S)
-		{
-			_selector.y += 64;
-		}
+		controls();
+		
+		if (_selection > settingsArray[0].length - 1)
+			_selection = 0;
+		if (_selection < 0)
+			_selection = Std.int(settingsArray[0].length - 1);
+		
+		if (FlxG.keys.justPressed.ANY)
+			changePos();
+		
 		
 		if (FlxG.keys.justPressed.ENTER)
 		{
@@ -78,6 +101,51 @@ class SettingState extends FlxState
 			}
 		}
 		
+		
+		for (t in 0..._grpValues.members.length)
+		{
+			_grpValues.members[t].text = Std.string(settingsArray[1][t]); 
+		}
+		
+	}
+	
+	private function controls():Void
+	{
+		
+		if (FlxG.keys.justPressed.W)
+		{
+			_selection -= 1;
+			changePos();
+		}
+		else if (FlxG.keys.justPressed.S)
+		{
+			_selection += 1;
+			changePos();
+		}
+		
+		
+		if (FlxG.keys.justPressed.A)
+		{
+			changeValue(-0.1);
+		}
+		if (FlxG.keys.justPressed.D)
+		{
+			chagneValue(0.1);
+		}
+	}
+	
+	private function changeValue(diff:Float):Void
+	{
+		settingsArray[1][_selection] += diff;
+		
+		if (settingsArray[1][_selection] < settingsArray[2][_selection])
+			settingsArray[1][_selection] = settingsArray[2][_selection]
+		
+	}
+
+	private function changePos():Void
+	{
+		_selector.y = (_selection * 34) + 34 * 3;
 	}
 	
 }
