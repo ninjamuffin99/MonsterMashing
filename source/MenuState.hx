@@ -180,16 +180,16 @@ class MenuState extends FlxState
 		
 		if (FlxG.onMobile)
 		{
-			mScore = new FlxText(0, FlxG.height / 2 + 210, 0, "High Score: " + HighScore.score, 40);
-			mScore.screenCenter(X);
-			add(mScore);
+			mScore = new FlxText(0, FlxG.height / 2 + 210, 0, "", 40);
 		}
 		else
 		{
-			mScore = new FlxText(0, FlxG.height / 2 + 180, 0, "High Score: " + HighScore.score, 32);
-			mScore.screenCenter(X);
-			add(mScore);
+			mScore = new FlxText(0, FlxG.height / 2 + 180, 0, "", 32);	
 		}
+		mScore.text = "High Score: " + HighScore.score + "\nTotal Score: " + HighScore.totalScore;
+		mScore.alignment = FlxTextAlign.CENTER;
+		mScore.screenCenter(X);
+		add(mScore);
 		
 		
 		if (HighScore.recentScore > 0)
