@@ -12,6 +12,7 @@ import flixel.text.FlxText;
  */
 class SettingState extends FlxState
 {
+	public static var masterVol:Float = 1;
 	public static var musicVol:Float = 1;
 	public static var soundVol:Float = 1;
 	public static var moanVol:Float = 1;
@@ -21,12 +22,16 @@ class SettingState extends FlxState
 	private var musicTxt:FlxText;
 	private var speedTxt:FlxText;
 	
-	//make master volume later, and so that each sound is multiplied by it
+	/**
+	 * First array is is title
+	 * second array is value
+	 * third is lowest possible value
+	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Music Volume", "SFX Volume", "Moan Volume", "Game Speed"], 
-		[musicVol, soundVol, moanVol, gameSpeed],
-		[0, 0, 0, 0.1]
+		["Mater Volume", "Music Volume", "SFX Volume", "Moan Volume", "Game Speed"], 
+		[masterVol, musicVol, soundVol, moanVol, gameSpeed],
+		[0, 0, 0, 0, 0.1]
 	];
 	
 	private var _selection:Int = 0;
@@ -90,20 +95,6 @@ class SettingState extends FlxState
 			FlxG.switchState(new MenuState());
 		}
 		
-		//accessability shit
-		if (gameSpeed > 0.2)
-		{
-			if (FlxG.keys.justPressed.E)
-			{
-				gameSpeed += 0.1;
-			}
-			if (FlxG.keys.justPressed.Q)
-			{
-				gameSpeed -= 0.1;
-			}
-		}
-		
-		
 		for (t in 0..._grpValues.members.length)
 		{
 			_grpValues.members[t].text = Std.string(settingsArray[1][t]); 
@@ -145,11 +136,11 @@ class SettingState extends FlxState
 		
 		settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
 		
-		
-		musicVol = settingsArray[1][0];
-		soundVol = settingsArray[1][1];
-		moanVol = settingsArray[1][2];
-		gameSpeed = settingsArray[1][3];
+		masterVol = settingsArray[1][0]
+		musicVol = settingsArray[1][1];
+		soundVol = settingsArray[1][2];
+		moanVol = settingsArray[1][3];
+		gameSpeed = settingsArray[1][4];
 		
 	}
 
