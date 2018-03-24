@@ -36,10 +36,6 @@ class HighScore
 			SettingState.moanVol = FlxG.save.data.moanVol;
 			SettingState.musicVol = FlxG.save.data.musicVol;
 			SettingState.soundVol = FlxG.save.data.soundVol;
-			
-			
 		}
 	}
-	
-	
 }
