@@ -13,8 +13,9 @@ Version 1.1.1 - March XX, 2018
 - Shrunk enemy hurtbox a tad(metric)
 - Made it so failing to mash a monster girl within 2.5 seconds causes a reduction in speed
 - Fixed a bug keeping monster girl hurt sprites from displaying
+- Delayed certain girls from spawning until nth distance(not too much though)
 - Added "Settings" to the main menu
-- Created an "is this easy mode?" setting with reduced score to keep the leaderboard sacred
+- Added Bounty for being the first to hit 50k on the leaderboard
 
 #----------------------------#
 Version 1.1.0 - March 16, 2018

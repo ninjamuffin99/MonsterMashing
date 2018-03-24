@@ -393,7 +393,7 @@ class MenuState extends FlxState
 			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
 		}else if (HighScore.recentScore > 9750){
 			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		}else if (HighScore.recentScore > 4750){
+		}else if (HighScore.recentScore > 750){
 			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
 		}else{
 			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
