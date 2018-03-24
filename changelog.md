@@ -5,6 +5,7 @@ Monster Mashing - Changelog
 - Programming by @ninjamuffin99 & @BrandyBuizel
 - Art by @DIGIMIN & I guess @BrandyBuizel did some too
 
+
 #----------------------------#
 Version 1.1.1 - March XX, 2018
 #----------------------------#
@@ -16,6 +17,7 @@ Version 1.1.1 - March XX, 2018
 - Delayed certain girls from spawning until nth distance(not too much though)
 - Added "Settings" to the main menu
 - Added Bounty for being the first to hit 50k on the leaderboard
+
 
 #----------------------------#
 Version 1.1.0 - March 16, 2018
@@ -34,6 +36,7 @@ Version 1.1.0 - March 16, 2018
 - Removed the bullshit double-tap move that was only ever used on accident and ****ed you up
 - Removed the awkward black overlay during mashing (haha idk maybe not idiot)
 - Created a preloader(ft. @PhantomArcade) so people don't think the game is broken after 3 seconds
+
 
 #----------------------------#
 Version 1.0.0 - March 2, 2018

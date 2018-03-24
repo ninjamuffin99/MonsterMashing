@@ -375,7 +375,7 @@ class MenuState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(2, 9) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(2, 10) + ".oel");
 		
 		//t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		//loads the _map data to the current tilemap(t) up to 40k from current score
