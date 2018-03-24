@@ -201,13 +201,13 @@ class MashState extends FlxSubState
 	{
 		if (FlxG.random.bool(35))
 		{
-			FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol);
+			FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol * SettingState.masterVol);
 		}
 		
 		#if flash
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.3 * SettingState.soundVol);
+			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.3 * SettingState.soundVol * SettingState.masterVol);
 		#else
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".ogg", 0.3 * SettingState.soundVol);
+			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".ogg", 0.3 * SettingState.soundVol * SettingState.masterVol);
 		#end
 		
 		//shakes the camera
