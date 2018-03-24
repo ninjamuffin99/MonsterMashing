@@ -136,7 +136,7 @@ class SettingState extends FlxState
 		
 		settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
 		
-		masterVol = settingsArray[1][0]
+		masterVol = settingsArray[1][0];
 		musicVol = settingsArray[1][1];
 		soundVol = settingsArray[1][2];
 		moanVol = settingsArray[1][3];
