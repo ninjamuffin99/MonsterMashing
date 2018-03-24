@@ -268,7 +268,7 @@ class PlayState extends FlxState
 			
 			HighScore.recentScore = Std.int(score);
 			
-			HighScore.totalScore += score;
+			HighScore.totalScore += Std.int(score);
 			
 			HighScore.save();
 			
