@@ -397,7 +397,7 @@ class PlayState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 10) + ".oel");
 
 		
 		//loads the _map data to the current tilemap(t) up to 40k
