@@ -113,9 +113,9 @@ class PlayState extends FlxState
 		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
 		
 		#if flash
-			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7 * SettingState.musicVol);
+			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7 * SettingState.musicVol * SettingState.masterVol);
 		#else
-			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingState.musicVol);
+			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingState.musicVol * SettingState.masterVol);
         #end
 		
 		super.create();
@@ -264,10 +264,13 @@ class PlayState extends FlxState
 			if (score > HighScore.score)
 			{
 				HighScore.score = Std.int(score);
-				HighScore.save();
 			}
 			
 			HighScore.recentScore = Std.int(score);
+			
+			HighScore.totalScore += Std.int(score);
+			
+			HighScore.save();
 			
 			//Add score here
 			//MenuState.hScore = score;
