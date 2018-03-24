@@ -264,10 +264,13 @@ class PlayState extends FlxState
 			if (score > HighScore.score)
 			{
 				HighScore.score = Std.int(score);
-				HighScore.save();
 			}
 			
 			HighScore.recentScore = Std.int(score);
+			
+			HighScore.totalScore += score;
+			
+			HighScore.save();
 			
 			//Add score here
 			//MenuState.hScore = score;
