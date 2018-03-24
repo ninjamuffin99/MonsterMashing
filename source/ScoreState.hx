@@ -72,7 +72,7 @@ class ScoreState extends FlxSubState
 			
 			var name:FlxText = new FlxText(20, 32 + (34 * _grpText.members.length), FlxG.width - 20, text, 24);
 			_grpText.add(name);
-			_grpText.text += "\nBounty: 50000"
+			//_grpText.text += "\nBounty: 50000"
 			
 			if (dev)
 			{
