@@ -16,6 +16,7 @@ import io.newgrounds.NG;
 class ScoreState extends FlxSubState 
 {
 	private var hallOfShame:FlxText;
+	private var bountyTxt:FlxText;
 	private var _grpText:FlxSpriteGroup;
 	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
@@ -72,7 +73,6 @@ class ScoreState extends FlxSubState
 			
 			var name:FlxText = new FlxText(20, 32 + (34 * _grpText.members.length), FlxG.width - 20, text, 24);
 			_grpText.add(name);
-			//_grpText.text += "\nBounty: 50000"
 			
 			if (dev)
 			{
@@ -89,6 +89,11 @@ class ScoreState extends FlxSubState
 			
 			trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
 		}
+		
+		bountyTxt = new FlxText(0, FlxG.height - 34, 0, "Bounty\nFirst person to 30K gets free month supporter status!\n", 16);
+		bountyTxt.screenCenter(X);
+		bountyTxt.alignment = FlxTextAlign.CENTER;
+		add(bountyTxt);
 		
 		#else
 		hallOfShame.text += "\nScoreboards not yet \nimplemented\n on HTML5 \n\nComing soon!";
