@@ -67,15 +67,15 @@ class MashState extends FlxSubState
 			case 0:
 				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			case 1:
-				_enemySprite.loadGraphic("assets/images/hotGF.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			case 2: 
 				if (FlxG.random.bool())
 				{
-					_enemySprite.loadGraphic("assets/images/sonky.png", true, 800, 1200);
+					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 				}
 				else
 				{
-					_enemySprite.loadGraphic("assets/images/kirbyGF.png", true, 800, 1200);
+					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 				}
 				
 				
@@ -211,7 +211,8 @@ class MashState extends FlxSubState
 	{
 		if (FlxG.random.bool(35))
 		{
-			FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol * SettingState.masterVol);
+			//FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol * SettingState.masterVol);
+			FlxG.sound.play("assets/sounds/roblox oof.mp3", 1  * SettingState.moanVol * SettingState.masterVol);
 		}
 		
 		#if flash
