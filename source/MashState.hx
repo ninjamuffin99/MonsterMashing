@@ -67,7 +67,7 @@ class MashState extends FlxSubState
 			case 0:
 				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			case 1:
-				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/hotGF.png", true, 800, 1200);
 			case 2: 
 				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 				
