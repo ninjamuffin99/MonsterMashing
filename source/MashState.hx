@@ -65,13 +65,15 @@ class MashState extends FlxSubState
 		switch (enemyType) 
 		{
 			case 0:
-				_enemySprite.loadGraphic(AssetPaths.mushSheet__png, true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			case 1:
-				_enemySprite.loadGraphic(AssetPaths.vineSheet__png, true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			case 2: 
-				_enemySprite.loadGraphic(AssetPaths.batSheet__png, true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 				
 			default:
+				
+				_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 		}
 		_enemySprite.animation.add("normal", [0]);
 		_enemySprite.animation.add("hit", [1, 1, 1, 0], 12, false);

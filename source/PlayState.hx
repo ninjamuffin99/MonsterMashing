@@ -445,28 +445,13 @@ class PlayState extends FlxState
 			var enemyAmount:Int = FlxG.random.int(1, 3);
 			var enemyType:Int = 0;
 			
-			if (score > 3000)
-			{
-				enemyType = FlxG.random.int(0, 2);
-			}
-			else if (score > 2000)
-			{
-				enemyType = FlxG.random.int(0, 1);
-			}
-			else if (score > 1000)
-			{
-				enemyType = FlxG.random.int(0, 0);
-			}
-			
-			
 			//loops 
 			while (enemyAmount > 0)
 			{
-				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), enemyType));
+				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), FlxG.random.int(0, 2)));
 				
 				enemyAmount -= 1;
 			}
-			
 		}
 	}
 	
