@@ -257,8 +257,6 @@ class PlayState extends FlxState
 				
 				// Posting a score thats OVER 9000!
 				board.postScore(Std.int(score));
-				
-				
 			#end
 			
 			if (score > HighScore.score)

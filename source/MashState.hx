@@ -18,7 +18,7 @@ import flixel.util.FlxColor;
 class MashState extends FlxSubState 
 {
 	//a public static variable of the outcome, so that it can be accessed in the PlayState
-	public static var outcome:Outcome;
+	public static var outcome:Outcome = NONE;
 	private var enemyType:Int = 0;
 	
 	private var _mashSprite:FlxSprite;
