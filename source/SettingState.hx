@@ -105,12 +105,12 @@ class SettingState extends FlxState
 	private function controls():Void
 	{
 		
-		if (FlxG.keys.justPressed.W)
+		if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
 		{
 			_selection -= 1;
 			changePos();
 		}
-		else if (FlxG.keys.justPressed.S)
+		else if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
 		{
 			_selection += 1;
 			changePos();
