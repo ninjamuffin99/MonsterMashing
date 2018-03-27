@@ -29,11 +29,9 @@ class ScoreState extends FlxSubState
 	override public function create():Void 
 	{
 		#if html5
-		
-		//the normal transparent BG don't work right on HTML5 so makin my own
-		var goodBg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xCC000000);
-		add(goodBg);
-		
+			//the normal transparent BG don't work right on HTML5 so makin my own
+			var goodBg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xCC000000);
+			add(goodBg);
 		#end
 		
 		_grpText = new FlxSpriteGroup();
@@ -46,57 +44,55 @@ class ScoreState extends FlxSubState
 		FlxG.log.redirectTraces = true;
 		
 		#if flash
-		
-		NG.core.scoreBoards.get(8004).requestScores(20);
-		
-		var leaderBoardPlacement:Int = 1;
-		
-		
-		for (score in NG.core.scoreBoards.get(8004).scores)
-		{
-			var dev:Bool = false;
-			var isPlayer:Bool = false;
-			var userName:String = score.user.name;
+			NG.core.scoreBoards.get(8004).requestScores(20);
 			
-			if (NG.core.user.name == score.user.name)
+			var leaderBoardPlacement:Int = 1;
+			
+			
+			for (score in NG.core.scoreBoards.get(8004).scores)
 			{
-				isPlayer = true;
+				var dev:Bool = false;
+				var isPlayer:Bool = false;
+				var userName:String = score.user.name;
+				
+				if (NG.core.user.name == score.user.name)
+				{
+					isPlayer = true;
+				}
+				
+				if (userName == "ninjamuffin99" || userName == "BrandyBuizel" || userName == "DIGIMIN")
+				{
+					dev = true;
+					userName += " (dev)";
+				}
+				
+				var text:String = Std.string(leaderBoardPlacement + ". " + userName + " - " + score.formatted_value);
+				
+				var name:FlxText = new FlxText(20, 32 + (34 * _grpText.members.length), FlxG.width - 20, text, 24);
+				_grpText.add(name);
+				
+				if (dev)
+				{
+					name.color = FlxColor.YELLOW;
+				}
+				
+				if (isPlayer)
+				{
+					name.color = FlxColor.RED;
+				}
+				
+				
+				leaderBoardPlacement += 1;
+				
+				trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
 			}
 			
-			if (userName == "ninjamuffin99" || userName == "BrandyBuizel" || userName == "DIGIMIN")
-			{
-				dev = true;
-				userName += " (dev)";
-			}
-			
-			var text:String = Std.string(leaderBoardPlacement + ". " + userName + " - " + score.formatted_value);
-			
-			var name:FlxText = new FlxText(20, 32 + (34 * _grpText.members.length), FlxG.width - 20, text, 24);
-			_grpText.add(name);
-			
-			if (dev)
-			{
-				name.color = FlxColor.YELLOW;
-			}
-			
-			if (isPlayer)
-			{
-				name.color = FlxColor.RED;
-			}
-			
-			
-			leaderBoardPlacement += 1;
-			
-			trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
-		}
-		
-		bountyTxt = new FlxText(0, FlxG.height - 64, 0, "Bounty\nFirst person to 30K gets free month supporter status!\n", 16);
-		bountyTxt.screenCenter(X);
-		bountyTxt.alignment = FlxTextAlign.CENTER;
-		add(bountyTxt);
-		
+			bountyTxt = new FlxText(0, FlxG.height - 64, 0, "Bounty\nFirst person to get 30K distance gets a free month of supporter status!\nFirst person to get 50K distance gets a free year of supporter status!", 16);
+			bountyTxt.screenCenter(X);
+			bountyTxt.alignment = FlxTextAlign.CENTER;
+			add(bountyTxt);
 		#else
-		hallOfShame.text += "\nScoreboards not yet \nimplemented\n on HTML5 \n\nComing soon!";
+			hallOfShame.text += "\nScoreboards not yet \nimplemented\n on HTML5 \n\nComing soon!";
 		#end
 		
 		super.create();
@@ -111,9 +107,9 @@ class ScoreState extends FlxSubState
 		
 		if (FlxG.onMobile)
 		{
-			for (toucn in FlxG.touches.list)
+			for (touch in FlxG.touches.list)
 			{
-				if (toucn.justPressed)
+				if (touch.justPressed)
 				{
 					close();
 				}
