@@ -58,6 +58,11 @@ class ScoreState extends FlxSubState
 				if (NG.core.user.name == score.user.name)
 				{
 					isPlayer = true;
+					
+					var shameMedal = NG.core.medals.get(54477);
+					if (!shameMedal.unlocked)
+						shameMedal.sendUnlock();
+					
 				}
 				
 				if (userName == "ninjamuffin99" || userName == "BrandyBuizel" || userName == "DIGIMIN")
