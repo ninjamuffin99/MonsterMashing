@@ -7,6 +7,12 @@ Monster Mashing - Changelog
 
 
 #----------------------------#
+Version 1.1.2 - April XX, 2018
+#----------------------------#
+- April Fools Day Patch!
+
+
+#----------------------------#
 Version 1.1.1 - March XX, 2018
 #----------------------------#
 - Introducing Slime Girl! She may be non-neutonian and she may be fragile, but she don't mind if you're a little rough ;)
@@ -16,7 +22,8 @@ Version 1.1.1 - March XX, 2018
 - Delayed certain girls from spawning until nth distance(not too much though)
 - Made it so failing to mash a monster girl within 2.5 seconds causes a reduction in speed
 - Added "Settings" to the main menu
-- Added Bounty for being the first to hit 50k on the leaderboard
+- Added Bounty for being the first to hit 30k on the leaderboard(one month supporter status)
+- Added Bounty for being the first to hit 50k on the leaderboard(one year supporter status)
 
 
 #----------------------------#
