@@ -18,7 +18,7 @@ class SettingState extends FlxState
 	public static var moanVol:Float = 1;
 	//public static var Mode:Bool = false
 	public static var gameSpeed:Float = 1;
-	public static var aprilFools:Float = 1;
+	public static var aprilFools:Float = 0;
 	
 	private var musicTxt:FlxText;
 	private var speedTxt:FlxText;
@@ -31,8 +31,8 @@ class SettingState extends FlxState
 	private var settingsArray:Array<Dynamic> = 
 	[
 		["Mater Volume", "Music Volume", "SFX Volume", "Moan Volume", "Game Speed", "April Fools"], 
-		[masterVol, musicVol, soundVol, moanVol, gameSpeed],
-		[0, 0, 0, 0, 0.1]
+	[masterVol, musicVol, soundVol, moanVol, gameSpeed, aprilFools],
+		[0, 0, 0, 0, 0.1, 0]
 	];
 	
 	private var _selection:Int = 0;
@@ -67,7 +67,6 @@ class SettingState extends FlxState
 			_grpValues.add(settingValue);
 		}
 		
-		
 		_selector.x = FlxG.width - 130;
 		changePos();
 		
@@ -91,7 +90,7 @@ class SettingState extends FlxState
 			changePos();
 		
 		
-		if (FlxG.keys.justPressed.ENTER)
+		if (FlxG.keys.anyJustPressed(["Z", "ENTER", "SPACE"]))
 		{
 			FlxG.switchState(new MenuState());
 		}
@@ -116,15 +115,14 @@ class SettingState extends FlxState
 			_selection += 1;
 			changePos();
 		}
-		
-		
+				
 		if (FlxG.keys.anyJustPressed(["A", "LEFT", "J"]))
 		{
-			changeValue(-0.1);
+			changeValue( -1);
 		}
 		if (FlxG.keys.anyJustPressed(["D", "RIGHT", "L"]))
 		{
-			changeValue(0.1);
+			changeValue(1);
 		}
 	}
 	
