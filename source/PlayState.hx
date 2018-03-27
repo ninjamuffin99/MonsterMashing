@@ -446,7 +446,7 @@ class PlayState extends FlxState
 			//loops 
 			while (enemyAmount > 0)
 			{
-				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), FlxG.random.int(0, 2)));
+				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), FlxG.random.int(0, 3)));
 				
 				enemyAmount -= 1;
 			}
