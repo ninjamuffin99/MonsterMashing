@@ -18,6 +18,7 @@ class SettingState extends FlxState
 	public static var moanVol:Float = 1;
 	//public static var Mode:Bool = false
 	public static var gameSpeed:Float = 1;
+	public static var aprilFools:Float = 1;
 	
 	private var musicTxt:FlxText;
 	private var speedTxt:FlxText;
@@ -29,7 +30,7 @@ class SettingState extends FlxState
 	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Mater Volume", "Music Volume", "SFX Volume", "Moan Volume", "Game Speed"], 
+		["Mater Volume", "Music Volume", "SFX Volume", "Moan Volume", "Game Speed", "April Fools"], 
 		[masterVol, musicVol, soundVol, moanVol, gameSpeed],
 		[0, 0, 0, 0, 0.1]
 	];
@@ -117,11 +118,11 @@ class SettingState extends FlxState
 		}
 		
 		
-		if (FlxG.keys.justPressed.A)
+		if (FlxG.keys.anyJustPressed(["A", "LEFT", "J"]))
 		{
 			changeValue(-0.1);
 		}
-		if (FlxG.keys.justPressed.D)
+		if (FlxG.keys.anyJustPressed(["D", "RIGHT", "L"]))
 		{
 			changeValue(0.1);
 		}
@@ -141,7 +142,7 @@ class SettingState extends FlxState
 		soundVol = settingsArray[1][2];
 		moanVol = settingsArray[1][3];
 		gameSpeed = settingsArray[1][4];
-		
+		aprilFools = settingsArray[1][0];
 	}
 
 	private function changePos():Void
