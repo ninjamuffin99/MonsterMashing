@@ -36,6 +36,8 @@ class MashState extends FlxSubState
 	
 	private var _barHealth:FlxBar;
 	
+	private var finishing:Bool = false;
+	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int) 
 	{
 		super(BGColor);
@@ -142,35 +144,25 @@ class MashState extends FlxSubState
 		super.update(elapsed);
 		
 		//if the enemy's health is less than 0, and the outcome isn't VICTORY, then it finishes shit up
-		if ((_enemyHealth <= 0 || mashTimer < 0) && outcome != VICTORY)
+		if (_enemyHealth <= 0 && outcome != VICTORY)
 		{
 			outcome = VICTORY;
-			
-			FlxTween.tween(_enemySprite, {y: FlxG.height + 400}, 1.25, {ease:FlxEase.quartInOut});
-			FlxTween.tween(txtTimer, {y: FlxG.height + 400}, 1.4, {ease:FlxEase.quartInOut});
-			FlxTween.tween(_mashSprite, {y: FlxG.height + 400}, 0.75, {ease:FlxEase.quartInOut});
-			//after this health bar tween is done, it calls finishTween(), more info there I guess
-			FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
+			endTweens();
 		}
-		else if ((_enemyHealth <= 4 || mashTimer < 0) && outcome != VICTORY)
+		else if (_enemyHealth <= 4 && mashTimer < 0 && outcome != VICTORY)
 		{
 			outcome = DEFEAT;
 			
-			_enemySprite.y += 0.4;
-			txtTimer.y += 0.39;
-			mashTimer -= FlxG.elapsed;
-			txtTimer.text = Std.string(FlxMath.roundDecimal(mashTimer, 2));
-			
-			if (mashTimer < 0)
-			{
-				txtTimer.text = "0.00";
-			}
+			endTweens();
 		}
-		else if (_enemyHealth > 0 && outcome != VICTORY)
+		else if (_enemyHealth > 0 && mashTimer < 0 && outcome != VICTORY)
 		{
 			outcome = ESCAPE;
 			
-			//always increases the y for some visual polish i guess hey i think its cool get off my dick bitch
+			endTweens();
+		}
+		else
+		{
 			_enemySprite.y += 0.4;
 			txtTimer.y += 0.39;
 			mashTimer -= FlxG.elapsed;
@@ -180,8 +172,6 @@ class MashState extends FlxSubState
 			{
 				txtTimer.text = "0.00";
 			}
-			
-			//_mashSprite.y += 0.75;
 		}
 		
 		if (_enemyHealth <= 0)
@@ -246,6 +236,20 @@ class MashState extends FlxSubState
 		_enemyHealth -= FlxG.random.float(0.8, 2.3);
 		
 		mashX = !mashX;
+	}
+	
+	private function endTweens():Void
+	{
+		if (!finishing)
+		{
+			finishing = true;
+			FlxTween.tween(_enemySprite, {y: FlxG.height + 400}, 1.25, {ease:FlxEase.quartInOut});
+			FlxTween.tween(txtTimer, {y: FlxG.height + 400}, 1.4, {ease:FlxEase.quartInOut});
+			FlxTween.tween(_mashSprite, {y: FlxG.height + 400}, 0.75, {ease:FlxEase.quartInOut});
+			//after this health bar tween is done, it calls finishTween(), more info there I guess
+			FlxTween.tween(_barHealth, {y:  0 - 16}, 0.65, {ease:FlxEase.quartInOut, onComplete: finishTween});
+		}
+		
 	}
 	
 	//flashes the camera, removes the camera from showing, then closes the substate(hopefully with outcome set to VICTORY)
