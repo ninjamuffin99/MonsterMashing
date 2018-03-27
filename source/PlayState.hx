@@ -70,6 +70,7 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		FlxG.timeScale = SettingState.gameSpeed;
+		FlxG.log.redirectTraces = true;
 		
 		//Set zoom on map
 		FlxG.camera.zoom = 3;
@@ -341,12 +342,12 @@ class PlayState extends FlxState
 		if (MashState.outcome == MashState.Outcome.VICTORY)
 		{
 			speed += FlxG.random.float(0.8, 1.2);
-			//}else if (MashState.outcome == MashState.Outcome.DEFEAT){
-			//speed += FlxG.random.float(0.8, 1.3);
+			trace("speed up");
 		}
 		else if (MashState.outcome != MashState.Outcome.VICTORY)
 		{
-			speed -= FlxG.random.float(2.4, 3.2);
+			speed -= FlxG.random.float(1, 2);
+			trace("slowed down");
 		}
 		//speed += MashState.horniness;
 		
