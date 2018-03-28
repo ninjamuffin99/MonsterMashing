@@ -65,8 +65,7 @@ class MashState extends FlxSubState
 		_enemySprite = new FlxSprite(48, 0);
 		
 		//April Fools Code
-		if (SettingState.aprilFools == 1)
-		{
+		if (SettingState.aprilFools == 1){
 			switch (enemyType) 
 			{
 				case 0:
@@ -80,9 +79,22 @@ class MashState extends FlxSubState
 				default:
 					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			}
-		}
-		else
-		{
+		//Pico Day Code
+		}else if (SettingState.picoDay == 1){
+			switch (enemyType) 
+			{
+				case 0:
+					_enemySprite.loadGraphic("assets/images/hotGF.png", true, 800, 1200);
+				case 1:
+					_enemySprite.loadGraphic("assets/images/sonky.png", true, 800, 1200);
+				case 2: 
+					_enemySprite.loadGraphic("assets/images/kirbyGF.png", true, 800, 1200);
+				case 3:
+					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
+				default:
+					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
+			}
+		}else{
 			switch (enemyType) 
 			{
 				case 0:
