@@ -152,13 +152,11 @@ class MashState extends FlxSubState
 		else if (_enemyHealth <= 4 && mashTimer < 0 && outcome != VICTORY)
 		{
 			outcome = DEFEAT;
-			
 			endTweens();
 		}
 		else if (_enemyHealth > 0 && mashTimer < 0 && outcome != VICTORY)
 		{
 			outcome = ESCAPE;
-			
 			endTweens();
 		}
 		else
