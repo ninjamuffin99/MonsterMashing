@@ -19,6 +19,7 @@ class SettingState extends FlxState
 	//public static var Mode:Bool = false
 	public static var gameSpeed:Float = 1;
 	public static var aprilFools:Float = 0;
+	public static var picoDay:Float = 0;
 	
 	private var musicTxt:FlxText;
 	private var speedTxt:FlxText;
@@ -30,7 +31,7 @@ class SettingState extends FlxState
 	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Mater Volume", "Music Volume", "SFX Volume", "Moan Volume", "Game Speed", "April Fools"], 
+		["Mater Volume", "Music Volume", "SFX Volume", "Moan Volume", "Game Speed", "April Fools", "Pico Day"], 
 	[masterVol, musicVol, soundVol, moanVol, gameSpeed, aprilFools],
 		[0, 0, 0, 0, 0.1, 0],
 	];
@@ -169,6 +170,7 @@ class SettingState extends FlxState
 		moanVol = settingsArray[1][3];
 		gameSpeed = settingsArray[1][4];
 		aprilFools = settingsArray[1][0];
+		picoDay = settingsArray[1][0];
 	}
 
 	private function changePos():Void

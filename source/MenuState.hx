@@ -144,7 +144,13 @@ class MenuState extends FlxState
 		
 		//April Fools Code
 		if (SettingState.aprilFools == 1){
-			sprMonster.loadGraphic(AssetPaths.aprilfools__png, false, 492, 166);
+			sprMonster.loadGraphic(AssetPaths.aprilFools__png, false, 492, 166);
+			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
+		}
+		
+		//Pico Day Code
+		if (SettingState.aprilFools == 1){
+			sprMonster.loadGraphic(AssetPaths.picoDay__png, false, 492, 166);
 			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
 		}
 		
