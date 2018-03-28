@@ -124,6 +124,24 @@ class SettingState extends FlxState
 		{
 			changeValue(0.1);
 		}
+		
+		
+		if (FlxG.onMobile)
+		{
+			for (touch in FlxG.touches.list)
+			{
+				if (touch.overlaps(_selLeft))
+				{
+					changeValue( -0.1);
+				}
+				else if (touch.overlaps(_selRight))
+				{
+					changeValue(0.1);
+				}
+			}
+		}
+		
+		
 	}
 	
 	private function changeValue(diff:Float):Void
