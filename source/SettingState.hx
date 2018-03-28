@@ -32,7 +32,7 @@ class SettingState extends FlxState
 	[
 		["Mater Volume", "Music Volume", "SFX Volume", "Moan Volume", "Game Speed", "April Fools"], 
 	[masterVol, musicVol, soundVol, moanVol, gameSpeed, aprilFools],
-		[0, 0, 0, 0, 0.1, 0]
+		[0, 0, 0, 0, 0.1, 0],
 	];
 	
 	private var _selection:Int = 0;
@@ -115,20 +115,30 @@ class SettingState extends FlxState
 			_selection += 1;
 			changePos();
 		}
-				
+		
 		if (FlxG.keys.anyJustPressed(["A", "LEFT", "J"]))
 		{
-			changeValue( -1);
+			changeValue( -0.1);
 		}
 		if (FlxG.keys.anyJustPressed(["D", "RIGHT", "L"]))
 		{
-			changeValue(1);
+			changeValue(0.1);
 		}
 	}
 	
 	private function changeValue(diff:Float):Void
 	{
 		settingsArray[1][_selection] += diff;
+		
+		if (_selection < 4)
+		{
+			#if flash
+			FlxG.sound.play("assets/sounds/smack1.mp3", 1 * settingsArray[1][_selection] * masterVol);
+			#else
+				FlxG.sound.play("assets/sounds/smack1.ogg", 1 * settingsArray[1][_selection] * masterVol);
+			#end
+		}
+		
 		
 		if (settingsArray[1][_selection] < settingsArray[2][_selection])
 			settingsArray[1][_selection] = settingsArray[2][_selection];
