@@ -141,7 +141,7 @@ class MenuState extends FlxState
 				
 		sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		sprMashing.screenCenter(X);
-		
+		/*
 		//April Fools Code
 		if (SettingState.aprilFools == 1){
 			sprMonster.loadGraphic(AssetPaths.aprilFools__png, false, 492, 166);
@@ -149,11 +149,11 @@ class MenuState extends FlxState
 		}
 		
 		//Pico Day Code
-		if (SettingState.aprilFools == 1){
+		if (SettingState.picoDay == 1){
 			sprMonster.loadGraphic(AssetPaths.picoDay__png, false, 492, 166);
 			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
 		}
-		
+		*/
 		add(sprMashing);
 		add(sprMonster);
 	}
@@ -375,7 +375,7 @@ class MenuState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(2, 10) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(2, 9) + ".oel");
 		//t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		
 		//loads the _map data to the current tilemap(t) up to 40k from current score

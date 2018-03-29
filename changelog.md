@@ -24,7 +24,6 @@ Version 1.1.1 - March XX, 2018
 - Added 2 new tile palettes and adjusted systen to swap palettes up to 50k distance
 - Shrunk enemy hurtbox a tad(metric)
 - Fixed a bug keeping monster girl hurt sprites from displaying
-- Delayed certain girls from spawning until nth distance(not too much though)
 - Made it so failing to mash a monster girl within 2.5 seconds causes a reduction in speed
 - Added "Settings" to the main menu
 - Added a Medal for being in the Hall of Shame

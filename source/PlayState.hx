@@ -69,7 +69,7 @@ class PlayState extends FlxState
 
 	override public function create():Void
 	{
-		FlxG.timeScale = SettingState.gameSpeed;
+		//FlxG.timeScale = SettingState.gameSpeed;
 		FlxG.log.redirectTraces = true;
 		
 		//Set zoom on map
@@ -346,7 +346,7 @@ class PlayState extends FlxState
 		}
 		else if (MashState.outcome != MashState.Outcome.VICTORY)
 		{
-			speed -= FlxG.random.float(1, 2);
+			speed -= FlxG.random.float(0.8, 1.2);
 			trace("slowed down");
 		}
 		//speed += MashState.horniness;
@@ -399,7 +399,7 @@ class PlayState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 10) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
 
 		
 		//loads the _map data to the current tilemap(t) up to 40k
