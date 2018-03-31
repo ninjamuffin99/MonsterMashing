@@ -74,7 +74,7 @@ class SettingState extends FlxState
 			_grpValues.add(settingValue);
 		}
 		
-		exitTxt = new FlxText(16, FlxG.height - 64, 0, "Press Space to return to Menu", 32);
+		exitTxt = new FlxText(16, FlxG.height - 64, 0, "Space to return to Menu", 32);
 		add(exitTxt);
 		
 		if (FlxG.onMobile)
