@@ -27,7 +27,7 @@ class HighScore
 	
 	public static function load():Void
 	{
-		if (FlxG.save.data.score != null)
+		if (FlxG.save.data.totalScore != null)
 		{
 			score = FlxG.save.data.score;
 			totalScore = FlxG.save.data.totalScore;
