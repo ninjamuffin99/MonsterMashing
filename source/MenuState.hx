@@ -25,7 +25,7 @@ class MenuState extends FlxState
 	private var mScore:FlxText;
 	
 	private var debugInfo:FlxText;
-	private var currentVersion:String = "v1.1.2";
+	private var currentVersion:String = "v1.1.1";
 	
 	private var sprMonster:FlxSprite;
 	private var sprMashing:FlxSprite;
