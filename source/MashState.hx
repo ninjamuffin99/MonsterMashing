@@ -44,8 +44,8 @@ class MashState extends FlxSubState
 		FlxG.camera.flash();
 		
 		bg = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-		bg.alpha = 0.4;
-		add(bg);
+		bg.alpha = 0;
+		//add(bg);
 				
 		enemyType = EType;
 		
