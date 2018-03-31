@@ -92,12 +92,15 @@ class ScoreState extends FlxSubState
 				trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
 			}
 			
-			bountyTxt = new FlxText(0, FlxG.height - 112, 0, "Bounty\nFirst person to get 30K distance gets \na free month of supporter status!\nFirst person to get 50K distance gets \na free year of supporter status!", 16);
+			bountyTxt = new FlxText(0, FlxG.height - 112, 0, "BOUNTIES\nFirst person to get 30K distance gets \na free month of supporter status!\nFirst person to get 50K distance gets \na free year of supporter status!", 16);
 			bountyTxt.screenCenter(X);
 			bountyTxt.alignment = FlxTextAlign.CENTER;
 			add(bountyTxt);
+			bountyTxt.color = FlxColor.YELLOW;
 		#else
-			hallOfShame.text += "\nScoreboards not yet \nimplemented\n on HTML5 \n\nComing soon!";
+			hallOfShame.text += "\n\nScoreboards not yet \nimplemented\n on HTML5 \n\nComing soon!";
+			hallOfShame.screenCenter(X);
+			hallOfShame.alignment = FlxTextAlign.CENTER;
 		#end
 		
 		super.create();
