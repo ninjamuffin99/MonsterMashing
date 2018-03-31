@@ -44,8 +44,8 @@ class MashState extends FlxSubState
 		FlxG.camera.flash();
 		
 		bg = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-		bg.alpha = 0;
-		//add(bg);
+		bg.alpha = 0.4;
+		add(bg);
 				
 		enemyType = EType;
 		
@@ -225,8 +225,8 @@ class MashState extends FlxSubState
 	{
 		if (FlxG.random.bool(35))
 		{
-			//FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol * SettingState.masterVol);
-			FlxG.sound.play("assets/sounds/roblox oof.mp3", 1  * SettingState.moanVol * SettingState.masterVol);
+			FlxG.sound.play("assets/sounds/Voice/Moan " + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol * SettingState.masterVol);
+			//FlxG.sound.play("assets/sounds/roblox oof.mp3", 1  * SettingState.moanVol * SettingState.masterVol);
 		}
 		
 		#if flash
