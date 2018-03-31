@@ -99,6 +99,7 @@ class MenuState extends FlxState
 		var scaleFixin:Float = 12 * mapZoom;
 		
 		//loads a new oel for the _map variable
+		/*
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
@@ -106,6 +107,7 @@ class MenuState extends FlxState
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_grpWalls.add(_mWalls);
+		*/
 		
 		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/7.oel");
