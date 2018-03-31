@@ -27,6 +27,7 @@ Version 1.1.1 - March XX, 2018
 - Made it so failing to mash a monster girl within 2.5 seconds causes a reduction in speed
 - Added "Settings" to the main menu
 - Added a Medal for being in the Hall of Shame
+- Added a "Total Score" tracker(suggested by Cyberdevil)
 - Updated Credits
 - Added Bounty for being the first to hit 30k on the leaderboard(one month supporter status)
 - Added Bounty for being the first to hit 50k on the leaderboard(one year supporter status)
@@ -37,7 +38,7 @@ Version 1.1.0 - March 16, 2018
 #----------------------------#
 - Introducing Bat Girl! Not the Batgirl, but a bat-girl
 - Updated Newgrounds API to v3 (newgrounds.io baby). Now scoreboards and medals should work in both HTML5(oops jk lol) and Flash as long as the user is signed in.
-- Created an actual main menu
+- Created an actual Main Menu
 - Added new color swaps for levels every 5000 units of distance
 - RIP FLASH ADS ON THE PRELOADER 2018-2018
 - Added "Hall Of Shame" in game(aka in-game scoreboards, suggested by BurstAppendix)
