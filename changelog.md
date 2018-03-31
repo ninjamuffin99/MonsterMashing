@@ -23,6 +23,7 @@ Version 1.1.1 - March XX, 2018
 - Introducing Slime Girl! She may be non-neutonian and she may be fragile, but she don't mind if you're a little rough ;)
 - Added 2 new tile palettes and adjusted systen to swap palettes up to 50k distance
 - Shrunk enemy hurtbox a tad(metric)
+- Removed the dumb black transparent background in flash version(I think... please?)
 - Fixed a bug keeping monster girl hurt sprites from displaying
 - Made it so failing to mash a monster girl within 2.5 seconds causes a reduction in speed
 - Added "Settings" to the main menu

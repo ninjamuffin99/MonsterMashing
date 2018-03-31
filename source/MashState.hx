@@ -44,9 +44,9 @@ class MashState extends FlxSubState
 		FlxG.camera.flash();
 		
 		bg = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-		bg.alpha = 0.4;
+		bg.alpha = 0;
 		//add(bg);
-		
+				
 		enemyType = EType;
 		
 		//sets the outcome to NONE just in-case
@@ -58,7 +58,7 @@ class MashState extends FlxSubState
 		//so there's a new camera object that's created(thisCam) with a transparent BG
 		thisCam = new FlxCamera(0, 0, FlxG.width, FlxG.height, 1);
 		FlxG.cameras.add(thisCam);
-		thisCam.bgColor = FlxColor.TRANSPARENT;
+		//thisCam.bgColor = FlxColor.TRANSPARENT;
 		
 		//alright so basically the enemy's sprite is rendered offscreen, pretty much to the right, and down a little bit
 		//then the _enemySprite is created and loaded(will get different sprites goin in a bit)
@@ -269,7 +269,6 @@ class MashState extends FlxSubState
 		FlxG.cameras.remove(thisCam);
 		close();
 	}
-	
 }
 
 //IDK this shit, mostly just using NONE and VICTORY
