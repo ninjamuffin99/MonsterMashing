@@ -31,8 +31,8 @@ class SettingState extends FlxState
 	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Mater Volume", "Music Volume", "SFX Volume", "Moan Volume", /*"Game Speed", "April Fools", "Pico Day"*/], 
-		[masterVol, musicVol, soundVol, moanVol, /*gameSpeed, aprilFools, picoDay*/],
+		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume"/*, "Game Speed", "April Fools", "Pico Day"*/], 
+		[masterVol, musicVol, soundVol, moanVol/*, gameSpeed, aprilFools, picoDay*/],
 		[0, 0, 0, 0, 0.1, 0],
 	];
 	
@@ -42,6 +42,9 @@ class SettingState extends FlxState
 	private var _selRight:FlxText;
 	
 	private var _grpValues:FlxTypedGroup<FlxText>;
+	private var _grpText:FlxTypedGroup<FlxText>;
+	
+	private var exitTxt:FlxText;
 	
 	override public function create():Void 
 	{
@@ -50,6 +53,9 @@ class SettingState extends FlxState
 		
 		_grpValues = new FlxTypedGroup<FlxText>();
 		add(_grpValues);
+		
+		_grpText = new FlxTypedGroup<FlxText>();
+		add(_grpText);
 		
 		_selLeft = new FlxText(0, 0, 0, "<", 32);
 		_selector.add(_selLeft);
@@ -62,10 +68,18 @@ class SettingState extends FlxState
 			var yPos:Float = (34 * i) + 100;
 			
 			var settingText:FlxText = new FlxText(32, yPos, 0, settingsArray[0][i], 32);
-			add(settingText);
+			_grpText.add(settingText);
 			
 			var settingValue:FlxText = new FlxText(FlxG.width - 96, yPos, 0, Std.string(settingsArray[1][i]), 32);
 			_grpValues.add(settingValue);
+		}
+		
+		exitTxt = new FlxText(16, FlxG.height - 64, 0, "Press Space to return to Menu", 32);
+		add(exitTxt);
+		
+		if (FlxG.onMobile)
+		{
+			exitTxt.text = "Tap here to exit";
 		}
 		
 		_selector.x = FlxG.width - 130;
@@ -131,14 +145,46 @@ class SettingState extends FlxState
 		{
 			for (touch in FlxG.touches.list)
 			{
-				if (touch.overlaps(_selLeft))
+				if (touch.overlaps(_grpText.members[0]) || touch.overlaps(_grpValues.members[0]))
 				{
-					changeValue( -0.1);
+					_selection = 0;
 				}
-				else if (touch.overlaps(_selRight))
+				
+				if (touch.overlaps(_grpText.members[1]) || touch.overlaps(_grpValues.members[1]))
 				{
-					changeValue(0.1);
+					_selection = 1;
 				}
+				
+				if (touch.overlaps(_grpText.members[2]) || touch.overlaps(_grpValues.members[2]))
+				{
+					_selection = 2;
+				}
+				
+				if (touch.overlaps(_grpText.members[3]) || touch.overlaps(_grpValues.members[3]))
+				{
+					_selection = 3;
+				}
+				
+				if (touch.justPressed)
+				{
+					if (touch.overlaps(_selLeft))
+					{
+						changeValue( -0.1);
+					}
+					else if (touch.overlaps(_selRight))
+					{
+						changeValue(0.1);
+					}
+					
+					if (touch.overlaps(exitTxt))
+					{
+						FlxG.switchState(new MenuState());
+					}
+					
+					changePos();
+				}
+				
+				
 			}
 		}
 		
