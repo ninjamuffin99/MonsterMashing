@@ -346,7 +346,7 @@ class PlayState extends FlxState
 		}
 		else if (MashState.outcome != MashState.Outcome.VICTORY)
 		{
-			speed -= FlxG.random.float(0.4, 0.6);
+			speed -= FlxG.random.float(0.2, 0.3);
 			trace("slowed down");
 		}
 		//speed += MashState.horniness;

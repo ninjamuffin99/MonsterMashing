@@ -92,7 +92,7 @@ class ScoreState extends FlxSubState
 				trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
 			}
 			
-			bountyTxt = new FlxText(0, FlxG.height - 112, 0, "BOUNTIES\nFirst person to get 30K distance gets \na free month of supporter status!\nFirst person to get 50K distance gets \na free year of supporter status!", 16);
+			bountyTxt = new FlxText(0, FlxG.height - 112, 0, "BOUNTIES\n\nFirst person to get 50K distance gets \na free year of supporter status!", 16);
 			bountyTxt.screenCenter(X);
 			bountyTxt.alignment = FlxTextAlign.CENTER;
 			add(bountyTxt);

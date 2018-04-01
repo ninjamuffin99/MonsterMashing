@@ -58,7 +58,7 @@ class MashState extends FlxSubState
 		//so there's a new camera object that's created(thisCam) with a transparent BG
 		thisCam = new FlxCamera(0, 0, FlxG.width, FlxG.height, 1);
 		FlxG.cameras.add(thisCam);
-		//thisCam.bgColor = FlxColor.TRANSPARENT;
+		thisCam.bgColor = FlxColor.TRANSPARENT;
 		
 		//alright so basically the enemy's sprite is rendered offscreen, pretty much to the right, and down a little bit
 		//then the _enemySprite is created and loaded(will get different sprites goin in a bit)
