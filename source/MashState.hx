@@ -63,7 +63,7 @@ class MashState extends FlxSubState
 		//alright so basically the enemy's sprite is rendered offscreen, pretty much to the right, and down a little bit
 		//then the _enemySprite is created and loaded(will get different sprites goin in a bit)
 		_enemySprite = new FlxSprite(48, 0);
-		/*
+		
 		//April Fools Code
 		if (SettingState.aprilFools == 1){
 			switch (enemyType) 
@@ -79,6 +79,7 @@ class MashState extends FlxSubState
 				default:
 					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			}
+		/*
 		//Pico Day Code
 		}else if (SettingState.picoDay == 1){
 			switch (enemyType) 

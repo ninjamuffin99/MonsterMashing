@@ -31,7 +31,7 @@ Version 1.1.1 - March 31, 2018
 - Added a "Total Score" tracker(suggested by Cyberdevil)
 - Updated Credits
 - ~~Added Bounty for being the first to hit 30k on the leaderboard(one month supporter status)~~ Lmao shoutout to [Aikanaroo](https://aikanaroo.newgrounds.com/) for breaking that already, CONGRATS
-- Added Bounty for being the first to hit 50k on the leaderboard(one year supporter status)
+- ~~Added Bounty for being the first to hit 50k on the leaderboard(one year supporter status)~~ You guys are nutty [cocolosel](https://cocolosel.newgrounds.com) for breaking these so fast
 
 
 #----------------------------#
