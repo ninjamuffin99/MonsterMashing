@@ -143,13 +143,13 @@ class MenuState extends FlxState
 				
 		sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		sprMashing.screenCenter(X);
-		/*
+		
 		//April Fools Code
 		if (SettingState.aprilFools == 1){
 			sprMonster.loadGraphic(AssetPaths.aprilFools__png, false, 492, 166);
 			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
 		}
-		
+		/*
 		//Pico Day Code
 		if (SettingState.picoDay == 1){
 			sprMonster.loadGraphic(AssetPaths.picoDay__png, false, 492, 166);

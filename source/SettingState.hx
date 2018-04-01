@@ -32,7 +32,7 @@ class SettingState extends FlxState
 	private var settingsArray:Array<Dynamic> = 
 	[
 		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume"/*, "Game Speed", "April Fools", "Pico Day"*/], 
-		[masterVol, musicVol, soundVol, moanVol/*, gameSpeed, aprilFools, picoDay*/],
+		[masterVol, musicVol, soundVol, moanVol,/* gameSpeed, */aprilFools/*, picoDay*/],
 		[0, 0, 0, 0, 0.1, 0],
 	];
 	
@@ -74,7 +74,7 @@ class SettingState extends FlxState
 			_grpValues.add(settingValue);
 		}
 		
-		exitTxt = new FlxText(16, FlxG.height - 64, 0, "Space to return to Menu", 32);
+		exitTxt = new FlxText(16, FlxG.height - 64, 0, "Z to return to Menu", 32);
 		add(exitTxt);
 		
 		if (FlxG.onMobile)
@@ -183,12 +183,8 @@ class SettingState extends FlxState
 					
 					changePos();
 				}
-				
-				
 			}
-		}
-		
-		
+		}		
 	}
 	
 	private function changeValue(diff:Float):Void
@@ -215,7 +211,7 @@ class SettingState extends FlxState
 		soundVol = settingsArray[1][2];
 		moanVol = settingsArray[1][3];
 		//gameSpeed = settingsArray[1][4];
-		//aprilFools = settingsArray[1][0];
+		aprilFools = settingsArray[1][0];
 		//picoDay = settingsArray[1][0];
 	}
 
