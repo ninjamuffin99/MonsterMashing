@@ -18,7 +18,7 @@ Version 1.1.2 - April XX, 2018
 
 
 #----------------------------#
-Version 1.1.1 - March XX, 2018
+Version 1.1.1 - March 31, 2018
 #----------------------------#
 - Introducing Slime Girl! She may be non-neutonian and she may be fragile, but she don't mind if you're a little rough ;)
 - Added 2 new tile palettes and adjusted systen to swap palettes up to 50k distance
