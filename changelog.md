@@ -30,7 +30,7 @@ Version 1.1.1 - March XX, 2018
 - Added a Medal for being in the Hall of Shame
 - Added a "Total Score" tracker(suggested by Cyberdevil)
 - Updated Credits
-- Added Bounty for being the first to hit 30k on the leaderboard(one month supporter status)
+- ~~Added Bounty for being the first to hit 30k on the leaderboard(one month supporter status)~~ Lmao shoutout to [Aikanaroo](https://aikanaroo.newgrounds.com/) for breaking that already, CONGRATS
 - Added Bounty for being the first to hit 50k on the leaderboard(one year supporter status)
 
 
