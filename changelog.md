@@ -9,12 +9,13 @@ Monster Mashing - Changelog
 #----------------------------#
 Version 1.1.2 - April XX, 2018
 #----------------------------#
-- April Fools Day Patch! You can toggle this patch on and off in "Settings"
+- April Fools Day Patch(better late than never)! You can toggle this patch on and off in "Settings"
 - Added Garfield GF
 - Added Sonky GF
 - Added Kirby GF
 - Added Steve GF
-- Removed all the hot monster girls
+- Removed all the hot monster girls ;)
+- Updated Bounties
 
 
 #----------------------------#
