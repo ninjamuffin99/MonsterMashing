@@ -190,7 +190,7 @@ class MashState extends FlxSubState
 			_enemySprite.animation.play("stripped");
 		}
 		
-		if (FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
+		if (_enemyHealth > 0 && FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
 		{
 			if (mashX)
 			{
@@ -213,7 +213,7 @@ class MashState extends FlxSubState
 			{
 				for (touch in FlxG.touches.list)
 				{
-					if (touch.justPressed) 
+					if (_enemyHealth > 0 && touch.justPressed) 
 					{
 						mash();
 					}

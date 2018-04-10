@@ -16,6 +16,8 @@ Version 1.1.2 - April XX, 2018
 - Added Steve GF
 - Removed all the hot monster girls ;)
 - Updated Bounties
+- Prevented screenshake after defeating a monster girl
+- Added Bounty for the first 3 players to pass 100k on the leaderboard(one year supporter status each)
 
 
 #----------------------------#
