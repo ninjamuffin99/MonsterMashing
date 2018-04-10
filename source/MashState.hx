@@ -65,7 +65,8 @@ class MashState extends FlxSubState
 		_enemySprite = new FlxSprite(48, 0);
 		
 		//April Fools Code
-		if (SettingState.aprilFools == 1){
+		if (SettingState.aprilFools == 1)
+		{
 			switch (enemyType) 
 			{
 				case 0:
@@ -79,6 +80,7 @@ class MashState extends FlxSubState
 				default:
 					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			}
+		}
 		/*
 		//Pico Day Code
 		}else if (SettingState.picoDay == 1){
@@ -96,7 +98,9 @@ class MashState extends FlxSubState
 					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
 			}
 		
-		}else{*/
+		}*/
+		else
+		{
 			switch (enemyType) 
 			{
 				case 0:
@@ -110,7 +114,7 @@ class MashState extends FlxSubState
 				default:
 					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
 			}
-		//}
+		}
 		
 		_enemySprite.animation.add("normal", [0]);
 		_enemySprite.animation.add("hit", [1, 1, 1, 0], 12, false);
@@ -190,7 +194,7 @@ class MashState extends FlxSubState
 			_enemySprite.animation.play("stripped");
 		}
 		
-		if (_enemyHealth > 0 && FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
+		if (FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
 		{
 			if (mashX)
 			{
