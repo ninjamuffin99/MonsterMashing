@@ -65,7 +65,7 @@ class MashState extends FlxSubState
 		_enemySprite = new FlxSprite(48, 0);
 		
 		//April Fools Code
-		if (SettingState.aprilFools == 1)
+		if (SettingState.aprilFools)
 		{
 			switch (enemyType) 
 			{

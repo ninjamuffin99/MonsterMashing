@@ -18,7 +18,7 @@ class SettingState extends FlxState
 	public static var moanVol:Float = 1;
 	//public static var Mode:Bool = false
 	//public static var gameSpeed:Float = 1;
-	public static var aprilFools:Float = 0;
+	public static var aprilFools:Bool = false;
 	//public static var picoDay:Float = 0;
 	
 	private var musicTxt:FlxText;
@@ -31,9 +31,9 @@ class SettingState extends FlxState
 	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume"/*, "Game Speed", "April Fools", "Pico Day"*/], 
+		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume", /*"Game Speed",*/ "April Fools",/* "Pico Day"*/], 
 		[masterVol, musicVol, soundVol, moanVol,/* gameSpeed, */aprilFools/*, picoDay*/],
-		[0, 0, 0, 0, 0.1, 0],
+		[0, 0, 0, 0, false, 0]
 	];
 	
 	private var _selection:Int = 0;
@@ -70,8 +70,10 @@ class SettingState extends FlxState
 			var settingText:FlxText = new FlxText(32, yPos, 0, settingsArray[0][i], 32);
 			_grpText.add(settingText);
 			
-			var settingValue:FlxText = new FlxText(FlxG.width - 96, yPos, 0, Std.string(settingsArray[1][i]), 32);
+			var settingValue:FlxText = new FlxText(FlxG.width - 96, yPos, 0, Std.string(Std.int(settingsArray[1][i])), 32);
 			_grpValues.add(settingValue);
+			
+			
 		}
 		
 		exitTxt = new FlxText(16, FlxG.height - 64, 0, "Z to return to Menu", 32);
@@ -189,7 +191,15 @@ class SettingState extends FlxState
 	
 	private function changeValue(diff:Float):Void
 	{
-		settingsArray[1][_selection] += diff;
+		if (settingsArray[1][_selection] || !settingsArray[1][_selection])
+		{
+			settingsArray[1][_selection] = !settingsArray[1][_selection];
+		}
+		else
+		{
+			settingsArray[1][_selection] += diff;
+		}
+		
 		
 		if (_selection < 4)
 		{
@@ -211,7 +221,7 @@ class SettingState extends FlxState
 		soundVol = settingsArray[1][2];
 		moanVol = settingsArray[1][3];
 		//gameSpeed = settingsArray[1][4];
-		aprilFools = settingsArray[1][0];
+		aprilFools = settingsArray[1][4];//MAKE SURE THIS IS CHANGED ONCE WE USE GAME SPEED MODIFIERS
 		//picoDay = settingsArray[1][0];
 	}
 

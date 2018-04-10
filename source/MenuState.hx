@@ -145,7 +145,8 @@ class MenuState extends FlxState
 		sprMashing.screenCenter(X);
 		
 		//April Fools Code
-		if (SettingState.aprilFools == 1){
+		if (SettingState.aprilFools)
+		{
 			sprMonster.loadGraphic(AssetPaths.aprilfools__png, false, 492, 166);
 			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
 		}
