@@ -77,6 +77,7 @@ class CredState extends FlxState
 		"Community Creds:",
 		"Hall of Shame suggested by BurstAppendix",
 		"Total Score tracker suggested by Cyberdevil",
+		"New Logo created by RGPAnims",
 		"",
 		"",
 		"Press Z to go back"

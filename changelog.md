@@ -7,6 +7,17 @@ Monster Mashing - Changelog
 
 
 #----------------------------#
+Version 1.2.0 - April XX, 2018
+#----------------------------#
+- Introducing Echidna Girl(your new waifu)! We've got some obvious bias toward her, not sure what it is, but I think you'll agree
+- Introducing Minotaur Girl for all you burly/big lovin' fellas and ladies ;)
+- Introducing Clam Girl! Just a couple of taps on your phone and she'll come out of her shell...
+- Updated palette swapping to go up to 100k
+- Adjusted Slime Girl sprites
+- Updated logo by RGPAnims
+
+
+#----------------------------#
 Version 1.1.2 - April XX, 2018
 #----------------------------#
 - April Fools Day Patch(better late than never)! You can toggle this patch on and off in "Settings"
