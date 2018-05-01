@@ -138,7 +138,7 @@ class MenuState extends FlxState
 		bg.alpha = 0.4;
 		add(bg);
 		
-		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.monster__png, false, 492, 166);
+		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.mmLogo__png, false, 492, 166);
 		sprMonster.screenCenter(X);
 				
 		sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
@@ -147,17 +147,19 @@ class MenuState extends FlxState
 		//April Fools Code
 		if (SettingState.aprilFools)
 		{
-			sprMonster.loadGraphic(AssetPaths.aprilfools__png, false, 492, 166);
+			sprMonster.loadGraphic(AssetPaths.aprilFools__png, false, 492, 166);
 			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
+			add(sprMashing);
 		}
 		/*
 		//Pico Day Code
 		if (SettingState.picoDay == 1){
 			sprMonster.loadGraphic(AssetPaths.picoDay__png, false, 492, 166);
 			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
+			add(sprMashing);
 		}
 		*/
-		add(sprMashing);
+		//add(sprMashing);
 		add(sprMonster);
 	}
 	
