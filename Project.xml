@@ -45,14 +45,6 @@
 	
 	<!--In case you want to use nape with flixel-->
 	<!--<haxelib name="nape" />-->
-	
-	<!--SWF-->
-	<!--<source path="Source" />-->
-	
-	<!--<library path="Assets/library.swf" preload="true" generate="true" />-->
-	
-	<!--<assets path="Assets" rename="assets" exclude="*.swf" />-->
-	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 	
 	<!--Enable the Flixel core recording system-->
@@ -67,7 +59,7 @@
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
-	<haxedef name="FLX_NO_TOUCH" if="desktop" />
+	<!--<haxedef name="FLX_NO_TOUCH" if="desktop" />-->
 	<!--haxedef name="FLX_NO_GAMEPAD" /-->
 	
 	<!--Disable the Flixel core sound tray-->

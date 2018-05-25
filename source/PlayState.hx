@@ -149,7 +149,7 @@ class PlayState extends FlxState
 		_grpWalls.add(_mWalls);
 		
 		//loads a new oel to use, this time one with seamless tops and bottoms
-		_map = new FlxOgmoLoader("assets/data/1.oel");
+		_map = new FlxOgmoLoader("assets/data/chunk1.oel");
 		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_mFloors2.y -= 16 * 12;
@@ -399,7 +399,7 @@ class PlayState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(1, 9) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/chunk" + FlxG.random.int(1, 9) + ".oel");
 
 		
 		//loads the _map data to the current tilemap(t) up to 100k
