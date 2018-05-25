@@ -110,7 +110,7 @@ class MenuState extends FlxState
 		
 		
 		//loads a new oel for the _map variable
-		_map = new FlxOgmoLoader("assets/data/7.oel");
+		_map = new FlxOgmoLoader("assets/data/chunk7.oel");
 		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_mFloors2.y -= 16 * scaleFixin;
@@ -378,7 +378,7 @@ class MenuState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
-		_map = new FlxOgmoLoader("assets/data/" + FlxG.random.int(2, 9) + ".oel");
+		_map = new FlxOgmoLoader("assets/data/chunk" + FlxG.random.int(2, 9) + ".oel");
 		t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		
 		//loads the _map data to the current tilemap(t) up to 40k from current score

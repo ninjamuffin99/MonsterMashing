@@ -8,7 +8,6 @@ import flash.display.*;
 import flash.text.*;
 import flash.Lib;
 import flixel.text.FlxText;
-import lime.audio.FlashAudioContext;
 import openfl.display.Sprite;
 import openfl.display.BitmapData;
 import flash.text.Font;
@@ -34,7 +33,6 @@ class Preloader extends FlxBasePreloader
 		#if flash
 			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 		#end
-		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
 		
