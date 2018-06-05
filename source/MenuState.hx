@@ -51,7 +51,7 @@ class MenuState extends FlxState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	private var _grpMenuBar:FlxTypedGroup<FlxSprite>;
 	
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Settings"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Settings", "Discord"];
 	private var leadItems:Array<String>;
 	
 	private var selected:Int = 0;
@@ -61,7 +61,7 @@ class MenuState extends FlxState
 	private var mapZoom:Float = 5;
 	private var mapOffsetX:Float = -86;
 	
-	//private var votingLink:String = "https://www.newgrounds.com/bbs/topic/1430563";
+	private var discordLink:String = "https://discord.gg/t22G6Fr";
 	
 	override public function create():Void
 	{
@@ -77,9 +77,6 @@ class MenuState extends FlxState
 		initTilemap();
 		initImages();
 		initText();
-		
-		var tempBg:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.menuMockup__png, false, 544, 816);
-		//add(tempBg);
 		
 		FlxTween.tween(mScore, {y: mScore.y + 24}, 0.86, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
@@ -141,13 +138,13 @@ class MenuState extends FlxState
 		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.mmLogo__png, false, 492, 166);
 		sprMonster.screenCenter(X);
 				
-		sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
-		sprMashing.screenCenter(X);
+		//sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
+		//sprMashing.screenCenter(X);
 		
 		//April Fools Code
 		if (SettingState.aprilFools)
 		{
-			sprMonster.loadGraphic(AssetPaths.aprilfools__png, false, 492, 166);
+			sprMonster.loadGraphic(AssetPaths.aprilFools__png, false, 492, 166);
 			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
 			add(sprMashing);
 		}
@@ -267,6 +264,10 @@ class MenuState extends FlxState
 						{
 							FlxG.switchState(new SettingState());
 						}
+						if (touch.overlaps(_grpMenu.members[4]))
+						{
+							FlxG.openURL(discordLink);
+						}
 					}
 				}
 			}
@@ -326,6 +327,8 @@ class MenuState extends FlxState
 					openSubState(new ScoreState(0xCC000000));
 				case 3:
 					FlxG.switchState(new SettingState());
+				case 4:
+					FlxG.openURL(discordLink);
 				default:
 			}
 		}
@@ -382,32 +385,6 @@ class MenuState extends FlxState
 		
 		_map = new FlxOgmoLoader("assets/data/chunk" + FlxG.random.int(2, 9) + ".oel");
 		t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		
-		//loads the _map data to the current tilemap(t) up to 40k from current score
-		/*
-		if (HighScore.score > 49750)
-			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		else if (HighScore.score > 44750)
-			t = _map.loadTilemap("assets/data/tile_temple_4.png", 16, 16, type);
-		else if (HighScore.score > 39750)
-			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
-		else if (HighScore.score > 34750)
-			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		else if (HighScore.score > 29750)
-			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
-		else if (HighScore.score > 24750)
-			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		else if (HighScore.score > 19750)
-			t = _map.loadTilemap("assets/data/tile_temple_4.png", 16, 16, type);
-		else if (HighScore.score > 14750)
-			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
-		else if (HighScore.score > 9750)
-			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		else if (HighScore.score > 4750)
-			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
-		else
-			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		*/
 		
 		scaleUp(t);
 		
