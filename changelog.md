@@ -7,7 +7,7 @@ Monster Mashing - Changelog
 
 
 #----------------------------#
-Version 1.2.0 - April XX, 2018
+Version 1.2.0 - June XX, 2018
 #----------------------------#
 - Introducing Echidna Girl(your new waifu)! We've got some obvious bias toward her, not sure what it is, but I think you'll agree
 - Introducing Minotaur Girl for all you burly/big lovin' fellas and ladies ;)
@@ -28,7 +28,7 @@ Version 1.1.2 - April XX, 2018
 - Removed all the hot monster girls ;)
 - Updated Bounties
 - Prevented screenshake after defeating a monster girl
-- Added Bounty for the first 3 players to pass 100k on the leaderboard(one year supporter status each)
+- Added Bounty for the first 3 players to pass 100k on the leaderboard(one year supporter status each)~~ [OneThousandMeeps](https://onethousandmeeps.newgrounds.com) [Sert64](https://sert64.newgrounds.com) [plusboy](https://plusboy.newgrounds.com) all killed it!
 
 
 #----------------------------#
