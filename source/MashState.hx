@@ -4,6 +4,7 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -101,6 +102,8 @@ class MashState extends FlxSubState
 		}*/
 		else
 		{
+			var tex;
+			
 			switch (enemyType) 
 			{
 				case 0:
@@ -111,6 +114,10 @@ class MashState extends FlxSubState
 					_enemySprite.loadGraphic("assets/images/batSheet.png", true, 800, 1200);
 				case 3:
 					_enemySprite.loadGraphic("assets/images/slimeSheet.png", true, 800, 1200);
+				case 4:
+					_enemySprite.loadGraphic("assets/images/minotaurSheet.png", true, 800, 1200);
+				case 5:
+					_enemySprite.loadGraphic("assets/images/echidnaSheet.png", true, 800, 1200);
 				default:
 					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
 			}
@@ -134,7 +141,7 @@ class MashState extends FlxSubState
 		thisCam.focusOn(_enemySprite.getMidpoint());
 		
 		_mashSprite = new FlxSprite(0, 800);
-		_mashSprite.loadGraphic("assets/images/left and right.png", true, 64, 32);
+		_mashSprite.loadGraphic(AssetPaths.left_and_right__png, true, 64, 32);
 		_mashSprite.animation.add("mashin", [0, 1], 6);
 		_mashSprite.animation.play("mashin");
 		_mashSprite.setGraphicSize(Std.int(_mashSprite.width * 3), Std.int(_mashSprite.height * 3));

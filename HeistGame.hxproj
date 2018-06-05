@@ -15,7 +15,7 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="C:\HaxeToolkit\haxe\lib\flixel\4,4,0" />
+    <class path="C:\HaxeToolkit\haxe\lib\flixel\4,4,1" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\3,6,1" />
     <class path="C:\HaxeToolkit\haxe\lib\lime\2,9,1" />
     <class path="C:\HaxeToolkit\haxe\lib\hscript\git" />
@@ -24,16 +24,16 @@
     <class path="C:\HaxeToolkit\haxe\lib\openfl\3,6,1\extern" />
     <class path="newgroundsAPI\lib\src" />
     <class path="APIStuff.hx" />
-    <class path="export\windows\cpp\haxe" />
+    <class path="export\flash\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="flixel=4.4.0&#xA;openfl=3.6.1&#xA;lime=2.9.1&#xA;hscript=2.2.0&#xA;flixel-addons=2.6.0&#xA;openfl-next&#xA;tools=2.9.1&#xA;FLX_NO_DEBUG&#xA;no-compilation&#xA;NAPE_RELEASE_BUILD&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop&#xA;display" />
+    <option directives="flixel=4.4.1&#xA;openfl=3.6.1&#xA;lime=2.9.1&#xA;hscript=2.2.0&#xA;flixel-addons=2.6.0&#xA;openfl-next&#xA;tools=2.9.1&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="False" />
-    <option additional="--remap flash:openfl&#xA;--macro flixel.system.macros.FlxDefines.run()" />
+    <option additional="--macro flixel.system.macros.FlxDefines.run()&#xA;-swf-version 11.8&#xA;-debug " />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
