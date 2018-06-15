@@ -66,6 +66,9 @@ class PlayState extends FlxState
 	private var score:Float;
 	
 	private var _camTarget:FlxSprite;
+	
+	//Creates black overlay
+	public var bg:FlxSprite;
 
 	override public function create():Void
 	{
@@ -78,6 +81,10 @@ class PlayState extends FlxState
 		
 		//Who needs a mouse when you have Z
 		FlxG.mouse.visible = false;
+		
+		//Init BG Transparency
+		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bg.alpha = 0.4;
 		
 		_grpTilemaps = new FlxTypedGroup<FlxTilemap>();
 		add(_grpTilemaps);
@@ -296,9 +303,8 @@ class PlayState extends FlxState
 	}
 	
 	private function updateEnemyPos(e:Enemy):Void
-	{
+	{		
 		//also check if overlapping player in this func uh oh lol
-		
 		if (FlxG.collide(e, _grpWalls) || FlxG.collide(e, _grpEnemies))
 		{
 			e.kill();
@@ -343,11 +349,13 @@ class PlayState extends FlxState
 		{
 			speed += FlxG.random.float(1.0, 1.2);
 			trace("speed up");
+			remove(bg);
 		}
 		else if (MashState.outcome != MashState.Outcome.VICTORY)
 		{
 			speed -= FlxG.random.float(0.2, 0.3);
 			trace("slowed down");
+			remove(bg);
 		}
 		//speed += MashState.horniness;
 		
@@ -472,9 +480,7 @@ class PlayState extends FlxState
 				enemyAmount -= 1;
 			}
 		}
-	}
-	
-	
+	}	
 /*
 	private function checkOverlap(d:Door):Void
 	{
