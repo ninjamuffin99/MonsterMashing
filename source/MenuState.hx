@@ -25,7 +25,7 @@ class MenuState extends FlxState
 	private var mScore:FlxText;
 	
 	private var debugInfo:FlxText;
-	private var currentVersion:String = "v1.1.1";
+	private var currentVersion:String = "v1.2.0";
 	
 	private var sprMonster:FlxSprite;
 	private var sprMashing:FlxSprite;
@@ -51,7 +51,7 @@ class MenuState extends FlxState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	private var _grpMenuBar:FlxTypedGroup<FlxSprite>;
 	
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Settings", "Discord"];
+	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Settings", "Join Our Discord"];
 	private var leadItems:Array<String>;
 	
 	private var selected:Int = 0;
@@ -79,7 +79,7 @@ class MenuState extends FlxState
 		initText();
 		
 		FlxTween.tween(mScore, {y: mScore.y + 24}, 0.86, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-		FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+		//FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 			
 		super.create();
@@ -104,7 +104,6 @@ class MenuState extends FlxState
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
 		_grpWalls.add(_mWalls);
-		
 		
 		//loads a new oel for the _map variable
 		_map = new FlxOgmoLoader("assets/data/chunk7.oel");
@@ -137,7 +136,7 @@ class MenuState extends FlxState
 		
 		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.mmLogo__png, false, 492, 166);
 		sprMonster.screenCenter(X);
-				
+		
 		//sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		//sprMashing.screenCenter(X);
 		
@@ -198,11 +197,12 @@ class MenuState extends FlxState
 		{
 			mScore = new FlxText(0, FlxG.height / 2 + 180, 0, "", 32);	
 		}
+		
 		mScore.text = "High Score: " + HighScore.score + "\nTotal Score: " + HighScore.totalScore;
 		mScore.alignment = FlxTextAlign.CENTER;
 		mScore.screenCenter(X);
 		add(mScore);
-			
+		
 		if (HighScore.recentScore > 0)
 		{
 			mScore.text += "\nRecent Score: " + HighScore.recentScore;
@@ -234,10 +234,8 @@ class MenuState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.justPressed.T)
-		{
-			FlxG.switchState(new SettingState());
-		}
+		if (FlxG.keys.justPressed.T){
+			FlxG.switchState(new SettingState());}
 		
 		menuHandling();
 		
@@ -281,7 +279,6 @@ class MenuState extends FlxState
 	
 	private function menuHandling():Void
 	{
-		
 		for (i in 0..._grpMenu.members.length)
 		{
 			_grpMenu.members[i].color = FlxColor.WHITE;
@@ -333,7 +330,6 @@ class MenuState extends FlxState
 			}
 		}
 	}
-
 	
 	private function resetBarFill():Void
 	{
@@ -402,5 +398,4 @@ class MenuState extends FlxState
 			_grpTilemaps.add(t);
 		}
 	}
-	
 }

@@ -20,20 +20,21 @@
     <class path="F:\Program Files\haxe\lib\lime\6,3,1" />
     <class path="F:\Program Files\haxe\lib\flixel-addons\2,6,0" />
     <class path="source" />
+    <class path="F:\Program Files\haxe\lib\openfl\8,0,1\src\externs\core\flash" />
     <class path="F:\Program Files\haxe\lib\openfl\8,0,1\src\externs\core\openfl" />
     <class path="F:\Program Files\haxe\lib\openfl\8,0,1\src\externs\extras" />
     <class path="newgroundsAPI\lib\src" />
     <class path="APIStuff.hx" />
-    <class path="export\neko\haxe" />
+    <class path="export\flash\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="flixel=4.4.1&#xA;openfl=8.0.1&#xA;lime=6.3.1&#xA;flixel-addons=2.6.0&#xA;tools=6.3.1&#xA;NAPE_NO_INLINE&#xA;FLX_NO_DEBUG&#xA;no-compilation&#xA;NAPE_RELEASE_BUILD&#xA;native&#xA;lime-native&#xA;lime-vorbis&#xA;openfl-native&#xA;lime-cffi&#xA;windows&#xA;desktop&#xA;display" />
+    <option directives="flixel=4.4.1&#xA;openfl=8.0.1&#xA;lime=6.3.1&#xA;flixel-addons=2.6.0&#xA;tools=6.3.1&#xA;FLX_NO_DEBUG&#xA;no-compilation&#xA;NAPE_RELEASE_BUILD&#xA;openfl-flash&#xA;web&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="False" />
-    <option additional="--macro openfl._internal.utils.ExtraParams.include()&#xA;--macro lime.Lib.extraParams()&#xA;--remap flash:openfl&#xA;--macro flixel.system.macros.FlxDefines.run()" />
+    <option additional="--macro openfl._internal.utils.ExtraParams.include()&#xA;--macro lime.Lib.extraParams()&#xA;--macro flixel.system.macros.FlxDefines.run()&#xA;-swf-version 11.8" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
