@@ -228,20 +228,23 @@ class PlayState extends FlxState
 		if (speed > maxSpeed)
 		{
 			speed = maxSpeed;
-			#if (flash)
+			if (NGio.isLoggedIn)
+			{
+				
 				var hornyMedal = NG.core.medals.get(54299);
 				if (!hornyMedal.unlocked)
 					hornyMedal.sendUnlock();
-			#end
+			}
 		}
 		
 		if (score >= 10000)
 		{
-			#if (flash)
+			if (NGio.isLoggedIn)
+			{
 				var hornyGodMedal = NG.core.medals.get(54300);
 				if (!hornyGodMedal.unlocked)
 					hornyGodMedal.sendUnlock();
-			#end
+			}
 		}
 		
 		//gives the player a few seconds before it starts to decrease the speed
@@ -259,13 +262,13 @@ class PlayState extends FlxState
 		//of stuff rather than just jump straight to a game over style screen
 		if (speed < 0.2 || _player.y > 247)
 		{
-			
-			#if (flash)
+			if (NGio.isLoggedIn)
+			{
 				var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
-				
-				// Posting a score thats OVER 9000!
 				board.postScore(Std.int(score));
-			#end
+			}
+			
+			
 			
 			if (score > HighScore.score)
 			{
