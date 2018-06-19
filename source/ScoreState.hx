@@ -43,8 +43,11 @@ class ScoreState extends FlxSubState
 		
 		FlxG.log.redirectTraces = true;
 		
-		#if flash
+		if (NGio.isLoggedIn)
+		{
+			
 			NG.core.scoreBoards.get(8004).requestScores(20);
+		
 			
 			var leaderBoardPlacement:Int = 1;
 			
@@ -95,13 +98,16 @@ class ScoreState extends FlxSubState
 			bountyTxt = new FlxText(0, FlxG.height - 112, 0, "\nBOUNTIES\nn/a", 16);
 			bountyTxt.screenCenter(X);
 			bountyTxt.alignment = FlxTextAlign.CENTER;
-			add(bountyTxt);
+			// add(bountyTxt);
 			bountyTxt.color = FlxColor.YELLOW;
-		#else
-			hallOfShame.text += "\n\nScoreboards not yet \nimplemented\n on HTML5 \n\nComing soon!";
+		}
+		else
+		{
+			
+			hallOfShame.text += "\n\nYou are not \nlogged into the NG API\n Head to settings!\n\n";
 			hallOfShame.screenCenter(X);
 			hallOfShame.alignment = FlxTextAlign.CENTER;
-		#end
+		}
 		
 		super.create();
 	}

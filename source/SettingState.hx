@@ -5,6 +5,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
+import flixel.ui.FlxButton;
 
 /**
  * ...
@@ -48,6 +49,11 @@ class SettingState extends FlxState
 	
 	override public function create():Void 
 	{
+		#if !flash
+			var btnNG:FlxButton = new FlxButton(32, 350, "Log into NG", function(){var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);});
+			add(btnNG);
+		#end
+		
 		_selector = new FlxSpriteGroup();
 		add(_selector);
 		

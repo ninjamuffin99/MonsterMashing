@@ -14,6 +14,8 @@ import flixel.FlxG;
 class NGio
 {
 	
+	public static var isLoggedIn:Bool = false;
+	
 	public function new(api:String, encKey:String) {
 		
 		trace("connecting to newgrounds");
@@ -43,7 +45,7 @@ class NGio
 	function onNGLogin():Void
 	{
 		trace ('logged in! user:${NG.core.user.name}');
-		
+		isLoggedIn = true;
 		// Load medals then call onNGMedalFetch()
 		NG.core.requestMedals(onNGMedalFetch);
 		
@@ -54,13 +56,14 @@ class NGio
 	// --- MEDALS
 	function onNGMedalFetch():Void
 	{
+		/*
 		// Reading medal info
 		for (id in NG.core.medals.keys())
 		{
 			var medal = NG.core.medals.get(id);
 			trace('loaded medal id:$id, name:${medal.name}, description:${medal.description}');
 		}
-		/*
+		
 		// Unlocking medals
 		var unlockingMedal = NG.core.medals.get(54352);// medal ids are listed in your NG project viewer 
 		if (!unlockingMedal.unlocked)
@@ -71,13 +74,14 @@ class NGio
 	// --- SCOREBOARDS
 	function onNGBoardsFetch():Void
 	{
+		/*
 		// Reading medal info
 		for (id in NG.core.scoreBoards.keys())
 		{
 			var board = NG.core.scoreBoards.get(id);
 			trace('loaded scoreboard id:$id, name:${board.name}');
 		}
-		
+		*/
 		var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
 		
 		// Posting a score thats OVER 9000!
