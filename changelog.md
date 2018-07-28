@@ -7,7 +7,7 @@ Monster Mashing - Changelog
 
 
 #----------------------------#
-Version 1.2.0 - June XX, 2018
+Version 1.2.0 - July XX, 2018
 #----------------------------#
 - Introducing Echidna Girl(your new waifu)! We've got some obvious bias toward her, not sure what it is, but I think you'll agree
 - Introducing Minotaur Girl for all you burly/big lovin' fellas and ladies ;)

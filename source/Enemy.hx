@@ -37,6 +37,8 @@ class Enemy extends FlxSprite
 				animation.add("walk", [12, 13, 14], 6);
 			case 5:
 				animation.add("walk", [15, 16, 17], 6);
+			case 6:
+				animation.add("walk", [18, 19, 20], 6);
 			default:
 				
 		}
