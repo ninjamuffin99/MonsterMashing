@@ -80,8 +80,10 @@ class PlayState extends FlxState
 		FlxG.camera.fade(FlxColor.WHITE, 0.24, true);
 		
 		//Who needs a mouse when you have Z
-		FlxG.mouse.visible = false;
-		
+		#if !mobile
+			FlxG.mouse.visible = false;
+		#end
+			
 		//Init BG Transparency
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0.4;

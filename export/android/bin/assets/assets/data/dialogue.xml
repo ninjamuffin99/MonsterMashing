@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--comment-->
+<Menu>
+	<option id="0">Start(ready to wank)</option>
+	<option id="1">I'm Done(wipe the keyboard)</option>
+</Menu>
+<Overworld>
+</Overworld>
+<Battle>
+	<option id="0">Attack</option>
+		<atk id ="pup">Lick</atk>
+		<atk id="1">Touch Butt"</atk>
+	<option id="1">Fuck</option>
+	<option id="2">Run</option>
+</Battle>
+<Hentai>
+	<line id="0">no lolis</line>
+</Hentai>
+<Misc>
+</Misc>
+<data>
+  <string id="TAP_TO_START"><![CDATA[- TAP TO START -]]></string>
+  <string id="HEALTH"><![CDATA[HEALTH: ]]></string>
+  <string id="SCORE"><![CDATA[SCORE: ]]></string>
+  <string id="BEST_SCORE"><![CDATA[BEST SCORE: ]]></string>
+  <string id="PLAY_AGAIN"><![CDATA[PLAY AGAIN]]></string>
+</data>
