@@ -70,8 +70,9 @@ class MenuState extends FlxState
 		FlxG.save.bind("File");
 		HighScore.load();
 		
+		#if !mobile
 		FlxG.mouse.visible = false;
-		
+		#end
 		FlxG.camera.fade(FlxColor.BLACK, 0.8, true);
 		
 		initTilemap();
@@ -234,9 +235,11 @@ class MenuState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
+		#if !mobile
 		if (FlxG.keys.justPressed.T){
 			FlxG.switchState(new SettingState());}
-		
+		#end
+			
 		menuHandling();
 		
 		#if html5
@@ -286,14 +289,16 @@ class MenuState extends FlxState
 		
 		_grpMenu.members[selected].color = FlxColor.YELLOW;
 		
-		if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
-		{
-			selected -= 1;
-		}
-		if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
-		{
-			selected += 1;
-		}
+		#if !mobile
+			if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
+			{
+				selected -= 1;
+			}
+			if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
+			{
+				selected += 1;
+			}
+		#end
 		
 		FlxG.watch.addQuick("selected 1: ", selected);
 		

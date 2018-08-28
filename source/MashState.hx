@@ -196,23 +196,25 @@ class MashState extends FlxSubState
 			_enemySprite.animation.play("stripped");
 		}
 		
-		if (FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
-		{
-			if (mashX)
+		#if !mobile
+			if (FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
 			{
-				if (FlxG.keys.anyJustPressed(["L", "RIGHT", "D"]))
+				if (mashX)
 				{
-					mash();
+					if (FlxG.keys.anyJustPressed(["L", "RIGHT", "D"]))
+					{
+						mash();
+					}
+				}
+				else
+				{
+					if (FlxG.keys.anyJustPressed(["J", "LEFT", "A"]))
+					{
+						mash();
+					}
 				}
 			}
-			else
-			{
-				if (FlxG.keys.anyJustPressed(["J", "LEFT", "A"]))
-				{
-					mash();
-				}
-			}
-		}
+		#end
 		
 		#if html5
 			if (FlxG.html5.onMobile)

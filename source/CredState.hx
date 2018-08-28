@@ -85,10 +85,12 @@ class CredState extends FlxState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		if (FlxG.keys.anyJustPressed(["Z", "ENTER", "SPACE"]))
-		{
-			FlxG.switchState(new MenuState());
-		}
+		#if !mobile
+			if (FlxG.keys.anyJustPressed(["Z", "ENTER", "SPACE"]))
+			{
+				FlxG.switchState(new MenuState());
+			}
+		#end
 		
 		#if html5
 			mobileShit();
