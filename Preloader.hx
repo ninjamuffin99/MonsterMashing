@@ -30,9 +30,8 @@ class Preloader extends FlxBasePreloader
 	
 	override private function create():Void 
 	{	
-		#if flash
-			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
-		#end
+		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		
 		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
