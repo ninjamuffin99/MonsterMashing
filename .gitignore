@@ -1,6 +1,7 @@
 export/flash/
 export/html5/
 export/windows/
+export/android
 
 export/.build
 APIStuff.hx
