@@ -62,6 +62,7 @@ class MenuState extends FlxState
 	private var mapOffsetX:Float = -86;
 	
 	private var discordLink:String = "https://discord.gg/t22G6Fr";
+	private var nutakuLink:String = "";
 	
 	override public function create():Void
 	{
@@ -140,7 +141,7 @@ class MenuState extends FlxState
 		
 		//sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
 		//sprMashing.screenCenter(X);
-		
+		/*
 		//April Fools Code
 		if (SettingState.aprilFools)
 		{
@@ -148,7 +149,7 @@ class MenuState extends FlxState
 			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
 			add(sprMashing);
 		}
-		/*
+		
 		//Pico Day Code
 		if (SettingState.picoDay == 1){
 			sprMonster.loadGraphic(AssetPaths.picoDay__png, false, 492, 166);
