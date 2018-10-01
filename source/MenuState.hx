@@ -51,7 +51,7 @@ class MenuState extends FlxState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	private var _grpMenuBar:FlxTypedGroup<FlxSprite>;
 	
-	private var menuItems:Array<String> = ["Play", "Credits", "Hall of Shame", "Settings", "Join Our Discord"];
+	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Hall of Shame", "Settings", "Join Our Discord"];
 	private var leadItems:Array<String>;
 	
 	private var selected:Int = 0;
@@ -256,17 +256,21 @@ class MenuState extends FlxState
 						}
 						if (touch.overlaps(_grpMenu.members[1]))
 						{
-							FlxG.switchState(new CredState());
+							FlxG.switchState(new GalleryState());
 						}
 						if (touch.overlaps(_grpMenu.members[2]))
 						{
-							openSubState(new ScoreState(0xCC000000));
+							FlxG.switchState(new CredState());
 						}
 						if (touch.overlaps(_grpMenu.members[3]))
 						{
-							FlxG.switchState(new SettingState());
+							openSubState(new ScoreState(0xCC000000));
 						}
 						if (touch.overlaps(_grpMenu.members[4]))
+						{
+							FlxG.switchState(new SettingState());
+						}
+						if (touch.overlaps(_grpMenu.members[5]))
 						{
 							FlxG.openURL(discordLink);
 						}
@@ -325,12 +329,14 @@ class MenuState extends FlxState
 				case 0:
 					FlxG.switchState(new PlayState());
 				case 1:
-					FlxG.switchState(new CredState());
+					FlxG.switchState(new GalleryState());
 				case 2:
-					openSubState(new ScoreState(0xCC000000));
+					FlxG.switchState(new CredState());
 				case 3:
-					FlxG.switchState(new SettingState());
+					openSubState(new ScoreState(0xCC000000));
 				case 4:
+					FlxG.switchState(new SettingState());
+				case 5:
 					FlxG.openURL(discordLink);
 				default:
 			}
