@@ -52,17 +52,69 @@ class GalleryState extends FlxState
 		],
 		[
 			"assets/images/spr_player.png",
-			"The Player sprites"
+			"The Player sprites",
+			true,
+			3,
+			1,
+			[
+				[
+					"run",
+					[0, 1, 2],
+					6
+				]
+			]
 		],
 		[
 			"assets/images/trimmedAndFixedSprites.png",
-			"All the enemy sprites"
+			"All the enemy sprites",
+			true,
+			21,
+			1,
+			[
+				[
+					"runMush",
+					[0, 1, 2],
+					6
+				],
+				[
+					"runVine",
+					[3, 4, 5],
+					6
+				],
+				[
+					"runBat",
+					[6, 7, 8],
+					6
+				],
+				[
+					"runSlime",
+					[9, 10, 11],
+					6
+				],
+				[
+					"runMino",
+					[12, 13, 14],
+					6
+				],
+				[
+					"runEchid",
+					[15, 16, 17],
+					6
+				],
+				[
+					"runClam",
+					[18, 19, 20],
+					6
+				]
+			]
 		]
 	];
 
 	private var bigImage:FlxSpriteGroup;
 	private var _grpThumbnails:FlxTypedGroup<FlxSpriteButton>;
 	private var bigPreview:FlxSprite;
+	private var curOpen:Int = 0;
+	private var curAnimPlaying:Int = 0;
 	
 	override public function create():Void 
 	{
@@ -88,6 +140,8 @@ class GalleryState extends FlxState
 			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
 			
 			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
+				curOpen = i;
+				curAnimPlaying = 0;
 				bigImage.visible = true;
 				bigPreview.loadGraphic(grid[i][0]);
 				
@@ -155,6 +209,19 @@ class GalleryState extends FlxState
 			bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 10)));
 			bigPreview.updateHitbox();
 			bigPreview.screenCenter();
+		}
+		
+		if (FlxG.keys.justPressed.RIGHT)
+		{
+			if (grid[curOpen][2])
+			{
+				curAnimPlaying += 1;
+				if (curAnimPlaying > grid[curOpen][5].length - 1)
+				{
+					curAnimPlaying = 0;
+				}
+				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+			}
 		}
 		
 		
