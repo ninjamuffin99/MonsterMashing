@@ -29,11 +29,12 @@ class CredState extends FlxState
 		
 		
 		creds = new FlxText(0, 0, FlxG.width - 24, "", 24);
+		creds.alignment = FlxTextAlign.CENTER;
 		add(creds);
 		
-		for (i in curCredPlacement...7)
+		for (i in 0...credsArray[curCredPlacement].length)
 		{
-			creds.text += credsArray[i] + "\n";
+			creds.text += credsArray[curCredPlacement][i] + "\n";
 		}
 		
 		creds.screenCenter();
@@ -62,62 +63,103 @@ class CredState extends FlxState
 		super.create();
 	}
 	
-	private var credsArray:Array<String> = 
+	private var credsArray:Array<Dynamic> = 
 	[
-		"Programming:",
-		"ninja_muffin99 (@ninja_muffin99)",
-		"BrandyBuizel (@BrandyBuizel)",
-		"",
-		"Art:",
-		"Digimin (@deegeemin)",
-		"BrandyBuizel (same guy)",
-		"",
-		"Music: Silverline by tripledigit on Newgrounds",
-		"",
-		"Moans from the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
-		"",
-		"Misc. sounds found/made/idk by PhantomArcade",
-		"",
-		"Preloader hunk: Phantom \"lil D thick bitch\" Arcade",
-		"",
-		"Made with HaxeFlixel, in like a idk a week or two shit man",
-		"",
-		"Github Source: https://github.com/ninjamuffin99/MonsterMashing",
-		"",
-		"For Strawberry Jam 2 on Itch.io: https://itch.io/jam/strawberry-jam-2",
-		"",
-		"If you are reading this Tom Fulp i lov u",
-		"In loving memory of EiGiBeast",
-		"",
-		"Newgrounds.hx library made by Geokureli and is available on Github:",
-		"https://github.com/Geokureli/Newgrounds.hx",
-		"",
-		"Community Creds:",
-		"Hall of Shame suggested by BurstAppendix",
-		"Total Score tracker suggested by Cyberdevil",
-		"New Logo created by RGPAnims",
-		"",
-		"",
-		"Press Z to go back"
+		[
+			"Monster Mashing",
+			"",
+			"Created and Designed by:",
+			"BrandyBuizel (@BrandyBuizel)",
+			"Digimin (@deegeemin)",
+			"ninja_muffin99 (@ninja_muffin99)",
+			"",
+			"Made with HaxeFlixel",
+		],
+		[
+			"Programming:",
+			"ninja_muffin99",
+			"BrandyBuizel",
+			"",
+			"Art:",
+			"Digimin",
+			"BrandyBuizel",
+		],
+		[
+			"Main Music: Silverline by tripledigit on Newgrounds",
+			"",
+			"Credits Music by ninja_muffin99",
+		],	
+		[
+			"Moans from the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
+			"",
+			"Misc. sounds found/made/idk by PhantomArcade",
+			"",
+			"Preloader hunk: Phantom \"lil D thick bitch\" Arcade",
+		],
+		[
+			"Github Sourcecode: https://github.com/ninjamuffin99/MonsterMashing",
+			"",
+			"For Strawberry Jam 2 on Itch.io: https://itch.io/jam/strawberry-jam-2",
+		],
+		[
+			"Additional code:",
+			"",
+			"Newgrounds.hx library made by Geokureli",
+			"@geokurelic", //im pretty sure thats his twitter handle
+			"https://github.com/Geokureli/Newgrounds.hx",
+			"",
+			"djFlixel effects (just this credits fade stuff lol) made by John Dimitriadis",
+			"@jondmt",
+			"https://github.com/johndimi/djFlixel/"
+		],
+		[
+			"If you are reading this Tom Fulp i lov u",
+			"In loving memory of EiGiBeast",
+		],
+		[
+			"Special Thanks",
+			"Blah",
+			"bleh",
+			"meh",
+			"woof",
+			"Blah",
+			"bleh",
+			"meh",
+			"woof",
+			"Blah",
+			"bleh",
+			"meh",
+			"woof"
+		],
+		[
+			"Community Creds:",
+			"Hall of Shame suggested by BurstAppendix",
+			"Total Score tracker suggested by Cyberdevil",
+			"New Logo created by RGPAnims",
+			"",
+			"",
+			"Press Z to go back"
+		]
 	];
 	
 	override public function update(elapsed:Float):Void 
 	{
-		FlxG.watch.addQuick("timer", credTimer);
 		credTimer -= FlxG.elapsed;
 		if (credTimer < 0)
 		{
 			credTimer = 7.5;
 			
-			
 			boxFade.fadeColor(0xFF000000, null, function(){
-				FlxG.log.add("done");
 				creds.text = "";
-				curCredPlacement += 7;
-				for (i in curCredPlacement...curCredPlacement + 7)
+				curCredPlacement += 1;
+				
+				if (curCredPlacement >= credsArray.length)
+					curCredPlacement = 0;
+				
+				for (i in 0...credsArray[curCredPlacement].length)
 				{
-					
-					creds.text += credsArray[i + curCredPlacement] + "\n";
+					if (credsArray[i] != null)
+						creds.text += credsArray[curCredPlacement][i] + "\n";
 				}
 				
 				creds.screenCenter();
