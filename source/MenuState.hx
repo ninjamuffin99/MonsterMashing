@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.tweens.FlxEase;
@@ -64,9 +65,22 @@ class MenuState extends FlxState
 	private var discordLink:String = "https://discord.gg/t22G6Fr";
 	private var nutakuLink:String = "";
 	
+	private var soundEXT:String = "";
+	
 	override public function create():Void
 	{
+		// put this into its own class and then reference it consistently
+		#if flash
+			soundEXT = "mp3";
+		#else
+			soundEXT = "ogg";
+		#end
+		
 		FlxG.timeScale = 1;
+		if (FlxG.sound.music == null)
+		{
+			FlxG.sound.playMusic("assets/sounds/menuAmbience." + soundEXT, 0.3 * SettingState.masterVol * SettingState.musicVol);
+		}
 		
 		FlxG.save.bind("File");
 		HighScore.load();
@@ -197,7 +211,7 @@ class MenuState extends FlxState
 		}
 		else
 		{
-			mScore = new FlxText(0, FlxG.height / 2 + 180, 0, "", 32);	
+			mScore = new FlxText(0, FlxG.height / 2 + 210, 0, "", 32);	
 		}
 		
 		mScore.text = "High Score: " + HighScore.score + "\nTotal Score: " + HighScore.totalScore;
@@ -298,10 +312,13 @@ class MenuState extends FlxState
 			if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
 			{
 				selected -= 1;
+				
+				FlxG.sound.play("assets/sounds/menuUp." + soundEXT, 0.5 * SettingState.masterVol * SettingState.soundVol);
 			}
 			if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
 			{
 				selected += 1;
+				FlxG.sound.play("assets/sounds/menuDown." + soundEXT, 0.5 * SettingState.masterVol * SettingState.soundVol);
 			}
 		#end
 		
@@ -324,6 +341,14 @@ class MenuState extends FlxState
 		
 		if (FlxG.keys.anyJustPressed(["ENTER", "Z", "SPACE"]))
 		{
+			var sound:FlxSound = new FlxSound();
+			sound.persist = true;
+			sound.loadEmbedded("assets/sounds/menuConfirm." + soundEXT, false, true);
+			sound.volume = 1 * SettingState.masterVol * SettingState.soundVol;
+			sound.group = FlxG.sound.defaultSoundGroup;
+			sound.play();
+			
+			
 			switch (selected) 
 			{
 				case 0:

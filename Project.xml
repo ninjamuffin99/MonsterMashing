@@ -20,7 +20,7 @@
 	<window if="html5" resizable="true" />
 	
 	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" embed="true" />
 	
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="portrait" fullscreen="true" width="0" height="0" resizable="true" />
@@ -84,6 +84,7 @@
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
 	<!--https://github.com/Geokureli/Newgrounds.hx-->
 	<classpath path="newgroundsAPI/lib/src"/>
+	<classpath path="djFlixel"/>
 	<classpath path="APIStuff.hx"/>
 	
 </project>
