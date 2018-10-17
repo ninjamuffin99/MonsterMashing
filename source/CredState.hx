@@ -24,8 +24,8 @@ class CredState extends FlxState
 	override public function create():Void 
 	{
 		
-		FlxG.sound.playMusic("assets/music/credits.mp3");
-		FlxG.sound.music.fadeIn(2, 0, 1);
+		FlxG.sound.playMusic("assets/music/credits." + MenuState.soundEXT);
+		FlxG.sound.music.fadeIn(4, 0, 1);
 		
 		
 		creds = new FlxText(0, 0, FlxG.width - 24, "", 24);
@@ -117,19 +117,18 @@ class CredState extends FlxState
 			"In loving memory of EiGiBeast",
 		],
 		[
-			"Special Thanks",
-			"Blah",
-			"bleh",
-			"meh",
-			"woof",
-			"Blah",
-			"bleh",
-			"meh",
-			"woof",
-			"Blah",
-			"bleh",
-			"meh",
-			"woof"
+			"SPECIAL THANKS",
+			"Tom Fulp",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"No one else lol",
+			"",
+			"only him",
 		],
 		[
 			"Community Creds:",
@@ -158,8 +157,7 @@ class CredState extends FlxState
 				
 				for (i in 0...credsArray[curCredPlacement].length)
 				{
-					if (credsArray[i] != null)
-						creds.text += credsArray[curCredPlacement][i] + "\n";
+					creds.text += credsArray[curCredPlacement][i] + "\n";
 				}
 				
 				creds.screenCenter();
