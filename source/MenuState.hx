@@ -65,7 +65,7 @@ class MenuState extends FlxState
 	private var discordLink:String = "https://discord.gg/t22G6Fr";
 	private var nutakuLink:String = "";
 	
-	private var soundEXT:String = "";
+	public static var soundEXT:String = "";
 	
 	override public function create():Void
 	{
@@ -306,7 +306,7 @@ class MenuState extends FlxState
 			_grpMenu.members[i].color = FlxColor.WHITE;
 		}
 		
-		_grpMenu.members[selected].color = FlxColor.YELLOW;
+		_grpMenu.members[selected].color = FlxColor.MAGENTA;
 		
 		#if !mobile
 			if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
