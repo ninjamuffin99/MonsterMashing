@@ -1,9 +1,11 @@
 package;
 
+import djFlixel.fx.BoxFader;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.text.FlxTextField;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
 import io.newgrounds.NG;
 
 /**
@@ -13,33 +15,49 @@ import io.newgrounds.NG;
 class CredState extends FlxState 
 {
 	private var creds:FlxText;
+	private var boxFade:BoxFader;
+	
+	private var credTimer:Float = 6.5;
+	
+	private var curCredPlacement:Int = 0;
 	
 	override public function create():Void 
 	{
 		
+		FlxG.sound.playMusic("assets/music/credits.mp3");
+		FlxG.sound.music.fadeIn(2, 0, 1);
 		
 		
-		creds = new FlxText(24, 24, FlxG.width - 24, "", 16);
+		creds = new FlxText(0, 0, FlxG.width - 24, "", 24);
 		add(creds);
 		
-		for (i in 0...credsArray.length)
+		for (i in curCredPlacement...7)
 		{
 			creds.text += credsArray[i] + "\n";
 		}
 		
-		#if flash
+		creds.screenCenter();
 		
+		#if flash
+			/*
 			if (NG.core.user.supporter)
 			{
 				credsArray.insert(26, "and thank you for being a Newgrounds Supporter!");
 			}
-			
-			
+			*/
+			/*
 			var credMedal = NG.core.medals.get(54286);
 				if (!credMedal.unlocked)
 					credMedal.sendUnlock();
+			
+			*/	
 		#end
 		
+		
+		boxFade = new BoxFader();
+		boxFade.setColor(FlxColor.BLACK);
+		boxFade.fadeOff();
+		add(boxFade);
 		
 		super.create();
 	}
@@ -85,6 +103,30 @@ class CredState extends FlxState
 	
 	override public function update(elapsed:Float):Void 
 	{
+		FlxG.watch.addQuick("timer", credTimer);
+		credTimer -= FlxG.elapsed;
+		if (credTimer < 0)
+		{
+			credTimer = 7.5;
+			
+			
+			boxFade.fadeColor(0xFF000000, null, function(){
+				FlxG.log.add("done");
+				creds.text = "";
+				curCredPlacement += 7;
+				for (i in curCredPlacement...curCredPlacement + 7)
+				{
+					
+					creds.text += credsArray[i + curCredPlacement] + "\n";
+				}
+				
+				creds.screenCenter();
+				boxFade.fadeOff();
+			});
+			
+		}
+		
+		
 		#if !mobile
 			if (FlxG.keys.anyJustPressed(["Z", "ENTER", "SPACE"]))
 			{

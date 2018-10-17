@@ -14,6 +14,7 @@ import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFormat;
 
+
 @:font() class CustomFont extends Font {}
 @:bitmap("assets/images/preloaderArt.png") class LogoImage extends BitmapData { }
 class Preloader extends FlxBasePreloader 
@@ -31,7 +32,6 @@ class Preloader extends FlxBasePreloader
 	override private function create():Void 
 	{	
 		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
-		
 		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;

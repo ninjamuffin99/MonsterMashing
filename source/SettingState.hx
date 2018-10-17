@@ -141,7 +141,7 @@ class SettingState extends FlxState
 		
 		if (FlxG.keys.anyJustPressed(["A", "LEFT", "J"]))
 		{
-			changeValue( -0.1);
+			changeValue(-0.1);
 		}
 		if (FlxG.keys.anyJustPressed(["D", "RIGHT", "L"]))
 		{
@@ -197,6 +197,10 @@ class SettingState extends FlxState
 	
 	private function changeValue(diff:Float):Void
 	{
+		// This only works for float values, for bool (april fools toggle for an example) the other commented junk might work better i think
+		// I'd still ahve to clean it up
+		settingsArray[1][_selection] += diff;
+		/*
 		if (settingsArray[1][_selection] || !settingsArray[1][_selection])
 		{
 			settingsArray[1][_selection] = !settingsArray[1][_selection];
@@ -205,7 +209,7 @@ class SettingState extends FlxState
 		{
 			settingsArray[1][_selection] += diff;
 		}
-		
+		*/
 		
 		if (_selection < 4)
 		{
