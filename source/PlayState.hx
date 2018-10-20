@@ -332,7 +332,7 @@ class PlayState extends FlxState
 		e.y += speed;
 		
 		//if an enemy is below the camera's lower bounds, then it fuccin dies
-		if (e.y > FlxG.height / (FlxG.camera.zoom * FlxG.initialZoom))
+		if (e.y > FlxG.height / (FlxG.camera.zoom / FlxG.initialZoom))
 		{
 			_grpEnemies.remove(e, true);
 		}
