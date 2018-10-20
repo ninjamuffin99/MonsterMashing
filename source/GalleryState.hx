@@ -26,7 +26,8 @@ class GalleryState extends FlxState
 	[
 		[
 			"assets/images/edition.png",
-			"Test Info"
+			"Test Info",
+			
 		],
 		[
 			"assets/images/left_and_right.png",
@@ -217,12 +218,23 @@ class GalleryState extends FlxState
 	override public function update(elapsed:Float):Void 
 	{
 		#if !mobile
-			if (FlxG.mouse.wheel != 0)
-			{
-				bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 10)));
-				bigPreview.updateHitbox();
-				bigPreview.screenCenter();
-			}
+			keyboardControls();
+		#else
+			mobileControls();
+		#end
+		
+		super.update(elapsed);
+	}
+	
+	private function keyboardControls():Void
+	{
+		#if !mobile
+		if (FlxG.mouse.wheel != 0)
+		{
+			bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 1.5)));
+			bigPreview.updateHitbox();
+			bigPreview.screenCenter();
+		}
 		#end
 		
 		if (FlxG.keys.justPressed.LEFT)
@@ -281,7 +293,41 @@ class GalleryState extends FlxState
 			bigPreview.offset.x -= 10;
 		}
 		
-		super.update(elapsed);
+	}
+	
+	private var dragPos:FlxPoint = new FlxPoint();
+	private var picPosOld:FlxPoint = new FlxPoint();
+	
+	private function mobileControls():Void
+	{
+		imageText.text = Std.string(FlxG.touches.list.length);
+		
+		
+		// drag behaviour
+		if (FlxG.touches.list.length == 1)
+		{
+			
+			if (FlxG.touches.list[0].justPressed)
+			{
+				picPosOld.x = bigPreview.offset.x;
+				picPosOld.y = bigPreview.offset.y;
+				dragPos = FlxG.touches.list[0].getPosition();
+			}
+		
+			
+			var xPos:Float = FlxG.touches.list[0].x - dragPos.x;
+			var yPos:Float = FlxG.touches.list[0].y - dragPos.y;
+			
+			bigPreview.offset.x = picPosOld.x - xPos;
+			bigPreview.offset.y = picPosOld.y - yPos;
+			
+		}
+		
+		// zoom behaviour
+		if (FlxG.touches.list.length == 2)
+		{
+			
+		}
 	}
 	
 }
