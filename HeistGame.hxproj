@@ -25,11 +25,11 @@
     <class path="newgroundsAPI\lib\src" />
     <class path="djFlixel" />
     <class path="APIStuff.hx" />
-    <class path="export\windows\cpp\haxe" />
+    <class path="export\android\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="flixel=4.4.1&#xA;openfl=3.6.1&#xA;lime=2.9.1&#xA;hscript=2.2.0&#xA;flixel-addons=2.6.0&#xA;openfl-next&#xA;FLX_NO_FOCUS_LOST_SCREEN&#xA;tools=2.9.1&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop&#xA;display" />
+    <option directives="flixel=4.4.1&#xA;openfl=3.6.1&#xA;lime=2.9.1&#xA;hscript=2.2.0&#xA;flixel-addons=2.6.0&#xA;openfl-next&#xA;FLX_NO_MOUSE&#xA;FLX_NO_FOCUS_LOST_SCREEN&#xA;tools=2.9.1&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;android&#xA;mobile&#xA;android&#xA;android-9&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
