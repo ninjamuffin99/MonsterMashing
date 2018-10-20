@@ -51,7 +51,7 @@ class MashState extends FlxSubState
 	override public function create():Void 
 	{
 		//so there's a new camera object that's created(thisCam) with a transparent BG
-		thisCam = new FlxCamera(0, 0, FlxG.width, FlxG.height, 1);
+		thisCam = new FlxCamera(0, 0, FlxG.width, FlxG.height, 1 * FlxG.initialZoom);
 		FlxG.cameras.add(thisCam);
 		thisCam.bgColor = FlxColor.TRANSPARENT;
 		

@@ -76,7 +76,7 @@ class PlayState extends FlxState
 		FlxG.log.redirectTraces = true;
 		
 		//Set zoom on map
-		FlxG.camera.zoom = 3;
+		FlxG.camera.zoom = 3 * FlxG.initialZoom;
 		FlxG.camera.fade(FlxColor.WHITE, 0.24, true);
 		
 		//Who needs a mouse when you have Z
