@@ -5,7 +5,10 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxAngle;
+import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+import flixel.math.FlxVector;
 import flixel.text.FlxText;
 import flixel.ui.FlxSpriteButton;
 
@@ -298,6 +301,10 @@ class GalleryState extends FlxState
 	private var dragPos:FlxPoint = new FlxPoint();
 	private var picPosOld:FlxPoint = new FlxPoint();
 	
+	private var touchesLength:Float = 0;
+	private var touchesAngle:Float = 0;
+	private var picAngleOld:Float = 0;
+	
 	private function mobileControls():Void
 	{
 		imageText.text = Std.string(FlxG.touches.list.length);
@@ -326,6 +333,38 @@ class GalleryState extends FlxState
 		// zoom behaviour
 		if (FlxG.touches.list.length == 2)
 		{
+			var touchNew:Float = FlxMath.vectorLength(FlxG.touches.list[0].x - FlxG.touches.list[1].x, FlxG.touches.list[0].y - FlxG.touches.list[1].y);
+			
+			var rads:Float = Math.atan2(FlxG.touches.list[0].y - FlxG.touches.list[1].y, FlxG.touches.list[0].x - FlxG.touches.list[1].x);
+		
+			
+			
+			if (FlxG.touches.list[1].justPressed)
+			{
+				touchesLength = touchNew;
+				touchesAngle = FlxAngle.asDegrees(rads);
+				picAngleOld = bigPreview.angle;
+				
+				//FlxG.watch.addQuick("Degs/Angle", degs);
+			}
+			
+			var degs = FlxAngle.asDegrees(rads);
+			bigPreview.angle = (picAngleOld + degs - touchesAngle);
+			
+			bigPreview.setGraphicSize(Std.int(bigPreview.width + (touchNew - touchesLength)));
+			bigPreview.updateHitbox();
+			bigPreview.screenCenter();
+			
+			if (touchNew - touchesLength >= 10)
+			{
+				touchesLength += touchNew * 0.1;
+			}
+			else if (touchNew - touchesLength <= -10)
+			{
+				touchesLength -= touchNew * 0.1;
+			}
+			else
+				touchesLength = touchNew;
 			
 		}
 	}
