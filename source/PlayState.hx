@@ -37,7 +37,6 @@ class PlayState extends FlxState
 	
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
-	private var _grpDoors:FlxTypedGroup<Door>;
 	
 	//private var _roomNum;
 	//private var _roomShow;
@@ -93,10 +92,6 @@ class PlayState extends FlxState
 		
 		_grpWalls = new FlxTypedGroup<FlxTilemap>();
 		add(_grpWalls);
-		
-		_grpDoors = new FlxTypedGroup<Door>();
-		add(_grpDoors);
-		
 		
 		_grpEntities = new FlxTypedGroup<FlxObject>();
 		add(_grpEntities);
@@ -206,10 +201,6 @@ class PlayState extends FlxState
 		else if (entityName == "enemy")
 		{
 			_grpEnemies.add(new Enemy(x, y, 0));
-		}
-		else if (entityName == "doorTrigger")
-		{
-			_grpDoors.add(new Door(x, y, Std.parseInt(entityData.get("door"))));
 		}
 	}
 
