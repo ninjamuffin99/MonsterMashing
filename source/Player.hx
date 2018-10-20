@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
@@ -74,7 +75,7 @@ class Player extends FlxSprite
 			_left = _right = false;
 		
 		
-		#if html5
+		#if (html5 || mobile)
 			mobileChecks();
 		#end
 		
@@ -188,20 +189,23 @@ class Player extends FlxSprite
 	
 	private function mobileChecks():Void
 	{
-		#if html5
-		if (FlxG.html5.onMobile)
+		if (FlxG.onMobile)
 		{
 			for (touch in FlxG.touches.list)
 			{
 				if (touch.pressed) 
 				{
-					if (touch.x >= x)
+					if (touch.x > x + 3)
 					{
 						_right = true;
 					}
-					else
+					else if (touch.x < x - 3)
 					{
 						_left  = true;
+					}
+					else
+					{
+						_left = _right = false;
 					}
 				}
 				else
@@ -211,8 +215,6 @@ class Player extends FlxSprite
 				}
 			}
 		}
-		#end
-		
 	}
 	
 }

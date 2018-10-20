@@ -121,7 +121,9 @@ class GalleryState extends FlxState
 	
 	override public function create():Void 
 	{
-		FlxG.mouse.visible = true;
+		#if !mobile
+			FlxG.mouse.visible = true;
+		#end
 		
 		bigImage = new FlxSpriteGroup();
 		bigPreview = new FlxSprite();
@@ -214,12 +216,14 @@ class GalleryState extends FlxState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		if (FlxG.mouse.wheel != 0)
-		{
-			bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 10)));
-			bigPreview.updateHitbox();
-			bigPreview.screenCenter();
-		}
+		#if !mobile
+			if (FlxG.mouse.wheel != 0)
+			{
+				bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 10)));
+				bigPreview.updateHitbox();
+				bigPreview.screenCenter();
+			}
+		#end
 		
 		if (FlxG.keys.justPressed.LEFT)
 		{

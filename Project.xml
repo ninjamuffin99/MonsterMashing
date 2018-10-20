@@ -14,22 +14,22 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 	
 	<!--These window settings apply to all targets-->
-	<window width="544" height="864" fps="60" background="#000000" hardware="true" vsync="true" />
+	<window width="544" height="0" fps="60" background="#000000" hardware="true" vsync="true" />
 	
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
 	
 	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" embed="true" />
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true"/>
 	
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="portrait" fullscreen="true" width="0" height="0" resizable="true" />
+	<window if="mobile" orientation="portrait" fullscreen="true" width="544" height="864" resizable="true" />
 	
 	<!-- _____________________________ Path Settings ____________________________ -->
 	
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
-	<assets path="assets" />
+	<assets path="assets"/>
 	<assets path="assets" exclude="*.ogg" if="flash"/>
 	<assets path="assets" exclude="*.mp3" unless="flash"/>
 	
@@ -69,7 +69,7 @@
 	<!--<haxedef name="FLX_NO_SOUND_SYSTEM" />-->
 	
 	<!--Disable the Flixel core focus lost screen-->
-	<!--<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />-->
+	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 	
 	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
@@ -81,6 +81,8 @@
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 
+	<icon path="icon.png" size="64" if="cpp" />
+	
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
 	<!--https://github.com/Geokureli/Newgrounds.hx-->
 	<classpath path="newgroundsAPI/lib/src"/>
