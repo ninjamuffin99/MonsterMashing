@@ -174,8 +174,9 @@ class CredState extends FlxState
 			}
 		#end
 		
-		#if html5
-			mobileShit();
+		#if (html5 || mobile)
+			if (FlxG.onMobile)
+				mobileShit();
 		#end
 		super.update(elapsed);
 	}
@@ -189,6 +190,13 @@ class CredState extends FlxState
 				FlxG.switchState(new MenuState());
 			}
 		}
+		
+		#if android
+			if (FlxG.android.justPressed.BACK)
+			{
+				FlxG.switchState(new MenuState());
+			}
+		#end
 	}
 	
 }

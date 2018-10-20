@@ -1,5 +1,6 @@
 package;
 
+import djFlixel.fx.PixelFader;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -97,7 +98,7 @@ class MenuState extends FlxState
 		FlxTween.tween(mScore, {y: mScore.y + 24}, 0.86, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		//FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-			
+		
 		super.create();
 	}
 	
@@ -257,8 +258,8 @@ class MenuState extends FlxState
 			
 		menuHandling();
 		
-		#if html5
-			if (FlxG.html5.onMobile)
+		#if (!flash && !desktop)
+			if (FlxG.onMobile)
 			{
 				for (touch in FlxG.touches.list)
 				{

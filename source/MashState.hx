@@ -216,8 +216,8 @@ class MashState extends FlxSubState
 			}
 		#end
 		
-		#if html5
-			if (FlxG.html5.onMobile)
+		#if (html5 || mobile)
+			if (FlxG.onMobile)
 			{
 				for (touch in FlxG.touches.list)
 				{
