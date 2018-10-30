@@ -116,7 +116,7 @@ class NGLite {
 				? Lib.current.stage.loaderInfo.url
 				: null;
 		#else
-			return "";
+			return null;
 		#end
 	}
 	

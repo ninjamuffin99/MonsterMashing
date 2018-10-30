@@ -117,6 +117,8 @@ class NG extends NGLite {
 	
 	override function checkInitialSession(response:Response<SessionResult>):Void {
 		
+		
+		
 		onSessionReceive(response);
 	}
 	

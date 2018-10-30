@@ -50,8 +50,12 @@ class SettingState extends FlxState
 	override public function create():Void 
 	{
 		#if !flash
-			var btnNG:FlxButton = new FlxButton(32, 350, "Log into NG", function(){var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);});
-			add(btnNG);
+			if (!NGio.isLoggedIn)
+			{
+				var btnNG:FlxButton = new FlxButton(32, 350, "Log into NG", function(){var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);});
+				add(btnNG);
+			}
+			
 		#end
 		
 		_selector = new FlxSpriteGroup();
