@@ -33,6 +33,7 @@ class Preloader extends FlxBasePreloader
 	{	
 		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 		
+		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
 		

@@ -16,11 +16,21 @@ class NGio
 	
 	public static var isLoggedIn:Bool = false;
 	
-	public function new(api:String, encKey:String) {
+	public function new(api:String, encKey:String, ?sessionId:String) {
 		
 		trace("connecting to newgrounds");
+		if (sessionId != null)
+		{
+			NG.create(api, sessionId);
+			
+			NG.core.onLogin.add(onNGLogin);
+			
+		}
+		else
+		{
+			NG.createAndCheckSession(api);
+		}
 		
-		NG.createAndCheckSession(api);
 		NG.core.verbose = true;
 		// Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
 		NG.core.initEncryption(encKey);// Found in you NG project view
@@ -46,6 +56,8 @@ class NGio
 	{
 		trace ('logged in! user:${NG.core.user.name}');
 		isLoggedIn = true;
+		FlxG.save.data.sessionId = NG.core.sessionId;
+		FlxG.save.flush();
 		// Load medals then call onNGMedalFetch()
 		NG.core.requestMedals(onNGMedalFetch);
 		

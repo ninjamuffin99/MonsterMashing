@@ -47,7 +47,6 @@ class ScoreState extends FlxSubState
 		{
 			
 			NG.core.scoreBoards.get(8004).requestScores(20);
-		
 			
 			var leaderBoardPlacement:Int = 1;
 			

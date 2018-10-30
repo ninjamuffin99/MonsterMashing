@@ -70,6 +70,8 @@ class MenuState extends FlxState
 	
 	override public function create():Void
 	{
+		mapZoom = mapZoom / FlxG.initialZoom;
+		
 		// put this into its own class and then reference it consistently
 		#if flash
 			soundEXT = "mp3";
@@ -84,6 +86,18 @@ class MenuState extends FlxState
 		}
 		
 		FlxG.save.bind("File");
+		
+		if (FlxG.save.data.sessionId != null && !NGio.isLoggedIn)
+		{				
+			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.save.data.sessionId);
+			NGio.isLoggedIn = true;
+			
+			NG.core.requestScoreBoards();
+			NG.core.requestMedals();
+			
+			FlxG.log.add(FlxG.save.data.sessionId);
+		}
+		
 		HighScore.load();
 		
 		#if !mobile
