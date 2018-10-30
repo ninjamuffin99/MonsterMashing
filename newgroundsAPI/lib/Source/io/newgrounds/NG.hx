@@ -84,6 +84,8 @@ class NG extends NGLite {
 		onMedalsLoaded = new Dispatcher();
 		onScoreBoardsLoaded = new Dispatcher();
 		
+		attemptingLogin = sessionId != null;
+		
 		super(appId, sessionId);
 	}
 	
@@ -116,8 +118,6 @@ class NG extends NGLite {
 	// -------------------------------------------------------------------------------------------
 	
 	override function checkInitialSession(response:Response<SessionResult>):Void {
-		
-		
 		
 		onSessionReceive(response);
 	}

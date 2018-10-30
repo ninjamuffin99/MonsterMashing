@@ -90,11 +90,12 @@ class MenuState extends FlxState
 		if (FlxG.save.data.sessionId != null && !NGio.isLoggedIn)
 		{				
 			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.save.data.sessionId);
+			/*
 			NGio.isLoggedIn = true;
 			
 			NG.core.requestScoreBoards();
 			NG.core.requestMedals();
-			
+			*/
 			FlxG.log.add(FlxG.save.data.sessionId);
 		}
 		
