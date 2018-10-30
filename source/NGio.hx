@@ -23,8 +23,6 @@ class NGio
 		{
 			NG.create(api, sessionId);
 			
-			NG.core.onLogin.add(onNGLogin);
-			
 		}
 		else
 		{
@@ -35,12 +33,14 @@ class NGio
 		// Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
 		NG.core.initEncryption(encKey);// Found in you NG project view
 		
+		trace(NG.core.attemptingLogin);
+		
 		if (NG.core.attemptingLogin)
 		{
 			/* a session_id was found in the loadervars, this means the user is playing on newgrounds.com
 			 * and we should login shortly. lets wait for that to happen
 			 */
-			
+			trace("attempting login");
 			NG.core.onLogin.add(onNGLogin);
 		}
 		else
