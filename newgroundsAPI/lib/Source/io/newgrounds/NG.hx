@@ -1,4 +1,5 @@
 package io.newgrounds;
+import haxe.CallStack;
 #if ng_lite
 typedef NG = NGLite; //TODO: test and make lite UI
 #else
@@ -85,6 +86,10 @@ class NG extends NGLite {
 		onScoreBoardsLoaded = new Dispatcher();
 		
 		attemptingLogin = sessionId != null;
+		if (attemptingLogin)
+			trace("am attempting login");
+		else
+			trace("not logging ing");
 		
 		super(appId, sessionId);
 	}
@@ -247,6 +252,7 @@ class NG extends NGLite {
 			
 			loggedIn = true;
 			endLoginAndCall(onSucceess);
+			trace("supposedly dispatched");
 			onLogin.dispatch();
 			
 		} else if (_session.status == SessionStatus.REQUEST_LOGIN){
@@ -282,6 +288,8 @@ class NG extends NGLite {
 	
 	function endLoginAndCall(callback:Void->Void):Void {
 		
+		trace(CallStack.callStack());
+		trace("SHITS FALSE LOL");
 		attemptingLogin = false;
 		_loginCancelled = false;
 		
