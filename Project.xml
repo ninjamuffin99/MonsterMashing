@@ -81,7 +81,7 @@
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 
-	<icon path="icon.png" size="64" if="cpp" />
+	<icon path="icon.png" />
 	
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
 	<!--https://github.com/Geokureli/Newgrounds.hx-->

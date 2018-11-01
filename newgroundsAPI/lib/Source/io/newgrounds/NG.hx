@@ -1,5 +1,4 @@
 package io.newgrounds;
-import haxe.CallStack;
 #if ng_lite
 typedef NG = NGLite; //TODO: test and make lite UI
 #else
@@ -77,7 +76,7 @@ class NG extends NGLite {
 	 * @param appId     The unique ID of your app as found in the 'API Tools' tab of your Newgrounds.com project.
 	 * @param sessionId A unique session id used to identify the active user.
 	**/
-	public function new(appId:String = "test", sessionId:String = null) {
+	public function new(appId = "test", sessionId:String = null, ?onSessionFail:Error->Void) {
 		
 		_session = new Session(this);
 		onLogin = new Dispatcher();
@@ -86,21 +85,17 @@ class NG extends NGLite {
 		onScoreBoardsLoaded = new Dispatcher();
 		
 		attemptingLogin = sessionId != null;
-		if (attemptingLogin)
-			trace("am attempting login");
-		else
-			trace("not logging ing");
 		
-		super(appId, sessionId);
+		super(appId, sessionId, onSessionFail);
 	}
 	
 	/**
 	 * Creates NG.core, the heart and soul of the API. This is not the only way to create an instance,
 	 * nor is NG a forced singleton, but it's the only way to set the static NG.core.
 	**/
-	static public function create(appId:String = "test", sessionId:String = null):Void {
+	static public function create(appId = "test", sessionId:String = null, ?onSessionFail:Error->Void):Void {
 		
-		core = new NG(appId, sessionId);
+		core = new NG(appId, sessionId, onSessionFail);
 		
 		onCoreReady.dispatch();
 	}
@@ -109,9 +104,17 @@ class NG extends NGLite {
 	 * Creates NG.core, and tries to create a session. This is not the only way to create an instance,
 	 * nor is NG a forced singleton, but it's the only way to set the static NG.core.
 	**/
-	static public function createAndCheckSession(appId:String = "test"):Void {
+	static public function createAndCheckSession
+	( appId = "test"
+	, backupSession:String = null
+	, ?onSessionFail:Error->Void
+	):Void {
 		
-		create(appId, NGLite.getSessionId());
+		var session = NGLite.getSessionId();
+		if (session == null)
+			session = backupSession;
+		
+		create(appId, session, onSessionFail);
 		
 		core.host = getHost();
 		if (core.sessionId != null)
@@ -122,9 +125,9 @@ class NG extends NGLite {
 	//                                         APP
 	// -------------------------------------------------------------------------------------------
 	
-	override function checkInitialSession(response:Response<SessionResult>):Void {
+	override function checkInitialSession(failHandler:Error->Void, response:Response<SessionResult>):Void {
 		
-		onSessionReceive(response);
+		onSessionReceive(response, null, null, failHandler);
 	}
 	
 	/**
@@ -181,11 +184,11 @@ class NG extends NGLite {
 		if (!response.success || !response.result.success) {
 			
 			sessionId = null;
+			endLoginAndCall(null);
 			
 			if (onFail != null)
 				onFail(!response.success ? response.error : response.result.error);
 			
-			endLoginAndCall(null);
 			return;
 		}
 		
@@ -252,7 +255,6 @@ class NG extends NGLite {
 			
 			loggedIn = true;
 			endLoginAndCall(onSucceess);
-			trace("supposedly dispatched");
 			onLogin.dispatch();
 			
 		} else if (_session.status == SessionStatus.REQUEST_LOGIN){
@@ -288,8 +290,6 @@ class NG extends NGLite {
 	
 	function endLoginAndCall(callback:Void->Void):Void {
 		
-		trace(CallStack.callStack());
-		trace("SHITS FALSE LOL");
 		attemptingLogin = false;
 		_loginCancelled = false;
 		
