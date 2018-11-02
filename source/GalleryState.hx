@@ -138,7 +138,7 @@ class GalleryState extends FlxState
 		imageText.screenCenter(X);
 		bigImage.add(imageText);
 		
-		var text:FlxText = new FlxText(10, 10, 0, "Gallery", 16);
+		var text:FlxText = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 16);
 		add(text);
 		
 		_grpThumbnails = new FlxTypedGroup<FlxSpriteButton>();
@@ -239,6 +239,9 @@ class GalleryState extends FlxState
 			bigPreview.screenCenter();
 		}
 		#end
+		
+		if (FlxG.keys.justPressed.ESCAPE)
+			FlxG.switchState(new MenuState());
 		
 		if (FlxG.keys.justPressed.LEFT)
 		{
