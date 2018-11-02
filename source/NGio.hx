@@ -19,15 +19,7 @@ class NGio
 	public function new(api:String, encKey:String, ?sessionId:String) {
 		
 		trace("connecting to newgrounds");
-		if (sessionId != null)
-		{
-			NG.create(api, sessionId);
-			
-		}
-		else
-		{
-			NG.createAndCheckSession(api);
-		}
+		NG.createAndCheckSession(api, sessionId);
 		
 		NG.core.verbose = true;
 		// Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
@@ -68,6 +60,7 @@ class NGio
 	// --- MEDALS
 	function onNGMedalFetch():Void
 	{
+		
 		/*
 		// Reading medal info
 		for (id in NG.core.medals.keys())
@@ -100,6 +93,7 @@ class NGio
 		//board.postScore(FlxG.random.int(0, 1000));
 		
 		// --- To view the scores you first need to select the range of scores you want to see --- 
+		
 		
 		// add an update listener so we know when we get the new scores
 		board.onUpdate.add(onNGScoresFetch);
