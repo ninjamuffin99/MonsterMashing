@@ -55,6 +55,7 @@ class NGio
 		
 		// Load Scoreboards hten call onNGBoardsFetch()
 		NG.core.requestScoreBoards(onNGBoardsFetch);
+		
 	}
 	
 	// --- MEDALS
@@ -97,6 +98,7 @@ class NGio
 		
 		// add an update listener so we know when we get the new scores
 		board.onUpdate.add(onNGScoresFetch);
+		trace("shoulda got score by NOW!");
 		board.requestScores(20);// get the best 10 scores ever logged
 		// more info on scores --- http://www.newgrounds.io/help/components/#scoreboard-getscores
 	}
