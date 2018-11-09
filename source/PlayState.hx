@@ -28,25 +28,37 @@ import com.newgrounds.components.*;
 
 class PlayState extends FlxState
 {
+	/**
+	 * The speed variable, which controls how fast or slow things are when 
+	 * they come down the screen
+	 */
 	private var speed:Float = 3;
+	
+	// maxSpeed, pretty self explanitory. Limits how high the speed variable can get
 	private var maxSpeed:Float = 9;
 	
+	/**
+	 * player variable, if you want to see his movement code, check out the Player.hx class
+	 */
 	private var _player:Player;
+	
+	// where he starts on the screen, gets set when the tilemap data is loaded so this 0 means nothin
 	private var playerYPosInit:Float = 0;
+	// dunno if this enemy does anything but i dont wanna delete it just incase lol
 	public var _enemy:Enemy;
 	
+	// the main entities group, just holds the player and the enemies
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
 	private var _grpEnemies:FlxTypedSpriteGroup<Enemy>;
-	
-	//private var _roomNum;
-	//private var _roomShow;
-	//private var _roomBuffer;
 	
 	//MAP SHIT
 	/**
 	 * The map data, loaded from Ogmo
 	 */
 	private var _map:FlxOgmoLoader;
+	
+	// There are 3 tilemaps that get looped around and regenerated to create an infinite runner effect.
+	// Instead of creating new tilemaps everytime you need one 
 	
 	private var _mWalls:FlxTilemap;
 	private var _mFloors:FlxTilemap;
@@ -60,21 +72,22 @@ class PlayState extends FlxState
 	private var _grpTilemaps:FlxTypedGroup<FlxTilemap>;
 	private var _grpWalls:FlxTypedGroup<FlxTilemap>;
 	
+	// some HUD elements
 	private var _txtScore:FlxText;
 	private var _txtHighScore:FlxText;
 	private var score:Float;
 	
 	private var _camTarget:FlxSprite;
 	
-	//Creates black overlay
+	// Black overlay, isnt actually used as of writing lol
 	public var bg:FlxSprite;
 	
+	// dunno if this speedAccel does anything lol
 	private var speedAccel:Float = 1;
+	// how long until the player's speed starts slowing down
 	private var startingTimer:Float = 4;
 	
-	private var godReached:Bool = false;
 	
-
 	override public function create():Void
 	{
 		//FlxG.timeScale = SettingState.gameSpeed;
