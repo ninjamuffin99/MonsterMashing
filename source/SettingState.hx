@@ -6,6 +6,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import io.newgrounds.NG;
 
 /**
  * ...
@@ -46,17 +47,12 @@ class SettingState extends FlxState
 	private var _grpText:FlxTypedGroup<FlxText>;
 	
 	private var exitTxt:FlxText;
+	private var NGAPI:FlxText;
 	
 	override public function create():Void 
 	{
-		#if !flash
-			if (!NGio.isLoggedIn)
-			{
-				var btnNG:FlxButton = new FlxButton(32, 350, "Log into NG", function(){var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);});
-				add(btnNG);
-			}
-			
-		#end
+		NGAPI = new FlxText(32, 350, FlxG.width - 32, "Press N to log into the Newgrounds API!", 28);
+		add(NGAPI);
 		
 		_selector = new FlxSpriteGroup();
 		add(_selector);
@@ -104,6 +100,8 @@ class SettingState extends FlxState
 	{
 		super.update(elapsed);
 		
+		NGAPItextUpdate();
+		
 		//speedTxt.text = "Game Speed: " + gameSpeed;
 		
 		controls();
@@ -127,6 +125,8 @@ class SettingState extends FlxState
 			_grpValues.members[t].text = Std.string(settingsArray[1][t]); 
 		}
 		
+		if (FlxG.keys.justPressed.N && !NGio.isLoggedIn)
+			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 	}
 	
 	private function controls():Void
@@ -237,6 +237,22 @@ class SettingState extends FlxState
 		//gameSpeed = settingsArray[1][4];
 		aprilFools = settingsArray[1][4];//MAKE SURE THIS IS CHANGED ONCE WE USE GAME SPEED MODIFIERS
 		//picoDay = settingsArray[1][0];
+	}
+	
+	private function NGAPItextUpdate():Void
+	{
+		if (FlxG.onMobile)
+		{
+			NGAPI.text = "Tap here to sign into the Newgrounds API!";
+			
+			
+		}
+		
+		
+		if (NGio.isLoggedIn)
+		{
+			NGAPI.text = "Logged into the Newgrounds API as " + NG.core.user.name;
+		}
 	}
 
 	private function changePos():Void

@@ -68,14 +68,21 @@ class PlayState extends FlxState
 	
 	//Creates black overlay
 	public var bg:FlxSprite;
+	
+	private var speedAccel:Float = 1;
+	private var startingTimer:Float = 4;
+	
+	private var godReached:Bool = false;
+	
 
 	override public function create():Void
 	{
 		//FlxG.timeScale = SettingState.gameSpeed;
 		FlxG.log.redirectTraces = true;
 		
-		//Set zoom on map
+		//Set zoom on map, 3x relative to whatever the zoom set in Main.hx was
 		FlxG.camera.zoom = 3 * FlxG.initialZoom;
+		// Does a fade isntead if a flash so that it's a hard white immediately, rather than fading to white then fading out quickly
 		FlxG.camera.fade(FlxColor.WHITE, 0.24, true);
 		
 		//Who needs a mouse when you have Z
@@ -84,18 +91,25 @@ class PlayState extends FlxState
 		#end
 			
 		//Init BG Transparency
+		// This was a semi transparent black bg when you were wackin the monster girls, but brandy thought it looked stinky
+		// or it was just flat out busted
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0.4;
 		
+		// The tilemap group for the floors, set so you don't have any collisions with them
 		_grpTilemaps = new FlxTypedGroup<FlxTilemap>();
 		add(_grpTilemaps);
 		
+		// The tilemap group for the walls and maybe rocks? You can collide with these
 		_grpWalls = new FlxTypedGroup<FlxTilemap>();
 		add(_grpWalls);
 		
+		// The object group for entities. Would probably be more useful if this was an RPG like planned, or if we had different objects
+		// Includes the Enemies and the player
 		_grpEntities = new FlxTypedGroup<FlxObject>();
 		add(_grpEntities);
 		
+		// Enemy group so that we know specifics about Enemy type and thats basically it lol.
 		_grpEnemies = new FlxTypedSpriteGroup<Enemy>();
 		_grpEntities.add(_grpEnemies);
 		
@@ -104,7 +118,9 @@ class PlayState extends FlxState
 		
 		initTilemap();
 		
-		//Camera
+		//Camera stuff
+		// first makes a camera target that centers on the player's initial position. 
+		// Again this would be more useful if it was more than a simple infinite runner lol
 		_camTarget = new FlxSprite(_player.x, _player.y);
 		_camTarget.makeGraphic(16, 16, FlxColor.TRANSPARENT);
 		add(_camTarget);
@@ -112,11 +128,14 @@ class PlayState extends FlxState
 		//sets the camTarget to be always 8 tiles ahead of the player
 		_camTarget.y = _player.y - (16 * 4);
 		//and 1.5 tiles to the right, so that the gameplay is offset to the left
-		//_camTarget.x += 16 * 1.5;d
+		// (maybe we thought this was a good idea if we were to add items that showed up on the right, but we didnt so its commented out lol)
+		//_camTarget.x += 16 * 1.5;
+		
 		initHUD();
 		
 		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
 		
+		// Some shit that runs if you're playing on the flash target, if not, it plays the OGG version of the song
 		#if flash
 			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7 * SettingState.musicVol * SettingState.masterVol);
 		#else
@@ -130,6 +149,10 @@ class PlayState extends FlxState
 	
 	override public function onFocusLost():Void 
 	{
+		// This function runs everytime focus is lost on the game, causing a pause.
+		// This shit tracks how many times it's happened and if it's over 15, it logs "cheater!" in the console
+		// because it's like pause buffering or whatever. Has no game effect however.
+		
 		timesClickedOffScreen += 1;
 		
 		if (timesClickedOffScreen >= 15)
@@ -146,6 +169,8 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		_map.loadEntities(placeEntities, "Entities");
 		
+		// loads the "Floor" and "Walls" layers from the Ogmo tilemap as seperate things (_mFloors and _mWalls)
+		// I think that was to do collisions a bit easier
 		_mFloors = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_grpTilemaps.add(_mFloors);
 		
@@ -154,6 +179,8 @@ class PlayState extends FlxState
 		
 		//loads a new oel to use, this time one with seamless tops and bottoms
 		_map = new FlxOgmoLoader("assets/data/chunk1.oel");
+		
+		// this bit below loads 2 more tilemap chunks, each being moved up 12 tiles further than the last
 		
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
 		_mFloors2.y -= 16 * 12;
@@ -173,6 +200,11 @@ class PlayState extends FlxState
 		
 	}
 	
+	/**
+	 * initHud
+	 * Initializes the score variable i think
+	 * and inits and sets up hud elements and positions
+	 */
 	private function initHUD():Void
 	{
 		score = 0;
@@ -186,8 +218,17 @@ class PlayState extends FlxState
 		add(_txtHighScore);
 	}
 	
+	/**
+	 *	This function is called when the OGMO map is setup, and the data is all parsed in or whatever.
+	 * It's used to place the entities, duh. Pretty much just used for the player position though.
+	 * Also pretty much stolen from the TurnBasedRPG demo on the HaxeFlixel site LOLOLOL
+	 * 
+	 * @param	entityName	the name lol
+	 * @param	entityData	the xml data
+	 */
 	private function placeEntities(entityName:String, entityData:Xml):Void
 	{
+		// gets the position data from the xml shit
 		var x:Int = Std.parseInt(entityData.get("x"));
 		var y:Int = Std.parseInt(entityData.get("y"));
 		
@@ -204,26 +245,18 @@ class PlayState extends FlxState
 		}
 	}
 
-	private var speedAccel:Float = 1;
-	private var startingTimer:Float = 4;
-	
-	private var godReached:Bool = false;
-	
+
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		
-		//FlxG.watch.add(_grpTilemaps, "members");
-		//FlxG.watch.add(_player, "y");
-		FlxG.watch.add(this, "speed");
 		
 		//if speed is greater than maxSpeed(15 as of writing), it lowers it to maxSpeed
 		if (speed > maxSpeed)
 		{
 			speed = maxSpeed;
+			// if logged into the Newgrounds API, it unlocks the Peak horny medal
 			if (NGio.isLoggedIn)
 			{
-				
 				var hornyMedal = NG.core.medals.get(54299);
 				if (!hornyMedal.unlocked)
 					hornyMedal.sendUnlock();
@@ -240,21 +273,25 @@ class PlayState extends FlxState
 			}
 		}
 		
-		//gives the player a few seconds before it starts to decrease the speed
+		//gives the player a few seconds at the start of the game before it starts to decrease the speed
 		if (startingTimer > 0)
 		{
 			startingTimer -= FlxG.elapsed;
 		}
 		else
 		{
-			speed -= 0.5 / 60;
+			// speed decreases by 0.5 every second, FlxG.elapsed is 1 frame in seconds (like 0.0166 seconds or whatever)
+			// so u know do fukken math this shit is a being run every frame blah blah blah
+			speed -= 0.5 * FlxG.elapsed;
 		}
 		
 		//if the players speed gets too low, it returns to MenuState
 		//eventually this will be replaced with a small little sequence
 		//of stuff rather than just jump straight to a game over style screen
+		// LOL no it wont i wrote this shit like back in March lmao November 2018 gang where yall at
 		if (speed < 0.2 || _player.y > 247)
 		{
+			// if logged into the Newgrounds API, it posts your score to the scoreboard
 			if (NGio.isLoggedIn)
 			{
 				var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
@@ -262,28 +299,30 @@ class PlayState extends FlxState
 			}
 			
 			
-			
 			if (score > HighScore.score)
 			{
 				HighScore.score = Std.int(score);
 			}
 			
+			// updates the scores, so on the menu its current and shit
 			HighScore.recentScore = Std.int(score);
-			
 			HighScore.totalScore += Std.int(score);
 			
+			// Saves the scores to the current savefile
 			HighScore.save();
 			
-			//Add score here
-			//MenuState.hScore = score;
+			// Go to the main menu like a dumbass lmao fukken idiot i bet ur not even in Hall Of Shame	
 			FlxG.switchState(new MenuState());
 		}
 		
+		// if the player is beneath the sorta baseline (playerYPosInit) then he moves back up
+		// say if he gets pushed down by a rock or whatever.
 		if (_player.y > playerYPosInit)
 		{
 			_player.y -= 75 * FlxG.elapsed;
 		}
 		
+		// score increments every frame by the speed variable also the HUD is updated
 		score += speed;
 		_txtScore.text = "Distance: " + Std.int(score);
 		
@@ -306,6 +345,8 @@ class PlayState extends FlxState
 			e.kill();
 		}
 		
+		// if the state of the enemy is 1 (set a little bit below) it goes through a boost check to see if the player won or lost
+		// the mashstate.
 		if (e.ID == 1)
 		{
 			boost(e);
@@ -328,7 +369,7 @@ class PlayState extends FlxState
 			}
 		}
 		
-		//ok heres the real shit
+		// adds the speed variable to the enemy's y position, moving it down rather than moving the player up
 		e.y += speed;
 		
 		//if an enemy is below the camera's lower bounds, then it fuccin dies
@@ -338,9 +379,16 @@ class PlayState extends FlxState
 		}
 	}
 	
+	/**
+	 * A function that checks whether the player should boost
+	 * or whether the player should slow down after a fight
+	 * 
+	 * @param	e	the enemy
+	 */
 	private function boost(e:Enemy):Void
 	{
-		//Varies speed consistency based on victory
+		// If you won, you get a boost
+		// else, you slow down a bit
 		if (MashState.outcome == MashState.Outcome.VICTORY)
 		{
 			speed += FlxG.random.float(1.0, 1.2);
@@ -353,13 +401,18 @@ class PlayState extends FlxState
 			trace("slowed down");
 			remove(bg);
 		}
+		// old bit of code that varied the speed depending on how fast you beat the girls
 		//speed += MashState.horniness;
 		
+		// sets the ID back to 0, and then kills it and sets the outcome back to NONE
 		e.ID = 0;
 		e.kill();
 		MashState.outcome = MashState.Outcome.NONE;
 		//MashState.horniness = 0;
 	}
+	
+	// These 2 functions are essentially the same, but pass though different variables to seperate the layers
+	// I should make this one variable but eh whatever
 	
 	private function checkTilemapPos(t:FlxTilemap):Void
 	{
@@ -372,6 +425,7 @@ class PlayState extends FlxState
 	}
 	
 	/**
+	 * Moves the tilemap down the screen, and then moves it 2 tilemaps up and loops around or whatever
 	 * 
 	 * @param	t A FlxTilemap that'll get moved down the screen, and checked if it should be re-generated or shit
 	 * @param	type A string, with what the layer name is called in the oel/oep, mostly used
@@ -381,7 +435,7 @@ class PlayState extends FlxState
 	{
 		t.y += speed;
 		
-		// if the tilemap's y pos, is greater than the height(864) divided by 5(because of the zoom), 
+		// if the tilemap's y pos is greater than the tilemaps height + 4 tiles (to be safe I guess)
 		//then it moves it 2 tilemap's up
 		if (t.y >= t.height + 16 * 4)
 		{
@@ -389,6 +443,13 @@ class PlayState extends FlxState
 		}
 	}
 	
+	/**
+	 * Regenerates the tilemap data, moves it up above the other tilemaps, and adds it to the scene
+	 * also spawns monster girls
+	 * 
+	 * @param	t	Which tilemap to regenerate
+	 * @param	type	Which type (either Wall or Floor)
+	 */
 	private function generateTilemap(t:FlxTilemap, type:String):Void
 	{	
 		//basically, the tilemap actually needs to be removed entirely to be updated with a new _map/.oel file
@@ -403,10 +464,13 @@ class PlayState extends FlxState
 			_grpTilemaps.remove(t, true);
 		}
 		
+		// randomly load a new tilemap chunk to the ogmo loader
 		_map = new FlxOgmoLoader("assets/data/chunk" + FlxG.random.int(1, 9) + ".oel");
-
+		
 		
 		//loads the _map data to the current tilemap(t) up to 100k
+		// THIS IS BULLSHIT BAD CODE LMAO FUKKEN AWFUL THIS IS DISGUSTING BRANDY
+		// I gotta redo this a bit, but it would do some bullshit with the modulo (%)
 		if (score > 99750)
 			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
 		else if (score > 94750)
@@ -455,49 +519,31 @@ class PlayState extends FlxState
 		//if it's "Floor", then it also spawns some enemies, more info below
 		if (type == "Walls")
 		{
+			// moves it to the tilemap in the first position in the members array, then moves it up a bit more
+			// I think there was issues with the seam when it wasnt t.height * 2, maybe some bullshit hitbox shenanigans
 			t.y = _grpWalls.members[0].y - t.height * 2;
 			_grpWalls.add(t);
 		}
 		if (type == "Floor")
 		{
+			// same shit as like 5 lines above see that comment
 			t.y = _grpTilemaps.members[0].y - t.height * 2;
 			_grpTilemaps.add(t);
 			
 			//also spawns enemy
 			//picks a random amount of enemies from 0-3
 			var enemyAmount:Int = FlxG.random.int(1, 3);
-			var enemyType:Int = 0;
 			
-			//loops 
+			//loops in a single frame as long as the enemyAmount variable is higher than 0
 			while (enemyAmount > 0)
 			{
+				// adds an enemy at a somewhat random position on this tilemap
+				// also picks a random girl
 				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), FlxG.random.int(0, 6)));
 				
+				// decrease the enemyAmount variable so the while loop doesnt freeze the game lol
 				enemyAmount -= 1;
 			}
 		}
 	}	
-/*
-	private function checkOverlap(d:Door):Void
-	{
-		if (FlxG.overlap(_player, d))
-		{
-			//Change this or something so that its not -48 and rather something that can be more dynamic
-			_player.y = getDoor(d).y - 48;
-		}
-	}
-	
-	private function getDoor(d:Door):Door
-	{
-		var door:Door = d;
-		for (i in 0..._grpDoors.length)
-		{
-			if (d.doorID == _grpDoors.members[i].doorID && d != _grpDoors.members[i])
-			{
-				door = _grpDoors.members[i];
-			}
-		}
-		
-		return door;
-	}*/
 }
