@@ -480,52 +480,12 @@ class PlayState extends FlxState
 		// randomly load a new tilemap chunk to the ogmo loader
 		_map = new FlxOgmoLoader("assets/data/chunk" + FlxG.random.int(1, 9) + ".oel");
 		
+		// did some fancy ass math to get a value between 0 and 4 through the score
+		// so that it will constantly change the tilemap forever
+		var scoreRatio = Math.floor((score + 250) / 5000);
+		var scoreMod = scoreRatio % 5;
 		
-		//loads the _map data to the current tilemap(t) up to 100k
-		// THIS IS BULLSHIT BAD CODE LMAO FUKKEN AWFUL THIS IS DISGUSTING BRANDY
-		// I gotta redo this a bit, but it would do some bullshit with the modulo (%)
-		if (score > 99750)
-			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		else if (score > 94750)
-			t = _map.loadTilemap("assets/data/tile_temple_4.png", 16, 16, type);
-		else if (score > 89750)
-			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
-		else if (score > 84750)
-			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		else if (score > 79750)
-			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
-		else if (score > 74750)
-			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		else if (score > 69750)
-			t = _map.loadTilemap("assets/data/tile_temple_4.png", 16, 16, type);
-		else if (score > 64750)
-			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
-		else if (score > 59750)
-			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		else if (score > 54750)
-			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
-		else if (score > 49750)
-			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		else if (score > 44750)
-			t = _map.loadTilemap("assets/data/tile_temple_4.png", 16, 16, type);
-		else if (score > 39750)
-			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
-		else if (score > 34750)
-			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		else if (score > 29750)
-			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
-		else if (score > 24750)
-			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
-		else if (score > 19750)
-			t = _map.loadTilemap("assets/data/tile_temple_4.png", 16, 16, type);
-		else if (score > 14750)
-			t = _map.loadTilemap("assets/data/tile_temple_3.png", 16, 16, type);
-		else if (score > 9750)
-			t = _map.loadTilemap("assets/data/tile_temple_2.png", 16, 16, type);
-		else if (score > 4750)
-			t = _map.loadTilemap("assets/data/tile_temple_1.png", 16, 16, type);
-		else
-			t = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, type);
+		t = _map.loadTilemap("assets/data/tile_temple_" + scoreMod + ".png", 16, 16, type);
 		
 		
 		//if the type is "Walls", it simply adds the tilemap back in
