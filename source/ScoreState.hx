@@ -19,6 +19,8 @@ class ScoreState extends FlxSubState
 	private var bountyTxt:FlxText;
 	private var _grpText:FlxSpriteGroup;
 	
+	private var scoreboardInitialized:Bool = false;
+	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
 	{
 		persistentUpdate = true;
@@ -43,7 +45,16 @@ class ScoreState extends FlxSubState
 		
 		FlxG.log.redirectTraces = true;
 		
-		if (NGio.isLoggedIn)
+		checkScores();
+		
+		
+		super.create();
+	}
+	
+	private function checkScores():Void
+	{
+		
+		if (NGio.isLoggedIn && NGio.scoreboardsLoaded)
 		{
 			
 			NG.core.scoreBoards.get(8004).requestScores(20);
@@ -92,6 +103,8 @@ class ScoreState extends FlxSubState
 				leaderBoardPlacement += 1;
 				
 				trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
+				
+				
 			}
 			
 			bountyTxt = new FlxText(0, FlxG.height - 112, 0, "\nBOUNTIES\nn/a", 16);
@@ -99,6 +112,8 @@ class ScoreState extends FlxSubState
 			bountyTxt.alignment = FlxTextAlign.CENTER;
 			// add(bountyTxt);
 			bountyTxt.color = FlxColor.YELLOW;
+			
+			scoreboardInitialized = true;
 		}
 		else
 		{
@@ -107,12 +122,20 @@ class ScoreState extends FlxSubState
 			hallOfShame.screenCenter(X);
 			hallOfShame.alignment = FlxTextAlign.CENTER;
 		}
-		
-		super.create();
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
+		if (scoreboardInitialized = false && NGio.scoreboardsLoaded)
+		{
+			checkScores();
+		}
+		
+		if (!NGio.scoreboardsLoaded && NGio.isLoggedIn)
+		{
+			hallOfShame.text = "HALL OF SHAME\n\nScoreboards loading...\n\n";
+		}
+		
 		if (FlxG.keys.justPressed.ANY)
 		{
 			close();

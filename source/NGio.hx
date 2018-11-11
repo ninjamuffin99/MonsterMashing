@@ -15,6 +15,7 @@ class NGio
 {
 	
 	public static var isLoggedIn:Bool = false;
+	public static var scoreboardsLoaded:Bool = false;
 	
 	public function new(api:String, encKey:String, ?sessionId:String) {
 		
@@ -105,9 +106,15 @@ class NGio
 	
 	function onNGScoresFetch():Void
 	{
+		scoreboardsLoaded = true;
+		
 		for (score in NG.core.scoreBoards.get(8004).scores)
 		{
 			trace('score loaded user:${score.user.name}, score:${score.formatted_value}');
+			
 		}
+		
+		var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
+		board.postScore(HighScore.score);
 	}
 }

@@ -252,6 +252,16 @@ class SettingState extends FlxState
 		if (NGio.isLoggedIn)
 		{
 			NGAPI.text = "Logged into the Newgrounds API as " + NG.core.user.name;
+			
+			if (NGio.scoreboardsLoaded)
+			{
+				NGAPI.text += "\nScoreboard data loaded";
+			}
+			else
+			{
+				NGAPI.text += "\nLoading scoreboards... Please wait";
+			}
+			
 		}
 	}
 
