@@ -1,3 +1,5 @@
+This file has no purpose lmaoo if ur reading this, this file is useless. We were gonna do some shit where it loads some WACKY and ZANY lines but we never got around to it -Cam
+
 - How many homeless people are in san francisco?
 - Is this your first time wanking with us? If so, leave a rating!
 - Is nutella actually good by itself? Be honest.
