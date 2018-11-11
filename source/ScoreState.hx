@@ -150,6 +150,7 @@ class ScoreState extends FlxSubState
 		{
 			if (FlxG.keys.justPressed.R)
 			{
+				_grpText.forEach(function(s:FlxSprite){_grpText.remove(s, true); });
 				namesPlacement(NG.core.scoreBoards.get(8004).scores);
 			}
 		}
