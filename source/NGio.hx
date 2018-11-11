@@ -2,6 +2,7 @@ package;
 
 import io.newgrounds.NG;
 import io.newgrounds.objects.Medal;
+import io.newgrounds.objects.Score;
 import io.newgrounds.objects.ScoreBoard;
 import io.newgrounds.components.ScoreBoardComponent.Period;
 import openfl.display.Stage;
@@ -16,6 +17,8 @@ class NGio
 	
 	public static var isLoggedIn:Bool = false;
 	public static var scoreboardsLoaded:Bool = false;
+	
+	public static var scoreboardArray:Array<Score> = [];
 	
 	public function new(api:String, encKey:String, ?sessionId:String) {
 		
