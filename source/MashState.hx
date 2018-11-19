@@ -37,6 +37,8 @@ class MashState extends FlxSubState
 	
 	private var finishing:Bool = false;
 	
+	private var touchPos:Float = 0;
+	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int) 
 	{
 		super(BGColor);
@@ -214,6 +216,11 @@ class MashState extends FlxSubState
 					}
 				}
 			}
+			
+			if (FlxG.keys.anyJustPressed(["S", "K", "DOWN"]))
+			{
+				mashTimer = 0;
+			}
 		#end
 		
 		#if (html5 || mobile)
@@ -224,6 +231,16 @@ class MashState extends FlxSubState
 					if (_enemyHealth > 0 && touch.justPressed) 
 					{
 						mash();
+					}
+					
+					if (touch.justPressed)
+					{
+						touchPos = touch.getPosition().y;
+					}
+					
+					if (touch.getPosition().y - touchPos >= FlxG.height * 0.2 / FlxG.initialZoom)
+					{
+						mashTimer = 0;
 					}
 				}
 			}
