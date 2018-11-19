@@ -179,6 +179,11 @@ class SettingState extends FlxState
 				
 				if (touch.justPressed)
 				{
+					if (touch.overlaps(NGAPI) && !NGio.isLoggedIn)
+					{
+						var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+					}
+					
 					if (touch.overlaps(_selLeft))
 					{
 						changeValue( -0.1);
