@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -37,7 +38,7 @@ class MashState extends FlxSubState
 	
 	private var finishing:Bool = false;
 	
-	private var touchPos:Float = 0;
+	private var touchPos:FlxPoint = new FlxPoint();
 	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int) 
 	{
@@ -235,10 +236,11 @@ class MashState extends FlxSubState
 					
 					if (touch.justPressed)
 					{
-						touchPos = touch.getPosition().y;
+						touchPos = touch.getPosition();
 					}
-					
-					if (touch.getPosition().y - touchPos >= FlxG.height * 0.2 / FlxG.initialZoom)
+					// 				touchNew = FlxMath.vectorLength(midScreen.x - FlxG.mouse.x, midScreen.y - FlxG.mouse.y);
+
+					if (FlxMath.vectorLength(touch.x - touchPos.x, touch.y - touchPos.y) >= FlxG.width * 0.35 / FlxG.initialZoom)
 					{
 						mashTimer = 0;
 					}
