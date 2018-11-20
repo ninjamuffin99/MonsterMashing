@@ -28,11 +28,6 @@ class GalleryState extends FlxState
 	private var grid:Array<Dynamic> = 
 	[
 		[
-			"assets/images/edition.png",
-			"Test Info",
-			
-		],
-		[
 			"assets/images/left_and_right.png",
 			"more info",
 			true,
@@ -111,7 +106,23 @@ class GalleryState extends FlxState
 					6
 				]
 			]
-		]
+		],
+		[
+			"assets/images/fanart/clamOld.png",
+			"Fanart of the old Clam Girl design, art by Peeper"
+		],
+		[
+			"assets/images/fanart/clamOldNUDEHELLYEAH.png",
+			"Fanart of the old Clam Girl design, but this one is naked hell yeah damn, art by Peeper"
+		],
+		[
+			"assets/images/fanart/Monster_mashin_lady.png",
+			"Fanart of the old Clam Girl design, you know she had to do it to em, art by Peeper"
+		],
+		[
+			"assets/images/fanart/mushOogtarded.png",
+			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
+		],
 	];
 	
 	private var bigImage:FlxSpriteGroup;
