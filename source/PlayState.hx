@@ -378,7 +378,10 @@ class PlayState extends FlxState
 			{
 				//if the state isnt VICTORY, then it opens a new battle
 				e.ID = 1;
-				openSubState(new MashState(0x77000000, e.etype));
+				
+				var randomNude:Bool = FlxG.random.bool(score / 500000);
+				
+				openSubState(new MashState(0x77000000, e.etype, randomNude));
 			}
 		}
 		

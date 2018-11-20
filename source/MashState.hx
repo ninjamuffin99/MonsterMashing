@@ -13,6 +13,10 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 
+#if android
+import Hardware;
+#end
+
 /**
  * ...
  * @author ninjaMuffin
@@ -40,12 +44,18 @@ class MashState extends FlxSubState
 	
 	private var touchPos:FlxPoint = new FlxPoint();
 	
-	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int) 
+	private var isNude:Int = 0;
+	
+	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int, NUDE:Bool = false) 
 	{
 		super(BGColor);
 		FlxG.camera.flash();
 		
 		enemyType = EType;
+		
+		
+		if (NUDE)
+			isNude = 1;
 		
 		//sets the outcome to NONE just in-case
 		outcome = NONE;
@@ -123,7 +133,7 @@ class MashState extends FlxSubState
 		
 		_enemySprite.animation.add("normal", [0]);
 		_enemySprite.animation.add("hit", [1, 1, 1, 0], 12, false);
-		_enemySprite.animation.add("stripped", [2]);
+		_enemySprite.animation.add("stripped", [2 + isNude]);
 		_enemySprite.animation.play("normal");
 		
 		add(_enemySprite);
@@ -238,19 +248,31 @@ class MashState extends FlxSubState
 					{
 						touchPos = touch.getPosition();
 					}
-					// 				touchNew = FlxMath.vectorLength(midScreen.x - FlxG.mouse.x, midScreen.y - FlxG.mouse.y);
-
-					if (FlxMath.vectorLength(touch.x - touchPos.x, touch.y - touchPos.y) >= FlxG.width * 0.35 / FlxG.initialZoom)
+					
+					var touchLength = FlxMath.vectorLength(touch.x - touchPos.x, touch.y - touchPos.y);
+					
+					if (FlxG.touches.list.length > 1)
+					{
+						touchLength = 0;
+					}
+					
+					if (touchLength >= FlxG.width * 0.35 / FlxG.initialZoom)
 					{
 						mashTimer = 0;
 					}
 				}
+				
+				
 			}
 		#end
 	}
 	
 	private function mash():Void
 	{
+		#if android
+			Hardware.vibrate(FlxG.random.int(50, 90));
+		#end
+		
 		if (FlxG.random.bool(35))
 		{
 			FlxG.sound.play("assets/sounds/Voice/Moan" + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol * SettingState.masterVol);
@@ -280,6 +302,15 @@ class MashState extends FlxSubState
 	{
 		if (!finishing)
 		{
+			#if android
+				if (outcome == DEFEAT)
+				{
+					Hardware.vibrate(900);
+				}
+				
+			#end
+			
+			
 			finishing = true;
 			FlxTween.tween(_enemySprite, {y: FlxG.height + 400}, 1.25, {ease:FlxEase.quartInOut});
 			FlxTween.tween(txtTimer, {y: FlxG.height + 400}, 1.4, {ease:FlxEase.quartInOut});
