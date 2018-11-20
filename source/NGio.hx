@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxSignal;
 import io.newgrounds.NG;
 import io.newgrounds.objects.Medal;
 import io.newgrounds.objects.Score;
@@ -19,6 +20,9 @@ class NGio
 	public static var scoreboardsLoaded:Bool = false;
 	
 	public static var scoreboardArray:Array<Score> = [];
+	
+	public static var ngDataLoaded(default, null):FlxSignal = new FlxSignal();
+	public static var ngScoresLoaded(default, null):FlxSignal = new FlxSignal();
 	
 	public function new(api:String, encKey:String, ?sessionId:String) {
 		
@@ -59,6 +63,8 @@ class NGio
 		
 		// Load Scoreboards hten call onNGBoardsFetch()
 		NG.core.requestScoreBoards(onNGBoardsFetch);
+		
+		ngDataLoaded.dispatch();
 		
 	}
 	
@@ -110,6 +116,8 @@ class NGio
 	function onNGScoresFetch():Void
 	{
 		scoreboardsLoaded = true;
+		
+		ngScoresLoaded.dispatch();
 		
 		for (score in NG.core.scoreBoards.get(8004).scores)
 		{

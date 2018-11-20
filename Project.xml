@@ -45,6 +45,10 @@
 	
 	<!--In case you want to use nape with flixel-->
 	<!--<haxelib name="nape" />-->
+	
+	<!--for vibration!!-->
+	<haxelib name="haxe-hardware" if="android" />
+	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 	
 	<!--Enable the Flixel core recording system-->

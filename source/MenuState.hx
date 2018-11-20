@@ -18,6 +18,10 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 
+#if android
+import Hardware;
+#end
+
 /*
 import io.newgrounds.objects.Medal;
 import io.newgrounds.objects.ScoreBoard;
@@ -70,7 +74,7 @@ class MenuState extends FlxState
 	
 	override public function create():Void
 	{
-		mapZoom = mapZoom / FlxG.initialZoom;
+		// mapZoom = mapZoom * FlxG.initialZoom;
 		
 		// put this into its own class and then reference it consistently
 		#if flash
@@ -87,12 +91,6 @@ class MenuState extends FlxState
 		
 		FlxG.save.bind("File");
 		
-		if (FlxG.save.data.sessionId != null && !NGio.isLoggedIn)
-		{				
-			// var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.save.data.sessionId);
-			
-			FlxG.log.add(FlxG.save.data.sessionId);
-		}
 		
 		HighScore.load();
 		
@@ -108,6 +106,44 @@ class MenuState extends FlxState
 		FlxTween.tween(mScore, {y: mScore.y + 24}, 0.86, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		//FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+		
+		
+		if (FlxG.save.data.sessionId != null && !NGio.isLoggedIn)
+		{				
+			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.save.data.sessionId);
+			
+			var loadingText:FlxText = new FlxText(debugInfo.x, debugInfo.y - (debugInfo.size * 2) - 6, 0, "", debugInfo.size);
+			loadingText.text = "Attempting to load Newgrounds data....";
+			
+			var scoreLoadingText:FlxText = new FlxText(loadingText.x, loadingText.y + (debugInfo.size) - 4, 0, "", debugInfo.size);
+			
+			NGio.ngDataLoaded.add(function()
+			{
+				loadingText.text = "Newgrounds user data loaded!";
+				scoreLoadingText.text = "Loading score data...";
+			});
+			
+			NGio.ngScoresLoaded.add(function()
+			{
+				scoreLoadingText.text = "Newgrounds score data loaded!";
+				
+				var tmr:FlxTimer = new FlxTimer().start(0.4, function(tmr:FlxTimer){
+					scoreLoadingText.visible = false;
+					loadingText.visible = false;
+					
+					scoreLoadingText.alpha -= 0.25;
+					loadingText.alpha -= 0.25;
+					
+				}, 4S);
+			});
+			
+			
+			add(loadingText);
+			add(scoreLoadingText);
+			
+			FlxG.log.add(FlxG.save.data.sessionId);
+		}
+		
 		
 		super.create();
 	}
@@ -249,6 +285,10 @@ class MenuState extends FlxState
 			{
 				debugInfo.text += "mobile";
 			}
+		#elseif android
+			debugInfo.text += " Android Version";
+		#elseif windows
+			debugInfo.text += " Windows Version";
 			
 		#end
 	}
@@ -277,26 +317,32 @@ class MenuState extends FlxState
 					{
 						if (touch.overlaps(_grpMenu.members[0]))
 						{
+							vibrate();
 							FlxG.switchState(new PlayState());
 						}
 						if (touch.overlaps(_grpMenu.members[1]))
 						{
+							vibrate();
 							FlxG.switchState(new GalleryState());
 						}
 						if (touch.overlaps(_grpMenu.members[2]))
 						{
+							vibrate();
 							FlxG.switchState(new CredState());
 						}
 						if (touch.overlaps(_grpMenu.members[3]))
 						{
+							vibrate();
 							openSubState(new ScoreState(0xCC000000));
 						}
 						if (touch.overlaps(_grpMenu.members[4]))
 						{
+							vibrate();
 							FlxG.switchState(new SettingState());
 						}
 						if (touch.overlaps(_grpMenu.members[5]))
 						{
+							vibrate();
 							FlxG.openURL(discordLink);
 						}
 					}
@@ -308,6 +354,13 @@ class MenuState extends FlxState
 		_grpWalls.forEach(checkWallPos);
 		
 		super.update(elapsed);
+	}
+	
+	private function vibrate():Void
+	{
+		#if android
+			Hardware.vibrate(35);
+		#end
 	}
 	
 	private function menuHandling():Void
