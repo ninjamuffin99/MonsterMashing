@@ -134,7 +134,7 @@ class MenuState extends FlxState
 					scoreLoadingText.alpha -= 0.25;
 					loadingText.alpha -= 0.25;
 					
-				}, 4S);
+				}, 4);
 			});
 			
 			

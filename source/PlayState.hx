@@ -379,7 +379,16 @@ class PlayState extends FlxState
 				//if the state isnt VICTORY, then it opens a new battle
 				e.ID = 1;
 				
-				var randomNude:Bool = FlxG.random.bool(score / 500000);
+				
+				// at most, you can have an 80% chance to see tiddy i think
+				var scoreMax:Float = 35000;
+				
+				if (score * 1.2 > scoreMax)
+				{
+					scoreMax = score * 1.2;
+				}
+				
+				var randomNude:Bool = FlxG.random.bool(score / scoreMax);
 				
 				openSubState(new MashState(0x77000000, e.etype, randomNude));
 			}
