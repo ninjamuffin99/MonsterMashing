@@ -46,6 +46,8 @@ class MashState extends FlxSubState
 	
 	private var isNude:Int = 0;
 	
+	private var moanDir:String = "";
+	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int, NUDE:Bool = false) 
 	{
 		super(BGColor);
@@ -114,20 +116,28 @@ class MashState extends FlxSubState
 			{
 				case 0:
 					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
+					moanDir = "Mush";
 				case 1:
 					_enemySprite.loadGraphic("assets/images/vineSheet.png", true, 800, 1200);
+					moanDir = "Vine";
 				case 2: 
 					_enemySprite.loadGraphic("assets/images/batSheet.png", true, 800, 1200);
+					moanDir = "Bat";
 				case 3:
 					_enemySprite.loadGraphic("assets/images/slimeSheet.png", true, 800, 1200);
+					moanDir = "Slime";
 				case 4:
 					_enemySprite.loadGraphic("assets/images/minotaurSheet.png", true, 800, 1200);
+					moanDir = "Mino";
 				case 5:
 					_enemySprite.loadGraphic("assets/images/echidnaSheet.png", true, 800, 1200);
+					moanDir = "Echid";
 				case 6:
 					_enemySprite.loadGraphic("assets/images/clamSheet.png", true, 800, 1200);
+					moanDir = "Clam";
 				default:
 					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
+					moanDir = "Mush";
 			}
 		}
 		
@@ -275,7 +285,11 @@ class MashState extends FlxSubState
 		
 		if (FlxG.random.bool(35))
 		{
-			FlxG.sound.play("assets/sounds/Voice/Moan" + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol * SettingState.masterVol);
+			#if flash
+				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".mp3", 1 * SettingState.moanVol * SettingState.masterVol);
+			#else
+				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".ogg", 1 * SettingState.moanVol * SettingState.masterVol);
+			#end
 			//FlxG.sound.play("assets/sounds/roblox oof.mp3", 1  * SettingState.moanVol * SettingState.masterVol);
 		}
 		
