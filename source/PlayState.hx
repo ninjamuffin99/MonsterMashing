@@ -19,7 +19,9 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
+import io.newgrounds.Call;
 import io.newgrounds.NG;
+import io.newgrounds.NGLite;
 import openfl.display.BlendMode;
 using flixel.util.FlxSpriteUtil;
 
@@ -304,13 +306,20 @@ class PlayState extends FlxState
 		// LOL no it wont i wrote this shit like back in March lmao November 2018 gang where yall at
 		if (speed < 0.2 || _player.y > 247)
 		{
+			
+			if (speed < 0.2)
+			{
+				NG.core.calls.event.logEvent("SlowDeath").send();
+			}
+			else
+				NG.core.calls.event.logEvent("FallDeath").send();
+			
 			// if logged into the Newgrounds API, it posts your score to the scoreboard
 			if (NGio.isLoggedIn)
 			{
 				var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
 				board.postScore(Std.int(score));
 			}
-			
 			
 			if (score > HighScore.score)
 			{

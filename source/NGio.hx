@@ -27,6 +27,8 @@ class NGio
 	public function new(api:String, encKey:String, ?sessionId:String) {
 		
 		trace("connecting to newgrounds");
+		
+		
 		NG.createAndCheckSession(api, sessionId);
 		
 		NG.core.verbose = true;

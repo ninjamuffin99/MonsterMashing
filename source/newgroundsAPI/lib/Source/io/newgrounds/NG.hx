@@ -114,7 +114,7 @@ class NG extends NGLite {
 		if (session == null)
 			session = backupSession;
 		
-		create(appId, session, onSessionFail);
+		NG.create(appId, session, onSessionFail);
 		
 		core.host = getHost();
 		if (core.sessionId != null)
