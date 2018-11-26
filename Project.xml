@@ -89,8 +89,8 @@
 	
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
 	<!--https://github.com/Geokureli/Newgrounds.hx-->
-	<classpath path="newgroundsAPI/lib/Source"/>
-	<classpath path="djFlixel"/>
+	<classpath path="source/newgroundsAPI/lib/Source"/>
+	<classpath path="source/djFlixel"/>
 	<classpath path="APIStuff.hx"/>
 	
 </project>

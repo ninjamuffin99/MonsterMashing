@@ -28,23 +28,38 @@ class GalleryState extends FlxState
 	private var grid:Array<Dynamic> = 
 	[
 		[
-			"assets/images/left_and_right.png",
+			"assets/images/clamSheet.png",
 			"more info",
-			true,
-			2,
-			1,
-			[
-				[
-					"idle",
-					[0, 1],
-					6
-				]
-			]
+		],
+		[
+			"assets/images/echidnaSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/minotaurSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/batSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/mushSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/slimeSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/vineSheet.png",
+			"more info",
 		],
 		[
 			"assets/images/mmLogo.png",
 			"logo thing"
-		],
+		]
+		/*
 		[
 			"assets/images/preloaderArt.png",
 			"Coolguy PhantomArcade, at the Ambler Theater before the Newgrounds Pico Day Reanimated event from Oct twenty something"
@@ -123,6 +138,7 @@ class GalleryState extends FlxState
 			"assets/images/fanart/mushOogtarded.png",
 			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
 		],
+		*/
 	];
 	
 	private var bigImage:FlxSpriteGroup;
