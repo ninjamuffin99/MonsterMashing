@@ -125,7 +125,7 @@ class MashState extends FlxSubState
 					moanDir = "Bat";
 				case 3:
 					_enemySprite.loadGraphic("assets/images/slimeSheet.png", true, 800, 1200);
-					moanDir = "Slime";
+					moanDir = "Mush";
 				case 4:
 					_enemySprite.loadGraphic("assets/images/minotaurSheet.png", true, 800, 1200);
 					moanDir = "Mino";
@@ -134,7 +134,7 @@ class MashState extends FlxSubState
 					moanDir = "Echid";
 				case 6:
 					_enemySprite.loadGraphic("assets/images/clamSheet.png", true, 800, 1200);
-					moanDir = "Clam";
+					moanDir = "Mush";
 				default:
 					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
 					moanDir = "Mush";

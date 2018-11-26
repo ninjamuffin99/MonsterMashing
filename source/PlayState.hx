@@ -381,15 +381,14 @@ class PlayState extends FlxState
 				
 				
 				// at most, you can have an 80% chance to see tiddy i think
-				var scoreMax:Float = 35000;
+				var scoreMax:Float = 20000;
 				
 				if (score * 1.2 > scoreMax)
 				{
 					scoreMax = score * 1.2;
 				}
 				
-				var randomNude:Bool = FlxG.random.bool(score / scoreMax);
-				
+				var randomNude:Bool = FlxG.random.bool((score / scoreMax) * 100);
 				openSubState(new MashState(0x77000000, e.etype, randomNude));
 			}
 		}
