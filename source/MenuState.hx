@@ -17,6 +17,7 @@ import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
+import io.newgrounds.NGLite;
 
 #if android
 import Hardware;
@@ -71,9 +72,8 @@ class MenuState extends FlxState
 	private var nutakuLink:String = "";
 	
 	public static var soundEXT:String = "";
-	
 	override public function create():Void
-	{
+	{	
 		// mapZoom = mapZoom * FlxG.initialZoom;
 		
 		// put this into its own class and then reference it consistently
@@ -142,6 +142,10 @@ class MenuState extends FlxState
 			add(scoreLoadingText);
 			
 			FlxG.log.add(FlxG.save.data.sessionId);
+		}
+		else if (FlxG.save.data.sessionId == null)
+		{
+			NG.create(APIStuff.APIID);
 		}
 		
 		

@@ -127,6 +127,12 @@ class SettingState extends FlxState
 		
 		if (FlxG.keys.justPressed.N && !NGio.isLoggedIn)
 			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		else if (FlxG.keys.justPressed.N && NGio.isLoggedIn)
+			NG.core.logOut(function()
+			{
+				NGio.isLoggedIn = false;
+				
+			});
 	}
 	
 	private function controls():Void
