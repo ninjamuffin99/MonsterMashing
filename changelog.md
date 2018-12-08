@@ -9,24 +9,28 @@ Monster Mashing - Changelog
 
 
 #----------------------------#
-Version 1.2.0 - November/December XX, 2018 - DELUXE EDITION UPDATE
+Version 1.2.0 - December XX, 2018 - DELUXE EDITION UPDATE
 #----------------------------#
 - Introducing Echidna Girl(your new waifu)! We've got some obvious bias toward her, not sure what it is, but I think you'll agree
 - Introducing Minotaur Girl for all you burly/big lovin' fellas and ladies ;)
-- Introducing Clam Girl! Just a couple of taps on your phone and she'll come out of her shell...
+- ~~Introducing Clam Girl! Just a couple of taps on your phone and she'll come out of her shell...
+- Introducing the NEW Clam Girl! Digi did it better
+- ~~Adjusted Slime Girl sprites
+- Shoutout to [FuShark](https://fushark.newgrounds.com) for updating Slime Girl
 - Updated palette swapping to be infinite, at least I'm pretty sure it is
-- Adjusted Slime Girl sprites
 - Updated logo by RGPAnims
 - Added Gallery mode
 - Cleaned up touch controls
-- Added nude versions of the girls (Nutaku/Deluxe exclusive)
+- Added nude versions of the girls (Nutaku/Deluxe Exclusive)
 - Improved Newgrounds API stuff to work on Windows, HTML5 and whatnot (SHOUTOUT TO MY HOMEBOY GEORGE @GeoKureli)
 - Re-did the credits to be cooler/more dramatic lol
 - Added menu sounds (different sounds when using the menu, as well as ambience if no music is playing)
-- Added unique moans for each girl (hopefully)
+- Added unique moans for each girl (hopefully) Thank you to Jack, Cymbourine, and pecheng
+- Added Shinies because y'all like Pokemon GO so much, just you TRY to catch them all
+
 
 #----------------------------#
-Version 1.1.2 - April XX, 2018 - CANCELLED UPDATE LOL
+Version 1.1.2 - April XX, 2018 - CANCELLED UPDATE (LOL)
 #----------------------------#
 - April Fools Day Patch(better late than never)! You can toggle this patch on and off in "Settings"
 - Added Garfield GF

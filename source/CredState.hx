@@ -83,6 +83,7 @@ class CredState extends FlxState
 			"Art:",
 			"Digimin",
 			"BrandyBuizel",
+			"FuShark",
 		],
 		[
 			"Main Music: Silverline by tripledigit on Newgrounds",
@@ -90,7 +91,11 @@ class CredState extends FlxState
 			"Credits Music by ninja_muffin99",
 		],	
 		[
-			"Moans from the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
+			"Moans:",
+			"Jack McMillian",
+			"Cymbourine",
+			"pecheng",
+			"the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
 			"",
 			"Misc. sounds found/made/idk by PhantomArcade",
 			"",
