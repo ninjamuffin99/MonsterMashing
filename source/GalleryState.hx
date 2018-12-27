@@ -168,35 +168,6 @@ class GalleryState extends FlxState
 		var text:FlxText = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 16);
 		add(text);
 		
-		_grpThumbnails = new FlxTypedGroup<FlxSpriteButton>();
-		add(_grpThumbnails);
-		
-		for (i in 0...grid.length)
-		{
-			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
-			
-			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
-				curOpen = i;
-				isSpritesheet = false;
-				
-				openImage(curOpen);
-			});
-			gridBG.makeGraphic(100, 100);
-			_grpThumbnails.add(gridBG);
-			
-			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
-			gridThing.loadGraphic(grid[i][0]);
-			
-			var testSize:Int = 90;
-			if (gridThing.width > gridThing.height)
-				gridThing.setGraphicSize(testSize);
-			else
-				gridThing.setGraphicSize(0, testSize);
-			
-			gridThing.updateHitbox();
-			gridThing.setPosition(gridBG.getMidpoint().x - (gridThing.width / 2), gridBG.getMidpoint().y - (gridThing.height / 2)); 
-			add(gridThing);
-		}
 		
 		add(bigImage);
 		bigImage.visible = false;

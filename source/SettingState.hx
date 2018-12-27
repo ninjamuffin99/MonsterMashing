@@ -126,11 +126,16 @@ class SettingState extends FlxState
 		}
 		
 		if (FlxG.keys.justPressed.N && !NGio.isLoggedIn)
-			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		{
+			NGAPI.text = "sike, this doesnt do anything";
+			// var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		}
 		else if (FlxG.keys.justPressed.N && NGio.isLoggedIn)
 			NG.core.logOut(function()
 			{
 				NGio.isLoggedIn = false;
+				FlxG.save.data.sessionId = null;
+				FlxG.save.flush();
 				
 			});
 	}
@@ -187,7 +192,8 @@ class SettingState extends FlxState
 				{
 					if (touch.overlaps(NGAPI) && !NGio.isLoggedIn)
 					{
-						var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+						// var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+						NGAPI.text = "sike, this doesnt do anything";
 					}
 					
 					if (touch.overlaps(_selLeft))
@@ -254,7 +260,7 @@ class SettingState extends FlxState
 	{
 		if (FlxG.onMobile)
 		{
-			NGAPI.text = "Tap here to sign into the Newgrounds API!";
+			// NGAPI.text = "Tap here to sign into the Newgrounds API!";
 			
 			
 		}
