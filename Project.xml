@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 	
-	<app title="Monster Mashing" file="MonsterMashing" main="Main" version="1.0.0" package="com.ninjamuffin.monstermashing" company="ninjamuffin" />
+	<app title="Monster Mashing" file="MonsterMashing" main="Main" version="1.2.0" package="com.ninjamuffin.monstermashing" company="ninjamuffin" />
 	
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -30,7 +30,9 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<classpath name="source" />
-	<assets path="assets"/>
+	<assets path="assets/images"/>
+	<assets path="assets/data"/>
+	
 	<assets path="assets/music" include="*.mp3" if="flash" />
 	<assets path="assets/music" include="*.ogg" unless="flash" />
 	<assets path="assets/sounds" include="*.mp3" if="flash" />
@@ -51,6 +53,7 @@
 	
 	<!--for vibration!!-->
 	<haxelib name="haxe-hardware" if="android" />
+
 	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 	
@@ -95,5 +98,6 @@
 	<classpath path="source/newgroundsAPI/lib/Source"/>
 	<classpath path="source/djFlixel"/>
 	<classpath path="APIStuff.hx"/>
+	
 	
 </project>

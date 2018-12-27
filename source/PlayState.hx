@@ -307,13 +307,17 @@ class PlayState extends FlxState
 		if (speed < 0.2 || _player.y > 247)
 		{
 			
+			
+			
+			/*
 			if (speed < 0.2)
 			{
 				NG.core.calls.event.logEvent("SlowDeath").send();
 			}
 			else
 				NG.core.calls.event.logEvent("FallDeath").send();
-			
+			*/
+				
 			// if logged into the Newgrounds API, it posts your score to the scoreboard
 			if (NGio.isLoggedIn)
 			{

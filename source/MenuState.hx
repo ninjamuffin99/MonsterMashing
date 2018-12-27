@@ -251,6 +251,7 @@ class MenuState extends FlxState
 			*/
 			
 			var text:FlxText = new FlxText(0, (i * 54) + 320, 0, menuItems[i], 32);
+			var text:FlxText = new FlxText(0, (i * 54) + 320, 0, menuItems[i], 32);
 			text.color = FlxColor.BLACK;
 			text.screenCenter(X);
 			_grpMenu.add(text);
@@ -347,7 +348,8 @@ class MenuState extends FlxState
 						if (touch.overlaps(_grpMenu.members[5]))
 						{
 							vibrate();
-							FlxG.openURL(discordLink);
+							// FlxG.openURL(discordLink);
+							_grpMenu.members[5].text = "Sike, this doesnt \ndo anything";
 						}
 					}
 				}
@@ -430,7 +432,8 @@ class MenuState extends FlxState
 				case 4:
 					FlxG.switchState(new SettingState());
 				case 5:
-					FlxG.openURL(discordLink);
+					// FlxG.openURL(discordLink);
+					_grpMenu.members[5].text = "sike, this doesnt do anything";
 				default:
 			}
 		}
