@@ -20,6 +20,9 @@ Digimin ([@deegeemin](https://twitter.com/deegeemin))
 
 BrandyBuizel
 
+FuShark ([@fushark](https://twitter.com/FuShark))
+
+
 Made with [HaxeFlixel](https://haxeflixel.com/)
 
 For Strawberry Jam 2 on Itch.io: https://itch.io/jam/strawberry-jam-2
