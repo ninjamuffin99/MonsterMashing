@@ -12,7 +12,7 @@ import io.newgrounds.NG;
  * ...
  * @author ninjaMuffin
  */
-class SettingState extends FlxState
+class SettingState extends BaseMenuState
 {
 	public static var masterVol:Float = 1;
 	public static var musicVol:Float = 1;
@@ -53,6 +53,8 @@ class SettingState extends FlxState
 	{
 		NGAPI = new FlxText(32, 350, FlxG.width - 32, "Press N to log into the Newgrounds API!", 28);
 		add(NGAPI);
+		
+		initTilemap(1);
 		
 		_selector = new FlxSpriteGroup();
 		add(_selector);
