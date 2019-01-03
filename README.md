@@ -4,6 +4,26 @@
 An infinite runner game made with HaxeFlixel. This code is a little commented, but some comments may be misleading/out of date so be careful. Also if you go back to the commits before around Feb 18th 2018, the game was originally a turn based RPG! Some of that code is leftover.
 
 ### [Changelog](changelog.md)
+### How to build
+You need [Haxe](http://haxe.org), and [HaxeFlixel](http://haxeflixel.com/documentation/getting-started/) installed. The HaxeFlixel install guide should help you get things up and running http://haxeflixel.com/documentation/install-haxeflixel/
+
+One more thing is the `APIStuff.hx` file, which has the API keys and is gitignored. Add a file called APIStuff.hx to source/ with all the other files, and it should look like this
+```haxe
+package;
+
+class APIStuff
+{
+
+	public static inline var APIID:String = "";
+	public static inline var EncKey:String = "";
+	public static inline var Session:String = "";
+}
+```
+
+For the vibration on Android, we used [Haxe-Hardware](https://github.com/ktravis/haxe-hardware)
+
+Install using `haxelib install git https://github.com/ktravis/haxe-hardware.git` or something like that
+
 ### Credits
 
 Full credits in-game, or in source/CredState.hx
