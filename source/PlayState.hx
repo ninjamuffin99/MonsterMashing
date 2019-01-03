@@ -278,6 +278,11 @@ class PlayState extends FlxState
 			}
 		}
 		
+		if (FlxG.keys.justPressed.UP)
+		{
+			score += 2500;
+		}
+		
 		if (score >= 10000)
 		{
 			if (NGio.isLoggedIn)
@@ -402,7 +407,7 @@ class PlayState extends FlxState
 				}
 				
 				var randomNude:Bool = FlxG.random.bool((score / scoreMax) * 100);
-				openSubState(new MashState(0x77000000, e.etype, randomNude));
+				openSubState(new MashState(0x00000000, e.etype, randomNude));
 			}
 		}
 		
