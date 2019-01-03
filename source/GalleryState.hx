@@ -16,7 +16,7 @@ import flixel.ui.FlxSpriteButton;
  * ...
  * @author 
  */
-class GalleryState extends FlxState 
+class GalleryState extends BaseMenuState
 {
 	// SYNTAX GUIDE
 	// link to image
@@ -155,6 +155,8 @@ class GalleryState extends FlxState
 		#if !mobile
 			FlxG.mouse.visible = true;
 		#end
+		
+		initTilemap(2);
 		
 		bigImage = new FlxSpriteGroup();
 		bigPreview = new FlxSprite();
