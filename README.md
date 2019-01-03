@@ -28,13 +28,13 @@ Install using `haxelib install git https://github.com/ktravis/haxe-hardware.git`
 
 Full credits in-game, or in source/CredState.hx
 
-Programming: 
+#### Programming: 
 
 ninja_muffin99 ([@ninja_muffin99](https://twitter.com/ninja_muffin99))
 
 BrandyBuizel ([@BrandyBuizel](https://twitter.com/BrandyBuizel))
 
-Art:
+#### Art:
 
 Digimin ([@deegeemin](https://twitter.com/deegeemin))
 
