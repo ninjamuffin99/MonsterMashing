@@ -23,6 +23,8 @@ class SettingState extends BaseMenuState
 	public static var aprilFools:Bool = false;
 	//public static var picoDay:Float = 0;
 	
+	public static var mashHold:Bool = false;
+	
 	private var musicTxt:FlxText;
 	private var speedTxt:FlxText;
 	
@@ -33,9 +35,9 @@ class SettingState extends BaseMenuState
 	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume", /*"Game Speed",*/ "April Fools",/* "Pico Day"*/], 
-		[masterVol, musicVol, soundVol, moanVol,/* gameSpeed, */aprilFools/*, picoDay*/],
-		[0, 0, 0, 0, false, 0]
+		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume", "Hold to attack",/* "Pico Day"*/], 
+		[masterVol, musicVol, soundVol, moanVol],
+		[0, 0, 0, 0, false]
 	];
 	
 	private var _selection:Int = 0;

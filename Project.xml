@@ -99,5 +99,9 @@
 	<classpath path="source/djFlixel"/>
 	<classpath path="APIStuff.hx"/>
 	
+	<haxedef name="nutaku" />
+	<haxedef name="newgrounds" />
+	<haxedef name="steam" />
+	
 	
 </project>
