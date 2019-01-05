@@ -407,7 +407,7 @@ class PlayState extends FlxState
 				}
 				
 				var randomNude:Bool = FlxG.random.bool((score / scoreMax) * 100);
-				openSubState(new MashState(0x00000000, e.etype, randomNude));
+				openSubState(new MashState(FlxColor.TRANSPARENT, e.etype, randomNude));
 			}
 		}
 		
