@@ -228,8 +228,13 @@ class GalleryState extends BaseMenuState
 		
 		if (FlxG.onMobile)
 		{
-			if (FlxG.touches.list[0].overlaps(titleText))
-				FlxG.switchState(new MenuState());
+			
+			for (touches in FlxG.touches.list)
+			{
+				if (touches.overlaps(titleText))
+					FlxG.switchState(new MenuState());
+			}
+			
 		}
 		
 		dragControls();
