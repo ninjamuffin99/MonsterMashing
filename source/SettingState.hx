@@ -53,10 +53,12 @@ class SettingState extends BaseMenuState
 	
 	override public function create():Void 
 	{
-		NGAPI = new FlxText(32, 350, FlxG.width - 32, "Press N to log into the Newgrounds API!", 28);
-		add(NGAPI);
-		
 		initTilemap(1);
+		
+		NGAPI = new FlxText(32, 350, FlxG.width - 32, "Press N to log into the Newgrounds API!", 28);
+		#if !nutaku
+		add(NGAPI);
+		#end
 		
 		_selector = new FlxSpriteGroup();
 		add(_selector);
@@ -131,8 +133,7 @@ class SettingState extends BaseMenuState
 		
 		if (FlxG.keys.justPressed.N && !NGio.isLoggedIn)
 		{
-			NGAPI.text = "sike, this doesnt do anything";
-			// var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 		}
 		else if (FlxG.keys.justPressed.N && NGio.isLoggedIn)
 			NG.core.logOut(function()
@@ -196,7 +197,7 @@ class SettingState extends BaseMenuState
 				{
 					if (touch.overlaps(NGAPI) && !NGio.isLoggedIn)
 					{
-						// var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+						var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 						NGAPI.text = "sike, this doesnt do anything";
 					}
 					
@@ -264,9 +265,7 @@ class SettingState extends BaseMenuState
 	{
 		if (FlxG.onMobile)
 		{
-			// NGAPI.text = "Tap here to sign into the Newgrounds API!";
-			
-			
+			NGAPI.text = "Tap here to sign into the Newgrounds API!";
 		}
 		
 		
