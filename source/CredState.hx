@@ -17,7 +17,7 @@ class CredState extends FlxState
 	private var creds:FlxText;
 	private var boxFade:BoxFader;
 	
-	private var credTimer:Float = 6.5;
+	private var credTimer:Float = 5;
 	
 	private var curCredPlacement:Int = 0;
 	
@@ -110,7 +110,7 @@ class CredState extends FlxState
 			"Additional code:",
 			"",
 			"Newgrounds.hx library made by Geokureli",
-			"@geokurelic", //im pretty sure thats his twitter handle
+			"@Geokureli", //im pretty sure thats his twitter handle
 			"https://github.com/Geokureli/Newgrounds.hx",
 			"",
 			"djFlixel effects (just this credits fade stuff lol) made by John Dimitriadis",
@@ -151,7 +151,7 @@ class CredState extends FlxState
 		credTimer -= FlxG.elapsed;
 		if (credTimer < 0)
 		{
-			credTimer = 7.5;
+			credTimer = 6;
 			
 			boxFade.fadeColor(0xFF000000, null, function(){
 				creds.text = "";

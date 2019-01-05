@@ -150,6 +150,8 @@ class GalleryState extends BaseMenuState
 	private var curAnimPlaying:Int = 0;
 	private var isSpritesheet:Bool = false;
 	
+	private var text:FlxText;
+	
 	override public function create():Void 
 	{
 		#if !mobile
@@ -167,7 +169,7 @@ class GalleryState extends BaseMenuState
 		imageText.screenCenter(X);
 		bigImage.add(imageText);
 		
-		var text:FlxText = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 16);
+		text = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 20);
 		add(text);
 		
 		
@@ -222,6 +224,9 @@ class GalleryState extends BaseMenuState
 	{
 		#if !mobile
 			keyboardControls();
+		#else
+			if (FlxG.touches.list[0].overlaps(text))
+				FlxG.switchState(new MenuState());
 		#end
 		
 		dragControls();
@@ -238,6 +243,7 @@ class GalleryState extends BaseMenuState
 			bigPreview.updateHitbox();
 			bigPreview.screenCenter();
 		}
+		
 		#end
 		
 		if (FlxG.keys.justPressed.ESCAPE)
