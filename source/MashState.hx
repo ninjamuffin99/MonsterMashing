@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxCamera;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -31,6 +32,7 @@ class MashState extends FlxSubState
 	private var _enemySprite:FlxSprite;
 	private var _enemyHealth:Float = 10;
 	private var thisCam:FlxCamera;
+	private var camFollow:CamFollow;
 	private var mashX:Bool = false;
 	
 	private var maxShake:Float = 0.05;
@@ -157,6 +159,11 @@ class MashState extends FlxSubState
 		
 		//thisCam is then set to center on the middle of _enemySprite
 		thisCam.focusOn(_enemySprite.getMidpoint());
+		
+		camFollow = new CamFollow(_enemySprite.getMidpoint().x, _enemySprite.getMidpoint().y, 1, 1, thisCam);
+		add(camFollow);
+		
+		thisCam.follow(camFollow);
 		
 		_mashSprite = new FlxSprite(0, 800);
 		_mashSprite.loadGraphic(AssetPaths.left_and_right__png, true, 64, 32);
@@ -300,7 +307,9 @@ class MashState extends FlxSubState
 		#end
 		
 		//shakes the camera
-		thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
+		
+		// thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
+		camFollow.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
 		_enemySprite.animation.play("hit");
 		//_enemySprite.animation.play("normal");
 		
