@@ -278,7 +278,7 @@ class PlayState extends FlxState
 			}
 		}
 		
-		if (FlxG.keys.justPressed.UP)
+		if (FlxG.keys.justPressed.UP && FlxG.keys.pressed.B)
 		{
 			score += 2500;
 		}
