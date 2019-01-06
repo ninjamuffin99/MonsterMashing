@@ -271,7 +271,8 @@ class SettingState extends BaseMenuState
 		
 		if (NGio.isLoggedIn)
 		{
-			NGAPI.text = "Logged into the Newgrounds API as " + NG.core.user.name;
+			//NGAPI.text = "Logged into the Newgrounds API as " + NG.core.user.name;
+			NGAPI.text = "Logged into the Newgrounds API as no one lol";
 			
 			if (NGio.scoreboardsLoaded)
 			{

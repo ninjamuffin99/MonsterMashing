@@ -56,7 +56,7 @@ class NGio
 	
 	function onNGLogin():Void
 	{
-		trace ('logged in! user:${NG.core.user.name}');
+		// trace ('logged in! user:${NG.core.user.name}');
 		isLoggedIn = true;
 		FlxG.save.data.sessionId = NG.core.sessionId;
 		FlxG.save.flush();

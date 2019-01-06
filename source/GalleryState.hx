@@ -58,8 +58,7 @@ class GalleryState extends BaseMenuState
 		[
 			"assets/images/mmLogo.png",
 			"logo thing"
-		]
-		/*
+		],
 		[
 			"assets/images/preloaderArt.png",
 			"Coolguy PhantomArcade, at the Ambler Theater before the Newgrounds Pico Day Reanimated event from Oct twenty something"
@@ -138,7 +137,7 @@ class GalleryState extends BaseMenuState
 			"assets/images/fanart/mushOogtarded.png",
 			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
 		],
-		*/
+		
 	];
 	
 	private var bigImage:FlxSpriteGroup;
@@ -171,6 +170,36 @@ class GalleryState extends BaseMenuState
 		
 		titleText = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 20);
 		add(titleText);
+		
+		_grpThumbnails = new FlxTypedGroup<FlxSpriteButton>();
+		add(_grpThumbnails);
+		
+		for (i in 0...grid.length)
+		{
+			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
+			
+			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
+				curOpen = i;
+				isSpritesheet = false;
+				
+				openImage(curOpen);
+			});
+			gridBG.makeGraphic(100, 100);
+			_grpThumbnails.add(gridBG);
+			
+			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
+			gridThing.loadGraphic(grid[i][0]);
+			
+			var testSize:Int = 90;
+			if (gridThing.width > gridThing.height)
+				gridThing.setGraphicSize(testSize);
+			else
+				gridThing.setGraphicSize(0, testSize);
+			
+			gridThing.updateHitbox();
+			gridThing.setPosition(gridBG.getMidpoint().x - (gridThing.width / 2), gridBG.getMidpoint().y - (gridThing.height / 2)); 
+			add(gridThing);
+		}
 		
 		
 		add(bigImage);
@@ -208,10 +237,12 @@ class GalleryState extends BaseMenuState
 			}
 		}
 		
-		if (bigPreview.width < bigPreview.height)
-			bigPreview.setGraphicSize(0, Std.int(FlxG.width * 0.75));
-		else
-			bigPreview.setGraphicSize(Std.int(FlxG.height * 0.75));
+		bigPreview.setGraphicSize(0, Std.int(FlxG.height));
+		bigPreview.updateHitbox();
+		bigPreview.screenCenter();
+		
+		if (bigPreview.width >= FlxG.width)
+			bigPreview.setGraphicSize(Std.int(FlxG.width * 0.9));
 		
 		bigPreview.updateHitbox();
 		bigPreview.screenCenter();
