@@ -157,6 +157,8 @@ class PlayState extends FlxState
 			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingState.musicVol * SettingState.masterVol);
         #end
 		
+		forEach(function(b:FlxBasic){b.cameras = [FlxG.camera]; });
+		
 		super.create();
 	}
 	
