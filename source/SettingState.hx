@@ -145,6 +145,13 @@ class SettingState extends BaseMenuState
 			});
 	}
 	
+	override public function switchTo(nextState:FlxState):Bool 
+	{
+		HighScore.save();
+		
+		return super.switchTo(nextState);
+	}
+	
 	private function controls():Void
 	{
 		

@@ -157,6 +157,7 @@ class PlayState extends FlxState
 			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingState.musicVol * SettingState.masterVol);
         #end
 		
+		// makesit so that every item in this FlxState's little display list thing, only shows on the main gameplay camera, not the mashstate camera
 		forEach(function(b:FlxBasic){b.cameras = [FlxG.camera]; });
 		
 		super.create();

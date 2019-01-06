@@ -31,12 +31,12 @@ class HighScore
 		{
 			score = FlxG.save.data.score;
 			totalScore = FlxG.save.data.totalScore;
-			/*
+			
 			SettingState.masterVol = FlxG.save.data.masterVol;
 			SettingState.moanVol = FlxG.save.data.moanVol;
 			SettingState.musicVol = FlxG.save.data.musicVol;
 			SettingState.soundVol = FlxG.save.data.soundVol;
-			*/
+			
 		}
 	}
 }
