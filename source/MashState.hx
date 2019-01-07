@@ -192,6 +192,11 @@ class MashState extends FlxSubState
 	{
 		super.update(elapsed);
 		
+		/*
+		if (FlxG.keys.anyJustPressed(["ENTER", "ESCAPE"]))
+			openSubState(new PauseSubstate());
+		*/
+			
 		//if the enemy's health is less than 0, and the outcome isn't VICTORY, then it finishes shit up
 		if (_enemyHealth <= 0 && outcome != VICTORY)
 		{
