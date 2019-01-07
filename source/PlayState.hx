@@ -268,6 +268,9 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
+		if (FlxG.keys.anyJustPressed(["ENTER", "ESCAPE"]))
+			openSubState(new PauseSubstate());
+		
 		//if speed is greater than maxSpeed(15 as of writing), it lowers it to maxSpeed
 		if (speed > maxSpeed)
 		{
