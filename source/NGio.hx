@@ -129,5 +129,7 @@ class NGio
 		
 		var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
 		board.postScore(HighScore.score);
+		
+		NGio.scoreboardArray = NG.core.scoreBoards.get(8004).scores;
 	}
 }
