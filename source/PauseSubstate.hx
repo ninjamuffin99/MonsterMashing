@@ -9,6 +9,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import io.newgrounds.objects.Score;
 
 /**
  * ...
@@ -60,6 +61,23 @@ class PauseSubstate extends FlxSubState
 			
 			text.alpha = 0;
 			FlxTween.tween(text, {alpha: 1, y: text.y + 5}, 0.13, {ease: FlxEase.quartOut, startDelay: 0.12 * i});
+		}
+		
+		if (NGio.isLoggedIn && NGio.scoreboardsLoaded)
+		{
+			for (i in 0...5)
+			{
+				var score:Score = NGio.scoreboardArray[i];
+				var stringThing = (i + 1) + ": " + score.user.name + " - " + score.formatted_value;
+				var scoreText:FlxText = new FlxText(0, (i * 15)  + 470, 0, stringThing, 8);
+				scoreText.screenCenter(X);
+				scoreText.scrollFactor.set();
+				add(scoreText);
+				
+				scoreText.alpha = 0;
+				
+				FlxTween.tween(scoreText, {alpha: 1, y: scoreText.y + 3}, 0.9, {ease: FlxEase.quartOut, startDelay: (0.12 * menuItems.length) + (0.2 * i)});
+			}
 		}
 		
 		if (FlxG.onMobile)
