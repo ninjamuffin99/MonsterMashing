@@ -23,6 +23,7 @@ import io.newgrounds.Call;
 import io.newgrounds.NG;
 import io.newgrounds.NGLite;
 import openfl.display.BlendMode;
+import steamwrap.api.Steam;
 using flixel.util.FlxSpriteUtil;
 
 import com.newgrounds.*;
@@ -268,6 +269,10 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
+		#if steam
+			Steam.onEnterFrame();
+		#end
+		
 		if (FlxG.keys.anyJustPressed(["ENTER", "ESCAPE"]))
 			openSubState(new PauseSubstate());
 		
@@ -335,6 +340,16 @@ class PlayState extends FlxState
 				var board = NG.core.scoreBoards.get(8004);// ID found in NG project view
 				board.postScore(Std.int(score));
 			}
+			
+			#if steam
+				if (Steam.active)
+				{
+					var steamBoard:LeaderboardScore = new LeaderboardScore("Distance", Std.int(score), 0, -1);
+					Steam.uploadLeaderboardScore(steamBoard);
+					
+					Steam.setAchievement("NEW_ACHIEVEMENT_1_0");
+				}
+			#end
 			
 			if (score > HighScore.score)
 			{

@@ -94,7 +94,9 @@ class MenuState extends BaseMenuState
 		//FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
+		#if steam
 		initSteamShit();
+		#end
 		
 		if (FlxG.save.data.sessionId != null && !NGio.isLoggedIn)
 		{				
@@ -143,7 +145,27 @@ class MenuState extends BaseMenuState
 	private function initSteamShit():Void
 	{
 		Steam.init(998770, SteamNotificationPosition.TopLeft);
+		Steam.whenAchievementStored = steamWrap_onAchievementStored;
+		Steam.whenLeaderboardScoreDownloaded = steamWrap_onLeaderboardScoreDownloaded;
+		Steam.whenLeaderboardScoreUploaded = steamUpload;
+		
 	}
+	
+	private static function steamWrap_onAchievementStored(id:String)
+	{
+		trace("Achievement stored: " + id);
+	}
+	
+	private static function steamUpload(score:LeaderboardScore)
+	{
+		trace("LEADERBOARD SCORE UPLOADED: " + score.toString());
+	}
+
+	private static function steamWrap_onLeaderboardScoreDownloaded(score:steamwrap.api.Steam.LeaderboardScore)
+	{
+		trace("Leaderboard score downloaded: " + score.toString());
+	}
+	
 	
 	private function initImages():Void
 	{
@@ -248,6 +270,10 @@ class MenuState extends BaseMenuState
 	
 	override public function update(elapsed:Float):Void
 	{
+		#if steam
+			Steam.onEnterFrame();
+		#end
+		
 		#if !mobile
 		if (FlxG.keys.justPressed.T){
 			FlxG.switchState(new SettingState());}
