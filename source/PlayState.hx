@@ -405,7 +405,7 @@ class PlayState extends FlxState
 				
 				
 				// at most, you can have an 80% chance to see tiddy i think
-				var scoreMax:Float = 20000;
+				var scoreMax:Float = 50000;
 				
 				if (score * 1.2 > scoreMax)
 				{

@@ -18,6 +18,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import io.newgrounds.NGLite;
+import steamwrap.api.Steam;
 
 #if android
 import Hardware;
@@ -93,6 +94,7 @@ class MenuState extends BaseMenuState
 		//FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
 		
+		initSteamShit();
 		
 		if (FlxG.save.data.sessionId != null && !NGio.isLoggedIn)
 		{				
@@ -138,6 +140,11 @@ class MenuState extends BaseMenuState
 		super.create();
 	}
 	
+	private function initSteamShit():Void
+	{
+		Steam.init(998770, SteamNotificationPosition.TopLeft);
+	}
+	
 	private function initImages():Void
 	{
 		
@@ -164,6 +171,7 @@ class MenuState extends BaseMenuState
 		*/
 		//add(sprMashing);
 		add(sprMonster);
+		
 	}
 	
 	
