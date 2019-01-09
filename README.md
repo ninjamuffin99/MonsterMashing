@@ -48,3 +48,5 @@ Made with [HaxeFlixel](https://haxeflixel.com/)
 For Strawberry Jam 2 on Itch.io: https://itch.io/jam/strawberry-jam-2
 
 [Newgrounds.hx](https://github.com/Geokureli/Newgrounds.hx) is the Haxe library for the [newgrounds.io](https://www.newgrounds.io/) Newgrounds API, which was implemented in Haxe by [Geokureli](https://geokureli.newgrounds.com/)
+
+[SteamWrap](https://github.com/larsiusprime/SteamWrap) is the Haxe library for the Steam API, which was originally made by [Lucas Pope](https://twitter.com/dukope) for [Papers, Please](http://papersplea.se/), and then forked and updated and shit by [Lars Doucet](https://twitter.com/larsiusprime)
