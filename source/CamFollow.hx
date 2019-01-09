@@ -71,6 +71,8 @@ class CamFollow extends FlxObject
 				}
 			}
 		}
+		else
+			setPosition(initPos.x, initPos.y);
 	}
 	
 	/**

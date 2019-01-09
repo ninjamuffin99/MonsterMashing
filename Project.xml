@@ -99,4 +99,15 @@
 	<classpath path="source/djFlixel"/>
 	<classpath path="APIStuff.hx"/>
 	
+	<section if="windows">
+		<haxelib name="steamwrap"/>
+	 
+	   <!-- Replace the question marks with your Steam App ID -->
+	   <setenv name="STEAM_APP_ID" value="998770" />
+		
+	   <!-- OS X only: Set this value to the same value as the file property of your <app> node, this is needed to embed things into the generated .app file -->
+	   <!-- Setting this for other platforms won't do any harm, so you can safely leave it enabled for everything -->
+	   <!--<set name="APP_FILE" value="??????" />-->
+   </section>
+	
 </project>
