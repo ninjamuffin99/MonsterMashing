@@ -129,7 +129,7 @@ class CredState extends FlxState
 			"",
 			"",
 			"",
-			"",
+			"Wanda",
 			"",
 			"No one else lol",
 			"",

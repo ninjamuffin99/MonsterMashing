@@ -149,6 +149,13 @@ class MenuState extends BaseMenuState
 		Steam.whenLeaderboardScoreDownloaded = steamWrap_onLeaderboardScoreDownloaded;
 		Steam.whenLeaderboardScoreUploaded = steamUpload;
 		
+		Steam.whenTrace = steamTrace;
+		
+	}
+	
+	private static function steamTrace(str:String)
+	{
+		trace(str);
 	}
 	
 	private static function steamWrap_onAchievementStored(id:String)
