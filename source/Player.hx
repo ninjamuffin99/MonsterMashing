@@ -3,6 +3,8 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.input.actions.FlxAction;
+import flixel.input.actions.FlxActionManager;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -27,7 +29,6 @@ class Player extends FlxSprite
 	
 	private var boostTimer:Float = 0.25;
 	private var boostLorR:String;
-	
 	
 	public var _upR:Bool = false;
 	
@@ -57,6 +58,7 @@ class Player extends FlxSprite
 	//Movement controls
 	private function controls():Void
 	{
+		
 		_up = FlxG.keys.anyPressed([UP, W]);
 		_down = FlxG.keys.anyPressed([DOWN, S]);
 		_left = FlxG.keys.anyPressed([LEFT, A]);
@@ -79,7 +81,7 @@ class Player extends FlxSprite
 			mobileChecks();
 		#end
 		
-		if (/*_up || _down || */_left || _right)
+		if (_left || _right)
 		{
 			/**
 			 * Movement Angle

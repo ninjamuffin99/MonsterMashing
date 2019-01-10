@@ -11,6 +11,7 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxVector;
 import flixel.text.FlxText;
 import flixel.ui.FlxSpriteButton;
+import flixel.util.FlxColor;
 
 /**
  * ...
@@ -145,7 +146,9 @@ class GalleryState extends BaseMenuState
 	private var bigPreview:FlxSprite;
 	private var imageText:FlxText;
 	
+	private var curSelected = 0;
 	private var curOpen:Int = 0;
+	private var isOpen:Bool = false;
 	private var curAnimPlaying:Int = 0;
 	private var isSpritesheet:Bool = false;
 	
@@ -179,10 +182,16 @@ class GalleryState extends BaseMenuState
 			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
 			
 			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
-				curOpen = i;
-				isSpritesheet = false;
 				
-				openImage(curOpen);
+				if (!isOpen)
+				{
+					curOpen = i;
+					isSpritesheet = false;
+					
+					openImage(curOpen);
+				}
+				
+				
 			});
 			gridBG.makeGraphic(100, 100);
 			_grpThumbnails.add(gridBG);
@@ -210,6 +219,7 @@ class GalleryState extends BaseMenuState
 	
 	private function openImage(i:Int):Void
 	{
+		isOpen = true;
 		curAnimPlaying = 0;
 		bigImage.visible = true;
 		bigPreview.loadGraphic(grid[i][0]);
@@ -257,6 +267,26 @@ class GalleryState extends BaseMenuState
 			keyboardControls();
 		#end
 		
+		bigImage.visible = isOpen;
+		
+		if (curSelected < 0)
+			curSelected = _grpThumbnails.length - 1;
+		if (curSelected >= _grpThumbnails.length)
+			curSelected = 0;
+		
+		_grpThumbnails.forEach(function(btn:FlxSpriteButton)
+		{
+			btn.color = FlxColor.BLUE;
+		});
+		
+		for (i in 0..._grpThumbnails.members.length)
+		{
+			if (curSelected == i)
+			{
+				_grpThumbnails.members[i].color = FlxColor.WHITE;
+			}
+		}
+		
 		if (FlxG.onMobile)
 		{
 			
@@ -286,62 +316,99 @@ class GalleryState extends BaseMenuState
 		#end
 		
 		if (FlxG.keys.justPressed.ESCAPE)
-			FlxG.switchState(new MenuState());
-		
-		if (FlxG.keys.justPressed.LEFT)
 		{
-			if (grid[curOpen][2])
+			if (isOpen)
 			{
-				curAnimPlaying -= 1;
-				if (curAnimPlaying < 0)
-				{
-					curAnimPlaying = grid[curOpen][5].length;
-					curAnimPlaying -= 1;
-				}
-				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+				isOpen = false;
 			}
-		}
-		
-		
-		if (FlxG.keys.justPressed.RIGHT)
-		{
-			if (grid[curOpen][2])
+			else
 			{
-				curAnimPlaying += 1;
-				if (curAnimPlaying > grid[curOpen][5].length - 1)
-				{
-					curAnimPlaying = 0;
-				}
-				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+				FlxG.switchState(new MenuState());
 			}
-		}
-		
-		if (FlxG.keys.justPressed.E)
-		{
-			isSpritesheet = !isSpritesheet;
 			
-			openImage(curOpen);
 		}
 		
-		
-		// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
-		if (FlxG.keys.pressed.S)
+		if (isOpen)
 		{
-			bigPreview.offset.y += 10;
+			if (FlxG.keys.justPressed.LEFT)
+			{
+				if (grid[curOpen][2])
+				{
+					curAnimPlaying -= 1;
+					if (curAnimPlaying < 0)
+					{
+						curAnimPlaying = grid[curOpen][5].length;
+						curAnimPlaying -= 1;
+					}
+					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+				}
+			}
+			
+			
+			if (FlxG.keys.justPressed.RIGHT)
+			{
+				if (grid[curOpen][2])
+				{
+					curAnimPlaying += 1;
+					if (curAnimPlaying > grid[curOpen][5].length - 1)
+					{
+						curAnimPlaying = 0;
+					}
+					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+				}
+			}
+			
+			if (FlxG.keys.justPressed.E)
+			{
+				isSpritesheet = !isSpritesheet;
+				
+				openImage(curOpen);
+			}
+			
+			
+			// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
+			if (FlxG.keys.pressed.S)
+			{
+				bigPreview.offset.y += 10;
+			}
+			if (FlxG.keys.pressed.W)
+			{
+				bigPreview.offset.y -= 10;
+			}
+			
+			if (FlxG.keys.pressed.D)
+			{
+				bigPreview.offset.x += 10;
+			}
+			
+			if (FlxG.keys.pressed.A)
+			{
+				bigPreview.offset.x -= 10;
+			}
 		}
-		if (FlxG.keys.pressed.W)
+		else //if ur navigating the image
 		{
-			bigPreview.offset.y -= 10;
-		}
-		
-		if (FlxG.keys.pressed.D)
-		{
-			bigPreview.offset.x += 10;
-		}
-		
-		if (FlxG.keys.pressed.A)
-		{
-			bigPreview.offset.x -= 10;
+			if (FlxG.keys.anyJustPressed([D, RIGHT]))
+			{
+				curSelected += 1;
+			}
+			if (FlxG.keys.anyJustPressed([A, LEFT]))
+			{
+				curSelected -= 1;
+			}
+			
+			if (FlxG.keys.anyJustPressed([W, UP]))
+			{
+				curSelected -= 4;
+			}
+			if (FlxG.keys.anyJustPressed([S, DOWN]))
+				curSelected += 4;
+			
+			if (FlxG.keys.anyJustPressed([SPACE, ENTER]))
+			{
+				isSpritesheet = false;
+				openImage(curSelected);
+			}
 		}
 		
 	}

@@ -15,7 +15,7 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="C:\Users\goober\flixel-tools\flixel\4,5,1" />
+    <class path="C:\Users\goober\flixel-tools\flixel\git" />
     <class path="C:\Users\goober\flixel-tools\openfl\3,6,1" />
     <class path="C:\Users\goober\flixel-tools\lime\2,9,1" />
     <class path="C:\Users\goober\flixel-tools\hscript\2,3,0" />
@@ -31,7 +31,7 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="flixel=4.5.1&#xA;openfl=3.6.1&#xA;lime=2.9.1&#xA;hscript=2.3.0&#xA;flixel-addons=2.7.1&#xA;steamwrap=1.0.0&#xA;openfl-next&#xA;FLX_NO_FOCUS_LOST_SCREEN&#xA;tools=2.9.1&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop&#xA;display" />
+    <option directives="flixel=4.6.0&#xA;openfl=3.6.1&#xA;lime=2.9.1&#xA;hscript=2.3.0&#xA;flixel-addons=2.7.1&#xA;steamwrap=1.0.0&#xA;openfl-next&#xA;FLX_NO_FOCUS_LOST_SCREEN&#xA;tools=2.9.1&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
