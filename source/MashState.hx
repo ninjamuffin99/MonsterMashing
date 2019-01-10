@@ -61,6 +61,10 @@ class MashState extends FlxSubState
 		if (NUDE)
 			isNude = 1;
 		
+		#if !nutaku
+			isNude = 0;
+		#end
+		
 		//sets the outcome to NONE just in-case
 		outcome = NONE;
 	}
@@ -76,72 +80,38 @@ class MashState extends FlxSubState
 		//then the _enemySprite is created and loaded(will get different sprites goin in a bit)
 		_enemySprite = new FlxSprite(48, 0);
 		
-		//April Fools Code
-		if (SettingState.aprilFools)
-		{
-			switch (enemyType) 
-			{
-				case 0:
-					_enemySprite.loadGraphic("assets/images/hotGF.png", true, 800, 1200);
-				case 1:
-					_enemySprite.loadGraphic("assets/images/sonky.png", true, 800, 1200);
-				case 2: 
-					_enemySprite.loadGraphic("assets/images/kirbyGF.png", true, 800, 1200);
-				case 3:
-					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
-				default:
-					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
-			}
-		}
-		/*
-		//Pico Day Code
-		}else if (SettingState.picoDay == 1){
-			switch (enemyType) 
-			{
-				case 0:
-					_enemySprite.loadGraphic("assets/images/hotGF.png", true, 800, 1200);
-				case 1:
-					_enemySprite.loadGraphic("assets/images/sonky.png", true, 800, 1200);
-				case 2: 
-					_enemySprite.loadGraphic("assets/images/kirbyGF.png", true, 800, 1200);
-				case 3:
-					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
-				default:
-					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
-			}
 		
-		}*/
-		else{
-			var tex;
-			
-			switch (enemyType) 
-			{
-				case 0:
-					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
-					moanDir = "Mush";
-				case 1:
-					_enemySprite.loadGraphic("assets/images/vineSheet.png", true, 800, 1200);
-					moanDir = "Vine";
-				case 2: 
-					_enemySprite.loadGraphic("assets/images/batSheet.png", true, 800, 1200);
-					moanDir = "Bat";
-				case 3:
-					_enemySprite.loadGraphic("assets/images/slimeSheet.png", true, 800, 1200);
-					moanDir = "Mush";
-				case 4:
-					_enemySprite.loadGraphic("assets/images/minotaurSheet.png", true, 800, 1200);
-					moanDir = "Mino";
-				case 5:
-					_enemySprite.loadGraphic("assets/images/echidnaSheet.png", true, 800, 1200);
-					moanDir = "Echid";
-				case 6:
-					_enemySprite.loadGraphic("assets/images/clamSheet.png", true, 800, 1200);
-					moanDir = "Mush";
-				default:
-					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
-					moanDir = "Mush";
-			}
+		
+		var tex;
+		
+		switch (enemyType) 
+		{
+			case 0:
+				_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
+				moanDir = "Mush";
+			case 1:
+				_enemySprite.loadGraphic("assets/images/vineSheet.png", true, 800, 1200);
+				moanDir = "Vine";
+			case 2: 
+				_enemySprite.loadGraphic("assets/images/batSheet.png", true, 800, 1200);
+				moanDir = "Bat";
+			case 3:
+				_enemySprite.loadGraphic("assets/images/slimeSheet.png", true, 800, 1200);
+				moanDir = "Mush";
+			case 4:
+				_enemySprite.loadGraphic("assets/images/minotaurSheet.png", true, 800, 1200);
+				moanDir = "Mino";
+			case 5:
+				_enemySprite.loadGraphic("assets/images/echidnaSheet.png", true, 800, 1200);
+				moanDir = "Echid";
+			case 6:
+				_enemySprite.loadGraphic("assets/images/clamSheet.png", true, 800, 1200);
+				moanDir = "Mush";
+			default:
+				_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
+				moanDir = "Mush";
 		}
+		
 		
 		_enemySprite.animation.add("normal", [0]);
 		_enemySprite.animation.add("hit", [1, 1, 1, 0], 12, false);

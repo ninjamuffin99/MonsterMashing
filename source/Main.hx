@@ -4,7 +4,7 @@ import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Lib;
 import openfl.events.Event;
-//import js.SWFObject;
+
 import openfl.display.Sprite;
 import openfl.Assets;
 
