@@ -232,7 +232,23 @@ class SettingState extends BaseMenuState
 	{
 		// This only works for float values, for bool (april fools toggle for an example) the other commented junk might work better i think
 		// I'd still ahve to clean it up
-		settingsArray[1][_selection] += diff;
+		
+		
+		if (Type.typeof(settingsArray[0][_selection]) == TBool)
+		{
+			settingsArray[1][_selection] = !settingsArray[1][_selection];
+		}
+		else
+		{
+			settingsArray[1][_selection] += diff;
+			
+			
+			if (settingsArray[1][_selection] < settingsArray[2][_selection])
+				settingsArray[1][_selection] = settingsArray[2][_selection];
+			
+			settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
+			
+		}
 		/*
 		if (settingsArray[1][_selection] || !settingsArray[1][_selection])
 		{
@@ -254,17 +270,12 @@ class SettingState extends BaseMenuState
 		}
 		
 		
-		if (settingsArray[1][_selection] < settingsArray[2][_selection])
-			settingsArray[1][_selection] = settingsArray[2][_selection];
-		
-		settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
-		
 		masterVol = settingsArray[1][0];
 		musicVol = settingsArray[1][1];
 		soundVol = settingsArray[1][2];
 		moanVol = settingsArray[1][3];
 		//gameSpeed = settingsArray[1][4];
-		aprilFools = settingsArray[1][4];//MAKE SURE THIS IS CHANGED ONCE WE USE GAME SPEED MODIFIERS
+		mashHold = settingsArray[1][4];//MAKE SURE THIS IS CHANGED ONCE WE USE GAME SPEED MODIFIERS
 		//picoDay = settingsArray[1][0];
 	}
 	

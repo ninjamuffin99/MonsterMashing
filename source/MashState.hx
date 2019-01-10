@@ -29,6 +29,7 @@ class MashState extends FlxSubState
 	private var enemyType:Int = 0;
 	
 	private var _mashSprite:FlxSprite;
+	
 	private var _enemySprite:FlxSprite;
 	private var _enemyHealth:Float = 10;
 	private var thisCam:FlxCamera;
@@ -284,7 +285,7 @@ class MashState extends FlxSubState
 		//shakes the camera
 		
 		// thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
-		camFollow.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
+		camFollow.shake(FlxG.random.float(0.01, 0.03), FlxG.random.float(0.05, 0.2));
 		_enemySprite.animation.play("hit");
 		//_enemySprite.animation.play("normal");
 		
