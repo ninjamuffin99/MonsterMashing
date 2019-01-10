@@ -258,27 +258,43 @@ class MenuState extends BaseMenuState
 		add(debugInfo);
 		
 		#if flash
-			debugInfo.text += " Flash Version";
+			debugInfo.text += " Flash";
 		#elseif html5
-			debugInfo.text += " HTML5 Version ";
+			debugInfo.text += " HTML5 ";
 			debugInfo.text += "(" + Std.string(FlxG.html5.platform) + " " +  Std.string(FlxG.html5.browser) + ")";
 			
 			if (FlxG.html5.onMobile)
 			{
-				debugInfo.text += "mobile";
+				debugInfo.text += " mobile";
 			}
 		#elseif android
-			debugInfo.text += " Android Version";
+			debugInfo.text += " Android";
 		#elseif windows
-			debugInfo.text += " Windows Version";
+			debugInfo.text += " Windows";
 			
 		#end
+		
+		#if nutaku
+			debugInfo.text += " Nutaku";
+		#elseif steam
+			debugInfo.text += " Steam";
+		#elseif newgrounds
+			debugInfo.text += " Newgrounds";
+		#end
+		
+		debugInfo.text += " Version";
 	}
 	
 	override public function update(elapsed:Float):Void
 	{
 		#if steam
 			Steam.onEnterFrame();
+			
+			if (FlxG.keys.justPressed.P)
+			{
+				Steam.downloadLeaderboardScore("Distance");
+				Steam.whenLeaderboardScoreDownloaded = function(board:LeaderboardScore){trace("SCORE: " + board.score); };
+			}
 		#end
 		
 		#if !mobile

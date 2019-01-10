@@ -9,6 +9,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import io.newgrounds.NG;
 import io.newgrounds.objects.Score;
+import steamwrap.api.Steam;
 
 /**
  * ...
@@ -78,10 +79,15 @@ class ScoreState extends FlxSubState
 		}
 		else
 		{
+			#if steam
+				
+			#else
+				hallOfShame.text += "\n\nYou are not \nlogged into the NG API\n Head to settings!\n\n";
+				hallOfShame.screenCenter(X);
+				hallOfShame.alignment = FlxTextAlign.CENTER;
+			#end
 			
-			hallOfShame.text += "\n\nYou are not \nlogged into the NG API\n Head to settings!\n\n";
-			hallOfShame.screenCenter(X);
-			hallOfShame.alignment = FlxTextAlign.CENTER;
+			
 		}
 	}
 	
@@ -128,14 +134,14 @@ class ScoreState extends FlxSubState
 			
 			
 			leaderBoardPlacement += 1;
-			
-			
 		}
 		
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
+		
+		
 		if (!scoreboardInitialized && NGio.scoreboardsLoaded)
 		{
 			checkScores();
