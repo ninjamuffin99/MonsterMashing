@@ -9,8 +9,9 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import io.newgrounds.NG;
 import io.newgrounds.objects.Score;
+#if steam
 import steamwrap.api.Steam;
-
+#end
 /**
  * ...
  * @author ninjaMuffin

@@ -23,7 +23,9 @@ import io.newgrounds.Call;
 import io.newgrounds.NG;
 import io.newgrounds.NGLite;
 import openfl.display.BlendMode;
+#if steam
 import steamwrap.api.Steam;
+#end
 using flixel.util.FlxSpriteUtil;
 
 import com.newgrounds.*;
