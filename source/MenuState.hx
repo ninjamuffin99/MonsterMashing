@@ -18,16 +18,15 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import io.newgrounds.NGLite;
+
+#if steam
 import steamwrap.api.Steam;
+#end
 
 #if android
 import Hardware;
 #end
 
-/*
-import io.newgrounds.objects.Medal;
-import io.newgrounds.objects.ScoreBoard;
-*/
 class MenuState extends BaseMenuState
 {
 	private var mScore:FlxText;
@@ -142,6 +141,7 @@ class MenuState extends BaseMenuState
 		super.create();
 	}
 	
+	#if steam
 	private function initSteamShit():Void
 	{
 		Steam.init(998770, SteamNotificationPosition.TopLeft);
@@ -172,7 +172,7 @@ class MenuState extends BaseMenuState
 	{
 		trace("Leaderboard score downloaded: " + score.toString());
 	}
-	
+	#end
 	
 	private function initImages():Void
 	{
