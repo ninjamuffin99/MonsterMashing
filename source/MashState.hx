@@ -203,7 +203,14 @@ class MashState extends FlxSubState
 		}
 		
 		#if !mobile
-			if (FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
+			var mashShit = FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]);
+			
+			if (FlxG.gamepads.lastActive != null)
+			{
+				mashShit = FlxG.gamepads.lastActive.justPressed.ANY;
+			}
+			
+			if (mashShit && _enemyHealth > 0)
 			{
 				if (mashX)
 				{
