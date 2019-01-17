@@ -50,6 +50,7 @@ class SettingState extends BaseMenuState
 	
 	private var exitTxt:FlxText;
 	private var NGAPI:FlxText;
+	private var deleteText:FlxText;
 	
 	override public function create():Void 
 	{
@@ -59,6 +60,9 @@ class SettingState extends BaseMenuState
 		#if !nutaku
 		add(NGAPI);
 		#end
+		
+		deleteText = new FlxText(32, 420, FlxG.width - 32, "Press P to delete all data!", 28);
+		add(deleteText);
 		
 		_selector = new FlxSpriteGroup();
 		add(_selector);
@@ -129,6 +133,14 @@ class SettingState extends BaseMenuState
 		for (t in 0..._grpValues.members.length)
 		{
 			_grpValues.members[t].text = Std.string(settingsArray[1][t]); 
+		}
+		
+		if (FlxG.keys.justPressed.P)
+		{
+			HighScore.score = 0;
+			HighScore.totalScore = 0;
+			HighScore.save();
+			deleteText.text = "Data deleted";
 		}
 		
 		if (FlxG.keys.justPressed.N && !NGio.isLoggedIn)
