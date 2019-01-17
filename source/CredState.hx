@@ -136,6 +136,17 @@ class CredState extends FlxState
 			"only him",
 		],
 		[
+			"god",
+			"",
+			"TMoneyBloodCrip",
+			"aka",
+			"Trevord70",
+			"aka",
+			"Soulja Boy",
+			"aka",
+			"a",
+		],
+		[
 			"Community Creds:",
 			"Hall of Shame suggested by BurstAppendix",
 			"Total Score tracker suggested by Cyberdevil",
@@ -149,6 +160,8 @@ class CredState extends FlxState
 	override public function update(elapsed:Float):Void 
 	{
 		credTimer -= FlxG.elapsed;
+		
+		
 		if (credTimer < 0)
 		{
 			credTimer = 6;

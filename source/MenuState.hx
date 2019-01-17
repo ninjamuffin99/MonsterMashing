@@ -168,7 +168,7 @@ class MenuState extends BaseMenuState
 		trace("LEADERBOARD SCORE UPLOADED: " + score.toString());
 	}
 
-	private static function steamWrap_onLeaderboardScoreDownloaded(score:steamwrap.api.Steam.LeaderboardScore)
+	private static function steamWrap_onLeaderboardScoreDownloaded(score:Array<LeaderboardScore>)
 	{
 		trace("Leaderboard score downloaded: " + score.toString());
 	}
@@ -292,8 +292,17 @@ class MenuState extends BaseMenuState
 			
 			if (FlxG.keys.justPressed.P)
 			{
-				Steam.downloadLeaderboardScore("Distance");
-				Steam.whenLeaderboardScoreDownloaded = function(board:LeaderboardScore){trace("SCORE: " + board.score); };
+				Steam.downloadLeaderboardScore("Distance", AroundUser, 3, 3);
+				Steam.whenLeaderboardScoreDownloaded = function(board:Array<LeaderboardScore>)
+				{
+					
+					for (score in board)
+					{
+						trace("SCORE: " + score.score); 
+					}
+					
+					
+				};
 			}
 		#end
 		
