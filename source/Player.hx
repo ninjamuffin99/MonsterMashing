@@ -71,6 +71,7 @@ class Player extends FlxSprite
 		
 		_upR = FlxG.keys.anyJustReleased([UP, W]);
 		
+		/*
 		if (FlxG.gamepads.lastActive != null)
 		{
 			_up = FlxG.gamepads.lastActive.pressed.DPAD_UP;
@@ -84,6 +85,7 @@ class Player extends FlxSprite
 			_rightP = FlxG.gamepads.lastActive.justPressed.DPAD_RIGHT;
 			
 		}
+		*/
 		
 		if (_up && _down)
 			_up = _down = false;
