@@ -346,7 +346,7 @@ class PlayState extends FlxState
 			#if steam
 				if (Steam.active)
 				{
-					var steamBoard:LeaderboardScore = new LeaderboardScore("Distance", Std.int(score), 0, -1);
+					var steamBoard:LeaderboardScore = new LeaderboardScore("Distance", "Distance", Std.int(score), 0, -1);
 					Steam.uploadLeaderboardScore(steamBoard);
 					
 					Steam.setAchievement("NEW_ACHIEVEMENT_1_0");
