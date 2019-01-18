@@ -139,6 +139,7 @@ class SettingState extends BaseMenuState
 		{
 			HighScore.score = 0;
 			HighScore.totalScore = 0;
+			FlxG.save.data.sessionId = null;
 			HighScore.save();
 			deleteText.text = "Data deleted";
 		}
