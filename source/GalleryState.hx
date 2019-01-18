@@ -199,6 +199,11 @@ class GalleryState extends BaseMenuState
 			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
 			gridThing.loadGraphic(grid[i][0]);
 			
+			if (!hasScore(i))
+			{
+				gridThing.color = FlxColor.BLACK;
+			}
+			
 			var testSize:Int = 90;
 			if (gridThing.width > gridThing.height)
 				gridThing.setGraphicSize(testSize);
@@ -217,12 +222,23 @@ class GalleryState extends BaseMenuState
 		super.create();
 	}
 	
+	private function hasScore(val:Int):Bool
+	{
+		var theTruth:Bool = false;
+		
+		if (HighScore.totalScore > val * 1500)
+			theTruth = true;
+		
+		return theTruth;
+	}
+	
 	private function openImage(i:Int):Void
 	{
 		isOpen = true;
 		curAnimPlaying = 0;
 		bigImage.visible = true;
 		bigPreview.loadGraphic(grid[i][0]);
+		
 		
 		var isAnimated = grid[i][2];
 		var horizSize:Int = Std.int(bigPreview.width);
@@ -259,6 +275,8 @@ class GalleryState extends BaseMenuState
 		
 		imageText.text = grid[i][1];
 		
+		if (!hasScore(i))
+			bigPreview.color = FlxColor.BLACK;
 	}
 	
 	override public function update(elapsed:Float):Void 
