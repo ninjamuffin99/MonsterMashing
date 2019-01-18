@@ -85,31 +85,36 @@ class MashState extends FlxSubState
 		
 		var tex;
 		
+		var shiny:String = "";
+		
+		if (FlxG.random.bool(2))
+			shiny = "Shiny";
+		
 		switch (enemyType) 
 		{
 			case 0:
-				_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/mushSheet" + shiny + ".png", true, 800, 1200);
 				moanDir = "Mush";
 			case 1:
-				_enemySprite.loadGraphic("assets/images/vineSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/vineSheet" + shiny + ".png", true, 800, 1200);
 				moanDir = "Vine";
 			case 2: 
-				_enemySprite.loadGraphic("assets/images/batSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/batSheet" + shiny + ".png", true, 800, 1200);
 				moanDir = "Bat";
 			case 3:
-				_enemySprite.loadGraphic("assets/images/slimeSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/slimeSheet" + shiny + ".png", true, 800, 1200);
 				moanDir = "Mush";
 			case 4:
-				_enemySprite.loadGraphic("assets/images/minotaurSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/minotaurSheet" + shiny + ".png", true, 800, 1200);
 				moanDir = "Mino";
 			case 5:
-				_enemySprite.loadGraphic("assets/images/echidnaSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/echidnaSheet" + shiny + ".png", true, 800, 1200);
 				moanDir = "Echid";
 			case 6:
-				_enemySprite.loadGraphic("assets/images/clamSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/clamSheet" + shiny + ".png", true, 800, 1200);
 				moanDir = "Mush";
 			default:
-				_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
+				_enemySprite.loadGraphic("assets/images/mushSheet" + shiny + ".png", true, 800, 1200);
 				moanDir = "Mush";
 		}
 		
