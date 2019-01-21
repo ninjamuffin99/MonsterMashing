@@ -275,7 +275,17 @@ class GalleryState extends BaseMenuState
 						curAnimPlaying = grid[curOpen][5].length;
 						curAnimPlaying -= 1;
 					}
+					
+					#if !nutaku
+						if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+						{
+							curAnimPlaying -= 1;
+						}
+					#end
+					
 					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+					
+					
 				}
 			}
 			
@@ -285,10 +295,21 @@ class GalleryState extends BaseMenuState
 				if (grid[curOpen][2])
 				{
 					curAnimPlaying += 1;
+					
+					#if !nutaku
+						if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+						{
+							curAnimPlaying += 1;
+						}
+					#end
+					
 					if (curAnimPlaying > grid[curOpen][5].length - 1)
 					{
 						curAnimPlaying = 0;
 					}
+					
+					
+					
 					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
 				}
 			}
