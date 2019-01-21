@@ -71,6 +71,7 @@ class GalleryState extends BaseMenuState
 				if (!isOpen && hasScore(i))
 				{
 					curOpen = i;
+					curSelected = i;
 					isSpritesheet = false;
 					
 					openImage(curOpen);
@@ -83,6 +84,14 @@ class GalleryState extends BaseMenuState
 				
 			});
 			
+			gridBG.onOver.callback = function()
+			{
+				if (!isOpen)
+				{
+					curSelected = i; 
+				}
+			};
+			
 			
 			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
 			
@@ -92,6 +101,19 @@ class GalleryState extends BaseMenuState
 				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame__png);
 				
 				gridThing.loadGraphic(grid[i][0]);
+				
+				var horizSize:Int = Std.int(gridThing.width);
+				#if !nutaku
+				if (grid[i][2])
+				{
+					if (grid[i][5][0][0] == 'idle1')
+					{
+						horizSize -= Std.int(horizSize / grid[i][3]);
+					}
+				}
+				#end
+				
+				gridThing.loadGraphic(grid[i][0], false, horizSize);
 				
 				var testSize:Int = 90;
 				if (gridThing.width > gridThing.height)
@@ -162,11 +184,13 @@ class GalleryState extends BaseMenuState
 		}
 		
 		#if !nutaku
+		if (grid[i][2])
+		{
 			if (grid[i][5][0][0] == 'idle1' && isSpritesheet)
 			{
 				horizSize -= Std.int(horizSize / grid[i][3]);
 			}
-			
+		}
 		#end
 		
 		bigPreview.loadGraphic(grid[i][0], isAnimated, horizSize, vertSize);
