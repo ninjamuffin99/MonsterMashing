@@ -82,9 +82,6 @@ class MashState extends FlxSubState
 		_enemySprite = new FlxSprite(48, 0);
 		
 		
-		
-		var tex;
-		
 		var shiny:String = "";
 		
 		if (FlxG.random.bool(2))
