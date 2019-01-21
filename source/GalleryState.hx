@@ -133,6 +133,8 @@ class GalleryState extends BaseMenuState
 	
 	private function openImage(i:Int):Void
 	{
+		bigPreview.angle = 0;
+		
 		if (!isOpen)
 		{
 			bgFade.alpha = 0;
@@ -158,6 +160,14 @@ class GalleryState extends BaseMenuState
 			horizSize = Std.int(horizSize / grid[i][3]);
 			vertSize = Std.int(vertSize / grid[i][4]);
 		}
+		
+		#if !nutaku
+			if (grid[i][5][0][0] == 'idle1' && isSpritesheet)
+			{
+				horizSize -= Std.int(horizSize / grid[i][3]);
+			}
+			
+		#end
 		
 		bigPreview.loadGraphic(grid[i][0], isAnimated, horizSize, vertSize);
 		
