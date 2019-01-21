@@ -10,6 +10,8 @@ import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVector;
 import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 
@@ -19,132 +21,13 @@ import flixel.util.FlxColor;
  */
 class GalleryState extends BaseMenuState
 {
-	// SYNTAX GUIDE
-	// link to image
-	// Info
-	// isAnimated
-	// frames horiz num
-	// frames vert num
-	// animation data
-	private var grid:Array<Dynamic> = 
-	[
-		[
-			"assets/images/clamSheet.png",
-			"more info",
-		],
-		[
-			"assets/images/echidnaSheet.png",
-			"more info",
-		],
-		[
-			"assets/images/minotaurSheet.png",
-			"more info",
-		],
-		[
-			"assets/images/batSheet.png",
-			"more info",
-		],
-		[
-			"assets/images/mushSheet.png",
-			"more info",
-		],
-		[
-			"assets/images/slimeSheet.png",
-			"more info",
-		],
-		[
-			"assets/images/vineSheet.png",
-			"more info",
-		],
-		[
-			"assets/images/mmLogo.png",
-			"logo thing"
-		],
-		[
-			"assets/images/preloaderArt.png",
-			"Coolguy PhantomArcade, at the Ambler Theater before the Newgrounds Pico Day Reanimated event from Oct twenty something"
-		],
-		[
-			"assets/images/spr_player.png",
-			"The Player sprites",
-			true,
-			3,
-			1,
-			[
-				[
-					"run",
-					[0, 1, 2],
-					6
-				]
-			]
-		],
-		[
-			"assets/images/trimmedAndFixedSprites.png",
-			"All the enemy sprites",
-			true,
-			21,
-			1,
-			[
-				[
-					"runMush",
-					[0, 1, 2],
-					6
-				],
-				[
-					"runVine",
-					[3, 4, 5],
-					6
-				],
-				[
-					"runBat",
-					[6, 7, 8],
-					6
-				],
-				[
-					"runSlime",
-					[9, 10, 11],
-					6
-				],
-				[
-					"runMino",
-					[12, 13, 14],
-					6
-				],
-				[
-					"runEchid",
-					[15, 16, 17],
-					6
-				],
-				[
-					"runClam",
-					[18, 19, 20],
-					6
-				]
-			]
-		],
-		[
-			"assets/images/fanart/clamOld.png",
-			"Fanart of the old Clam Girl design, art by Peeper"
-		],
-		[
-			"assets/images/fanart/clamOldNUDEHELLYEAH.png",
-			"Fanart of the old Clam Girl design, but this one is naked hell yeah damn, art by Peeper"
-		],
-		[
-			"assets/images/fanart/Monster_mashin_lady.png",
-			"Fanart of the old Clam Girl design, you know she had to do it to em, art by Peeper"
-		],
-		[
-			"assets/images/fanart/mushOogtarded.png",
-			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
-		],
-		
-	];
 	
 	private var bigImage:FlxSpriteGroup;
 	private var _grpThumbnails:FlxTypedGroup<FlxSpriteButton>;
 	private var bigPreview:FlxSprite;
 	private var imageText:FlxText;
+	
+	private var bgFade:FlxSprite;
 	
 	private var curSelected = 0;
 	private var curOpen:Int = 0;
@@ -164,6 +47,8 @@ class GalleryState extends BaseMenuState
 		
 		bigImage = new FlxSpriteGroup();
 		bigPreview = new FlxSprite();
+		bgFade = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bigImage.add(bgFade);
 		bigImage.add(bigPreview);
 		
 		imageText = new FlxText(0, FlxG.height - 70, FlxG.width - 6, "Test Words", 18);
@@ -183,36 +68,50 @@ class GalleryState extends BaseMenuState
 			
 			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
 				
-				if (!isOpen)
+				if (!isOpen && hasScore(i))
 				{
 					curOpen = i;
 					isSpritesheet = false;
 					
 					openImage(curOpen);
 				}
+				else if (!hasScore(i))
+				{
+					// play sound effect herre
+				}
 				
 				
 			});
-			gridBG.makeGraphic(100, 100);
-			_grpThumbnails.add(gridBG);
+			
 			
 			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
-			gridThing.loadGraphic(grid[i][0]);
 			
-			if (!hasScore(i))
+			// do it this way somewhat makes it quicker to load when you dont have as many images unlocked
+			if (hasScore(i))
 			{
-				gridThing.color = FlxColor.BLACK;
+				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame__png);
+				
+				gridThing.loadGraphic(grid[i][0]);
+				
+				var testSize:Int = 90;
+				if (gridThing.width > gridThing.height)
+					gridThing.setGraphicSize(testSize);
+				else
+					gridThing.setGraphicSize(0, testSize);
+				
+				gridThing.updateHitbox();
+				gridThing.setPosition(gridBG.getMidpoint().x - (gridThing.width / 2), gridBG.getMidpoint().y - (gridThing.height / 2)); 
+				
+			}
+			else
+			{
+				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame_Locked1__png);
+				gridThing.makeGraphic(1, 1, FlxColor.TRANSPARENT);
 			}
 			
-			var testSize:Int = 90;
-			if (gridThing.width > gridThing.height)
-				gridThing.setGraphicSize(testSize);
-			else
-				gridThing.setGraphicSize(0, testSize);
-			
-			gridThing.updateHitbox();
-			gridThing.setPosition(gridBG.getMidpoint().x - (gridThing.width / 2), gridBG.getMidpoint().y - (gridThing.height / 2)); 
+			_grpThumbnails.add(gridBG);
 			add(gridThing);
+			
 		}
 		
 		
@@ -238,6 +137,7 @@ class GalleryState extends BaseMenuState
 		curAnimPlaying = 0;
 		bigImage.visible = true;
 		bigPreview.loadGraphic(grid[i][0]);
+		
 		
 		
 		var isAnimated = grid[i][2];
@@ -275,8 +175,16 @@ class GalleryState extends BaseMenuState
 		
 		imageText.text = grid[i][1];
 		
+		bgFade.alpha = 0;
+		FlxTween.tween(bgFade, {alpha: 0.75}, 0.3, {ease:FlxEase.quartOut});
+		bigPreview.alpha = 0;
+		bigPreview.y -= 10;
+		FlxTween.tween(bigPreview, {alpha: 1, y: bigPreview.y + 10}, 0.5, {ease: FlxEase.quartOut, startDelay: 0.02});
+		
 		if (!hasScore(i))
 			bigPreview.color = FlxColor.BLACK;
+		else
+			bigPreview.color = FlxColor.WHITE;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -288,13 +196,16 @@ class GalleryState extends BaseMenuState
 		bigImage.visible = isOpen;
 		
 		if (curSelected < 0)
-			curSelected = _grpThumbnails.length - 1;
+			curSelected = _grpThumbnails.length + curSelected + 1; // Its plus because this value is negative
 		if (curSelected >= _grpThumbnails.length)
-			curSelected = 0;
+			curSelected = curSelected % (_grpThumbnails.length + 1);
+		
+		FlxG.watch.addQuick("sel: ", curSelected);
+		FlxG.watch.addQuick("length: ", _grpThumbnails.length);
 		
 		_grpThumbnails.forEach(function(btn:FlxSpriteButton)
 		{
-			btn.color = FlxColor.BLUE;
+			btn.color = 0xFF222222;
 		});
 		
 		for (i in 0..._grpThumbnails.members.length)
@@ -549,5 +460,132 @@ class GalleryState extends BaseMenuState
 			
 		}
 	}
+	
+	// SYNTAX GUIDE
+	// link to image
+	// Info
+	// isAnimated
+	// frames horiz num
+	// frames vert num
+	// animation data
+	private var grid:Array<Dynamic> = 
+	[
+		[
+			"assets/images/clamSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/echidnaSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/minotaurSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/batSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/mushSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/slimeSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/vineSheet.png",
+			"more info",
+		],
+		[
+			"assets/images/mmLogo.png",
+			"logo thing"
+		],
+		[
+			"assets/images/preloaderArt.png",
+			"Coolguy PhantomArcade, at the Ambler Theater before the Newgrounds Pico Day Reanimated event from Oct twenty something"
+		],
+		[
+			"assets/images/spr_player.png",
+			"The Player sprites",
+			true,
+			3,
+			1,
+			[
+				[
+					"run",
+					[0, 1, 2],
+					6
+				]
+			]
+		],
+		[
+			"assets/images/trimmedAndFixedSprites.png",
+			"All the enemy sprites",
+			true,
+			21,
+			1,
+			[
+				[
+					"runMush",
+					[0, 1, 2],
+					6
+				],
+				[
+					"runVine",
+					[3, 4, 5],
+					6
+				],
+				[
+					"runBat",
+					[6, 7, 8],
+					6
+				],
+				[
+					"runSlime",
+					[9, 10, 11],
+					6
+				],
+				[
+					"runMino",
+					[12, 13, 14],
+					6
+				],
+				[
+					"runEchid",
+					[15, 16, 17],
+					6
+				],
+				[
+					"runClam",
+					[18, 19, 20],
+					6
+				]
+			]
+		],
+		[
+			"assets/images/fanart/clamOld.png",
+			"Fanart of the old Clam Girl design, art by Peeper"
+		],
+		[
+			"assets/images/fanart/clamOldNUDEHELLYEAH.png",
+			"Fanart of the old Clam Girl design, but this one is naked hell yeah damn, art by Peeper"
+		],
+		[
+			"assets/images/fanart/Monster_mashin_lady.png",
+			"Fanart of the old Clam Girl design, you know she had to do it to em, art by Peeper"
+		],
+		[
+			"assets/images/fanart/mushOogtarded.png",
+			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
+		],
+		[	// THIS IS TEMP CHANGE LATER!!
+			"assets/images/fanart/mushOogtarded.png",
+			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
+		]
+		
+	];
+	
 }
 	

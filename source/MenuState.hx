@@ -77,7 +77,6 @@ class MenuState extends BaseMenuState
 		
 		FlxG.save.bind("File");
 		
-		
 		HighScore.load();
 		
 		#if !mobile
