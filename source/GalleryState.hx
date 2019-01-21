@@ -133,8 +133,16 @@ class GalleryState extends BaseMenuState
 	
 	private function openImage(i:Int):Void
 	{
+		if (!isOpen)
+		{
+			bgFade.alpha = 0;
+			FlxTween.tween(bgFade, {alpha: 0.75}, 0.3, {ease:FlxEase.quartOut});
+		}
+		
+		
 		isOpen = true;
 		curAnimPlaying = 0;
+		curOpen = i;
 		bigImage.visible = true;
 		bigPreview.loadGraphic(grid[i][0]);
 		
@@ -159,7 +167,7 @@ class GalleryState extends BaseMenuState
 			for (a in 0...grid[i][5].length)
 			{
 				bigPreview.animation.add(grid[i][5][a][0], grid[i][5][a][1], grid[i][5][a][2]);
-				bigPreview.animation.play(grid[i][5][a][0]);
+				bigPreview.animation.play(grid[i][5][0][0]);
 			}
 		}
 		
@@ -175,8 +183,6 @@ class GalleryState extends BaseMenuState
 		
 		imageText.text = grid[i][1];
 		
-		bgFade.alpha = 0;
-		FlxTween.tween(bgFade, {alpha: 0.75}, 0.3, {ease:FlxEase.quartOut});
 		bigPreview.alpha = 0;
 		bigPreview.y -= 10;
 		FlxTween.tween(bigPreview, {alpha: 1, y: bigPreview.y + 10}, 0.5, {ease: FlxEase.quartOut, startDelay: 0.02});
@@ -473,30 +479,212 @@ class GalleryState extends BaseMenuState
 		[
 			"assets/images/clamSheet.png",
 			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		],
 		[
 			"assets/images/echidnaSheet.png",
 			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		],
 		[
 			"assets/images/minotaurSheet.png",
 			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		],
 		[
 			"assets/images/batSheet.png",
 			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		],
 		[
 			"assets/images/mushSheet.png",
 			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		],
 		[
 			"assets/images/slimeSheet.png",
 			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		],
 		[
 			"assets/images/vineSheet.png",
 			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		],
 		[
 			"assets/images/mmLogo.png",
