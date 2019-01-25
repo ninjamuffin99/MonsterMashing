@@ -72,6 +72,46 @@ class GalleryState extends BaseMenuState
 		_grpThumbnails = new FlxTypedGroup<FlxSpriteButton>();
 		add(_grpThumbnails);
 		
+		for (sh in 0...HighScore.shiniesSeen.length)
+		{
+			var arrBuildin:Array<Dynamic> = 
+			[
+				"assets/images/" + HighScore.monsterList[sh] + "SheetShiny.png",
+				"SHINY ",
+				true,
+				4,
+				1,
+				[
+					[
+						'idle1',
+						[0],
+						1
+					],
+					[
+						'idle2',
+						[1],
+						1
+					],
+					[
+						'nude1',
+						[2],
+						1
+					],
+					[
+						'nude2',
+						[3],
+						1
+					],
+					
+				]
+			];
+			
+			arrBuildin[1] += sh;
+			
+			grid.push(arrBuildin);
+			
+		}
+		
 		for (i in 0...grid.length)
 		{
 			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
@@ -143,7 +183,6 @@ class GalleryState extends BaseMenuState
 			
 			_grpThumbnails.add(gridBG);
 			add(gridThing);
-			
 		}
 		
 		
