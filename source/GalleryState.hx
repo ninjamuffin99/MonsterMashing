@@ -273,10 +273,38 @@ class GalleryState extends BaseMenuState
 		bigPreview.y -= 10;
 		FlxTween.tween(bigPreview, {alpha: 1, y: bigPreview.y + 10}, 0.5, {ease: FlxEase.quartOut, startDelay: 0.02});
 		
-		if (!hasScore(i))
-			bigPreview.color = FlxColor.BLACK;
+		if (!isShiny(i))
+		{
+			
+			if (!hasScore(i))
+				bigPreview.color = FlxColor.BLACK;
+			else
+			{
+				bigPreview.color = FlxColor.WHITE;
+			}
+		}
 		else
-			bigPreview.color = FlxColor.WHITE;
+		{
+			if (HighScore.shiniesSeen[i])
+			{
+				bigPreview.color = FlxColor.WHITE;
+			}
+			else
+				bigPreview.color = FlxColor.BLACK;
+			
+		}
+	}
+	
+	private function isShiny(monster:Int):Bool
+	{
+		var theBool:Bool = false;
+		
+		if (grid[monster][0] == "assets/images/" + HighScore.monsterList[monster] + "SheetShiny.png")
+		{
+			theBool = true;
+		}
+		
+		return theBool;
 	}
 	
 	override public function update(elapsed:Float):Void 
