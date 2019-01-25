@@ -84,8 +84,11 @@ class MashState extends FlxSubState
 		
 		var shiny:String = "";
 		
-		if (FlxG.random.bool(2))
+		if (FlxG.random.bool(50))
+		{
+			HighScore.shiniesSeen[enemyType] = true;
 			shiny = "Shiny";
+		}
 		
 		switch (enemyType) 
 		{
