@@ -61,7 +61,7 @@ class SettingState extends BaseMenuState
 		add(NGAPI);
 		#end
 		
-		deleteText = new FlxText(32, 420, FlxG.width - 32, "Press P to delete all data!", 28);
+		deleteText = new FlxText(32, 420, FlxG.width - 32, "\nPress P to delete all data!", 28);
 		add(deleteText);
 		
 		_selector = new FlxSpriteGroup();

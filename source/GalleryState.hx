@@ -299,7 +299,7 @@ class GalleryState extends BaseMenuState
 		
 		if (isOpen)
 		{
-			if (FlxG.keys.justPressed.LEFT)
+			if (FlxG.keys.justPressed.LEFT && grid[curOpen][5].length > 1)
 			{
 				if (grid[curOpen][2])
 				{
@@ -311,10 +311,11 @@ class GalleryState extends BaseMenuState
 					}
 					
 					#if !nutaku
-						if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
-						{
-							curAnimPlaying -= 1;
-						}
+					if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+					{
+						curAnimPlaying -= 1;
+					}
+					
 					#end
 					
 					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
@@ -324,25 +325,23 @@ class GalleryState extends BaseMenuState
 			}
 			
 			
-			if (FlxG.keys.justPressed.RIGHT)
+			if (FlxG.keys.justPressed.RIGHT && grid[curOpen][5].length > 1)
 			{
 				if (grid[curOpen][2])
 				{
 					curAnimPlaying += 1;
-					
-					#if !nutaku
-						if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
-						{
-							curAnimPlaying += 1;
-						}
-					#end
 					
 					if (curAnimPlaying > grid[curOpen][5].length - 1)
 					{
 						curAnimPlaying = 0;
 					}
 					
-					
+					#if !nutaku
+						if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+						{
+							curAnimPlaying = 0;
+						}
+					#end
 					
 					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
 				}
