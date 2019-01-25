@@ -26,6 +26,7 @@ class GalleryState extends BaseMenuState
 	private var _grpThumbnails:FlxTypedGroup<FlxSpriteButton>;
 	private var bigPreview:FlxSprite;
 	private var imageText:FlxText;
+	private var imageTextBG:FlxSprite;
 	
 	private var bgFade:FlxSprite;
 	
@@ -51,10 +52,19 @@ class GalleryState extends BaseMenuState
 		bigImage.add(bgFade);
 		bigImage.add(bigPreview);
 		
+		// imageTextBG code setup is slightly lower heheh
+		imageTextBG = new FlxSprite();
+		imageTextBG.alpha = 0.5;
+		bigImage.add(imageTextBG);
+		
 		imageText = new FlxText(0, FlxG.height - 70, FlxG.width - 6, "Test Words", 18);
 		imageText.alignment = FlxTextAlign.CENTER;
 		imageText.screenCenter(X);
 		bigImage.add(imageText);
+		
+		imageTextBG.y = imageText.y - 4;
+		imageTextBG.makeGraphic(Std.int(imageText.frameWidth + 10), Std.int((imageText.textField.numLines + 1) * 19), FlxColor.BLACK);
+		imageTextBG.screenCenter(X);
 		
 		titleText = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 20);
 		add(titleText);
@@ -217,6 +227,9 @@ class GalleryState extends BaseMenuState
 		
 		imageText.text = grid[i][1];
 		
+		imageTextBG.makeGraphic(Std.int(imageText.fieldWidth + 10), Std.int((imageText.textField.numLines + 1) * 19), FlxColor.BLACK);
+		imageTextBG.screenCenter(X);
+		
 		bigPreview.alpha = 0;
 		bigPreview.y -= 10;
 		FlxTween.tween(bigPreview, {alpha: 1, y: bigPreview.y + 10}, 0.5, {ease: FlxEase.quartOut, startDelay: 0.02});
@@ -299,52 +312,44 @@ class GalleryState extends BaseMenuState
 		
 		if (isOpen)
 		{
-			if (FlxG.keys.justPressed.LEFT && grid[curOpen][5].length > 1)
+			if (FlxG.keys.justPressed.LEFT && grid[curOpen][2])
 			{
-				if (grid[curOpen][2])
+				curAnimPlaying -= 1;
+				if (curAnimPlaying < 0)
+				{
+					curAnimPlaying = grid[curOpen][5].length;
+					curAnimPlaying -= 1;
+				}
+				
+				#if !nutaku
+				if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
 				{
 					curAnimPlaying -= 1;
-					if (curAnimPlaying < 0)
-					{
-						curAnimPlaying = grid[curOpen][5].length;
-						curAnimPlaying -= 1;
-					}
-					
-					#if !nutaku
-					if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
-					{
-						curAnimPlaying -= 1;
-					}
-					
-					#end
-					
-					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
-					
-					
 				}
+				
+				#end
+				
+				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);	
 			}
 			
 			
-			if (FlxG.keys.justPressed.RIGHT && grid[curOpen][5].length > 1)
+			if (FlxG.keys.justPressed.RIGHT && grid[curOpen][2])
 			{
-				if (grid[curOpen][2])
+				curAnimPlaying += 1;
+				
+				if (curAnimPlaying > grid[curOpen][5].length - 1)
 				{
-					curAnimPlaying += 1;
-					
-					if (curAnimPlaying > grid[curOpen][5].length - 1)
+					curAnimPlaying = 0;
+				}
+				
+				#if !nutaku
+					if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
 					{
 						curAnimPlaying = 0;
 					}
-					
-					#if !nutaku
-						if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
-						{
-							curAnimPlaying = 0;
-						}
-					#end
-					
-					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
-				}
+				#end
+				
+				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
 			}
 			
 			if (FlxG.keys.justPressed.E)
@@ -393,7 +398,7 @@ class GalleryState extends BaseMenuState
 			if (FlxG.keys.anyJustPressed([S, DOWN]))
 				curSelected += 4;
 			
-			if (FlxG.keys.anyJustPressed([SPACE, ENTER]))
+			if (FlxG.keys.anyJustPressed([SPACE, ENTER, Z]))
 			{
 				isSpritesheet = false;
 				openImage(curSelected);
@@ -511,6 +516,9 @@ class GalleryState extends BaseMenuState
 			
 			var degs = FlxAngle.asDegrees(rads);
 			bigPreview.angle = (picAngleOld + degs - touchesAngle);
+			
+			if (FlxG.keys.pressed.SHIFT)
+				bigPreview.angle = 0;
 			
 			FlxG.watch.addQuick("Degs/Angle", degs);
 			
