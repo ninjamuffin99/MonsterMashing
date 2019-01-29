@@ -27,6 +27,7 @@ class GalleryState extends BaseMenuState
 	private var bigPreview:FlxSprite;
 	private var imageText:FlxText;
 	private var imageTextBG:FlxSprite;
+	private var keyboardInfo:FlxText;
 	
 	private var bgFade:FlxSprite;
 	
@@ -118,7 +119,7 @@ class GalleryState extends BaseMenuState
 			
 			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
 				
-				if (!isOpen && hasScore(i))
+				if (!isOpen)
 				{
 					curOpen = i;
 					curSelected = i;
@@ -126,12 +127,6 @@ class GalleryState extends BaseMenuState
 					
 					openImage(curOpen);
 				}
-				else if (!hasScore(i))
-				{
-					// play sound effect herre
-				}
-				
-				
 			});
 			
 			gridBG.onOver.callback = function()
@@ -146,7 +141,7 @@ class GalleryState extends BaseMenuState
 			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
 			
 			// do it this way somewhat makes it quicker to load when you dont have as many images unlocked
-			if (hasScore(i))
+			if (hasScore(i) || (i > grid.length - HighScore.shiniesSeen.length && HighScore.shiniesSeen[grid.length - i]))
 			{
 				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame__png);
 				
@@ -273,26 +268,15 @@ class GalleryState extends BaseMenuState
 		bigPreview.y -= 10;
 		FlxTween.tween(bigPreview, {alpha: 1, y: bigPreview.y + 10}, 0.5, {ease: FlxEase.quartOut, startDelay: 0.02});
 		
-		if (!isShiny(i))
-		{
-			
-			if (!hasScore(i))
-				bigPreview.color = FlxColor.BLACK;
-			else
-			{
-				bigPreview.color = FlxColor.WHITE;
-			}
-		}
+		
+		if (hasScore(i) || (i > grid.length - HighScore.shiniesSeen.length && HighScore.shiniesSeen[grid.length - i]))
+			bigPreview.color = FlxColor.WHITE;
+		
 		else
 		{
-			if (HighScore.shiniesSeen[i])
-			{
-				bigPreview.color = FlxColor.WHITE;
-			}
-			else
-				bigPreview.color = FlxColor.BLACK;
-			
+			bigPreview.color = FlxColor.BLACK;
 		}
+		
 	}
 	
 	private function isShiny(monster:Int):Bool
