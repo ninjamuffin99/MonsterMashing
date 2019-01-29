@@ -29,9 +29,11 @@ class Preloader extends FlxBasePreloader
 	private var _buffer:Sprite;
 	private var _bmpBar:Bitmap;
 	
-	override private function create():Void 
+	override private function create():Void
 	{	
-		var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		#if (flash || html5)
+			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		#end
 		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;

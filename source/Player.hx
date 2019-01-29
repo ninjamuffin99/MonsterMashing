@@ -28,7 +28,6 @@ class Player extends FlxSprite
 	private var boostTimer:Float = 0.25;
 	private var boostLorR:String;
 	
-	
 	public var _upR:Bool = false;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
@@ -57,6 +56,7 @@ class Player extends FlxSprite
 	//Movement controls
 	private function controls():Void
 	{
+		
 		_up = FlxG.keys.anyPressed([UP, W]);
 		_down = FlxG.keys.anyPressed([DOWN, S]);
 		_left = FlxG.keys.anyPressed([LEFT, A]);
@@ -69,6 +69,22 @@ class Player extends FlxSprite
 		
 		_upR = FlxG.keys.anyJustReleased([UP, W]);
 		
+		/*
+		if (FlxG.gamepads.lastActive != null)
+		{
+			_up = FlxG.gamepads.lastActive.pressed.DPAD_UP;
+			_down = FlxG.gamepads.lastActive.pressed.DPAD_DOWN;
+			_left = FlxG.gamepads.lastActive.pressed.DPAD_LEFT;
+			_right = FlxG.gamepads.lastActive.pressed.DPAD_LEFT;
+			
+			_upP = FlxG.gamepads.lastActive.justPressed.DPAD_UP;
+			_downP = FlxG.gamepads.lastActive.justPressed.DPAD_DOWN;
+			_leftP = FlxG.gamepads.lastActive.justPressed.DPAD_LEFT;
+			_rightP = FlxG.gamepads.lastActive.justPressed.DPAD_RIGHT;
+			
+		}
+		*/
+		
 		if (_up && _down)
 			_up = _down = false;
 		if (_left && _right)
@@ -79,7 +95,7 @@ class Player extends FlxSprite
 			mobileChecks();
 		#end
 		
-		if (/*_up || _down || */_left || _right)
+		if (_left || _right)
 		{
 			/**
 			 * Movement Angle

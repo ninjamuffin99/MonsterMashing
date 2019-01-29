@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 	
-	<app title="Monster Mashing" file="MonsterMashing" main="Main" version="1.0.0" package="com.ninjamuffin.monstermashing" company="ninjamuffin" />
+	<app title="Monster Mashing" file="MonsterMashing" main="Main" version="1.2.0" package="com.Demins.monstermashing" company="Demins" />
 	
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -20,18 +20,23 @@
 	<window if="html5" resizable="true" />
 	
 	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true"/>
+	<window if="desktop" orientation="portrait" fullscreen="false"/>
 	
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="portrait" fullscreen="true" width="0" height="0" resizable="true" />
 	
 	<!-- _____________________________ Path Settings ____________________________ -->
 	
-	<set name="BUILD_DIR" value="export" />
+	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<classpath name="source" />
-	<assets path="assets"/>
-	<assets path="assets" exclude="*.ogg" if="flash"/>
-	<assets path="assets" exclude="*.mp3" unless="flash"/>
+	<assets path="assets/images"/>
+	<assets path="assets/data"/>
+	
+	<assets path="assets/music" include="*.mp3" if="flash" />
+	<assets path="assets/music" include="*.ogg" unless="flash" />
+	<assets path="assets/sounds" include="*.mp3" if="flash" />
+	<assets path="assets/sounds" include="*.ogg" unless="flash" />
 	
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -45,6 +50,11 @@
 	
 	<!--In case you want to use nape with flixel-->
 	<!--<haxelib name="nape" />-->
+	
+	<!--for vibration!!-->
+	<haxelib name="haxe-hardware" if="android" />
+
+	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 	
 	<!--Enable the Flixel core recording system-->
@@ -81,12 +91,23 @@
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 
-	<icon path="icon.png" size="64" if="cpp" />
+	<icon path="assets/images/icon.png" />
 	
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
 	<!--https://github.com/Geokureli/Newgrounds.hx-->
-	<classpath path="newgroundsAPI/lib/src"/>
-	<classpath path="djFlixel"/>
+	<classpath path="source/newgroundsAPI/lib/Source"/>
+	<classpath path="source/djFlixel"/>
 	<classpath path="APIStuff.hx"/>
+	
+	<section if="steam">
+		<haxelib name="steamwrap"/>
+	 
+	   <!-- Replace the question marks with your Steam App ID -->
+	   <setenv name="STEAM_APP_ID" value="998770" />
+		
+	   <!-- OS X only: Set this value to the same value as the file property of your <app> node, this is needed to embed things into the generated .app file -->
+	   <!-- Setting this for other platforms won't do any harm, so you can safely leave it enabled for everything -->
+	   <!--<set name="APP_FILE" value="??????" />-->
+   </section>
 	
 </project>

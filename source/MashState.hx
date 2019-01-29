@@ -2,15 +2,21 @@ package;
 
 import flixel.FlxCamera;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
+
+#if android
+import Hardware;
+#end
 
 /**
  * ...
@@ -23,9 +29,11 @@ class MashState extends FlxSubState
 	private var enemyType:Int = 0;
 	
 	private var _mashSprite:FlxSprite;
+	
 	private var _enemySprite:FlxSprite;
 	private var _enemyHealth:Float = 10;
 	private var thisCam:FlxCamera;
+	private var camFollow:CamFollow;
 	private var mashX:Bool = false;
 	
 	private var maxShake:Float = 0.05;
@@ -37,12 +45,26 @@ class MashState extends FlxSubState
 	
 	private var finishing:Bool = false;
 	
-	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int) 
+	private var touchPos:FlxPoint = new FlxPoint();
+	
+	private var isNude:Int = 0;
+	
+	private var moanDir:String = "";
+	
+	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int, NUDE:Bool = false) 
 	{
 		super(BGColor);
 		FlxG.camera.flash();
 		
 		enemyType = EType;
+		
+		
+		if (NUDE)
+			isNude = 1;
+		
+		#if !nutaku
+			isNude = 0;
+		#end
 		
 		//sets the outcome to NONE just in-case
 		outcome = NONE;
@@ -59,68 +81,47 @@ class MashState extends FlxSubState
 		//then the _enemySprite is created and loaded(will get different sprites goin in a bit)
 		_enemySprite = new FlxSprite(48, 0);
 		
-		//April Fools Code
-		if (SettingState.aprilFools)
-		{
-			switch (enemyType) 
-			{
-				case 0:
-					_enemySprite.loadGraphic("assets/images/hotGF.png", true, 800, 1200);
-				case 1:
-					_enemySprite.loadGraphic("assets/images/sonky.png", true, 800, 1200);
-				case 2: 
-					_enemySprite.loadGraphic("assets/images/kirbyGF.png", true, 800, 1200);
-				case 3:
-					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
-				default:
-					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
-			}
-		}
-		/*
-		//Pico Day Code
-		}else if (SettingState.picoDay == 1){
-			switch (enemyType) 
-			{
-				case 0:
-					_enemySprite.loadGraphic("assets/images/hotGF.png", true, 800, 1200);
-				case 1:
-					_enemySprite.loadGraphic("assets/images/sonky.png", true, 800, 1200);
-				case 2: 
-					_enemySprite.loadGraphic("assets/images/kirbyGF.png", true, 800, 1200);
-				case 3:
-					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
-				default:
-					_enemySprite.loadGraphic("assets/images/steveSheet.png", true, 800, 1200);
-			}
 		
-		}*/
-		else{
-			var tex;
-			
-			switch (enemyType) 
-			{
-				case 0:
-					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
-				case 1:
-					_enemySprite.loadGraphic("assets/images/vineSheet.png", true, 800, 1200);
-				case 2: 
-					_enemySprite.loadGraphic("assets/images/batSheet.png", true, 800, 1200);
-				case 3:
-					_enemySprite.loadGraphic("assets/images/slimeSheet.png", true, 800, 1200);
-				case 4:
-					_enemySprite.loadGraphic("assets/images/minotaurSheet.png", true, 800, 1200);
-				case 5:
-					_enemySprite.loadGraphic("assets/images/echidnaSheet.png", true, 800, 1200);
-				case 6:
-					_enemySprite.loadGraphic("assets/images/clamSheet.png", true, 800, 1200);
-				default:
-					_enemySprite.loadGraphic("assets/images/mushSheet.png", true, 800, 1200);
-			}
+		var shiny:String = "";
+		
+		if (FlxG.random.bool(50))
+		{
+			HighScore.shiniesSeen[enemyType] = true;
+			shiny = "Shiny";
 		}
+		
+		switch (enemyType) 
+		{
+			case 0:
+				_enemySprite.loadGraphic("assets/images/mushSheet" + shiny + ".png", true, 800, 1200);
+				moanDir = "Mush";
+			case 1:
+				_enemySprite.loadGraphic("assets/images/vineSheet" + shiny + ".png", true, 800, 1200);
+				moanDir = "Vine";
+			case 2: 
+				_enemySprite.loadGraphic("assets/images/batSheet" + shiny + ".png", true, 800, 1200);
+				moanDir = "Bat";
+			case 3:
+				_enemySprite.loadGraphic("assets/images/slimeSheet" + shiny + ".png", true, 800, 1200);
+				moanDir = "Mush";
+			case 4:
+				_enemySprite.loadGraphic("assets/images/minotaurSheet" + shiny + ".png", true, 800, 1200);
+				moanDir = "Mino";
+			case 5:
+				_enemySprite.loadGraphic("assets/images/echidnaSheet" + shiny + ".png", true, 800, 1200);
+				moanDir = "Echid";
+			case 6:
+				_enemySprite.loadGraphic("assets/images/clamSheet" + shiny + ".png", true, 800, 1200);
+				moanDir = "Mush";
+			default:
+				_enemySprite.loadGraphic("assets/images/mushSheet" + shiny + ".png", true, 800, 1200);
+				moanDir = "Mush";
+		}
+		
 		
 		_enemySprite.animation.add("normal", [0]);
 		_enemySprite.animation.add("hit", [1, 1, 1, 0], 12, false);
-		_enemySprite.animation.add("stripped", [2]);
+		_enemySprite.animation.add("stripped", [2 + isNude]);
 		_enemySprite.animation.play("normal");
 		
 		add(_enemySprite);
@@ -134,6 +135,11 @@ class MashState extends FlxSubState
 		
 		//thisCam is then set to center on the middle of _enemySprite
 		thisCam.focusOn(_enemySprite.getMidpoint());
+		
+		camFollow = new CamFollow(_enemySprite.getMidpoint().x, _enemySprite.getMidpoint().y, 1, 1, thisCam);
+		add(camFollow);
+		
+		thisCam.follow(camFollow);
 		
 		_mashSprite = new FlxSprite(0, 800);
 		_mashSprite.loadGraphic(AssetPaths.left_and_right__png, true, 64, 32);
@@ -162,6 +168,11 @@ class MashState extends FlxSubState
 	{
 		super.update(elapsed);
 		
+		/*
+		if (FlxG.keys.anyJustPressed(["ENTER", "ESCAPE"]))
+			openSubState(new PauseSubstate());
+		*/
+			
 		//if the enemy's health is less than 0, and the outcome isn't VICTORY, then it finishes shit up
 		if (_enemyHealth <= 0 && outcome != VICTORY)
 		{
@@ -197,7 +208,16 @@ class MashState extends FlxSubState
 		}
 		
 		#if !mobile
-			if (FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]) && _enemyHealth > 0)
+			var mashShit = FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]);
+			
+			/*
+			if (FlxG.gamepads.lastActive != null)
+			{
+				mashShit = FlxG.gamepads.lastActive.justPressed.ANY;
+			}
+			*/
+			
+			if (mashShit && _enemyHealth > 0)
 			{
 				if (mashX)
 				{
@@ -214,6 +234,11 @@ class MashState extends FlxSubState
 					}
 				}
 			}
+			
+			if (FlxG.keys.anyJustPressed(["S", "K", "DOWN"]))
+			{
+				mashTimer = 0;
+			}
 		#end
 		
 		#if (html5 || mobile)
@@ -225,16 +250,43 @@ class MashState extends FlxSubState
 					{
 						mash();
 					}
+					
+					if (touch.justPressed)
+					{
+						touchPos = touch.getPosition();
+					}
+					
+					var touchLength = FlxMath.vectorLength(touch.x - touchPos.x, touch.y - touchPos.y);
+					
+					if (FlxG.touches.list.length > 1)
+					{
+						touchLength = 0;
+					}
+					
+					if (touchLength >= FlxG.width * 0.35 / FlxG.initialZoom)
+					{
+						mashTimer = 0;
+					}
 				}
+				
+				
 			}
 		#end
 	}
 	
 	private function mash():Void
 	{
+		#if android
+			Hardware.vibrate(FlxG.random.int(50, 90));
+		#end
+		
 		if (FlxG.random.bool(35))
 		{
-			FlxG.sound.play("assets/sounds/Voice/Moan" + FlxG.random.int(4, 17) + ".wav", 1 * SettingState.moanVol * SettingState.masterVol);
+			#if flash
+				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".mp3", 1 * SettingState.moanVol * SettingState.masterVol);
+			#else
+				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".ogg", 1 * SettingState.moanVol * SettingState.masterVol);
+			#end
 			//FlxG.sound.play("assets/sounds/roblox oof.mp3", 1  * SettingState.moanVol * SettingState.masterVol);
 		}
 		
@@ -245,7 +297,9 @@ class MashState extends FlxSubState
 		#end
 		
 		//shakes the camera
-		thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
+		
+		// thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
+		camFollow.shake(FlxG.random.float(0.01, 0.03), FlxG.random.float(0.05, 0.2));
 		_enemySprite.animation.play("hit");
 		//_enemySprite.animation.play("normal");
 		
@@ -261,6 +315,15 @@ class MashState extends FlxSubState
 	{
 		if (!finishing)
 		{
+			#if android
+				if (outcome == DEFEAT)
+				{
+					Hardware.vibrate(900);
+				}
+				
+			#end
+			
+			
 			finishing = true;
 			FlxTween.tween(_enemySprite, {y: FlxG.height + 400}, 1.25, {ease:FlxEase.quartInOut});
 			FlxTween.tween(txtTimer, {y: FlxG.height + 400}, 1.4, {ease:FlxEase.quartInOut});

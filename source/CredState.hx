@@ -17,7 +17,7 @@ class CredState extends FlxState
 	private var creds:FlxText;
 	private var boxFade:BoxFader;
 	
-	private var credTimer:Float = 6.5;
+	private var credTimer:Float = 5;
 	
 	private var curCredPlacement:Int = 0;
 	
@@ -83,6 +83,7 @@ class CredState extends FlxState
 			"Art:",
 			"Digimin",
 			"BrandyBuizel",
+			"FuShark",
 		],
 		[
 			"Main Music: Silverline by tripledigit on Newgrounds",
@@ -90,7 +91,11 @@ class CredState extends FlxState
 			"Credits Music by ninja_muffin99",
 		],	
 		[
-			"Moans from the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
+			"Moans:",
+			"Jack McMillian",
+			"Cymbourine",
+			"pecheng",
+			"the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
 			"",
 			"Misc. sounds found/made/idk by PhantomArcade",
 			"",
@@ -105,7 +110,7 @@ class CredState extends FlxState
 			"Additional code:",
 			"",
 			"Newgrounds.hx library made by Geokureli",
-			"@geokurelic", //im pretty sure thats his twitter handle
+			"@Geokureli", //im pretty sure thats his twitter handle
 			"https://github.com/Geokureli/Newgrounds.hx",
 			"",
 			"djFlixel effects (just this credits fade stuff lol) made by John Dimitriadis",
@@ -124,11 +129,22 @@ class CredState extends FlxState
 			"",
 			"",
 			"",
-			"",
+			"Wanda",
 			"",
 			"No one else lol",
 			"",
 			"only him",
+		],
+		[
+			"god",
+			"",
+			"TMoneyBloodCrip",
+			"aka",
+			"Trevord70",
+			"aka",
+			"Soulja Boy",
+			"aka",
+			"a",
 		],
 		[
 			"Community Creds:",
@@ -144,9 +160,11 @@ class CredState extends FlxState
 	override public function update(elapsed:Float):Void 
 	{
 		credTimer -= FlxG.elapsed;
+		
+		
 		if (credTimer < 0)
 		{
-			credTimer = 7.5;
+			credTimer = 6;
 			
 			boxFade.fadeColor(0xFF000000, null, function(){
 				creds.text = "";

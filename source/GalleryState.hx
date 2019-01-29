@@ -10,14 +10,592 @@ import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVector;
 import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxSpriteButton;
+import flixel.util.FlxColor;
 
 /**
  * ...
  * @author 
  */
-class GalleryState extends FlxState 
+class GalleryState extends BaseMenuState
 {
+	
+	private var bigImage:FlxSpriteGroup;
+	private var _grpThumbnails:FlxTypedGroup<FlxSpriteButton>;
+	private var bigPreview:FlxSprite;
+	private var imageText:FlxText;
+	private var imageTextBG:FlxSprite;
+	
+	private var bgFade:FlxSprite;
+	
+	private var curSelected = 0;
+	private var curOpen:Int = 0;
+	private var isOpen:Bool = false;
+	private var curAnimPlaying:Int = 0;
+	private var isSpritesheet:Bool = false;
+	
+	private var titleText:FlxText;
+	
+	override public function create():Void 
+	{
+		#if !mobile
+			FlxG.mouse.visible = true;
+		#end
+		
+		initTilemap(2);
+		
+		bigImage = new FlxSpriteGroup();
+		bigPreview = new FlxSprite();
+		bgFade = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bigImage.add(bgFade);
+		bigImage.add(bigPreview);
+		
+		// imageTextBG code setup is slightly lower heheh
+		imageTextBG = new FlxSprite();
+		imageTextBG.alpha = 0.5;
+		bigImage.add(imageTextBG);
+		
+		imageText = new FlxText(0, FlxG.height - 70, FlxG.width - 6, "Test Words", 18);
+		imageText.alignment = FlxTextAlign.CENTER;
+		imageText.screenCenter(X);
+		bigImage.add(imageText);
+		
+		imageTextBG.y = imageText.y - 4;
+		imageTextBG.makeGraphic(Std.int(imageText.frameWidth + 10), Std.int((imageText.textField.numLines + 1) * 19), FlxColor.BLACK);
+		imageTextBG.screenCenter(X);
+		
+		titleText = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 20);
+		add(titleText);
+		
+		_grpThumbnails = new FlxTypedGroup<FlxSpriteButton>();
+		add(_grpThumbnails);
+		
+		for (sh in 0...HighScore.shiniesSeen.length)
+		{
+			var arrBuildin:Array<Dynamic> = 
+			[
+				"assets/images/" + HighScore.monsterList[sh] + "SheetShiny.png",
+				"SHINY ",
+				true,
+				4,
+				1,
+				[
+					[
+						'idle1',
+						[0],
+						1
+					],
+					[
+						'idle2',
+						[1],
+						1
+					],
+					[
+						'nude1',
+						[2],
+						1
+					],
+					[
+						'nude2',
+						[3],
+						1
+					],
+					
+				]
+			];
+			
+			arrBuildin[1] += sh;
+			
+			grid.push(arrBuildin);
+			
+		}
+		
+		for (i in 0...grid.length)
+		{
+			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
+			
+			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
+				
+				if (!isOpen && hasScore(i))
+				{
+					curOpen = i;
+					curSelected = i;
+					isSpritesheet = false;
+					
+					openImage(curOpen);
+				}
+				else if (!hasScore(i))
+				{
+					// play sound effect herre
+				}
+				
+				
+			});
+			
+			gridBG.onOver.callback = function()
+			{
+				if (!isOpen)
+				{
+					curSelected = i; 
+				}
+			};
+			
+			
+			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
+			
+			// do it this way somewhat makes it quicker to load when you dont have as many images unlocked
+			if (hasScore(i))
+			{
+				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame__png);
+				
+				gridThing.loadGraphic(grid[i][0]);
+				
+				var horizSize:Int = Std.int(gridThing.width);
+				#if !nutaku
+				if (grid[i][2])
+				{
+					if (grid[i][5][0][0] == 'idle1')
+					{
+						horizSize -= Std.int(horizSize / grid[i][3]);
+					}
+				}
+				#end
+				
+				gridThing.loadGraphic(grid[i][0], false, horizSize);
+				
+				var testSize:Int = 90;
+				if (gridThing.width > gridThing.height)
+					gridThing.setGraphicSize(testSize);
+				else
+					gridThing.setGraphicSize(0, testSize);
+				
+				gridThing.updateHitbox();
+				gridThing.setPosition(gridBG.getMidpoint().x - (gridThing.width / 2), gridBG.getMidpoint().y - (gridThing.height / 2)); 
+				
+			}
+			else
+			{
+				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame_Locked1__png);
+				gridThing.makeGraphic(1, 1, FlxColor.TRANSPARENT);
+			}
+			
+			_grpThumbnails.add(gridBG);
+			add(gridThing);
+		}
+		
+		
+		add(bigImage);
+		bigImage.visible = false;
+		
+		super.create();
+	}
+	
+	private function hasScore(val:Int):Bool
+	{
+		var theTruth:Bool = false;
+		
+		if (HighScore.totalScore > val * 1500)
+			theTruth = true;
+		
+		return theTruth;
+	}
+	
+	private function openImage(i:Int):Void
+	{
+		bigPreview.angle = 0;
+		
+		if (!isOpen)
+		{
+			bgFade.alpha = 0;
+			FlxTween.tween(bgFade, {alpha: 0.75}, 0.3, {ease:FlxEase.quartOut});
+		}
+		
+		
+		isOpen = true;
+		curAnimPlaying = 0;
+		curOpen = i;
+		bigImage.visible = true;
+		bigPreview.loadGraphic(grid[i][0]);
+		
+		
+		
+		var isAnimated = grid[i][2];
+		var horizSize:Int = Std.int(bigPreview.width);
+		var vertSize:Int = Std.int(bigPreview.height);
+		// checks if animated
+		if (isAnimated && !isSpritesheet)
+		{
+			isAnimated = true;
+			horizSize = Std.int(horizSize / grid[i][3]);
+			vertSize = Std.int(vertSize / grid[i][4]);
+		}
+		
+		#if !nutaku
+		if (grid[i][2])
+		{
+			if (grid[i][5][0][0] == 'idle1' && isSpritesheet)
+			{
+				horizSize -= Std.int(horizSize / grid[i][3]);
+			}
+		}
+		#end
+		
+		bigPreview.loadGraphic(grid[i][0], isAnimated, horizSize, vertSize);
+		
+		// loads animation data
+		if (isAnimated && !isSpritesheet)
+		{
+			for (a in 0...grid[i][5].length)
+			{
+				bigPreview.animation.add(grid[i][5][a][0], grid[i][5][a][1], grid[i][5][a][2]);
+				bigPreview.animation.play(grid[i][5][0][0]);
+			}
+		}
+		
+		bigPreview.setGraphicSize(0, Std.int(FlxG.height));
+		bigPreview.updateHitbox();
+		bigPreview.screenCenter();
+		
+		if (bigPreview.width >= FlxG.width)
+			bigPreview.setGraphicSize(Std.int(FlxG.width * 0.9));
+		
+		bigPreview.updateHitbox();
+		bigPreview.screenCenter();
+		
+		imageText.text = grid[i][1];
+		
+		imageTextBG.makeGraphic(Std.int(imageText.fieldWidth + 10), Std.int((imageText.textField.numLines + 1) * 19), FlxColor.BLACK);
+		imageTextBG.screenCenter(X);
+		
+		bigPreview.alpha = 0;
+		bigPreview.y -= 10;
+		FlxTween.tween(bigPreview, {alpha: 1, y: bigPreview.y + 10}, 0.5, {ease: FlxEase.quartOut, startDelay: 0.02});
+		
+		if (!isShiny(i))
+		{
+			
+			if (!hasScore(i))
+				bigPreview.color = FlxColor.BLACK;
+			else
+			{
+				bigPreview.color = FlxColor.WHITE;
+			}
+		}
+		else
+		{
+			if (HighScore.shiniesSeen[i])
+			{
+				bigPreview.color = FlxColor.WHITE;
+			}
+			else
+				bigPreview.color = FlxColor.BLACK;
+			
+		}
+	}
+	
+	private function isShiny(monster:Int):Bool
+	{
+		var theBool:Bool = false;
+		
+		if (grid[monster][0] == "assets/images/" + HighScore.monsterList[monster] + "SheetShiny.png")
+		{
+			theBool = true;
+		}
+		
+		return theBool;
+	}
+	
+	override public function update(elapsed:Float):Void 
+	{
+		#if !mobile
+			keyboardControls();
+		#end
+		
+		bigImage.visible = isOpen;
+		
+		if (curSelected < 0)
+			curSelected = _grpThumbnails.length + curSelected + 1; // Its plus because this value is negative
+		if (curSelected >= _grpThumbnails.length)
+			curSelected = curSelected % (_grpThumbnails.length + 1);
+		
+		FlxG.watch.addQuick("sel: ", curSelected);
+		FlxG.watch.addQuick("length: ", _grpThumbnails.length);
+		
+		_grpThumbnails.forEach(function(btn:FlxSpriteButton)
+		{
+			btn.color = 0xFF222222;
+		});
+		
+		for (i in 0..._grpThumbnails.members.length)
+		{
+			if (curSelected == i)
+			{
+				_grpThumbnails.members[i].color = FlxColor.WHITE;
+			}
+		}
+		
+		if (FlxG.onMobile)
+		{
+			
+			for (touches in FlxG.touches.list)
+			{
+				if (touches.overlaps(titleText))
+					FlxG.switchState(new MenuState());
+			}
+			
+		}
+		
+		dragControls();
+		
+		super.update(elapsed);
+	}
+	
+	private function keyboardControls():Void
+	{
+		#if !mobile
+		if (FlxG.mouse.wheel != 0)
+		{
+			bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 1.5)));
+			bigPreview.updateHitbox();
+			bigPreview.screenCenter();
+		}
+		
+		#end
+		
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			if (isOpen)
+			{
+				isOpen = false;
+			}
+			else
+			{
+				FlxG.switchState(new MenuState());
+			}
+			
+		}
+		
+		if (isOpen)
+		{
+			if (FlxG.keys.justPressed.LEFT && grid[curOpen][2])
+			{
+				curAnimPlaying -= 1;
+				if (curAnimPlaying < 0)
+				{
+					curAnimPlaying = grid[curOpen][5].length;
+					curAnimPlaying -= 1;
+				}
+				
+				#if !nutaku
+				if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+				{
+					curAnimPlaying -= 1;
+				}
+				
+				#end
+				
+				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);	
+			}
+			
+			
+			if (FlxG.keys.justPressed.RIGHT && grid[curOpen][2])
+			{
+				curAnimPlaying += 1;
+				
+				if (curAnimPlaying > grid[curOpen][5].length - 1)
+				{
+					curAnimPlaying = 0;
+				}
+				
+				#if !nutaku
+					if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+					{
+						curAnimPlaying = 0;
+					}
+				#end
+				
+				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+			}
+			
+			if (FlxG.keys.justPressed.E)
+			{
+				isSpritesheet = !isSpritesheet;
+				
+				openImage(curOpen);
+			}
+			
+			
+			// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
+			if (FlxG.keys.pressed.S)
+			{
+				bigPreview.offset.y += 10;
+			}
+			if (FlxG.keys.pressed.W)
+			{
+				bigPreview.offset.y -= 10;
+			}
+			
+			if (FlxG.keys.pressed.D)
+			{
+				bigPreview.offset.x += 10;
+			}
+			
+			if (FlxG.keys.pressed.A)
+			{
+				bigPreview.offset.x -= 10;
+			}
+		}
+		else //if ur navigating the image
+		{
+			if (FlxG.keys.anyJustPressed([D, RIGHT]))
+			{
+				curSelected += 1;
+			}
+			if (FlxG.keys.anyJustPressed([A, LEFT]))
+			{
+				curSelected -= 1;
+			}
+			
+			if (FlxG.keys.anyJustPressed([W, UP]))
+			{
+				curSelected -= 4;
+			}
+			if (FlxG.keys.anyJustPressed([S, DOWN]))
+				curSelected += 4;
+			
+			if (FlxG.keys.anyJustPressed([SPACE, ENTER, Z]))
+			{
+				isSpritesheet = false;
+				openImage(curSelected);
+			}
+		}
+		
+	}
+	
+	private var dragPos:FlxPoint = new FlxPoint();
+	private var picPosOld:FlxPoint = new FlxPoint();
+	
+	private var touchesLength:Float = 0;
+	private var touchesAngle:Float = 0;
+	private var picAngleOld:Float = 0;
+	private var picWidthOld:Float = 0;
+	
+	private function dragControls():Void
+	{	
+		var pressingButton:Bool = false;
+		var zoomPressingButton:Bool = false;
+		var buttonJustPressed:Bool = false;
+		var zoomButtonJustPressed:Bool = false;
+		var buttonPos:FlxPoint = new FlxPoint();
+		
+		// its called touchNew, but really its the length of the line between the two touches
+		// or the length between the center of the image and the mouse on right click
+		var touchNew:Float = 0;
+		var rads:Float = 0;
+		var midScreen:FlxPoint = new FlxPoint();
+		midScreen.set(FlxG.width / 2, FlxG.height / 2);
+				
+		
+		#if !mobile
+			if (FlxG.mouse.pressed)
+			{
+				if (FlxG.mouse.justPressed)
+				{
+					dragPos = FlxG.mouse.getPosition();
+					buttonJustPressed = true;
+				}
+				
+				pressingButton = true;
+				buttonPos = FlxG.mouse.getPosition();
+			}
+			
+			if (FlxG.mouse.pressedRight)
+			{
+				if (FlxG.mouse.justPressedRight)
+				{
+					zoomButtonJustPressed = true;
+				}
+				
+				zoomPressingButton = true;
+				
+				rads = Math.atan2(midScreen.y - FlxG.mouse.y, midScreen.x - FlxG.mouse.x);
+				touchNew = FlxMath.vectorLength(midScreen.x - FlxG.mouse.x, midScreen.y - FlxG.mouse.y);
+			}
+			
+		#else
+			if (FlxG.touches.list.length == 1)
+			{
+				if (FlxG.touches.list[0].justPressed)
+				{
+					dragPos = FlxG.touches.list[0].getPosition();
+					buttonJustPressed = true;
+				}
+				
+				pressingButton = true;
+				buttonPos = FlxG.touches.list[0].getPosition();
+			}
+			if (FlxG.touches.list.length == 2)
+			{
+				
+				if (FlxG.touches.list[1].justPressed)
+				{
+					zoomButtonJustPressed = true;
+				}
+				
+				zoomPressingButton = true;
+				
+				rads = Math.atan2(FlxG.touches.list[0].y - FlxG.touches.list[1].y, FlxG.touches.list[0].x - FlxG.touches.list[1].x);
+				touchNew = FlxMath.vectorLength(FlxG.touches.list[0].x - FlxG.touches.list[1].x, FlxG.touches.list[0].y - FlxG.touches.list[1].y);
+			}
+		#end
+		
+		// drag behaviour
+		if (pressingButton)
+		{
+			if (buttonJustPressed)
+			{
+				picPosOld.x = bigPreview.offset.x;
+				picPosOld.y = bigPreview.offset.y;
+			}
+		
+			
+			var xPos:Float = buttonPos.x - dragPos.x;
+			var yPos:Float = buttonPos.y - dragPos.y;
+			
+			bigPreview.offset.x = picPosOld.x - xPos;
+			bigPreview.offset.y = picPosOld.y - yPos;
+			
+		}
+		
+		// zoom behaviour
+		if (zoomPressingButton)
+		{	
+			if (zoomButtonJustPressed)
+			{
+				touchesLength = touchNew;
+				touchesAngle = FlxAngle.asDegrees(rads);
+				picAngleOld = bigPreview.angle;
+				picWidthOld = bigPreview.width;
+			}
+			
+			
+			var degs = FlxAngle.asDegrees(rads);
+			bigPreview.angle = (picAngleOld + degs - touchesAngle);
+			
+			if (FlxG.keys.pressed.SHIFT)
+				bigPreview.angle = 0;
+			
+			FlxG.watch.addQuick("Degs/Angle", degs);
+			
+			bigPreview.setGraphicSize(Std.int(picWidthOld * (touchNew / touchesLength)));
+			bigPreview.updateHitbox();
+			bigPreview.screenCenter();
+			
+		}
+	}
+	
 	// SYNTAX GUIDE
 	// link to image
 	// Info
@@ -28,22 +606,213 @@ class GalleryState extends FlxState
 	private var grid:Array<Dynamic> = 
 	[
 		[
-			"assets/images/edition.png",
-			"Test Info",
-			
-		],
-		[
-			"assets/images/left_and_right.png",
+			"assets/images/clamSheet.png",
 			"more info",
 			true,
-			2,
+			4,
 			1,
 			[
 				[
-					"idle",
-					[0, 1],
-					6
-				]
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/echidnaSheet.png",
+			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/minotaurSheet.png",
+			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/batSheet.png",
+			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/mushSheet.png",
+			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/slimeSheet.png",
+			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/vineSheet.png",
+			"more info",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
 			]
 		],
 		[
@@ -111,262 +880,29 @@ class GalleryState extends FlxState
 					6
 				]
 			]
+		],
+		[
+			"assets/images/fanart/clamOld.png",
+			"Fanart of the old Clam Girl design, art by Peeper"
+		],
+		[
+			"assets/images/fanart/clamOldNUDEHELLYEAH.png",
+			"Fanart of the old Clam Girl design, but this one is naked hell yeah damn, art by Peeper"
+		],
+		[
+			"assets/images/fanart/Monster_mashin_lady.png",
+			"Fanart of the old Clam Girl design, you know she had to do it to em, art by Peeper"
+		],
+		[
+			"assets/images/fanart/mushOogtarded.png",
+			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
+		],
+		[	// THIS IS TEMP CHANGE LATER!!
+			"assets/images/fanart/mushOogtarded.png",
+			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
 		]
+		
 	];
-
-	private var bigImage:FlxSpriteGroup;
-	private var _grpThumbnails:FlxTypedGroup<FlxSpriteButton>;
-	private var bigPreview:FlxSprite;
-	private var imageText:FlxText;
-	
-	private var curOpen:Int = 0;
-	private var curAnimPlaying:Int = 0;
-	private var isSpritesheet:Bool = false;
-	
-	override public function create():Void 
-	{
-		#if !mobile
-			FlxG.mouse.visible = true;
-		#end
-		
-		bigImage = new FlxSpriteGroup();
-		bigPreview = new FlxSprite();
-		bigImage.add(bigPreview);
-		
-		imageText = new FlxText(0, FlxG.height - 70, FlxG.width - 6, "Test Words", 18);
-		imageText.alignment = FlxTextAlign.CENTER;
-		imageText.screenCenter(X);
-		bigImage.add(imageText);
-		
-		var text:FlxText = new FlxText(10, 10, 0, "Gallery", 16);
-		add(text);
-		
-		_grpThumbnails = new FlxTypedGroup<FlxSpriteButton>();
-		add(_grpThumbnails);
-		
-		for (i in 0...grid.length)
-		{
-			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
-			
-			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
-				curOpen = i;
-				isSpritesheet = false;
-				
-				openImage(curOpen);
-			});
-			gridBG.makeGraphic(100, 100);
-			_grpThumbnails.add(gridBG);
-			
-			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
-			gridThing.loadGraphic(grid[i][0]);
-			
-			var testSize:Int = 90;
-			if (gridThing.width > gridThing.height)
-				gridThing.setGraphicSize(testSize);
-			else
-				gridThing.setGraphicSize(0, testSize);
-			
-			gridThing.updateHitbox();
-			gridThing.setPosition(gridBG.getMidpoint().x - (gridThing.width / 2), gridBG.getMidpoint().y - (gridThing.height / 2)); 
-			add(gridThing);
-		}
-		
-		add(bigImage);
-		bigImage.visible = false;
-		
-		super.create();
-	}
-	
-	private function openImage(i:Int):Void
-	{
-		curAnimPlaying = 0;
-		bigImage.visible = true;
-		bigPreview.loadGraphic(grid[i][0]);
-		
-		var isAnimated = grid[i][2];
-		var horizSize:Int = Std.int(bigPreview.width);
-		var vertSize:Int = Std.int(bigPreview.height);
-		// checks if animated
-		if (isAnimated && !isSpritesheet)
-		{
-			isAnimated = true;
-			horizSize = Std.int(horizSize / grid[i][3]);
-			vertSize = Std.int(vertSize / grid[i][4]);
-		}
-		
-		bigPreview.loadGraphic(grid[i][0], isAnimated, horizSize, vertSize);
-		
-		// loads animation data
-		if (isAnimated && !isSpritesheet)
-		{
-			for (a in 0...grid[i][5].length)
-			{
-				bigPreview.animation.add(grid[i][5][a][0], grid[i][5][a][1], grid[i][5][a][2]);
-				bigPreview.animation.play(grid[i][5][a][0]);
-			}
-		}
-		
-		if (bigPreview.width < bigPreview.height)
-			bigPreview.setGraphicSize(0, Std.int(FlxG.width * 0.75));
-		else
-			bigPreview.setGraphicSize(Std.int(FlxG.height * 0.75));
-		
-		bigPreview.updateHitbox();
-		bigPreview.screenCenter();
-		
-		imageText.text = grid[i][1];
-		
-	}
-	
-	override public function update(elapsed:Float):Void 
-	{
-		#if !mobile
-			keyboardControls();
-		#else
-			mobileControls();
-		#end
-		
-		super.update(elapsed);
-	}
-	
-	private function keyboardControls():Void
-	{
-		#if !mobile
-		if (FlxG.mouse.wheel != 0)
-		{
-			bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 1.5)));
-			bigPreview.updateHitbox();
-			bigPreview.screenCenter();
-		}
-		#end
-		
-		if (FlxG.keys.justPressed.LEFT)
-		{
-			if (grid[curOpen][2])
-			{
-				curAnimPlaying -= 1;
-				if (curAnimPlaying < 0)
-				{
-					curAnimPlaying = grid[curOpen][5].length;
-					curAnimPlaying -= 1;
-				}
-				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
-			}
-		}
-		
-		
-		if (FlxG.keys.justPressed.RIGHT)
-		{
-			if (grid[curOpen][2])
-			{
-				curAnimPlaying += 1;
-				if (curAnimPlaying > grid[curOpen][5].length - 1)
-				{
-					curAnimPlaying = 0;
-				}
-				bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
-			}
-		}
-		
-		if (FlxG.keys.justPressed.E)
-		{
-			isSpritesheet = !isSpritesheet;
-			
-			openImage(curOpen);
-		}
-		
-		
-		// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
-		if (FlxG.keys.pressed.S)
-		{
-			bigPreview.offset.y += 10;
-		}
-		if (FlxG.keys.pressed.W)
-		{
-			bigPreview.offset.y -= 10;
-		}
-		
-		if (FlxG.keys.pressed.D)
-		{
-			bigPreview.offset.x += 10;
-		}
-		
-		if (FlxG.keys.pressed.A)
-		{
-			bigPreview.offset.x -= 10;
-		}
-		
-	}
-	
-	private var dragPos:FlxPoint = new FlxPoint();
-	private var picPosOld:FlxPoint = new FlxPoint();
-	
-	private var touchesLength:Float = 0;
-	private var touchesAngle:Float = 0;
-	private var picAngleOld:Float = 0;
-	
-	private function mobileControls():Void
-	{
-		imageText.text = Std.string(FlxG.touches.list.length);
-		
-		
-		// drag behaviour
-		if (FlxG.touches.list.length == 1)
-		{
-			
-			if (FlxG.touches.list[0].justPressed)
-			{
-				picPosOld.x = bigPreview.offset.x;
-				picPosOld.y = bigPreview.offset.y;
-				dragPos = FlxG.touches.list[0].getPosition();
-			}
-		
-			
-			var xPos:Float = FlxG.touches.list[0].x - dragPos.x;
-			var yPos:Float = FlxG.touches.list[0].y - dragPos.y;
-			
-			bigPreview.offset.x = picPosOld.x - xPos;
-			bigPreview.offset.y = picPosOld.y - yPos;
-			
-		}
-		
-		// zoom behaviour
-		if (FlxG.touches.list.length == 2)
-		{
-			var touchNew:Float = FlxMath.vectorLength(FlxG.touches.list[0].x - FlxG.touches.list[1].x, FlxG.touches.list[0].y - FlxG.touches.list[1].y);
-			
-			var rads:Float = Math.atan2(FlxG.touches.list[0].y - FlxG.touches.list[1].y, FlxG.touches.list[0].x - FlxG.touches.list[1].x);
-		
-			
-			
-			if (FlxG.touches.list[1].justPressed)
-			{
-				touchesLength = touchNew;
-				touchesAngle = FlxAngle.asDegrees(rads);
-				picAngleOld = bigPreview.angle;
-				
-				//FlxG.watch.addQuick("Degs/Angle", degs);
-			}
-			
-			var degs = FlxAngle.asDegrees(rads);
-			bigPreview.angle = (picAngleOld + degs - touchesAngle);
-			
-			bigPreview.setGraphicSize(Std.int(bigPreview.width + (touchNew - touchesLength)));
-			bigPreview.updateHitbox();
-			bigPreview.screenCenter();
-			
-			if (touchNew - touchesLength >= 10)
-			{
-				touchesLength += touchNew * 0.1;
-			}
-			else if (touchNew - touchesLength <= -10)
-			{
-				touchesLength -= touchNew * 0.1;
-			}
-			else
-				touchesLength = touchNew;
-			
-		}
-	}
 	
 }
+	

@@ -6,12 +6,13 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import io.newgrounds.NG;
 
 /**
  * ...
  * @author ninjaMuffin
  */
-class SettingState extends FlxState
+class SettingState extends BaseMenuState
 {
 	public static var masterVol:Float = 1;
 	public static var musicVol:Float = 1;
@@ -21,6 +22,8 @@ class SettingState extends FlxState
 	//public static var gameSpeed:Float = 1;
 	public static var aprilFools:Bool = false;
 	//public static var picoDay:Float = 0;
+	
+	public static var mashHold:Bool = false;
 	
 	private var musicTxt:FlxText;
 	private var speedTxt:FlxText;
@@ -32,9 +35,9 @@ class SettingState extends FlxState
 	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume", /*"Game Speed",*/ "April Fools",/* "Pico Day"*/], 
-		[masterVol, musicVol, soundVol, moanVol,/* gameSpeed, */aprilFools/*, picoDay*/],
-		[0, 0, 0, 0, false, 0]
+		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume", "Hold to attack",/* "Pico Day"*/], 
+		[masterVol, musicVol, soundVol, moanVol],
+		[0, 0, 0, 0, false]
 	];
 	
 	private var _selection:Int = 0;
@@ -46,13 +49,20 @@ class SettingState extends FlxState
 	private var _grpText:FlxTypedGroup<FlxText>;
 	
 	private var exitTxt:FlxText;
+	private var NGAPI:FlxText;
+	private var deleteText:FlxText;
 	
 	override public function create():Void 
 	{
-		#if !flash
-			var btnNG:FlxButton = new FlxButton(32, 350, "Log into NG", function(){var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);});
-			add(btnNG);
+		initTilemap(1);
+		
+		NGAPI = new FlxText(32, 350, FlxG.width - 32, "Press N to log into the Newgrounds API!", 28);
+		#if !nutaku
+		add(NGAPI);
 		#end
+		
+		deleteText = new FlxText(32, 420, FlxG.width - 32, "\nPress P to delete all data!", 28);
+		add(deleteText);
 		
 		_selector = new FlxSpriteGroup();
 		add(_selector);
@@ -100,6 +110,8 @@ class SettingState extends FlxState
 	{
 		super.update(elapsed);
 		
+		NGAPItextUpdate();
+		
 		//speedTxt.text = "Game Speed: " + gameSpeed;
 		
 		controls();
@@ -123,6 +135,34 @@ class SettingState extends FlxState
 			_grpValues.members[t].text = Std.string(settingsArray[1][t]); 
 		}
 		
+		if (FlxG.keys.justPressed.P)
+		{
+			HighScore.score = 0;
+			HighScore.totalScore = 0;
+			FlxG.save.data.sessionId = null;
+			HighScore.save();
+			deleteText.text = "Data deleted";
+		}
+		
+		if (FlxG.keys.justPressed.N && !NGio.isLoggedIn)
+		{
+			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		}
+		else if (FlxG.keys.justPressed.N && NGio.isLoggedIn)
+			NG.core.logOut(function()
+			{
+				NGio.isLoggedIn = false;
+				FlxG.save.data.sessionId = null;
+				FlxG.save.flush();
+				
+			});
+	}
+	
+	override public function switchTo(nextState:FlxState):Bool 
+	{
+		HighScore.save();
+		
+		return super.switchTo(nextState);
 	}
 	
 	private function controls():Void
@@ -175,6 +215,12 @@ class SettingState extends FlxState
 				
 				if (touch.justPressed)
 				{
+					if (touch.overlaps(NGAPI) && !NGio.isLoggedIn)
+					{
+						var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+						NGAPI.text = "sike, this doesnt do anything";
+					}
+					
 					if (touch.overlaps(_selLeft))
 					{
 						changeValue( -0.1);
@@ -199,7 +245,23 @@ class SettingState extends FlxState
 	{
 		// This only works for float values, for bool (april fools toggle for an example) the other commented junk might work better i think
 		// I'd still ahve to clean it up
-		settingsArray[1][_selection] += diff;
+		
+		
+		if (Type.typeof(settingsArray[0][_selection]) == TBool)
+		{
+			settingsArray[1][_selection] = !settingsArray[1][_selection];
+		}
+		else
+		{
+			settingsArray[1][_selection] += diff;
+			
+			
+			if (settingsArray[1][_selection] < settingsArray[2][_selection])
+				settingsArray[1][_selection] = settingsArray[2][_selection];
+			
+			settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
+			
+		}
 		/*
 		if (settingsArray[1][_selection] || !settingsArray[1][_selection])
 		{
@@ -221,18 +283,38 @@ class SettingState extends FlxState
 		}
 		
 		
-		if (settingsArray[1][_selection] < settingsArray[2][_selection])
-			settingsArray[1][_selection] = settingsArray[2][_selection];
-		
-		settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
-		
 		masterVol = settingsArray[1][0];
 		musicVol = settingsArray[1][1];
 		soundVol = settingsArray[1][2];
 		moanVol = settingsArray[1][3];
 		//gameSpeed = settingsArray[1][4];
-		aprilFools = settingsArray[1][4];//MAKE SURE THIS IS CHANGED ONCE WE USE GAME SPEED MODIFIERS
+		mashHold = settingsArray[1][4];//MAKE SURE THIS IS CHANGED ONCE WE USE GAME SPEED MODIFIERS
 		//picoDay = settingsArray[1][0];
+	}
+	
+	private function NGAPItextUpdate():Void
+	{
+		if (FlxG.onMobile)
+		{
+			NGAPI.text = "Tap here to sign into the Newgrounds API!";
+		}
+		
+		
+		if (NGio.isLoggedIn)
+		{
+			//NGAPI.text = "Logged into the Newgrounds API as " + NG.core.user.name;
+			NGAPI.text = "Logged into the Newgrounds API as " + NG.core.user.name;
+			
+			if (NGio.scoreboardsLoaded)
+			{
+				NGAPI.text += "\nScoreboard data loaded";
+			}
+			else
+			{
+				NGAPI.text += "\nLoading scoreboards... Please wait";
+			}
+			
+		}
 	}
 
 	private function changePos():Void
