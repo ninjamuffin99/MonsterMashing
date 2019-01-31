@@ -104,12 +104,14 @@ class BaseMenuState extends FlxState
 		
 		var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0.5;
+		bg.scrollFactor.set();
 		add(bg);
 		
 	}
 	
 	private function scaleUp(t:FlxTilemap):Void
 	{
+		t.scrollFactor.set();
 		t.scale.set(mapZoom, mapZoom);
 		t.x = mapOffsetX;
 	}

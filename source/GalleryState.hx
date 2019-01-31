@@ -67,7 +67,14 @@ class GalleryState extends BaseMenuState
 		imageTextBG.makeGraphic(Std.int(imageText.frameWidth + 10), Std.int((imageText.textField.numLines + 1) * 19), FlxColor.BLACK);
 		imageTextBG.screenCenter(X);
 		
-		titleText = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 20);
+		titleText = new FlxText(10, 10, 0, "Gallery", 20);
+		#if mobile
+		titleText.text += "\nTap here to return to main menu";
+		#else
+		titleText.text += "\nPress ESC to return to main menu";
+		#end
+		titleText.alignment = CENTER;
+		titleText.screenCenter(X);
 		add(titleText);
 		
 		_grpThumbnails = new FlxTypedGroup<FlxSpriteButton>();
@@ -115,8 +122,7 @@ class GalleryState extends BaseMenuState
 		
 		for (i in 0...grid.length)
 		{
-			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
-			
+			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 30, (120 * Std.int(i / 4)) + 80);
 			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
 				
 				if (!isOpen)
@@ -139,9 +145,14 @@ class GalleryState extends BaseMenuState
 			
 			
 			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
+			if (i >= grid.length - HighScore.shiniesSeen.length)
+			{
+				FlxG.log.add((i - grid.length) + HighScore.shiniesSeen.length);
+			}
+			
 			
 			// do it this way somewhat makes it quicker to load when you dont have as many images unlocked
-			if (hasScore(i) || (i > grid.length - HighScore.shiniesSeen.length && HighScore.shiniesSeen[grid.length - i]))
+			if (hasScore(i) || (i >= grid.length - HighScore.shiniesSeen.length && HighScore.shiniesSeen[(i - grid.length) + HighScore.shiniesSeen.length]))
 			{
 				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame__png);
 				
@@ -175,14 +186,16 @@ class GalleryState extends BaseMenuState
 				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame_Locked1__png);
 				gridThing.makeGraphic(1, 1, FlxColor.TRANSPARENT);
 			}
-			
+			gridBG.scrollFactor.set(1, 1);
 			_grpThumbnails.add(gridBG);
 			add(gridThing);
 		}
 		
+		FlxG.camera.setScrollBounds(0, FlxG.width, 0, _grpThumbnails.members[_grpThumbnails.members.length - 1].y + 150);
 		
 		add(bigImage);
 		bigImage.visible = false;
+		bigImage.scrollFactor.set();
 		
 		super.create();
 	}
@@ -269,26 +282,14 @@ class GalleryState extends BaseMenuState
 		FlxTween.tween(bigPreview, {alpha: 1, y: bigPreview.y + 10}, 0.5, {ease: FlxEase.quartOut, startDelay: 0.02});
 		
 		
-		if (hasScore(i) || (i > grid.length - HighScore.shiniesSeen.length && HighScore.shiniesSeen[grid.length - i]))
-			bigPreview.color = FlxColor.WHITE;
 		
+		if (hasScore(i) || (i >= grid.length - HighScore.shiniesSeen.length && HighScore.shiniesSeen[(i - grid.length) + HighScore.shiniesSeen.length]))
+			bigPreview.color = FlxColor.WHITE;
 		else
 		{
 			bigPreview.color = FlxColor.BLACK;
 		}
 		
-	}
-	
-	private function isShiny(monster:Int):Bool
-	{
-		var theBool:Bool = false;
-		
-		if (grid[monster][0] == "assets/images/" + HighScore.monsterList[monster] + "SheetShiny.png")
-		{
-			theBool = true;
-		}
-		
-		return theBool;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -309,7 +310,7 @@ class GalleryState extends BaseMenuState
 		
 		_grpThumbnails.forEach(function(btn:FlxSpriteButton)
 		{
-			btn.color = 0xFF222222;
+			btn.color = 0xFF444444;
 		});
 		
 		for (i in 0..._grpThumbnails.members.length)
@@ -317,6 +318,7 @@ class GalleryState extends BaseMenuState
 			if (curSelected == i)
 			{
 				_grpThumbnails.members[i].color = FlxColor.WHITE;
+				FlxG.camera.follow(_grpThumbnails.members[i], null, 0.01);
 			}
 		}
 		
@@ -590,222 +592,12 @@ class GalleryState extends BaseMenuState
 	private var grid:Array<Dynamic> = 
 	[
 		[
-			"assets/images/clamSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/echidnaSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/minotaurSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/batSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/mushSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/slimeSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/vineSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
 			"assets/images/mmLogo.png",
-			"logo thing"
+			"The Monster Mashing logo"
 		],
 		[
 			"assets/images/preloaderArt.png",
-			"Coolguy PhantomArcade, at the Ambler Theater before the Newgrounds Pico Day Reanimated event from Oct twenty something"
+			"PhantomArcade, at the Ambler Theater. This image is used for the preloader for the web version of the game"
 		],
 		[
 			"assets/images/spr_player.png",
@@ -866,6 +658,10 @@ class GalleryState extends BaseMenuState
 			]
 		],
 		[
+			"assets/images/unused concept/Colors_forMushgirlcolderversion.jpg",
+			"Mush girl concept. This is unused colors for mush girl. \nPainted by our ex-Monster Mashing dev EiGiBeast (RIP LOLOL)\nConcept art/sketch by Digimin"
+		],
+		[
 			"assets/images/fanart/clamOld.png",
 			"Fanart of the old Clam Girl design, art by Peeper"
 		],
@@ -881,11 +677,228 @@ class GalleryState extends BaseMenuState
 			"assets/images/fanart/mushOogtarded.png",
 			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
 		],
-		[	// THIS IS TEMP CHANGE LATER!!
-			"assets/images/fanart/mushOogtarded.png",
-			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
+		[
+			"assets/images/unused concept/spr_mush.png",
+			"Early concept sketch for Mushroom girl. She might've been the first character designed I believe\nArt by Digimin"
+		],
+		[
+			"assets/images/unused concept/girls.png",
+			"Unused concepts for girls. Besides the echidna.\nArt by Digimin"
+		],
+		[
+			"assets/images/unused concept/hhhhhhh.jpg",
+			"Concepts for the second round of girls. On the left is 'red panda' girl. Shame she ain't in though\nArt by Digimin"
+		],
+		[
+			"assets/images/mushSheet.png",
+			"The artwork for the Mushroom girl\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/vineSheet.png",
+			"The artwork for the Vine girl\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/batSheet.png",
+			"The artwork for the bat lady\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/clamSheet.png",
+			"The artwork for the clam lady\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/echidnaSheet.png",
+			"The artwork for the Echidna woman\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/minotaurSheet.png",
+			"The artwork for the Minotaur girl\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/slimeSheet.png",
+			"The artwork of the slime girl.\nArt by FuShark",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		]
-		
 	];
 	
 }

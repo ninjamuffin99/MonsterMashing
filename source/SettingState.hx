@@ -35,9 +35,10 @@ class SettingState extends BaseMenuState
 	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume", "Hold to attack",/* "Pico Day"*/], 
+		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume"], 
 		[masterVol, musicVol, soundVol, moanVol],
-		[0, 0, 0, 0, false]
+		[0, 0, 0, 0, false],
+		[1, 1, 1, 1, true]
 	];
 	
 	private var _selection:Int = 0;
@@ -139,6 +140,17 @@ class SettingState extends BaseMenuState
 		{
 			HighScore.score = 0;
 			HighScore.totalScore = 0;
+			HighScore.shiniesSeen =  
+			[
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false
+			];
+			
 			FlxG.save.data.sessionId = null;
 			HighScore.save();
 			deleteText.text = "Data deleted";
@@ -258,6 +270,8 @@ class SettingState extends BaseMenuState
 			
 			if (settingsArray[1][_selection] < settingsArray[2][_selection])
 				settingsArray[1][_selection] = settingsArray[2][_selection];
+			if (settingsArray[1][_selection] > settingsArray[3][_selection])
+				settingsArray[1][_selection] = settingsArray[3][_selection];
 			
 			settingsArray[1][_selection] = FlxMath.roundDecimal(settingsArray[1][_selection], 1);
 			

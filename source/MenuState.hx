@@ -190,26 +190,6 @@ class MenuState extends BaseMenuState
 		
 		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.mmLogo__png, false, 492, 166);
 		sprMonster.screenCenter(X);
-		
-		//sprMashing = new FlxSprite(0, 150).loadGraphic(AssetPaths.mashing__png, false, 319, 62);
-		//sprMashing.screenCenter(X);
-		/*
-		//April Fools Code
-		if (SettingState.aprilFools)
-		{
-			sprMonster.loadGraphic(AssetPaths.aprilfools__png, false, 492, 166);
-			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
-			add(sprMashing);
-		}
-		
-		//Pico Day Code
-		if (SettingState.picoDay == 1){
-			sprMonster.loadGraphic(AssetPaths.picoDay__png, false, 492, 166);
-			sprMashing.loadGraphic(AssetPaths.edition__png, false, 319, 62);
-			add(sprMashing);
-		}
-		*/
-		//add(sprMashing);
 		add(sprMonster);
 		
 	}
@@ -251,18 +231,24 @@ class MenuState extends BaseMenuState
 		}
 		else
 		{
-			mScore = new FlxText(0, FlxG.height / 2 + 210, 0, "", 32);	
+			if (menuItems.length == 7)
+			{
+				mScore = new FlxText(0, FlxG.height / 2 + 250, 0, "", 32);	
+			}
+			else
+				mScore = new FlxText(0, FlxG.height / 2 + 210, 0, "", 32);	
+			
 		}
 		
 		mScore.text = "High Score: " + HighScore.score + "\nTotal Score: " + HighScore.totalScore;
 		mScore.alignment = FlxTextAlign.CENTER;
-		mScore.screenCenter(X);
 		add(mScore);
 		
 		if (HighScore.recentScore > 0)
 		{
 			mScore.text += "\nRecent Score: " + HighScore.recentScore;
 		}
+		mScore.screenCenter(X);
 		
 		//What device are you on?
 		debugInfo = new FlxText(8, FlxG.height - 20, 0, currentVersion, 16);
@@ -326,35 +312,13 @@ class MenuState extends BaseMenuState
 				{
 					if (touch.justPressed) 
 					{
-						if (touch.overlaps(_grpMenu.members[0]))
+						for (t in 0..._grpMenu.members.length)
 						{
-							vibrate();
-							FlxG.switchState(new PlayState());
-						}
-						if (touch.overlaps(_grpMenu.members[1]))
-						{
-							vibrate();
-							FlxG.switchState(new GalleryState());
-						}
-						if (touch.overlaps(_grpMenu.members[2]))
-						{
-							vibrate();
-							FlxG.switchState(new CredState());
-						}
-						if (touch.overlaps(_grpMenu.members[3]))
-						{
-							vibrate();
-							openSubState(new ScoreState(0xCC000000));
-						}
-						if (touch.overlaps(_grpMenu.members[4]))
-						{
-							vibrate();
-							FlxG.switchState(new SettingState());
-						}
-						if (touch.overlaps(_grpMenu.members[5]))
-						{
-							vibrate();
-							FlxG.openURL(discordLink);
+							if (touch.overlaps(_grpMenu.members[t])
+							{
+								vibrate();
+								menuOpen(menuItems[t]);
+							}
 						}
 					}
 				}
@@ -419,43 +383,36 @@ class MenuState extends BaseMenuState
 			sound.group = FlxG.sound.defaultSoundGroup;
 			sound.play();
 			
-			switch (selected) 
-			{
-				case 0:
-					FlxG.switchState(new PlayState());
-				case 1:
-					FlxG.switchState(new GalleryState());
-				case 2:
-					FlxG.switchState(new CredState());
-				case 3:
-					openSubState(new ScoreState(0xCC000000));
-				case 4:
-					FlxG.switchState(new SettingState());
-				case 5:
-					// if Nutaku version, it doesnt have the link so its 6 items long
-					// and the behaviour should be to exit
-					if (menuItems.length == 7)
-					{
-						FlxG.openURL(discordLink);
-					}
-					else
-					{
-						#if desktop
-							Sys.exit(0);
-						#end
-					}
-				case 6:
-					#if desktop
-						Sys.exit(0);
-					#else
-						FlxG.openURL(nutakuLink);
-					#end
-				default:
-			}
+			menuOpen(menuItems[selected]);
 		}
 	}
 	
-	
+	private function menuOpen(menuSelected:String):Void
+	{
+		switch (menuSelected) 
+			{
+				case "Play":
+					FlxG.switchState(new PlayState());
+				case "Gallery":
+					FlxG.switchState(new GalleryState());
+				case "Credits":
+					FlxG.switchState(new CredState());
+				case "Hall of Shame":
+					openSubState(new ScoreState(0xCC000000));
+				case "Settings":
+					FlxG.switchState(new SettingState());
+				case "Join Our Discord":
+						FlxG.openURL(discordLink);
+				case "Exit":
+					#if desktop
+						Sys.exit(0);
+					#end
+				case "Buy on Nutaku!":
+					FlxG.openURL(nutakuLink);
+				default:
+			}
+		
+	}
 	
 	private function resetBarFill():Void
 	{

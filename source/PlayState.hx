@@ -7,29 +7,16 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
-import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
-import flixel.math.FlxMath;
 import flixel.util.FlxColor;
-import flixel.util.FlxSort;
-import flixel.util.FlxTimer;
-import io.newgrounds.Call;
 import io.newgrounds.NG;
-import io.newgrounds.NGLite;
-import openfl.display.BlendMode;
 #if steam
 import steamwrap.api.Steam;
 #end
 using flixel.util.FlxSpriteUtil;
-
-import com.newgrounds.*;
-import com.newgrounds.components.*;
 
 class PlayState extends FlxState
 {
@@ -291,11 +278,12 @@ class PlayState extends FlxState
 			}
 		}
 		
+		#if debug
 		if (FlxG.keys.justPressed.UP && FlxG.keys.pressed.B)
 		{
 			score += 2500;
 		}
-		
+		#end
 		if (score >= 10000)
 		{
 			if (NGio.isLoggedIn)

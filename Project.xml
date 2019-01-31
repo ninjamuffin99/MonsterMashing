@@ -33,10 +33,10 @@
 	<assets path="assets/images"/>
 	<assets path="assets/data"/>
 	
-	<assets path="assets/music" include="*.mp3" if="flash" />
-	<assets path="assets/music" include="*.ogg" unless="flash" />
-	<assets path="assets/sounds" include="*.mp3" if="flash" />
-	<assets path="assets/sounds" include="*.ogg" unless="flash" />
+	<assets path="assets/music" include="*.mp3" if="web" />
+	<assets path="assets/music" include="*.ogg" unless="web" />
+	<assets path="assets/sounds" include="*.mp3" if="web" />
+	<assets path="assets/sounds" include="*.ogg" unless="web" />
 	
 	<!-- _______________________________ Libraries ______________________________ -->
 
