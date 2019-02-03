@@ -35,8 +35,8 @@ class SettingState extends BaseMenuState
 	 */
 	private var settingsArray:Array<Dynamic> = 
 	[
-		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume"], 
-		[masterVol, musicVol, soundVol, moanVol],
+		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume", "Hold to Mash"], 
+	[masterVol, musicVol, soundVol, moanVol, mashHold],
 		[0, 0, 0, 0, false],
 		[1, 1, 1, 1, true]
 	];
@@ -93,12 +93,13 @@ class SettingState extends BaseMenuState
 			
 		}
 		
-		exitTxt = new FlxText(16, FlxG.height - 64, 0, "Z to return to Menu", 32);
+		exitTxt = new FlxText(16, FlxG.height - 64, 0, "ESC to return to Menu", 32);
 		add(exitTxt);
 		
 		if (FlxG.onMobile)
 		{
 			exitTxt.text = "Tap here to exit";
+			deleteText.text = "Tap here to delete all data!";
 		}
 		
 		_selector.x = FlxG.width - 130;
@@ -126,34 +127,30 @@ class SettingState extends BaseMenuState
 			changePos();
 		
 		
-		if (FlxG.keys.anyJustPressed(["Z", "ENTER", "SPACE"]))
+		if (FlxG.keys.anyJustPressed(["ESCAPE"]))
 		{
 			FlxG.switchState(new MenuState());
 		}
 		
 		for (t in 0..._grpValues.members.length)
 		{
-			_grpValues.members[t].text = Std.string(settingsArray[1][t]); 
+			_grpValues.members[t].text = Std.string(settingsArray[1][t]);
+			if (settingsArray[0][t] == "Hold to Mash")
+			{
+				if (settingsArray[1][t])
+				{
+					_grpValues.members[t].text = "On";
+				}
+				else
+					_grpValues.members[t].text = "Off";
+				
+			}
 		}
 		
 		if (FlxG.keys.justPressed.P)
 		{
-			HighScore.score = 0;
-			HighScore.totalScore = 0;
-			HighScore.shiniesSeen =  
-			[
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false
-			];
+			deleteData();
 			
-			FlxG.save.data.sessionId = null;
-			HighScore.save();
-			deleteText.text = "Data deleted";
 		}
 		
 		if (FlxG.keys.justPressed.N && !NGio.isLoggedIn)
@@ -205,32 +202,33 @@ class SettingState extends BaseMenuState
 		{
 			for (touch in FlxG.touches.list)
 			{
-				if (touch.overlaps(_grpText.members[0]) || touch.overlaps(_grpValues.members[0]))
+				
+				for (i in 0..._grpValues.members.length)
 				{
-					_selection = 0;
+					if (touch.overlaps(_grpValues.members[i]))
+					{
+						_selection = i;
+					}
 				}
 				
-				if (touch.overlaps(_grpText.members[1]) || touch.overlaps(_grpValues.members[1]))
+				for (i in 0..._grpText.members.length)
 				{
-					_selection = 1;
+					if (touch.overlaps(_grpText.members[i]))
+					{
+						_selection = i;
+					}
 				}
-				
-				if (touch.overlaps(_grpText.members[2]) || touch.overlaps(_grpValues.members[2]))
-				{
-					_selection = 2;
-				}
-				
-				if (touch.overlaps(_grpText.members[3]) || touch.overlaps(_grpValues.members[3]))
-				{
-					_selection = 3;
-				}
-				
+					
 				if (touch.justPressed)
 				{
 					if (touch.overlaps(NGAPI) && !NGio.isLoggedIn)
 					{
 						var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
-						NGAPI.text = "sike, this doesnt do anything";
+					}
+					
+					if (touch.overlaps(deleteText))
+					{
+						deleteData();
 					}
 					
 					if (touch.overlaps(_selLeft))
@@ -259,7 +257,7 @@ class SettingState extends BaseMenuState
 		// I'd still ahve to clean it up
 		
 		
-		if (Type.typeof(settingsArray[0][_selection]) == TBool)
+		if (settingsArray[0][_selection] == "Hold to Mash")
 		{
 			settingsArray[1][_selection] = !settingsArray[1][_selection];
 		}
@@ -299,11 +297,33 @@ class SettingState extends BaseMenuState
 		
 		masterVol = settingsArray[1][0];
 		musicVol = settingsArray[1][1];
+		FlxG.sound.music.volume = masterVol * musicVol;
 		soundVol = settingsArray[1][2];
 		moanVol = settingsArray[1][3];
 		//gameSpeed = settingsArray[1][4];
 		mashHold = settingsArray[1][4];//MAKE SURE THIS IS CHANGED ONCE WE USE GAME SPEED MODIFIERS
 		//picoDay = settingsArray[1][0];
+	}
+	
+	private function deleteData():Void
+	{
+		
+			HighScore.score = 0;
+			HighScore.totalScore = 0;
+			HighScore.shiniesSeen =  
+			[
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false
+			];
+			
+			FlxG.save.data.sessionId = null;
+			HighScore.save();
+			deleteText.text = "Data deleted";
 	}
 	
 	private function NGAPItextUpdate():Void

@@ -43,7 +43,7 @@ class MenuState extends BaseMenuState
 	#if !nutaku
 	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Hall of Shame", "Settings", "Join Our Discord"];
 	#else
-	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Hall of Shame", "Settings"];
+	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Settings"];
 	#end
 	
 	private var leadItems:Array<String>;
@@ -65,7 +65,7 @@ class MenuState extends BaseMenuState
 	public static var soundEXT:String = "";
 	override public function create():Void
 	{
-		#if desktop
+		#if cpp
 		menuItems.push("Exit");
 		#end
 		
@@ -314,7 +314,7 @@ class MenuState extends BaseMenuState
 					{
 						for (t in 0..._grpMenu.members.length)
 						{
-							if (touch.overlaps(_grpMenu.members[t])
+							if (touch.overlaps(_grpMenu.members[t]))
 							{
 								vibrate();
 								menuOpen(menuItems[t]);
@@ -404,7 +404,7 @@ class MenuState extends BaseMenuState
 				case "Join Our Discord":
 						FlxG.openURL(discordLink);
 				case "Exit":
-					#if desktop
+					#if cpp
 						Sys.exit(0);
 					#end
 				case "Buy on Nutaku!":

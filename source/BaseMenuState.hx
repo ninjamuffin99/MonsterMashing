@@ -43,7 +43,6 @@ class BaseMenuState extends FlxState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		
 		_grpTilemaps.forEach(checkTilemapPos);
 		_grpWalls.forEach(checkWallPos);
 		

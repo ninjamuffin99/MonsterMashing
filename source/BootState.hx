@@ -1,5 +1,6 @@
 package;
 
+import djFlixel.fx.BoxFader;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -13,6 +14,8 @@ import flixel.util.FlxTimer;
 class BootState extends FlxState 
 {
 	private var soundExt:String = "";
+	private var boxFade:BoxFader;
+	
 	override public function create():Void 
 	{
 		#if web
@@ -32,16 +35,21 @@ class BootState extends FlxState
 			names.text += "\n\n\nBrandyBuizel\n\nninja_muffin99\n\nDigimin";
 			names.screenCenter(X);
 			
-			FlxG.sound.play("assets/sounds/boot" + soundExt, 1, false, null, true, function()
+			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
-				FlxG.camera.fade(FlxColor.BLACK, 1, false, function()
-				{
-					FlxG.switchState(new MenuState()); 
-					
-				}); 
-				
+				boxFade.fadeColor(0xFF000000, null, function(){
+				FlxG.switchState(new MenuState()); 
+			});
 			});
 		});
+	
+		
+		boxFade = new BoxFader();
+		//boxFade.setColor(FlxColor.BLACK);
+		boxFade.fadeOff();
+		add(boxFade);
+		
+		
 		super.create();
 	}
 }

@@ -46,6 +46,7 @@ class HighScore
 		FlxG.save.data.moanVol = SettingState.moanVol;
 		FlxG.save.data.musicVol = SettingState.musicVol;
 		FlxG.save.data.soundVol = SettingState.soundVol;
+		FlxG.save.data.mashHold = SettingState.mashHold;
 		FlxG.save.data.shiniesSeen = HighScore.shiniesSeen;
 		
 		FlxG.save.flush();

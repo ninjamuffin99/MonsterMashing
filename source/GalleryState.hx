@@ -58,7 +58,7 @@ class GalleryState extends BaseMenuState
 		imageTextBG.alpha = 0.5;
 		bigImage.add(imageTextBG);
 		
-		imageText = new FlxText(0, FlxG.height - 70, FlxG.width - 6, "Test Words", 18);
+		imageText = new FlxText(0, FlxG.height - 120, FlxG.width - 6, "Test Words", 18);
 		imageText.alignment = FlxTextAlign.CENTER;
 		imageText.screenCenter(X);
 		bigImage.add(imageText);
@@ -414,24 +414,53 @@ class GalleryState extends BaseMenuState
 			
 			
 			// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
-			if (FlxG.keys.pressed.S)
+			if (FlxG.keys.pressed.SHIFT)
 			{
-				bigPreview.offset.y += 10;
+				if (FlxG.keys.justPressed.S)
+				{
+					bigPreview.setGraphicSize(Std.int(bigPreview.width * 0.8));
+					bigPreview.updateHitbox();
+					bigPreview.screenCenter();
+				}
+				if (FlxG.keys.justPressed.W)
+				{
+					bigPreview.setGraphicSize(Std.int(bigPreview.width * 1.2));
+					bigPreview.updateHitbox();
+					bigPreview.screenCenter();
+				}
+				
+				if (FlxG.keys.justPressed.D)
+				{
+					bigPreview.angle += 45 / 2;
+				}
+				
+				if (FlxG.keys.justPressed.A)
+				{
+					bigPreview.angle -= 45 / 2;
+				}
 			}
-			if (FlxG.keys.pressed.W)
+			else
 			{
-				bigPreview.offset.y -= 10;
+				if (FlxG.keys.pressed.S)
+				{
+					bigPreview.offset.y += 10;
+				}
+				if (FlxG.keys.pressed.W)
+				{
+					bigPreview.offset.y -= 10;
+				}
+				
+				if (FlxG.keys.pressed.D)
+				{
+					bigPreview.offset.x += 10;
+				}
+				
+				if (FlxG.keys.pressed.A)
+				{
+					bigPreview.offset.x -= 10;
+				}
 			}
 			
-			if (FlxG.keys.pressed.D)
-			{
-				bigPreview.offset.x += 10;
-			}
-			
-			if (FlxG.keys.pressed.A)
-			{
-				bigPreview.offset.x -= 10;
-			}
 		}
 		else //if ur navigating the image
 		{
@@ -664,6 +693,10 @@ class GalleryState extends BaseMenuState
 		[
 			"assets/images/fanart/clamOld.png",
 			"Fanart of the old Clam Girl design, art by Peeper"
+		],
+		[
+			"assets/images/fanart/irriSlime.png",
+			"Fanart of the slime girl\nArt by Irri"
 		],
 		[
 			"assets/images/fanart/clamOldNUDEHELLYEAH.png",

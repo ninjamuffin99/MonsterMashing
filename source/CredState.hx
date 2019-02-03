@@ -118,25 +118,33 @@ class CredState extends FlxState
 			"https://github.com/johndimi/djFlixel/"
 		],
 		[
+			"Gallery fanart",
+			"",
+			"Peeper",
+			"Oogtarded",
+			"Irri",
+			"Snackers",
+			"LoganPhresh",
+			"IvoAnimations",
+			"Cymbourine"
+		],
+		[
 			"If you are reading this Tom Fulp i lov u",
 			"In loving memory of EiGiBeast",
 		],
 		[
 			"SPECIAL THANKS",
 			"Tom Fulp",
+			"Newgrounds.com community",
+			"",
+			"Nutaku",
+			"specifically Renaud",
 			"",
 			"",
-			"",
-			"",
-			"",
-			"Wanda",
-			"",
-			"No one else lol",
-			"",
-			"only him",
+			"Wanda"
 		],
 		[
-			"god",
+			"God",
 			"",
 			"TMoneyBloodCrip",
 			"aka",
@@ -150,7 +158,8 @@ class CredState extends FlxState
 			"Community Creds:",
 			"Hall of Shame suggested by BurstAppendix",
 			"Total Score tracker suggested by Cyberdevil",
-			"New Logo created by RGPAnims",
+			"One of the logo's created by RGPAnims",
+			"Gallery mode suggested by a few people, but implemented because of Nutaku lolol",
 			"",
 			"",
 			"Press Z to go back"

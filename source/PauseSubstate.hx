@@ -118,6 +118,19 @@ class PauseSubstate extends FlxSubState
 				selected += 1;
 				FlxG.sound.play("assets/sounds/menuDown." + MenuState.soundEXT, 0.5 * SettingState.masterVol * SettingState.soundVol);
 			}
+		#else
+			
+			for (i in 0..._grpMenu.members.length)
+			{
+				for (touch in FlxG.touches.list)
+				{
+					if (touch.overlaps(_grpMenu.members[i]))
+					{
+						selected = i;
+						menuSelection(i);
+					}
+				}
+			}
 		#end
 		
 		FlxG.watch.addQuick("selected 1: ", selected);
@@ -139,20 +152,27 @@ class PauseSubstate extends FlxSubState
 			sound.group = FlxG.sound.defaultSoundGroup;
 			sound.play();
 			
-			switch (selected) 
-			{
-				case 0:
-					close();
-				case 1:
-					// go to settings here
-				case 2:
-					FlxG.switchState(new MenuState());
-				default:
-			}
+			menuSelection(selected);
+			
+			
 		}
 	}
 	
-	
+	private function menuSelection(daSelection:Int):Void
+	{
+		var theSelection:String = menuItems[daSelection];
+		
+		switch (theSelection) 
+			{
+				case "Resume":
+					close();
+				case "Settings":
+					// go to settings here
+				case "Exit":
+					FlxG.switchState(new MenuState());
+				default:
+			}
+	}
 	
 	override public function update(elapsed:Float):Void 
 	{

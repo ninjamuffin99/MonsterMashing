@@ -5,6 +5,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.addons.display.FlxSliceSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -27,29 +28,21 @@ class MashState extends FlxSubState
 	//a public static variable of the outcome, so that it can be accessed in the PlayState
 	public static var outcome:Outcome = NONE;
 	private var enemyType:Int = 0;
-	
 	private var _mashSprite:FlxSprite;
-	
 	private var _enemySprite:FlxSprite;
 	private var _enemyHealth:Float = 10;
 	private var thisCam:FlxCamera;
 	private var camFollow:CamFollow;
 	private var mashX:Bool = false;
-	
 	private var maxShake:Float = 0.05;
-	
 	private var mashTimer:Float = 2.5;
 	private var txtTimer:FlxText;
-	
 	private var _barHealth:FlxBar;
-	
 	private var finishing:Bool = false;
-	
 	private var touchPos:FlxPoint = new FlxPoint();
-	
 	private var isNude:Int = 0;
-	
 	private var moanDir:String = "";
+	private var mashHoldTimer:Float = 0.3;
 	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int, NUDE:Bool = false) 
 	{
@@ -123,7 +116,6 @@ class MashState extends FlxSubState
 		_enemySprite.animation.add("hit", [1, 1, 1, 0], 12, false);
 		_enemySprite.animation.add("stripped", [2 + isNude]);
 		_enemySprite.animation.play("normal");
-		
 		add(_enemySprite);
 		
 		//then the health bar is added, which tracks the _enemyHealth variable
@@ -160,6 +152,10 @@ class MashState extends FlxSubState
 		FlxTween.tween(txtTimer, {y: txtTimer.y + 165}, 0.7, {ease:FlxEase.quadIn});
 		
 		//FlxTween.tween(_mashSprite, {y: 800}, 0.7, {ease:FlxEase.quadIn});
+		
+		//blocks the minimap that appears in the top left lmaooo
+		var blackBlock:FlxSprite = new FlxSprite(-30, -100).makeGraphic(40, 100, FlxColor.BLUE);
+		add(blackBlock);
 		
 		super.create();
 	}
@@ -210,13 +206,6 @@ class MashState extends FlxSubState
 		#if !mobile
 			var mashShit = FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]);
 			
-			/*
-			if (FlxG.gamepads.lastActive != null)
-			{
-				mashShit = FlxG.gamepads.lastActive.justPressed.ANY;
-			}
-			*/
-			
 			if (mashShit && _enemyHealth > 0)
 			{
 				if (mashX)
@@ -231,6 +220,19 @@ class MashState extends FlxSubState
 					if (FlxG.keys.anyJustPressed(["J", "LEFT", "A"]))
 					{
 						mash();
+					}
+				}
+			}
+			
+			if (SettingState.mashHold && _enemyHealth > 0)
+			{
+				if (FlxG.keys.anyPressed([J, LEFT, A, L, RIGHT, D, SPACE]))
+				{
+					mashHoldTimer -= FlxG.elapsed;
+					if (mashHoldTimer <= 0)
+					{
+						mash();
+						mashHoldTimer = FlxG.random.float(0.05, 0.3);
 					}
 				}
 			}
@@ -250,6 +252,22 @@ class MashState extends FlxSubState
 					{
 						mash();
 					}
+					
+					if (SettingState.mashHold && _enemyHealth > 0)
+					{
+						if (touch.pressed)
+						{
+							mashTimer -= FlxG.elapsed;
+							
+							if (mashTimer <= 0)
+							{
+								mash();
+								mashHoldTimer = FlxG.random.float(0.05, 0.3);
+							}
+							
+						}
+					}
+					
 					
 					if (touch.justPressed)
 					{
@@ -299,9 +317,8 @@ class MashState extends FlxSubState
 		//shakes the camera
 		
 		// thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
-		camFollow.shake(FlxG.random.float(0.01, 0.03), FlxG.random.float(0.05, 0.2));
+		camFollow.shake(FlxG.random.float(0.01, 0.025), FlxG.random.float(0.05, 0.2));
 		_enemySprite.animation.play("hit");
-		//_enemySprite.animation.play("normal");
 		
 		//maxShake += FlxG.random.float(0.005, 0.01);
 		
@@ -318,7 +335,7 @@ class MashState extends FlxSubState
 			#if android
 				if (outcome == DEFEAT)
 				{
-					Hardware.vibrate(900);
+					Hardware.vibrate(700);
 				}
 				
 			#end
