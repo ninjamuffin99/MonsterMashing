@@ -3,6 +3,7 @@ package;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 import flixel.util.FlxAxes;
 
@@ -10,11 +11,8 @@ import flixel.util.FlxAxes;
  * ...
  * @author ...
  */
-class CamFollow extends FlxObject 
+class CamFollow extends FlxSprite
 {
-	
-	private var initPos:FlxPoint;
-	
 	var _fxShakeIntensity:Float = 0;
 	/**
 	 * Internal, duration of the `shake()` effect.
@@ -31,20 +29,17 @@ class CamFollow extends FlxObject
 	
 	var deCam:FlxCamera;
 
-	public function new(X:Float=0, Y:Float=0, Width:Float=0, Height:Float=0, aCam:FlxCamera) 
+	public function new(X:Float=0, Y:Float=0, aCam:FlxCamera) 
 	{
-		super(X, Y, Width, Height);
+		super(X, Y);
 		
 		deCam = aCam;
-		
-		initPos = new FlxPoint(X, Y);
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
-		super.update(elapsed);
-		
 		updateShake(elapsed);
+		super.update(elapsed);
 	}
 	
 	function updateShake(elapsed:Float):Void
@@ -63,16 +58,16 @@ class CamFollow extends FlxObject
 			{
 				if (_fxShakeAxes != FlxAxes.Y)
 				{
-					x += FlxG.random.float( -_fxShakeIntensity * initPos.x, _fxShakeIntensity * initPos.x) * deCam.zoom * FlxG.scaleMode.scale.x;
+					offset.x += FlxG.random.float( -_fxShakeIntensity, _fxShakeIntensity) * deCam.zoom * FlxG.scaleMode.scale.x / FlxG.camera.initialZoom;
 				}
 				if (_fxShakeAxes != FlxAxes.X)
 				{
-					y += FlxG.random.float( -_fxShakeIntensity * initPos.y, _fxShakeIntensity * initPos.y) * deCam.zoom * FlxG.scaleMode.scale.y;
+					offset.y += FlxG.random.float( -_fxShakeIntensity, _fxShakeIntensity) * deCam.zoom * FlxG.scaleMode.scale.y / FlxG.camera.initialZoom;
 				}
 			}
 		}
 		else
-			setPosition(initPos.x, initPos.y);
+			offset.set(0, 0);
 	}
 	
 	/**

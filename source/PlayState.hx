@@ -7,29 +7,16 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
-import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
-import flixel.math.FlxMath;
 import flixel.util.FlxColor;
-import flixel.util.FlxSort;
-import flixel.util.FlxTimer;
-import io.newgrounds.Call;
 import io.newgrounds.NG;
-import io.newgrounds.NGLite;
-import openfl.display.BlendMode;
 #if steam
 import steamwrap.api.Steam;
 #end
 using flixel.util.FlxSpriteUtil;
-
-import com.newgrounds.*;
-import com.newgrounds.components.*;
 
 class PlayState extends FlxState
 {
@@ -95,7 +82,7 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
-		//FlxG.timeScale = SettingState.gameSpeed;
+		//FlxG.timeScale = SettingSubstate.gameSpeed;
 		FlxG.log.redirectTraces = true;
 		
 		//Set zoom on map, 3x relative to whatever the zoom set in Main.hx was
@@ -155,9 +142,9 @@ class PlayState extends FlxState
 		
 		// Some shit that runs if you're playing on the flash target, if not, it plays the OGG version of the song
 		#if flash
-			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7 * SettingState.musicVol * SettingState.masterVol);
+			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7 * SettingSubstate.musicVol * SettingSubstate.masterVol);
 		#else
-			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingState.musicVol * SettingState.masterVol);
+			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingSubstate.musicVol * SettingSubstate.masterVol);
         #end
 		
 		// makesit so that every item in this FlxState's little display list thing, only shows on the main gameplay camera, not the mashstate camera
@@ -278,6 +265,16 @@ class PlayState extends FlxState
 		if (FlxG.keys.anyJustPressed(["ENTER", "ESCAPE"]))
 			openSubState(new PauseSubstate());
 		
+		
+		var gamepad = FlxG.gamepads.lastActive;
+		if (gamepad != null)
+		{
+			if (gamepad.justPressed.START)
+			{
+				openSubState(new PauseSubstate());
+			}
+		}
+		
 		//if speed is greater than maxSpeed(15 as of writing), it lowers it to maxSpeed
 		if (speed > maxSpeed)
 		{
@@ -291,11 +288,12 @@ class PlayState extends FlxState
 			}
 		}
 		
+		#if debug
 		if (FlxG.keys.justPressed.UP && FlxG.keys.pressed.B)
 		{
 			score += 2500;
 		}
-		
+		#end
 		if (score >= 10000)
 		{
 			if (NGio.isLoggedIn)
@@ -422,7 +420,7 @@ class PlayState extends FlxState
 				
 				
 				// at most, you can have an 80% chance to see tiddy i think
-				var scoreMax:Float = 50000;
+				var scoreMax:Float = 40000;
 				
 				if (score * 1.2 > scoreMax)
 				{
@@ -558,13 +556,28 @@ class PlayState extends FlxState
 			//also spawns enemy
 			//picks a random amount of enemies from 0-3
 			var enemyAmount:Int = FlxG.random.int(1, 3);
-			
+			var posArray:Array<Dynamic> = [[-1, -1]];
 			//loops in a single frame as long as the enemyAmount variable is higher than 0
 			while (enemyAmount > 0)
 			{
 				// adds an enemy at a somewhat random position on this tilemap
 				// also picks a random girl
-				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), FlxG.random.int(0, 6)));
+				var randomX = 16 * FlxG.random.int(2, 6);
+				var randomY = 16 * FlxG.random.int( -11, 11);
+				
+				for (i in 0...posArray.length)
+				{
+					while (randomX == posArray[i][0] && randomY == posArray[i][1])
+					{
+						randomX = 16 * FlxG.random.int(2, 6);
+						randomY = 16 * FlxG.random.int( -12, 12);
+						FlxG.log.add("NEW POSITION");
+					}
+					
+				}
+				
+				posArray.push([randomX, randomY]);
+				_grpEnemies.add(new Enemy(t.x + randomX, t.y + randomY, FlxG.random.int(0, 6)));
 				
 				// decrease the enemyAmount variable so the while loop doesnt freeze the game lol
 				enemyAmount -= 1;

@@ -3,8 +3,6 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.input.actions.FlxAction;
-import flixel.input.actions.FlxActionManager;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -96,6 +94,22 @@ class Player extends FlxSprite
 		#if (html5 || mobile)
 			mobileChecks();
 		#end
+		
+		
+		var gamepad = FlxG.gamepads.lastActive;
+		if (gamepad != null)
+		{
+			if (gamepad.anyPressed(["DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT", "LEFT_SHOULDER", "LEFT_TRIGGER"]))
+			{
+				_left = true;
+			}
+			
+			if (gamepad.anyPressed(["DPAD_RIGHT","LEFT_STICK_DIGITAL_RIGHT", "RIGHT_SHOULDER", "RIGHT_TRIGGER"]))
+			{
+				_right = true;
+			}
+		}
+		
 		
 		if (_left || _right)
 		{

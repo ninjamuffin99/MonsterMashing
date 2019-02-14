@@ -24,9 +24,11 @@ class GalleryState extends BaseMenuState
 	
 	private var bigImage:FlxSpriteGroup;
 	private var _grpThumbnails:FlxTypedGroup<FlxSpriteButton>;
+	private var _grpThumbPics:FlxTypedGroup<FlxSprite>;
 	private var bigPreview:FlxSprite;
 	private var imageText:FlxText;
 	private var imageTextBG:FlxSprite;
+	private var keyboardInfo:FlxText;
 	
 	private var bgFade:FlxSprite;
 	
@@ -35,6 +37,7 @@ class GalleryState extends BaseMenuState
 	private var isOpen:Bool = false;
 	private var curAnimPlaying:Int = 0;
 	private var isSpritesheet:Bool = false;
+	private var timerClosing:Float = 0.4;
 	
 	private var titleText:FlxText;
 	
@@ -57,7 +60,7 @@ class GalleryState extends BaseMenuState
 		imageTextBG.alpha = 0.5;
 		bigImage.add(imageTextBG);
 		
-		imageText = new FlxText(0, FlxG.height - 70, FlxG.width - 6, "Test Words", 18);
+		imageText = new FlxText(0, FlxG.height - 120, FlxG.width - 6, "Test Words", 18);
 		imageText.alignment = FlxTextAlign.CENTER;
 		imageText.screenCenter(X);
 		bigImage.add(imageText);
@@ -66,11 +69,21 @@ class GalleryState extends BaseMenuState
 		imageTextBG.makeGraphic(Std.int(imageText.frameWidth + 10), Std.int((imageText.textField.numLines + 1) * 19), FlxColor.BLACK);
 		imageTextBG.screenCenter(X);
 		
-		titleText = new FlxText(10, 10, 0, "Gallery - Press ESC to exit", 20);
+		titleText = new FlxText(10, 10, 0, "Gallery", 20);
+		#if mobile
+		titleText.text += "\nTap here to return to main menu";
+		#else
+		titleText.text += "\nPress ESC to return to main menu";
+		#end
+		titleText.alignment = CENTER;
+		titleText.screenCenter(X);
 		add(titleText);
 		
 		_grpThumbnails = new FlxTypedGroup<FlxSpriteButton>();
 		add(_grpThumbnails);
+		
+		_grpThumbPics = new FlxTypedGroup<FlxSprite>();
+		add(_grpThumbPics);
 		
 		for (sh in 0...HighScore.shiniesSeen.length)
 		{
@@ -114,11 +127,10 @@ class GalleryState extends BaseMenuState
 		
 		for (i in 0...grid.length)
 		{
-			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 10, (120 * Std.int(i / 4)) + 60);
-			
+			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 30, (120 * Std.int(i / 4)) + 80);
 			var gridBG:FlxSpriteButton = new FlxSpriteButton(gridPos.x, gridPos.y, null, function(){
 				
-				if (!isOpen && hasScore(i))
+				if (!isOpen && timerClosing <= 0)
 				{
 					curOpen = i;
 					curSelected = i;
@@ -126,12 +138,6 @@ class GalleryState extends BaseMenuState
 					
 					openImage(curOpen);
 				}
-				else if (!hasScore(i))
-				{
-					// play sound effect herre
-				}
-				
-				
 			});
 			
 			gridBG.onOver.callback = function()
@@ -144,9 +150,14 @@ class GalleryState extends BaseMenuState
 			
 			
 			var gridThing:FlxSprite = new FlxSprite(gridPos.x, gridPos.y);
+			if (i >= grid.length - HighScore.shiniesSeen.length)
+			{
+				FlxG.log.add((i - grid.length) + HighScore.shiniesSeen.length);
+			}
+			
 			
 			// do it this way somewhat makes it quicker to load when you dont have as many images unlocked
-			if (hasScore(i))
+			if (hasScore(i) || (i >= grid.length - HighScore.shiniesSeen.length && HighScore.shiniesSeen[(i - grid.length) + HighScore.shiniesSeen.length]))
 			{
 				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame__png);
 				
@@ -180,14 +191,16 @@ class GalleryState extends BaseMenuState
 				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame_Locked1__png);
 				gridThing.makeGraphic(1, 1, FlxColor.TRANSPARENT);
 			}
-			
+			gridBG.scrollFactor.set(1, 1);
 			_grpThumbnails.add(gridBG);
-			add(gridThing);
+			_grpThumbPics.add(gridThing);
 		}
 		
+		FlxG.camera.setScrollBounds(0, FlxG.width, 0, _grpThumbnails.members[_grpThumbnails.members.length - 1].y + 150);
 		
 		add(bigImage);
 		bigImage.visible = false;
+		bigImage.scrollFactor.set();
 		
 		super.create();
 	}
@@ -196,7 +209,7 @@ class GalleryState extends BaseMenuState
 	{
 		var theTruth:Bool = false;
 		
-		if (HighScore.totalScore > val * 1500)
+		if (HighScore.totalScore >= val * 7500)
 			theTruth = true;
 		
 		return theTruth;
@@ -273,97 +286,30 @@ class GalleryState extends BaseMenuState
 		bigPreview.y -= 10;
 		FlxTween.tween(bigPreview, {alpha: 1, y: bigPreview.y + 10}, 0.5, {ease: FlxEase.quartOut, startDelay: 0.02});
 		
-		if (!isShiny(i))
-		{
-			
-			if (!hasScore(i))
-				bigPreview.color = FlxColor.BLACK;
-			else
-			{
-				bigPreview.color = FlxColor.WHITE;
-			}
-		}
+		
+		
+		if (hasScore(i) || (i >= grid.length - HighScore.shiniesSeen.length && HighScore.shiniesSeen[(i - grid.length) + HighScore.shiniesSeen.length]))
+			bigPreview.color = FlxColor.WHITE;
 		else
 		{
-			if (HighScore.shiniesSeen[i])
+			bigPreview.color = FlxColor.BLACK;
+			if (!hasScore(i) && i < grid.length - HighScore.shiniesSeen.length )
 			{
-				bigPreview.color = FlxColor.WHITE;
+				imageText.text = "You need " + ((i * 7500) - HighScore.totalScore) + " more total score to unlock this image!";
 			}
-			else
-				bigPreview.color = FlxColor.BLACK;
-			
-		}
-	}
-	
-	private function isShiny(monster:Int):Bool
-	{
-		var theBool:Bool = false;
-		
-		if (grid[monster][0] == "assets/images/" + HighScore.monsterList[monster] + "SheetShiny.png")
-		{
-			theBool = true;
 		}
 		
-		return theBool;
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		#if !mobile
 			keyboardControls();
+			gamepadControls();
+			
 		#end
 		
-		bigImage.visible = isOpen;
-		
-		if (curSelected < 0)
-			curSelected = _grpThumbnails.length + curSelected + 1; // Its plus because this value is negative
-		if (curSelected >= _grpThumbnails.length)
-			curSelected = curSelected % (_grpThumbnails.length + 1);
-		
-		FlxG.watch.addQuick("sel: ", curSelected);
-		FlxG.watch.addQuick("length: ", _grpThumbnails.length);
-		
-		_grpThumbnails.forEach(function(btn:FlxSpriteButton)
-		{
-			btn.color = 0xFF222222;
-		});
-		
-		for (i in 0..._grpThumbnails.members.length)
-		{
-			if (curSelected == i)
-			{
-				_grpThumbnails.members[i].color = FlxColor.WHITE;
-			}
-		}
-		
-		if (FlxG.onMobile)
-		{
-			
-			for (touches in FlxG.touches.list)
-			{
-				if (touches.overlaps(titleText))
-					FlxG.switchState(new MenuState());
-			}
-			
-		}
-		
-		dragControls();
-		
-		super.update(elapsed);
-	}
-	
-	private function keyboardControls():Void
-	{
-		#if !mobile
-		if (FlxG.mouse.wheel != 0)
-		{
-			bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 1.5)));
-			bigPreview.updateHitbox();
-			bigPreview.screenCenter();
-		}
-		
-		#end
-		
+				
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
 			if (isOpen)
@@ -377,6 +323,265 @@ class GalleryState extends BaseMenuState
 			
 		}
 		
+		
+		if (timerClosing > 0)
+		{
+			timerClosing -= FlxG.elapsed;
+		}
+		
+		bigImage.visible = isOpen;
+		
+		if (curSelected < 0)
+			curSelected = _grpThumbnails.length + curSelected + 1; // Its plus because this value is negative
+		if (curSelected >= _grpThumbnails.length)
+			curSelected = curSelected % (_grpThumbnails.length + 1);
+		
+		FlxG.watch.addQuick("sel: ", curSelected);
+		FlxG.watch.addQuick("length: ", _grpThumbnails.length);
+		
+		if (!bigPreview.isOnScreen() && isOpen)
+		{
+			openImage(curOpen);
+		}
+		
+		_grpThumbnails.forEach(function(btn:FlxSpriteButton)
+		{
+			btn.color = 0xFF444444;
+			
+		});
+		
+		_grpThumbPics.forEach(function(spr:FlxSprite)
+		{
+			spr.color = 0xFF777777;
+		});
+		
+		for (i in 0..._grpThumbnails.members.length)
+		{
+			if (curSelected == i)
+			{
+				_grpThumbnails.members[i].color = FlxColor.WHITE;
+				_grpThumbPics.members[i].color = FlxColor.WHITE;
+				FlxG.camera.follow(_grpThumbnails.members[i], null, 0.01);
+			}
+		}
+		
+		if (FlxG.onMobile)
+		{
+			
+			for (touches in FlxG.touches.list)
+			{
+				
+				if (isOpen)
+				{
+					if (touches.justPressed)
+					{
+						if (touches.y > imageText.y)
+						{
+							isOpen = false;
+							timerClosing = 0.1;
+						}
+						
+						if (touches.y < FlxG.height * 0.15)
+						{
+							isSpritesheet = !isSpritesheet;
+							
+							openImage(curOpen);
+						}
+						
+						if (touches.x > FlxG.width * 0.9 && grid[curOpen][2])
+						{
+							curAnimPlaying += 1;
+				
+							if (curAnimPlaying > grid[curOpen][5].length - 1)
+							{
+								curAnimPlaying = 0;
+							}
+							
+							#if !nutaku
+								if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+								{
+									curAnimPlaying = 0;
+								}
+							#end
+							
+							bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+						}
+						
+						if (touches.x < FlxG.width * 0.1 && grid[curOpen][2])
+						{
+							
+							curAnimPlaying -= 1;
+							if (curAnimPlaying < 0)
+							{
+								curAnimPlaying = grid[curOpen][5].length;
+								curAnimPlaying -= 1;
+							}
+							
+							#if !nutaku
+							if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+							{
+								curAnimPlaying -= 1;
+							}
+							
+							#end
+							
+							bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);	
+										
+						}
+						
+					}
+				}
+				else
+				{
+					if (touches.overlaps(titleText))
+						FlxG.switchState(new MenuState());
+				
+				}
+			}
+			
+		}
+		
+		if (isOpen)
+		{
+			dragControls();
+		}
+		else
+		{
+			picPosOld.set();
+			dragPos.set();
+		}
+		
+		
+		super.update(elapsed);
+	}
+	
+	private function gamepadControls():Void
+	{
+		var gamepad = FlxG.gamepads.lastActive;
+		if (gamepad != null)
+		{
+			if (gamepad.anyJustPressed(["B", "BACK"]))
+			{
+				if (isOpen)
+				{
+					isOpen = false;
+				}
+				else
+				{
+					FlxG.switchState(new MenuState());
+				}
+			}
+			
+			if (isOpen)
+			{
+				bigPreview.offset.x -= gamepad.analog.value.LEFT_STICK_X * 10;
+				bigPreview.offset.y -= gamepad.analog.value.LEFT_STICK_Y * 10;
+				
+				bigPreview.angle += gamepad.analog.value.RIGHT_STICK_X * 3;
+				
+				if (gamepad.analog.value.RIGHT_STICK_Y > gamepad.deadZone || gamepad.analog.value.RIGHT_STICK_Y < -gamepad.deadZone)
+				{
+					bigPreview.setGraphicSize(Std.int(bigPreview.width - (gamepad.analog.value.RIGHT_STICK_Y * 9)));
+					bigPreview.updateHitbox();
+					bigPreview.screenCenter();
+					
+				}
+				
+				if (gamepad.anyJustPressed(["DPAD_RIGHT", "RIGHT_SHOULDER"]) && grid[curOpen][2])
+				{
+					curAnimPlaying += 1;
+				
+					if (curAnimPlaying > grid[curOpen][5].length - 1)
+					{
+						curAnimPlaying = 0;
+					}
+					
+					#if !nutaku
+						if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+						{
+							curAnimPlaying = 0;
+						}
+					#end
+					
+					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);
+					
+				}
+				
+				if (gamepad.anyJustPressed(["DPAD_LEFT", "LEFT_SHOULDER"]) && grid[curOpen][2])
+				{
+					
+					curAnimPlaying -= 1;
+					if (curAnimPlaying < 0)
+					{
+						curAnimPlaying = grid[curOpen][5].length;
+						curAnimPlaying -= 1;
+					}
+					
+					#if !nutaku
+					if (grid[curOpen][5][curAnimPlaying][0] == 'nude2')
+					{
+						curAnimPlaying -= 1;
+					}
+					
+					#end
+					
+					bigPreview.animation.play(grid[curOpen][5][curAnimPlaying][0]);	
+				}
+				
+				if (gamepad.anyJustPressed(["X", "RIGHT_STICK_CLICK", "LEFT_STICK_CLICK"]))
+				{
+					isSpritesheet = !isSpritesheet;
+					openImage(curOpen);
+				}
+			
+				
+			}
+			else
+			{
+				
+				if (gamepad.anyJustPressed(["DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
+				{
+					curSelected += 4;
+				}
+				
+				if (gamepad.anyJustPressed(["DPAD_UP", "LEFT_STICK_DIGITAL_UP"]))
+				{
+					curSelected -= 4;
+				}
+				
+				if (gamepad.anyJustPressed(["DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
+				{
+					curSelected += 1;
+				}
+				
+				if (gamepad.anyJustPressed(["DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT"]))
+				{
+					curSelected -= 1;
+				}
+				
+			
+				
+				if (gamepad.justPressed.A)
+				{
+					isSpritesheet = false;
+					openImage(curSelected);
+				}
+			}
+		}
+		
+	}
+	
+	private function keyboardControls():Void
+	{
+		#if !mobile
+		if (FlxG.mouse.wheel != 0)
+		{
+			bigPreview.setGraphicSize(Std.int(bigPreview.width + (FlxG.mouse.wheel * 1.5)));
+			bigPreview.updateHitbox();
+			bigPreview.screenCenter();
+		}
+		#end
+
 		if (isOpen)
 		{
 			if (FlxG.keys.justPressed.LEFT && grid[curOpen][2])
@@ -428,24 +633,53 @@ class GalleryState extends BaseMenuState
 			
 			
 			// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
-			if (FlxG.keys.pressed.S)
+			if (FlxG.keys.pressed.SHIFT)
 			{
-				bigPreview.offset.y += 10;
+				if (FlxG.keys.justPressed.S)
+				{
+					bigPreview.setGraphicSize(Std.int(bigPreview.width * 0.8));
+					bigPreview.updateHitbox();
+					bigPreview.screenCenter();
+				}
+				if (FlxG.keys.justPressed.W)
+				{
+					bigPreview.setGraphicSize(Std.int(bigPreview.width * 1.2));
+					bigPreview.updateHitbox();
+					bigPreview.screenCenter();
+				}
+				
+				if (FlxG.keys.justPressed.D)
+				{
+					bigPreview.angle += 45 / 2;
+				}
+				
+				if (FlxG.keys.justPressed.A)
+				{
+					bigPreview.angle -= 45 / 2;
+				}
 			}
-			if (FlxG.keys.pressed.W)
+			else
 			{
-				bigPreview.offset.y -= 10;
+				if (FlxG.keys.pressed.S)
+				{
+					bigPreview.offset.y += 10;
+				}
+				if (FlxG.keys.pressed.W)
+				{
+					bigPreview.offset.y -= 10;
+				}
+				
+				if (FlxG.keys.pressed.D)
+				{
+					bigPreview.offset.x += 10;
+				}
+				
+				if (FlxG.keys.pressed.A)
+				{
+					bigPreview.offset.x -= 10;
+				}
 			}
 			
-			if (FlxG.keys.pressed.D)
-			{
-				bigPreview.offset.x += 10;
-			}
-			
-			if (FlxG.keys.pressed.A)
-			{
-				bigPreview.offset.x -= 10;
-			}
 		}
 		else //if ur navigating the image
 		{
@@ -523,51 +757,50 @@ class GalleryState extends BaseMenuState
 				rads = Math.atan2(midScreen.y - FlxG.mouse.y, midScreen.x - FlxG.mouse.x);
 				touchNew = FlxMath.vectorLength(midScreen.x - FlxG.mouse.x, midScreen.y - FlxG.mouse.y);
 			}
+			if (FlxG.mouse.justReleasedRight)
+			{
+				buttonJustPressed = true;
+			}
 			
 		#else
-			if (FlxG.touches.list.length == 1)
+			
+			for (touch in FlxG.touches.list)
 			{
-				if (FlxG.touches.list[0].justPressed)
+				if (FlxG.touches.list.length == 1)
 				{
-					dragPos = FlxG.touches.list[0].getPosition();
+					if (touch.justPressed)
+					{
+						dragPos = touch.getPosition();
+						buttonJustPressed = true;
+					}
+					
+					pressingButton = true;
+					buttonPos = touch.getPosition();
+				}
+				if (FlxG.touches.list.length == 2)
+				{
+					
+					if (FlxG.touches.list[1].justPressed)
+					{
+						zoomButtonJustPressed = true;
+					}
+					if (FlxG.touches.list[1].justReleased)
+					{
+						dragPos = FlxG.touches.list[0].getPosition();
+						buttonJustPressed = true;
+					}
+					
 					buttonJustPressed = true;
+					zoomPressingButton = true;
+					
+					rads = Math.atan2(FlxG.touches.list[0].y - FlxG.touches.list[1].y, FlxG.touches.list[0].x - FlxG.touches.list[1].x);
+					touchNew = FlxMath.vectorLength(FlxG.touches.list[0].x - FlxG.touches.list[1].x, FlxG.touches.list[0].y - FlxG.touches.list[1].y);
 				}
-				
-				pressingButton = true;
-				buttonPos = FlxG.touches.list[0].getPosition();
 			}
-			if (FlxG.touches.list.length == 2)
-			{
-				
-				if (FlxG.touches.list[1].justPressed)
-				{
-					zoomButtonJustPressed = true;
-				}
-				
-				zoomPressingButton = true;
-				
-				rads = Math.atan2(FlxG.touches.list[0].y - FlxG.touches.list[1].y, FlxG.touches.list[0].x - FlxG.touches.list[1].x);
-				touchNew = FlxMath.vectorLength(FlxG.touches.list[0].x - FlxG.touches.list[1].x, FlxG.touches.list[0].y - FlxG.touches.list[1].y);
-			}
+		
+			
 		#end
 		
-		// drag behaviour
-		if (pressingButton)
-		{
-			if (buttonJustPressed)
-			{
-				picPosOld.x = bigPreview.offset.x;
-				picPosOld.y = bigPreview.offset.y;
-			}
-		
-			
-			var xPos:Float = buttonPos.x - dragPos.x;
-			var yPos:Float = buttonPos.y - dragPos.y;
-			
-			bigPreview.offset.x = picPosOld.x - xPos;
-			bigPreview.offset.y = picPosOld.y - yPos;
-			
-		}
 		
 		// zoom behaviour
 		if (zoomPressingButton)
@@ -593,7 +826,30 @@ class GalleryState extends BaseMenuState
 			bigPreview.updateHitbox();
 			bigPreview.screenCenter();
 			
+			dragPos.set(bigPreview.getGraphicMidpoint().x, bigPreview.getGraphicMidpoint().y);
+			picPosOld.x = bigPreview.offset.x;
+			picPosOld.y = bigPreview.offset.y;
+			buttonPos = bigPreview.offset;
 		}
+		
+		// drag behaviour
+		if (pressingButton)
+		{
+			if (buttonJustPressed)
+			{
+				picPosOld.x = bigPreview.offset.x;
+				picPosOld.y = bigPreview.offset.y;
+			}
+		
+			
+			var xPos:Float = buttonPos.x - dragPos.x;
+			var yPos:Float = buttonPos.y - dragPos.y;
+			
+			bigPreview.offset.x = picPosOld.x - xPos;
+			bigPreview.offset.y = picPosOld.y - yPos;
+			
+		}
+		
 	}
 	
 	// SYNTAX GUIDE
@@ -606,222 +862,12 @@ class GalleryState extends BaseMenuState
 	private var grid:Array<Dynamic> = 
 	[
 		[
-			"assets/images/clamSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/echidnaSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/minotaurSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/batSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/mushSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/slimeSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
-			"assets/images/vineSheet.png",
-			"more info",
-			true,
-			4,
-			1,
-			[
-				[
-					'idle1',
-					[0],
-					1
-				],
-				[
-					'idle2',
-					[1],
-					1
-				],
-				[
-					'nude1',
-					[2],
-					1
-				],
-				[
-					'nude2',
-					[3],
-					1
-				],
-				
-			]
-		],
-		[
 			"assets/images/mmLogo.png",
-			"logo thing"
+			"The Monster Mashing logo"
 		],
 		[
 			"assets/images/preloaderArt.png",
-			"Coolguy PhantomArcade, at the Ambler Theater before the Newgrounds Pico Day Reanimated event from Oct twenty something"
+			"PhantomArcade, at the Ambler Theater. This image is used for the preloader for the web version of the game"
 		],
 		[
 			"assets/images/spr_player.png",
@@ -882,12 +928,36 @@ class GalleryState extends BaseMenuState
 			]
 		],
 		[
+			"assets/images/unused concept/Colors_forMushgirlcolderversion.jpg",
+			"Mush girl concept. This is unused colors for mush girl. \nPainted by our ex-Monster Mashing dev EiGiBeast (RIP LOLOL)\nConcept art/sketch by Digimin"
+		],
+		[
 			"assets/images/fanart/clamOld.png",
 			"Fanart of the old Clam Girl design, art by Peeper"
 		],
 		[
+			"assets/images/fanart/irriSlime.png",
+			"Fanart of the slime girl\nArt by Irri"
+		],
+		[
+			"assets/images/fanart/cym0.jpg",
+			"A fanart sketch of the Mush girl\nArt by Cymbourine"
+		],
+		[
+			"assets/images/unused concept/girls.png",
+			"Unused concepts for girls. Besides the echidna.\nArt by Digimin"
+		],
+		[
 			"assets/images/fanart/clamOldNUDEHELLYEAH.png",
 			"Fanart of the old Clam Girl design, but this one is naked hell yeah damn, art by Peeper"
+		],
+		[
+			"assets/images/fanart/ivo.png",
+			"Fanart of the Slime and Bat girls.\nArt by IvoAnimations"
+		],
+		[
+			"assets/images/fanart/snackers.png",
+			"Fanart of Echidna gf/nArt by Snackers"
 		],
 		[
 			"assets/images/fanart/Monster_mashin_lady.png",
@@ -897,11 +967,228 @@ class GalleryState extends BaseMenuState
 			"assets/images/fanart/mushOogtarded.png",
 			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
 		],
-		[	// THIS IS TEMP CHANGE LATER!!
-			"assets/images/fanart/mushOogtarded.png",
-			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
+		[
+			"assets/images/unused concept/spr_mush.png",
+			"Early concept sketch for Mushroom girl. She might've been the first character designed I believe\nArt by Digimin"
+		],
+		[
+			"assets/images/fanart/cym1.jpg",
+			"A fanart sketch of the Slime girl\nArt by Cymbourine"
+		],
+		[
+			"assets/images/unused concept/hhhhhhh.jpg",
+			"Concepts for the second round of girls. On the left is 'red panda' girl. Shame she ain't in though\nArt by Digimin"
+		],
+		[
+			"assets/images/mushSheet.png",
+			"The artwork for the Mushroom girl\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/vineSheet.png",
+			"The artwork for the Vine girl\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/batSheet.png",
+			"The artwork for the bat lady\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/clamSheet.png",
+			"The artwork for the clam lady\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/echidnaSheet.png",
+			"The artwork for the Echidna woman\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/minotaurSheet.png",
+			"The artwork for the Minotaur girl\nArt by Digimin",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
+		],
+		[
+			"assets/images/slimeSheet.png",
+			"The artwork of the slime girl.\nArt by FuShark",
+			true,
+			4,
+			1,
+			[
+				[
+					'idle1',
+					[0],
+					1
+				],
+				[
+					'idle2',
+					[1],
+					1
+				],
+				[
+					'nude1',
+					[2],
+					1
+				],
+				[
+					'nude2',
+					[3],
+					1
+				],
+				
+			]
 		]
-		
 	];
 	
 }

@@ -25,7 +25,7 @@ class CredState extends FlxState
 	{
 		
 		FlxG.sound.playMusic("assets/music/credits." + MenuState.soundEXT);
-		FlxG.sound.music.fadeIn(4, 0, 1);
+		FlxG.sound.music.fadeIn(4, 0, 1 * SettingSubstate.masterVol * SettingSubstate.musicVol);
 		
 		
 		creds = new FlxText(0, 0, FlxG.width - 24, "", 24);
@@ -62,6 +62,79 @@ class CredState extends FlxState
 		
 		super.create();
 	}
+	
+	
+	override public function update(elapsed:Float):Void 
+	{
+		credTimer -= FlxG.elapsed;
+		
+		
+		if (credTimer < 0)
+		{
+			credTimer = 6;
+			
+			boxFade.fadeColor(0xFF000000, null, function(){
+				creds.text = "";
+				curCredPlacement += 1;
+				
+				if (curCredPlacement >= credsArray.length)
+					curCredPlacement = 0;
+				
+				for (i in 0...credsArray[curCredPlacement].length)
+				{
+					creds.text += credsArray[curCredPlacement][i] + "\n";
+				}
+				
+				creds.screenCenter();
+				boxFade.fadeOff();
+			});
+			
+		}
+		
+		
+		#if !mobile
+			if (FlxG.keys.anyJustPressed(["Z", "ENTER", "SPACE"]))
+			{
+				FlxG.switchState(new MenuState());
+			}
+			
+			var gamepad = FlxG.gamepads.lastActive;
+			if (gamepad != null)
+			{
+				if (gamepad.anyJustPressed(["A", "B", "START", "BACK"]))
+				{
+					FlxG.switchState(new MenuState());
+				}
+			
+			}
+			
+		#end
+		
+		#if (html5 || mobile)
+			if (FlxG.onMobile)
+				mobileShit();
+		#end
+		super.update(elapsed);
+	}
+	
+	private function mobileShit():Void
+	{
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed) 
+			{
+				FlxG.switchState(new MenuState());
+			}
+		}
+		
+		#if android
+			if (FlxG.android.justPressed.BACK)
+			{
+				FlxG.switchState(new MenuState());
+			}
+		#end
+	}
+	
 	
 	private var credsArray:Array<Dynamic> = 
 	[
@@ -115,7 +188,21 @@ class CredState extends FlxState
 			"",
 			"djFlixel effects (just this credits fade stuff lol) made by John Dimitriadis",
 			"@jondmt",
-			"https://github.com/johndimi/djFlixel/"
+			"https://github.com/johndimi/djFlixel/",
+			"",
+			"Mac port help",
+			"mucctucc"
+		],
+		[
+			"Gallery fanart",
+			"",
+			"Peeper",
+			"Oogtarded",
+			"Irri",
+			"Snackers",
+			"LoganPhresh",
+			"IvoAnimations",
+			"Cymbourine"
 		],
 		[
 			"If you are reading this Tom Fulp i lov u",
@@ -124,19 +211,21 @@ class CredState extends FlxState
 		[
 			"SPECIAL THANKS",
 			"Tom Fulp",
+			"Newgrounds.com community",
+			"",
+			"Nutaku",
+			"specifically Renaud",
 			"",
 			"",
-			"",
-			"",
-			"",
-			"Wanda",
-			"",
-			"No one else lol",
-			"",
-			"only him",
+			"Wanda"
 		],
 		[
-			"god",
+			"'Sun is down, freezin' cold\nThat's how we already know winter's here' -Drake, Sicko Mode",
+			"",
+			"for Foamymuffin"
+		],
+		[
+			"God",
 			"",
 			"TMoneyBloodCrip",
 			"aka",
@@ -150,71 +239,12 @@ class CredState extends FlxState
 			"Community Creds:",
 			"Hall of Shame suggested by BurstAppendix",
 			"Total Score tracker suggested by Cyberdevil",
-			"New Logo created by RGPAnims",
+			"One of the logo's created by RGPAnims",
+			"Gallery mode suggested by a few people, but implemented because of Nutaku lolol",
 			"",
 			"",
 			"Press Z to go back"
 		]
 	];
-	
-	override public function update(elapsed:Float):Void 
-	{
-		credTimer -= FlxG.elapsed;
-		
-		
-		if (credTimer < 0)
-		{
-			credTimer = 6;
-			
-			boxFade.fadeColor(0xFF000000, null, function(){
-				creds.text = "";
-				curCredPlacement += 1;
-				
-				if (curCredPlacement >= credsArray.length)
-					curCredPlacement = 0;
-				
-				for (i in 0...credsArray[curCredPlacement].length)
-				{
-					creds.text += credsArray[curCredPlacement][i] + "\n";
-				}
-				
-				creds.screenCenter();
-				boxFade.fadeOff();
-			});
-			
-		}
-		
-		
-		#if !mobile
-			if (FlxG.keys.anyJustPressed(["Z", "ENTER", "SPACE"]))
-			{
-				FlxG.switchState(new MenuState());
-			}
-		#end
-		
-		#if (html5 || mobile)
-			if (FlxG.onMobile)
-				mobileShit();
-		#end
-		super.update(elapsed);
-	}
-	
-	private function mobileShit():Void
-	{
-		for (touch in FlxG.touches.list)
-		{
-			if (touch.justPressed) 
-			{
-				FlxG.switchState(new MenuState());
-			}
-		}
-		
-		#if android
-			if (FlxG.android.justPressed.BACK)
-			{
-				FlxG.switchState(new MenuState());
-			}
-		#end
-	}
 	
 }
