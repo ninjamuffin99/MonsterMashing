@@ -5,6 +5,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.addons.display.FlxSliceSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -27,37 +28,29 @@ class MashState extends FlxSubState
 	//a public static variable of the outcome, so that it can be accessed in the PlayState
 	public static var outcome:Outcome = NONE;
 	private var enemyType:Int = 0;
-	
 	private var _mashSprite:FlxSprite;
-	
-	private var _enemySprite:FlxSprite;
+	private var _enemySprite:CamFollow;
 	private var _enemyHealth:Float = 10;
 	private var thisCam:FlxCamera;
 	private var camFollow:CamFollow;
 	private var mashX:Bool = false;
-	
 	private var maxShake:Float = 0.05;
-	
 	private var mashTimer:Float = 2.5;
 	private var txtTimer:FlxText;
-	
 	private var _barHealth:FlxBar;
-	
 	private var finishing:Bool = false;
-	
 	private var touchPos:FlxPoint = new FlxPoint();
-	
 	private var isNude:Int = 0;
-	
 	private var moanDir:String = "";
+	private var mashHoldTimer:Float = 0.3;
 	
 	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT, EType:Int, NUDE:Bool = false) 
 	{
 		super(BGColor);
+		
 		FlxG.camera.flash();
 		
 		enemyType = EType;
-		
 		
 		if (NUDE)
 			isNude = 1;
@@ -79,15 +72,20 @@ class MashState extends FlxSubState
 		
 		//alright so basically the enemy's sprite is rendered offscreen, pretty much to the right, and down a little bit
 		//then the _enemySprite is created and loaded(will get different sprites goin in a bit)
-		_enemySprite = new FlxSprite(48, 0);
+		_enemySprite = new CamFollow(48, 0, thisCam);
 		
 		
 		var shiny:String = "";
 		
-		if (FlxG.random.bool(50))
+		if (FlxG.random.bool(1))
 		{
 			HighScore.shiniesSeen[enemyType] = true;
 			shiny = "Shiny";
+			FlxG.sound.play("assets/sounds/shinySeen." + MenuState.soundEXT, 0.4 * SettingSubstate.masterVol * SettingSubstate.soundVol);
+		}
+		else
+		{
+			FlxG.sound.play("assets/sounds/seeGirl." + MenuState.soundEXT, 0.1 * SettingSubstate.masterVol * SettingSubstate.soundVol);
 		}
 		
 		switch (enemyType) 
@@ -123,7 +121,6 @@ class MashState extends FlxSubState
 		_enemySprite.animation.add("hit", [1, 1, 1, 0], 12, false);
 		_enemySprite.animation.add("stripped", [2 + isNude]);
 		_enemySprite.animation.play("normal");
-		
 		add(_enemySprite);
 		
 		//then the health bar is added, which tracks the _enemyHealth variable
@@ -136,16 +133,19 @@ class MashState extends FlxSubState
 		//thisCam is then set to center on the middle of _enemySprite
 		thisCam.focusOn(_enemySprite.getMidpoint());
 		
-		camFollow = new CamFollow(_enemySprite.getMidpoint().x, _enemySprite.getMidpoint().y, 1, 1, thisCam);
-		add(camFollow);
-		
-		thisCam.follow(camFollow);
 		
 		_mashSprite = new FlxSprite(0, 800);
-		_mashSprite.loadGraphic(AssetPaths.left_and_right__png, true, 64, 32);
+		if (FlxG.onMobile)
+		{
+			_mashSprite.loadGraphic("assets/images/taptap" + FlxG.random.int(1, 3) + ".png", true, Std.int(640 / 2), 160);
+		}
+		else
+		{
+			_mashSprite.loadGraphic(AssetPaths.left_and_right__png, true, 64, 32);
+			_mashSprite.setGraphicSize(Std.int(_mashSprite.width * 3), Std.int(_mashSprite.height * 3));
+		}
 		_mashSprite.animation.add("mashin", [0, 1], 6);
 		_mashSprite.animation.play("mashin");
-		_mashSprite.setGraphicSize(Std.int(_mashSprite.width * 3), Std.int(_mashSprite.height * 3));
 		_mashSprite.updateHitbox();
 		_mashSprite.x = 350;
 		add(_mashSprite);
@@ -160,7 +160,6 @@ class MashState extends FlxSubState
 		FlxTween.tween(txtTimer, {y: txtTimer.y + 165}, 0.7, {ease:FlxEase.quadIn});
 		
 		//FlxTween.tween(_mashSprite, {y: 800}, 0.7, {ease:FlxEase.quadIn});
-		
 		super.create();
 	}
 	
@@ -210,12 +209,21 @@ class MashState extends FlxSubState
 		#if !mobile
 			var mashShit = FlxG.keys.anyJustPressed(["J", "L", "LEFT", "RIGHT", "A", "D"]);
 			
-			/*
-			if (FlxG.gamepads.lastActive != null)
+			
+			var gamepad = FlxG.gamepads.lastActive;
+			if (gamepad != null)
 			{
-				mashShit = FlxG.gamepads.lastActive.justPressed.ANY;
+				if (gamepad.anyJustPressed(["DPAD_LEFT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_LEFT", "LEFT_STICK_DIGITAL_RIGHT", "A", "X", "Y", "RIGHT_TRIGGER", "LEFT_TRIGGER", "RIGHT_SHOULDER", "LEFT_SHOULDER"]))
+				{
+					mashShit = true;
+				}
+				
+				if (gamepad.anyJustPressed(["DPAD_DOWN", "B", "LEFT_STICK_DIGITAL_DOWN"]))
+				{
+					mashTimer = 0;
+				}
 			}
-			*/
+		
 			
 			if (mashShit && _enemyHealth > 0)
 			{
@@ -231,6 +239,29 @@ class MashState extends FlxSubState
 					if (FlxG.keys.anyJustPressed(["J", "LEFT", "A"]))
 					{
 						mash();
+					}
+				}
+				
+				if (gamepad != null)
+				{
+					if (gamepad.anyJustPressed(["DPAD_LEFT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_LEFT", "LEFT_STICK_DIGITAL_RIGHT",  "A", "X", "Y", "RIGHT_TRIGGER", "LEFT_TRIGGER", "RIGHT_SHOULDER", "LEFT_SHOULDER"]))
+					{
+						mash();
+					}
+				}
+		
+				
+			}
+			
+			if (SettingSubstate.mashHold && _enemyHealth > 0)
+			{
+				if (FlxG.keys.anyPressed([J, LEFT, A, L, RIGHT, D, SPACE]))
+				{
+					mashHoldTimer -= FlxG.elapsed;
+					if (mashHoldTimer <= 0)
+					{
+						mash();
+						mashHoldTimer = FlxG.random.float(0.05, 0.3);
 					}
 				}
 			}
@@ -250,6 +281,22 @@ class MashState extends FlxSubState
 					{
 						mash();
 					}
+					
+					if (SettingSubstate.mashHold && _enemyHealth > 0)
+					{
+						if (touch.pressed)
+						{
+							mashTimer -= FlxG.elapsed;
+							
+							if (mashTimer <= 0)
+							{
+								mash();
+								mashHoldTimer = FlxG.random.float(0.05, 0.3);
+							}
+							
+						}
+					}
+					
 					
 					if (touch.justPressed)
 					{
@@ -283,25 +330,24 @@ class MashState extends FlxSubState
 		if (FlxG.random.bool(35))
 		{
 			#if flash
-				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".mp3", 1 * SettingState.moanVol * SettingState.masterVol);
+				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".mp3", 1 * SettingSubstate.moanVol * SettingSubstate.masterVol);
 			#else
-				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".ogg", 1 * SettingState.moanVol * SettingState.masterVol);
+				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".ogg", 1 * SettingSubstate.moanVol * SettingSubstate.masterVol);
 			#end
-			//FlxG.sound.play("assets/sounds/roblox oof.mp3", 1  * SettingState.moanVol * SettingState.masterVol);
+			//FlxG.sound.play("assets/sounds/roblox oof.mp3", 1  * SettingSubstate.moanVol * SettingSubstate.masterVol);
 		}
 		
 		#if flash
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.3 * SettingState.soundVol * SettingState.masterVol);
+			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.3 * SettingSubstate.soundVol * SettingSubstate.masterVol);
 		#else
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".ogg", 0.3 * SettingState.soundVol * SettingState.masterVol);
+			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".ogg", 0.3 * SettingSubstate.soundVol * SettingSubstate.masterVol);
 		#end
 		
 		//shakes the camera
 		
 		// thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
-		camFollow.shake(FlxG.random.float(0.01, 0.03), FlxG.random.float(0.05, 0.2));
+		_enemySprite.shake(FlxG.random.float(0.2 * 30, 0.5 * 30), FlxG.random.float(0.05, 0.1));
 		_enemySprite.animation.play("hit");
-		//_enemySprite.animation.play("normal");
 		
 		//maxShake += FlxG.random.float(0.005, 0.01);
 		
@@ -318,7 +364,7 @@ class MashState extends FlxSubState
 			#if android
 				if (outcome == DEFEAT)
 				{
-					Hardware.vibrate(900);
+					Hardware.vibrate(700);
 				}
 				
 			#end
