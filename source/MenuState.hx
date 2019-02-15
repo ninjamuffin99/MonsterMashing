@@ -62,7 +62,7 @@ class MenuState extends BaseMenuState
 	private var selMax:Int = 0;//gets set later
 
 	private var discordLink:String = "https://discord.gg/t22G6Fr";
-	private var nutakuLink:String = "";
+	private var nutakuLink:String = "https://nutaku.net/games/download/monster-mashing";
 
 	public static var soundEXT:String = "";
 	override public function create():Void
@@ -229,7 +229,7 @@ class MenuState extends BaseMenuState
 
 		if (FlxG.onMobile)
 		{
-			mScore = new FlxText(0, FlxG.height / 2 + 210, 0, "", 40);
+			mScore = new FlxText(0, FlxG.height / 2 + 225, 0, "", 40);
 		}
 		else
 		{
