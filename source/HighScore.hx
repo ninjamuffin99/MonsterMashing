@@ -71,5 +71,12 @@ class HighScore
 			}
 			
 		}
+		else
+		{
+			SettingSubstate.masterVol = 1;
+			SettingSubstate.moanVol = 1;
+			SettingSubstate.musicVol = 1;
+			SettingSubstate.soundVol = 1;
+		}
 	}
 }

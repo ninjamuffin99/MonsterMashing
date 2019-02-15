@@ -31,7 +31,7 @@ class Preloader extends FlxBasePreloader
 	
 	override private function create():Void
 	{	
-		#if (flash || html5)
+		#if (newgrounds)
 			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 		#end
 		

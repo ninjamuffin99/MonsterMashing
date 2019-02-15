@@ -194,6 +194,13 @@ class CredState extends FlxState
 			"mucctucc"
 		],
 		[
+			"MORE Additional code:",
+			"",
+			"Steamwrap Steamworks SDK stuff was made by Lucas Pope for 'Papers, Please'",
+			"and further extended and supported by Lars Doucet",
+			"https://github.com/larsiusprime/Steamwrap"
+		],
+		[
 			"Gallery fanart",
 			"",
 			"Peeper",
