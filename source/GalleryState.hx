@@ -936,7 +936,7 @@ class GalleryState extends BaseMenuState
 			"Fanart of the old Clam Girl design, art by Peeper"
 		],
 		[
-			"assets/images/fanart/irriSlime.png",
+			"assets/images/fanart/irri.png",
 			"Fanart of the slime girl\nArt by Irri"
 		],
 		[
