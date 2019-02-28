@@ -329,20 +329,13 @@ class MashState extends FlxSubState
 		
 		if (FlxG.random.bool(35))
 		{
-			#if flash
-				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".mp3", 1 * SettingSubstate.moanVol * SettingSubstate.masterVol);
-			#else
-				FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + ".ogg", 1 * SettingSubstate.moanVol * SettingSubstate.masterVol);
-			#end
+			FlxG.sound.play("assets/sounds/Voice/" + moanDir + "/" + moanDir + "Moan" + FlxG.random.int(4, 17) + "." + MenuState.soundEXT, 1 * SettingSubstate.moanVol * SettingSubstate.masterVol);
+
 			//FlxG.sound.play("assets/sounds/roblox oof.mp3", 1  * SettingSubstate.moanVol * SettingSubstate.masterVol);
 		}
 		
-		#if flash
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.3 * SettingSubstate.soundVol * SettingSubstate.masterVol);
-		#else
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".ogg", 0.3 * SettingSubstate.soundVol * SettingSubstate.masterVol);
-		#end
-		
+		FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + "." + MenuState.soundEXT, 0.3 * SettingSubstate.soundVol * SettingSubstate.masterVol);
+
 		//shakes the camera
 		
 		// thisCam.shake(FlxG.random.float(0.05, 0.025), FlxG.random.float(0.05, 0.2));
