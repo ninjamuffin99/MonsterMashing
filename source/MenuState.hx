@@ -77,11 +77,13 @@ class MenuState extends BaseMenuState
 		// mapZoom = mapZoom * FlxG.initialZoom;
 
 		// put this into its own class and then reference it consistently
-		#if (flash || html5)
+		#if (web)
 		soundEXT = "mp3";
 		#else
 		soundEXT = "ogg";
 		#end
+		
+		FlxG.log.add(soundEXT);
 
 		FlxG.save.bind("File");
 
@@ -229,7 +231,7 @@ class MenuState extends BaseMenuState
 
 		if (FlxG.onMobile)
 		{
-			mScore = new FlxText(0, FlxG.height / 2 + 225, 0, "", 40);
+			mScore = new FlxText(0, FlxG.height / 2 + 210, 0, "", 40);
 		}
 		else
 		{

@@ -141,11 +141,9 @@ class PlayState extends FlxState
 		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
 		
 		// Some shit that runs if you're playing on the flash target, if not, it plays the OGG version of the song
-		#if flash
-			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7 * SettingSubstate.musicVol * SettingSubstate.masterVol);
-		#else
-			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingSubstate.musicVol * SettingSubstate.masterVol);
-        #end
+
+		FlxG.sound.playMusic("assets/music/Silverline." + MenuState.soundEXT, 0.7 * SettingSubstate.musicVol * SettingSubstate.masterVol);
+
 		
 		// makesit so that every item in this FlxState's little display list thing, only shows on the main gameplay camera, not the mashstate camera
 		forEach(function(b:FlxBasic){b.cameras = [FlxG.camera]; });

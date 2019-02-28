@@ -54,6 +54,7 @@ class HighScore
 	
 	public static function load():Void
 	{
+		
 		if (FlxG.save.data.totalScore != null)
 		{
 			score = FlxG.save.data.score;
@@ -70,13 +71,6 @@ class HighScore
 				HighScore.shiniesSeen = FlxG.save.data.shiniesSeen;
 			}
 			
-		}
-		else
-		{
-			SettingSubstate.masterVol = 1;
-			SettingSubstate.moanVol = 1;
-			SettingSubstate.musicVol = 1;
-			SettingSubstate.soundVol = 1;
 		}
 	}
 }
