@@ -7,9 +7,12 @@ Monster Mashing - Changelog
 - Additional Art by @FuShark
 - Full Credits in-game
 
+###Initial Release on Newgrounds/Itch: March 1st 2018###
+###Initial Release on Nutaku(NSFW): February 14th 2019###
+###Initial Release on Steam: TBD 2019###
 
 #----------------------------#
-Version 1.2.0 - December XX, 2018 - DELUXE EDITION UPDATE
+Version 1.2.0 - March XX, 2019 - DELUXE EDITION UPDATE
 #----------------------------#
 - Introducing Echidna Girl(your new waifu)! We've got some obvious bias toward her, not sure what it is, but I think you'll agree
 - Introducing Minotaur Girl for all you burly/big lovin' fellas and ladies ;)
@@ -21,7 +24,7 @@ Version 1.2.0 - December XX, 2018 - DELUXE EDITION UPDATE
 - Updated logo by RGPAnims
 - Added Gallery mode
 - Cleaned up touch controls
-- Added nude versions of the girls (Nutaku/Deluxe Exclusive)
+- Added nude versions of the girls (Nutaku Exclusive)
 - Improved Newgrounds API stuff to work on Windows, HTML5 and whatnot (SHOUTOUT TO MY HOMEBOY GEORGE @GeoKureli)
 - Re-did the credits to be cooler/more dramatic lol
 - Added menu sounds (different sounds when using the menu, as well as ambience if no music is playing)
