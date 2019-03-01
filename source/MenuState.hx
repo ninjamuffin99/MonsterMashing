@@ -151,7 +151,7 @@ class MenuState extends BaseMenuState
 		}
 		else if (FlxG.save.data.sessionId == null)
 		{
-			NG.create(APIStuff.APIID);
+			var ng:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 		}
 		
 		super.create();
