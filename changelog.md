@@ -5,11 +5,11 @@ Monster Mashing - Changelog
 - Programming by @ninja_muffin99 & @BrandyBuizel
 - Art by @DIGIMIN & I guess @BrandyBuizel did some too
 - Additional Art by @FuShark
-- Full Credits in-game
+- Full Credits In-game
 
-###Initial Release on Newgrounds/Itch: March 1st 2018###
-###Initial Release on Nutaku(NSFW): February 14th 2019###
-###Initial Release on Steam: TBD 2019###
+- Initial Release on Newgrounds/Itch: March 1st 2018
+- Initial Release on Nutaku(NSFW): February 14th 2019
+- Initial Release on Steam: TBD 2019
 
 #----------------------------#
 Version 1.2.0 - March 1st 2019 - DELUXE EDITION UPDATE
