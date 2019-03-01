@@ -243,8 +243,6 @@ class SettingSubstate extends FlxSubState
 			
 		}
 		
-		
-		
 		if (FlxG.onMobile)
 		{
 			for (touch in FlxG.touches.list)
@@ -331,13 +329,8 @@ class SettingSubstate extends FlxSubState
 		
 		if (_selection < 4)
 		{
-			#if flash
 			FlxG.sound.play("assets/sounds/smack1.mp3", 1 * settingsArray[1][_selection] * masterVol);
-			#else
-				FlxG.sound.play("assets/sounds/smack1.ogg", 1 * settingsArray[1][_selection] * masterVol);
-			#end
 		}
-		
 		
 		masterVol = settingsArray[1][0];
 		musicVol = settingsArray[1][1];
