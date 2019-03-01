@@ -46,6 +46,9 @@ class GalleryState extends BaseMenuState
 		#if !mobile
 			FlxG.mouse.visible = true;
 		#end
+		#if mobile
+			FlxG.mouse.visible = false;
+		#end
 		
 		initTilemap(2);
 		
@@ -861,6 +864,7 @@ class GalleryState extends BaseMenuState
 	// animation data
 	private var grid:Array<Dynamic> = 
 	[
+		/*Misc Art*/
 		[
 			"assets/images/mmLogo.png",
 			"The Monster Mashing logo"
@@ -927,25 +931,43 @@ class GalleryState extends BaseMenuState
 				]
 			]
 		],
+		/*Unused Concepts*/
 		[
-			"assets/images/unused concept/Colors_forMushgirlcolderversion.jpg",
-			"Mush girl concept. This is unused colors for mush girl. \nPainted by our ex-Monster Mashing dev EiGiBeast (RIP LOLOL)\nConcept art/sketch by Digimin"
+			"assets/images/unused concept/Colors_forMushGirlcolderversion.jpg",
+			"Mush Girl concept. This is unused colors for mush Girl. \nPainted by our ex-Monster Mashing dev EiGiBeast (RIP LOLOL)\nConcept art/sketch by Digimin"
 		],
+		[
+			"assets/images/unused concept/Girls.png",
+			"Unused concepts for Girls. Besides the echidna.\nArt by Digimin"
+		],
+		[
+			"assets/images/unused concept/clamSheetOld.png",
+			"Old sprites for the Clam Girl.\nArt by BrandyBuizel"
+		],
+		[
+			"assets/images/unused concept/slimeSheetOld.png",
+			"Old sprites for the Slime Girl.\nArt by BrandyBuizel"
+		],
+		[
+			"assets/images/unused concept/spr_mush.png",
+			"Early concept sketch for Mushroom Girl. She might've been the first character designed I believe\nArt by Digimin"
+		],
+		[
+			"assets/images/unused concept/hhhhhhh.jpg",
+			"Concepts for the second round of Girls. On the left is 'red panda' Girl. Shame she ain't in though\nArt by Digimin"
+		],
+		/*Fan Art*/
 		[
 			"assets/images/fanart/clamOld.png",
 			"Fanart of the old Clam Girl design, art by Peeper"
 		],
 		[
 			"assets/images/fanart/irri.png",
-			"Fanart of the slime girl\nArt by Irri"
+			"Fanart of the Slime Girl\nArt by Irri"
 		],
 		[
 			"assets/images/fanart/cym0.jpg",
-			"A fanart sketch of the Mush girl\nArt by Cymbourine"
-		],
-		[
-			"assets/images/unused concept/girls.png",
-			"Unused concepts for girls. Besides the echidna.\nArt by Digimin"
+			"A fanart sketch of the Mush Girl\nArt by Cymbourine"
 		],
 		[
 			"assets/images/fanart/clamOldNUDEHELLYEAH.png",
@@ -953,11 +975,27 @@ class GalleryState extends BaseMenuState
 		],
 		[
 			"assets/images/fanart/ivo.png",
-			"Fanart of the Slime and Bat girls.\nArt by IvoAnimations"
+			"Fanart of the Slime and Bat Girls.\nArt by IvoAnimations"
+		],
+		[
+			"assets/images/fanart/Arzonaut.png",
+			"Fanart of the Slime and Bat Girls.\nArt by Arzonaut"
+		],
+		[
+			"assets/images/fanart/cym.png",
+			"Fanart of the Vine Girl.\nArt by Cymbourine"
+		],
+		[
+			"assets/images/fanart/dyingsun.png",
+			"Fanart of the old Clam Girl design.\nArt by TheDyingSun"
 		],
 		[
 			"assets/images/fanart/snackers.png",
-			"Fanart of Echidna gf/nArt by Snackers"
+			"Fanart of Echidna gf./nArt by Snackers"
+		],
+		[
+			"assets/images/fanart/snail.png",
+			"Fanart of Mushroom Girl./nArt by SnailPirate"
 		],
 		[
 			"assets/images/fanart/Monster_mashin_lady.png",
@@ -965,23 +1003,16 @@ class GalleryState extends BaseMenuState
 		],
 		[
 			"assets/images/fanart/mushOogtarded.png",
-			"Fanart of mush girl, some of the first fanart we got!\n Art by Oogtarded"
-		],
-		[
-			"assets/images/unused concept/spr_mush.png",
-			"Early concept sketch for Mushroom girl. She might've been the first character designed I believe\nArt by Digimin"
+			"Fanart of mush Girl, some of the first fanart we got!\n Art by Oogtarded"
 		],
 		[
 			"assets/images/fanart/cym1.jpg",
-			"A fanart sketch of the Slime girl\nArt by Cymbourine"
+			"A fanart sketch of the Slime Girl\nArt by Cymbourine"
 		],
-		[
-			"assets/images/unused concept/hhhhhhh.jpg",
-			"Concepts for the second round of girls. On the left is 'red panda' girl. Shame she ain't in though\nArt by Digimin"
-		],
+		/*In-game Art*/
 		[
 			"assets/images/mushSheet.png",
-			"The artwork for the Mushroom girl\nArt by Digimin",
+			"The artwork for the Mushroom Girl\nArt by Digimin",
 			true,
 			4,
 			1,
@@ -1011,7 +1042,7 @@ class GalleryState extends BaseMenuState
 		],
 		[
 			"assets/images/vineSheet.png",
-			"The artwork for the Vine girl\nArt by Digimin",
+			"The artwork for the Vine Girl\nArt by Digimin",
 			true,
 			4,
 			1,
@@ -1131,7 +1162,7 @@ class GalleryState extends BaseMenuState
 		],
 		[
 			"assets/images/minotaurSheet.png",
-			"The artwork for the Minotaur girl\nArt by Digimin",
+			"The artwork for the Minotaur Girl\nArt by Digimin",
 			true,
 			4,
 			1,
@@ -1161,7 +1192,7 @@ class GalleryState extends BaseMenuState
 		],
 		[
 			"assets/images/slimeSheet.png",
-			"The artwork of the slime girl.\nArt by FuShark",
+			"The artwork of the slime Girl.\nArt by FuShark",
 			true,
 			4,
 			1,

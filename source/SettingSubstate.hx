@@ -317,7 +317,6 @@ class SettingSubstate extends FlxSubState
 		{
 			settingsArray[1][_selection] += diff;
 			
-			
 			if (settingsArray[1][_selection] < settingsArray[2][_selection])
 				settingsArray[1][_selection] = settingsArray[2][_selection];
 			if (settingsArray[1][_selection] > settingsArray[3][_selection])
