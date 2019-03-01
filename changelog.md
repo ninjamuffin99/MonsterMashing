@@ -12,8 +12,9 @@ Monster Mashing - Changelog
 ###Initial Release on Steam: TBD 2019###
 
 #----------------------------#
-Version 1.2.0 - March XX, 2019 - DELUXE EDITION UPDATE
+Version 1.2.0 - March 1st 2019 - DELUXE EDITION UPDATE
 #----------------------------#
+- ONE YEAR ANNIVERSARY
 - Introducing Echidna Girl(your new waifu)! We've got some obvious bias toward her, not sure what it is, but I think you'll agree
 - Introducing Minotaur Girl for all you burly/big lovin' fellas and ladies ;)
 - ~~Introducing Clam Girl! Just a couple of taps on your phone and she'll come out of her shell...
@@ -47,7 +48,7 @@ Version 1.1.2 - April XX, 2018 - CANCELLED UPDATE (LOL)
 
 
 #----------------------------#
-Version 1.1.1 - March 31, 2018
+Version 1.1.1 - March 31st 2018
 #----------------------------#
 - Introducing Slime Girl! She may be non-neutonian and she may be fragile, but she don't mind if you're a little rough ;)
 - Added 2 new tile palettes and adjusted systen to swap palettes up to 50k distance
@@ -64,7 +65,7 @@ Version 1.1.1 - March 31, 2018
 
 
 #----------------------------#
-Version 1.1.0 - March 16, 2018
+Version 1.1.0 - March 16th 2018
 #----------------------------#
 - Introducing Bat Girl! Not the Batgirl, but a bat-girl
 - Updated Newgrounds API to v3 (newgrounds.io baby). Now scoreboards and medals should work in both HTML5(oops jk lol) and Flash as long as the user is signed in.
@@ -83,7 +84,7 @@ Version 1.1.0 - March 16, 2018
 
 
 #----------------------------#
-Version 1.0.0 - March 2, 2018
+Version 1.0.0 - March 1st 2018
 #----------------------------#
 - Initial Release for Strawberry Jam 2
 - Features Mush Girl and Vine Girl
