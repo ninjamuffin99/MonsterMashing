@@ -26,7 +26,7 @@
 	<window if="mobile" orientation="portrait" fullscreen="true" width="0" height="0" resizable="true" />
 	
 	<!--Switch-specific-->
-	<window if="switch" orientation="portrait" fullscreen="true" width="0" height="0" resizable="true" />
+	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
 	
 	<!-- _____________________________ Path Settings ____________________________ -->
 	
@@ -104,12 +104,14 @@
 	<section if="steam">
 		<haxelib name="steamwrap"/>
 	 
-	   <!-- Replace the question marks with your Steam App ID -->
-	   <setenv name="STEAM_APP_ID" value="998770" />
+		<!-- Replace the question marks with your Steam App ID -->
+		<setenv name="STEAM_APP_ID" value="998770" />
 		
-	   <!-- OS X only: Set this value to the same value as the file property of your <app> node, this is needed to embed things into the generated .app file -->
-	   <!-- Setting this for other platforms won't do any harm, so you can safely leave it enabled for everything -->
-	   <!--<set name="APP_FILE" value="??????" />-->
+		<!-- OS X only: Set this value to the same value as the file property of your <app> node, this is needed to embed things into the generated .app file -->
+		<!-- Setting this for other platforms won't do any harm, so you can safely leave it enabled for everything -->
+		<!--<set name="APP_FILE" value="??????" />-->
    </section>
+	
+	<template path="PlatformSwitch" if="switch" />
 	
 </project>
