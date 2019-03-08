@@ -45,8 +45,7 @@ class GalleryState extends BaseMenuState
 	{
 		#if !mobile
 			FlxG.mouse.visible = true;
-		#end
-		#if mobile
+		#else
 			FlxG.mouse.visible = false;
 		#end
 		
@@ -309,7 +308,6 @@ class GalleryState extends BaseMenuState
 		#if !mobile
 			keyboardControls();
 			gamepadControls();
-			
 		#end
 		
 				
@@ -325,7 +323,6 @@ class GalleryState extends BaseMenuState
 			}
 			
 		}
-		
 		
 		if (timerClosing > 0)
 		{
@@ -364,12 +361,23 @@ class GalleryState extends BaseMenuState
 			{
 				_grpThumbnails.members[i].color = FlxColor.WHITE;
 				_grpThumbPics.members[i].color = FlxColor.WHITE;
-				FlxG.camera.follow(_grpThumbnails.members[i], null, 0.01);
+				FlxG.camera.follow(_grpThumbnails.members[i], null, 0.1);
 			}
 		}
 		
 		if (FlxG.onMobile)
 		{
+			for (swipe in FlxG.swipes)
+			{
+				// swipe.startPosition (FlxPoint)
+				// swipe.endPosition (FlxPoint)
+
+				// swipe.id (Int)
+
+				// swipe.distance (Float)
+				// swipe.angle (Float)
+				// swipe.duration (Float)
+			}
 			
 			for (touches in FlxG.touches.list)
 			{
@@ -933,7 +941,7 @@ class GalleryState extends BaseMenuState
 		],
 		/*Unused Concepts*/
 		[
-			"assets/images/unused concept/Colors_forMushGirlcolderversion.jpg",
+			"assets/images/unused concept/ColorsforMushGirl.jpg",
 			"Mush Girl concept. This is unused colors for mush Girl. \nPainted by our ex-Monster Mashing dev EiGiBeast (RIP LOLOL)\nConcept art/sketch by Digimin"
 		],
 		[
