@@ -105,6 +105,12 @@ class ScoreState extends FlxSubState
 			if (NG.core.user.name == userName)
 			{
 				isPlayer = true;
+				#if steam
+					if (Steam.active)
+					{
+						Steam.setAchievement("Shame_and_Fame");
+					}
+				#end 
 				
 				var shameMedal = NG.core.medals.get(54477);
 				if (!shameMedal.unlocked)

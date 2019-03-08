@@ -9,11 +9,10 @@ import flixel.util.FlxTimer;
 
 /**
  * ...
- * @author NInjaMuffin99
+ * @author NinjaMuffin99 & Friiiiieeeennndds
  */
 class IntroCutsceneState extends FlxState 
 {
-	
 	private var introText:FlxTypeText;
 	private var curLore:Int = 0;
 	
@@ -29,7 +28,6 @@ class IntroCutsceneState extends FlxState
 		introText.start(0.06, false, false, null, newText);
 		
 		add(introText);
-		
 		
 		var ext:String;
 		#if flash
