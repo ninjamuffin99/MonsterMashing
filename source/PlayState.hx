@@ -277,6 +277,12 @@ class PlayState extends FlxState
 		if (speed > maxSpeed)
 		{
 			speed = maxSpeed;
+			#if steam
+				if (Steam.active)
+				{
+					Steam.setAchievement("HORNY_AF");
+				}
+			#end 
 			// if logged into the Newgrounds API, it unlocks the Peak horny medal
 			if (NGio.isLoggedIn)
 			{
@@ -294,6 +300,12 @@ class PlayState extends FlxState
 		#end
 		if (score >= 10000)
 		{
+			#if steam
+				if (Steam.active)
+				{
+					Steam.setAchievement("Horny_God");
+				}
+			#end 
 			if (NGio.isLoggedIn)
 			{
 				var hornyGodMedal = NG.core.medals.get(54300);
@@ -320,9 +332,6 @@ class PlayState extends FlxState
 		// LOL no it wont i wrote this shit like back in March lmao November 2018 gang where yall at
 		if (speed < 0.2 || _player.y > 247)
 		{
-			
-			
-			
 			/*
 			if (speed < 0.2)
 			{

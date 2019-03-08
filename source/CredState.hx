@@ -39,6 +39,20 @@ class CredState extends FlxState
 		
 		creds.screenCenter();
 		
+		#if steam
+			if (Steam.active)
+			{
+				Steam.setAchievement("The_Degenerates_Responsible");
+			}
+		#end 
+		
+		if (NGio.isLoggedIn)
+		{
+			var hornyMedal = NG.core.medals.get(54286);
+			if (!hornyMedal.unlocked)
+				hornyMedal.sendUnlock();
+		}
+		
 		#if flash
 			/*
 			if (NG.core.user.supporter)
