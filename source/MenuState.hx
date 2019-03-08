@@ -114,6 +114,8 @@ class MenuState extends BaseMenuState
 		initSteamShit();
 		#end
 		
+		//DISABLE IF NOT NG
+		/*
 		if (FlxG.save.data.sessionId != null && !NGio.isLoggedIn)
 		{
 			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, FlxG.save.data.sessionId);
@@ -153,7 +155,7 @@ class MenuState extends BaseMenuState
 		{
 			var ng:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
 		}
-		
+		*/
 		super.create();
 	}
 
