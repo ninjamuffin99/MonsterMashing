@@ -29,6 +29,14 @@ import io.newgrounds.NGLite;
 	import Hardware;
 #end
 
+#if switch
+	import openfl.events.GameInputEvent;
+	import openfl.ui.GameInput;
+	import openfl.ui.GameInputDevice;
+	import openfl.ui.GameInputControl;
+#end
+
+
 class MenuState extends BaseMenuState
 {
 	private var mScore:FlxText;
@@ -42,8 +50,10 @@ class MenuState extends BaseMenuState
 	private var _grpMenu:FlxTypedGroup<FlxText>;
 	private var _grpMenuBar:FlxTypedGroup<FlxSprite>;
 
-	#if !nutaku
+	#if (!nutaku && !switch)
 	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Hall of Shame", "Settings", "Join Our Discord"];
+	#elseif switch
+	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Hall of Shame", "Settings"];
 	#else
 	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Settings"];
 	#end
@@ -368,13 +378,13 @@ class MenuState extends BaseMenuState
 		var gamepad = FlxG.gamepads.lastActive;
 		if (gamepad != null)
 		{
-			if (gamepad.anyJustPressed(["DPAD_UP", "DPAD_LEFT", "LEFT_STICK_DIGITAL_UP", "LEFT_STICK_DIGITAL_LEFT"]))
+			if (gamepad.anyJustPressed(["UP", "DPAD_UP", "DPAD_LEFT", "LEFT_STICK_DIGITAL_UP", "LEFT_STICK_DIGITAL_LEFT"]))
 			{
 				selected -= 1;
 				FlxG.sound.play("assets/sounds/menuUp." + soundEXT, 0.5 * SettingSubstate.masterVol * SettingSubstate.soundVol);
 			}
 
-			if (gamepad.anyJustPressed(["DPAD_DOWN", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_DOWN", "LEFT_STICK_DIGITAL_RIGHT"]))
+			if (gamepad.anyJustPressed(["DOWN", "DPAD_DOWN", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_DOWN", "LEFT_STICK_DIGITAL_RIGHT"]))
 			{
 				selected += 1;
 				FlxG.sound.play("assets/sounds/menuDown." + soundEXT, 0.5 * SettingSubstate.masterVol * SettingSubstate.soundVol);
