@@ -65,6 +65,7 @@ class MenuState extends BaseMenuState
 	private var nutakuLink:String = "https://nutaku.net/games/download/monster-mashing";
 
 	public static var soundEXT:String = "";
+	
 	override public function create():Void
 	{
 		#if cpp
@@ -114,7 +115,7 @@ class MenuState extends BaseMenuState
 		initSteamShit();
 		#end
 		
-		//DISABLE IF NOT NG
+		//DISABLE IF NOT -DNEWGROUNDS
 		/*
 		if (FlxG.save.data.sessionId != null && !NGio.isLoggedIn)
 		{
@@ -274,7 +275,8 @@ class MenuState extends BaseMenuState
 		debugInfo.text += " Android";
 		#elseif windows
 		debugInfo.text += " Windows";
-
+		#elseif switch
+		debugInfo.text += " Nintendo Switch";
 		#end
 
 		#if nutaku
@@ -329,6 +331,7 @@ class MenuState extends BaseMenuState
 			}
 		}
 		#end
+		
 		super.update(elapsed);
 	}
 
@@ -352,7 +355,6 @@ class MenuState extends BaseMenuState
 		if (FlxG.keys.anyJustPressed(["W", "UP", "I"]))
 		{
 			selected -= 1;
-
 			FlxG.sound.play("assets/sounds/menuUp." + soundEXT, 0.5 * SettingSubstate.masterVol * SettingSubstate.soundVol);
 		}
 		if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
@@ -362,6 +364,7 @@ class MenuState extends BaseMenuState
 		}
 		#end
 
+		//XInput
 		var gamepad = FlxG.gamepads.lastActive;
 		if (gamepad != null)
 		{

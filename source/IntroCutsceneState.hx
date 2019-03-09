@@ -18,7 +18,7 @@ class IntroCutsceneState extends FlxState
 	
 	private var waitTime = 2.5;
 
-	override public function create():Void 
+	override public function create():Void
 	{
 		introText = new FlxTypeText(0, 0, Std.int(FlxG.width * 0.9), lore[curLore], 24);
 		introText.alignment = FlxTextAlign.CENTER;
