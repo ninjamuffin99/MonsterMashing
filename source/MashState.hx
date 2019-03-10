@@ -213,12 +213,12 @@ class MashState extends FlxSubState
 			var gamepad = FlxG.gamepads.lastActive;
 			if (gamepad != null)
 			{
-				if (gamepad.anyJustPressed(["DPAD_LEFT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_LEFT", "LEFT_STICK_DIGITAL_RIGHT", "A", "X", "Y", "RIGHT_TRIGGER", "LEFT_TRIGGER", "RIGHT_SHOULDER", "LEFT_SHOULDER"]))
+				if (gamepad.anyJustPressed(["LEFT", "RIGHT", "DPAD_LEFT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_LEFT", "LEFT_STICK_DIGITAL_RIGHT", "A", "X", "Y", "RIGHT_TRIGGER", "LEFT_TRIGGER", "RIGHT_SHOULDER", "LEFT_SHOULDER"]))
 				{
 					mashShit = true;
 				}
 				
-				if (gamepad.anyJustPressed(["DPAD_DOWN", "B", "LEFT_STICK_DIGITAL_DOWN"]))
+				if (gamepad.anyJustPressed(["DOWN", "DPAD_DOWN", "B", "LEFT_STICK_DIGITAL_DOWN"]))
 				{
 					mashTimer = 0;
 				}
@@ -244,7 +244,7 @@ class MashState extends FlxSubState
 				
 				if (gamepad != null)
 				{
-					if (gamepad.anyJustPressed(["DPAD_LEFT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_LEFT", "LEFT_STICK_DIGITAL_RIGHT",  "A", "X", "Y", "RIGHT_TRIGGER", "LEFT_TRIGGER", "RIGHT_SHOULDER", "LEFT_SHOULDER"]))
+					if (gamepad.anyJustPressed(["LEFT", "RIGHT", "DPAD_LEFT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_LEFT", "LEFT_STICK_DIGITAL_RIGHT",  "A", "X", "Y", "RIGHT_TRIGGER", "LEFT_TRIGGER", "RIGHT_SHOULDER", "LEFT_SHOULDER"]))
 					{
 						mash();
 					}

@@ -471,17 +471,19 @@ class GalleryState extends BaseMenuState
 		var gamepad = FlxG.gamepads.lastActive;
 		if (gamepad != null)
 		{
-			if (gamepad.anyJustPressed(["B", "BACK"]))
-			{
-				if (isOpen)
+			#if !switch
+				if (gamepad.anyJustPressed(["B", "BACK"]))
 				{
-					isOpen = false;
+					if (isOpen)
+					{
+						isOpen = false;
+					}
+					else
+					{
+						FlxG.switchState(new MenuState());
+					}
 				}
-				else
-				{
-					FlxG.switchState(new MenuState());
-				}
-			}
+			#end
 			
 			if (isOpen)
 			{
@@ -498,7 +500,7 @@ class GalleryState extends BaseMenuState
 					
 				}
 				
-				if (gamepad.anyJustPressed(["DPAD_RIGHT", "RIGHT_SHOULDER"]) && grid[curOpen][2])
+				if (gamepad.anyJustPressed(["RIGHT", "DPAD_RIGHT", "RIGHT_SHOULDER"]) && grid[curOpen][2])
 				{
 					curAnimPlaying += 1;
 				
@@ -518,7 +520,7 @@ class GalleryState extends BaseMenuState
 					
 				}
 				
-				if (gamepad.anyJustPressed(["DPAD_LEFT", "LEFT_SHOULDER"]) && grid[curOpen][2])
+				if (gamepad.anyJustPressed(["LEFT", "DPAD_LEFT", "LEFT_SHOULDER"]) && grid[curOpen][2])
 				{
 					
 					curAnimPlaying -= 1;
@@ -550,22 +552,22 @@ class GalleryState extends BaseMenuState
 			else
 			{
 				
-				if (gamepad.anyJustPressed(["DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
+				if (gamepad.anyJustPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
 				{
 					curSelected += 4;
 				}
 				
-				if (gamepad.anyJustPressed(["DPAD_UP", "LEFT_STICK_DIGITAL_UP"]))
+				if (gamepad.anyJustPressed(["UP", "DPAD_UP", "LEFT_STICK_DIGITAL_UP"]))
 				{
 					curSelected -= 4;
 				}
 				
-				if (gamepad.anyJustPressed(["DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
+				if (gamepad.anyJustPressed(["RIGHT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
 				{
 					curSelected += 1;
 				}
 				
-				if (gamepad.anyJustPressed(["DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT"]))
+				if (gamepad.anyJustPressed(["LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT"]))
 				{
 					curSelected -= 1;
 				}
