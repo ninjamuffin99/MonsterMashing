@@ -52,8 +52,6 @@ class MenuState extends BaseMenuState
 
 	#if (!nutaku && !switch)
 	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Hall of Shame", "Settings", "Join Our Discord"];
-	#elseif switch
-	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Hall of Shame", "Settings"];
 	#else
 	private var menuItems:Array<String> = ["Play", "Gallery", "Credits", "Settings"];
 	#end
@@ -78,20 +76,20 @@ class MenuState extends BaseMenuState
 	
 	override public function create():Void
 	{
-		#if cpp
-		menuItems.push("Exit");
+		#if (cpp && !switch)
+			menuItems.push("Exit");
 		#end
 
 		#if (html5 || flash)
-		menuItems.push("Buy on Nutaku!");
+			menuItems.push("Buy on Nutaku!");
 		#end
 		// mapZoom = mapZoom * FlxG.initialZoom;
 
 		// put this into its own class and then reference it consistently
 		#if (web)
-		soundEXT = "mp3";
+			soundEXT = "mp3";
 		#else
-		soundEXT = "ogg";
+			soundEXT = "ogg";
 		#end
 		
 		FlxG.log.add(soundEXT);
@@ -390,10 +388,19 @@ class MenuState extends BaseMenuState
 				FlxG.sound.play("assets/sounds/menuDown." + soundEXT, 0.5 * SettingSubstate.masterVol * SettingSubstate.soundVol);
 			}
 
-			if (gamepad.anyJustPressed(["A", "START"]))
-			{
-				menuOpen(menuItems[selected]);
-			}
+			#if !switch
+				if (gamepad.anyJustPressed(["A", "START"]))
+				{
+					menuOpen(menuItems[selected]);
+				}
+			#end
+			
+			#if switch
+				if (gamepad.anyJustPressed(["B"]))
+				{
+					menuOpen(menuItems[selected]);
+				}
+			#end
 		}
 
 		FlxG.watch.addQuick("selected 1: ", selected);

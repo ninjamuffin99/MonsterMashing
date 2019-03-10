@@ -56,12 +56,19 @@ class SettingState extends BaseMenuState
 		var gamepad = FlxG.gamepads.lastActive;
 		if (gamepad != null)
 		{
-			if (gamepad.anyJustPressed(["BACK", "START", "B"]))
-			{
-				FlxG.switchState(new MenuState());
-			}
+			#if !switch
+				if (gamepad.anyJustPressed(["BACK", "START", "B"]))
+				{
+					FlxG.switchState(new MenuState());
+				}
+			#end
 			
-			
+			#if switch
+				if (gamepad.anyJustPressed(["A"]))
+				{
+					FlxG.switchState(new MenuState());
+				}
+			#end
 		}
 	}
 }

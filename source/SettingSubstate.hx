@@ -41,10 +41,14 @@ class SettingSubstate extends FlxSubState
 	private var settingsArray:Array<Dynamic> = 
 	[
 		["Master Volume", "Music Volume", "SFX Volume", "Moan Volume", "Hold to Mash"], 
-	[masterVol, musicVol, soundVol, moanVol, mashHold],
+		[masterVol, musicVol, soundVol, moanVol, mashHold],
 		[0, 0, 0, 0, false],
 		[1, 1, 1, 1, true]
 	];
+	
+	#if switch
+		settingsArray.push("Flip Portrait");
+	#end
 	
 	private var _selection:Int = 0;
 	private var _selector:FlxSpriteGroup;
@@ -239,8 +243,6 @@ class SettingSubstate extends FlxSubState
 			{
 				close();
 			}
-			
-			
 		}
 		
 		if (FlxG.onMobile)
@@ -328,7 +330,9 @@ class SettingSubstate extends FlxSubState
 		
 		if (_selection < 4)
 		{
-			FlxG.sound.play("assets/sounds/smack1.mp3", 1 * settingsArray[1][_selection] * masterVol);
+			#if !switch
+				FlxG.sound.play("assets/sounds/smack1.mp3", 1 * settingsArray[1][_selection] * masterVol);
+			#end
 		}
 		
 		masterVol = settingsArray[1][0];
