@@ -278,7 +278,7 @@ class PlayState extends FlxState
 		{
 			speed = maxSpeed;
 			#if steam
-				if (Steam.active)
+				if (Steam.active && Steam.getAchievement("HORNY_AF"))
 				{
 					Steam.setAchievement("HORNY_AF");
 				}
@@ -301,7 +301,7 @@ class PlayState extends FlxState
 		if (score >= 10000)
 		{
 			#if steam
-				if (Steam.active)
+				if (Steam.active && !Steam.getAchievement("Horny_God"))
 				{
 					Steam.setAchievement("Horny_God");
 				}
