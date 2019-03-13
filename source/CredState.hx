@@ -8,6 +8,11 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import io.newgrounds.NG;
 
+
+#if steam
+import steamwrap.api.Steam;
+#end
+
 /**
  * ...
  * @author ninjaMuffin
