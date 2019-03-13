@@ -102,7 +102,7 @@
 	<classpath path="source/djFlixel"/>
 	<classpath path="APIStuff.hx"/>
 	
-	<section if="steam">
+	<section if="windows">
 		<haxelib name="steamwrap"/>
 	 
 		<!-- Replace the question marks with your Steam App ID -->
