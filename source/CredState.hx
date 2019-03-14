@@ -154,13 +154,14 @@ class CredState extends FlxState
 				FlxG.switchState(new MenuState());
 			}
 		#end
-		
+		/*
 		#if switch
 			if (touch.justPressed) 
 			{
 				FlxG.switchState(new MenuState());
 			}
 		#end
+		*/
 	}
 	
 	private var credsArray:Array<Dynamic> = 
@@ -195,6 +196,7 @@ class CredState extends FlxState
 			"Jack McMillian",
 			"Cymbourine",
 			"pecheng",
+			"",
 			"the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
 			"",
 			"Misc. sounds found/made/idk by PhantomArcade",
@@ -236,7 +238,10 @@ class CredState extends FlxState
 			"Snackers",
 			"LoganPhresh",
 			"IvoAnimations",
-			"Cymbourine"
+			"Cymbourine",
+			"Arzonaut",
+			"Snailpirate",
+			"TheDyingSun"
 		],
 		[
 			"If you are reading this Tom Fulp i lov u",
