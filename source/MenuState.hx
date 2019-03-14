@@ -340,6 +340,23 @@ class MenuState extends BaseMenuState
 		}
 		#end
 		
+		#if switch
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed)
+			{
+				for (t in 0..._grpMenu.members.length)
+				{
+					if (touch.overlaps(_grpMenu.members[t]))
+					{
+						vibrate();
+						menuOpen(menuItems[t]);
+					}
+				}
+			}
+		}
+		#end
+		
 		super.update(elapsed);
 	}
 

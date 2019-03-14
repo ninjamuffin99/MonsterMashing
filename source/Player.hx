@@ -96,6 +96,31 @@ class Player extends FlxSprite
 			mobileChecks();
 		#end
 		
+		#if switch
+		for (touch in FlxG.touches.list)
+			{
+				if (touch.pressed) 
+				{
+					if (touch.x > x + 3)
+					{
+						_right = true;
+					}
+					else if (touch.x < x - 3)
+					{
+						_left  = true;
+					}
+					else
+					{
+						_left = _right = false;
+					}
+				}
+				else
+				{
+					_right = false;
+					_left = false;
+				}
+			}
+		#end
 		
 		var gamepad = FlxG.gamepads.lastActive;
 		if (gamepad != null)
