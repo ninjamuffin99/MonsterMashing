@@ -118,14 +118,16 @@ class CredState extends FlxState
 			}
 			
 			var gamepad = FlxG.gamepads.lastActive;
+			
+			#if !switch
 			if (gamepad != null)
 			{
 				if (gamepad.anyJustPressed(["A", "B", "START", "BACK"]))
 				{
 					FlxG.switchState(new MenuState());
 				}
-			
 			}
+			#end
 			
 		#end
 		
@@ -152,8 +154,14 @@ class CredState extends FlxState
 				FlxG.switchState(new MenuState());
 			}
 		#end
+		
+		#if switch
+			if (touch.justPressed) 
+			{
+				FlxG.switchState(new MenuState());
+			}
+		#end
 	}
-	
 	
 	private var credsArray:Array<Dynamic> = 
 	[

@@ -220,29 +220,38 @@ class SettingSubstate extends FlxSubState
 		var gamepad = FlxG.gamepads.lastActive;
 		if (gamepad != null)
 		{
-			if (gamepad.anyJustPressed(["DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
+			if (gamepad.anyJustPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
 			{
 				_selection += 1;
 				changePos();
 			}
-			else if (gamepad.anyJustPressed(["DPAD_UP", "LEFT_STICK_DIGITAL_UP"]))
+			else if (gamepad.anyJustPressed(["UP", "DPAD_UP", "LEFT_STICK_DIGITAL_UP"]))
 			{
 				_selection -= 1;
 				changePos();
 			}
-			if (gamepad.anyJustPressed(["DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
+			if (gamepad.anyJustPressed(["RIGHT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
 			{
 				changeValue(0.1);
 			}
-			if (gamepad.anyJustPressed(["DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT"]))
+			if (gamepad.anyJustPressed(["LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT"]))
 			{
 				changeValue(-0.1);
 			}
 			
-			if (gamepad.anyJustPressed(["BACK", "START", "B"]))
-			{
-				close();
-			}
+			#if !switch
+				if (gamepad.anyJustPressed(["BACK", "START", "B"]))
+				{
+					close();
+				}
+			#end
+			
+			#if switch
+				if (gamepad.anyJustPressed(["A"]))
+				{
+					close();
+				}
+			#end
 		}
 		
 		if (FlxG.onMobile)
