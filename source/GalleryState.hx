@@ -485,6 +485,20 @@ class GalleryState extends BaseMenuState
 				}
 			#end
 			
+			#if switch
+				if (gamepad.anyJustPressed(["A"]))
+				{
+					if (isOpen)
+					{
+						isOpen = false;
+					}
+					else
+					{
+						FlxG.switchState(new MenuState());
+					}
+				}
+			#end
+			
 			if (isOpen)
 			{
 				bigPreview.offset.x -= gamepad.analog.value.LEFT_STICK_X * 10;
@@ -571,8 +585,6 @@ class GalleryState extends BaseMenuState
 				{
 					curSelected -= 1;
 				}
-				
-			
 				
 				if (gamepad.justPressed.A)
 				{
@@ -810,10 +822,8 @@ class GalleryState extends BaseMenuState
 					touchNew = FlxMath.vectorLength(FlxG.touches.list[0].x - FlxG.touches.list[1].x, FlxG.touches.list[0].y - FlxG.touches.list[1].y);
 				}
 			}
-		
 			
 		#end
-		
 		
 		// zoom behaviour
 		if (zoomPressingButton)
@@ -874,6 +884,7 @@ class GalleryState extends BaseMenuState
 	// animation data
 	private var grid:Array<Dynamic> = 
 	[
+		/*Misc Art*/
 		[
 			"assets/images/mmLogo.png",
 			"The Monster Mashing logo"
@@ -940,21 +951,35 @@ class GalleryState extends BaseMenuState
 				]
 			]
 		],
+		/*Unused Concepts*/
 		[
 			"assets/images/unusedConcept/ColorsforMushGirl.jpg",
 			"Mush Girl concept. This is unused colors for mush Girl. \nPainted by our ex-Monster Mashing dev EiGiBeast (RIP LOLOL)\nConcept art/sketch by Digimin"
+		],
+		[
+			"assets/images/unusedConcept/Girls.png",
+			"Unused concepts for Girls. Besides the echidna.\nArt by Digimin"
 		],
 		[
 			"assets/images/unusedConcept/clamSheetOld.png",
 			"Old sprites for the Clam Girl.\nArt by BrandyBuizel"
 		],
 		[
-			"assets/images/fanart/clamOld.png",
-			"Fanart of the old Clam Girl design, art by Peeper"
-		],
-		[
 			"assets/images/unusedConcept/slimeSheetOld.png",
 			"Old sprites for the Slime Girl.\nArt by BrandyBuizel"
+		],
+		[
+			"assets/images/unusedConcept/spr_mush.png",
+			"Early concept sketch for Mushroom Girl. She might've been the first character designed I believe\nArt by Digimin"
+		],
+		[
+			"assets/images/unusedConcept/hhhhhhh.jpg",
+			"Concepts for the second round of Girls. On the left is 'red panda' Girl. Shame she ain't in though\nArt by Digimin"
+		],
+		/*Fan Art*/
+		[
+			"assets/images/fanart/clamOld.png",
+			"Fanart of the old Clam Girl design, art by Peeper"
 		],
 		[
 			"assets/images/fanart/irri.png",
@@ -965,16 +990,16 @@ class GalleryState extends BaseMenuState
 			"A fanart sketch of the Mush Girl\nArt by Cymbourine"
 		],
 		[
-			"assets/images/unusedConcept/hhhhhhh.jpg",
-			"Concepts for the second round of Girls. On the left is 'red panda' Girl. Shame she ain't in though\nArt by Digimin"
-		],
-		[
 			"assets/images/fanart/clamOldNUDEHELLYEAH.png",
 			"Fanart of the old Clam Girl design, but this one is naked hell yeah damn, art by Peeper"
 		],
 		[
 			"assets/images/fanart/ivo.png",
 			"Fanart of the Slime and Bat Girls.\nArt by IvoAnimations"
+		],
+		[
+			"assets/images/fanart/Arzonaut.png",
+			"Fanart of the Slime and Bat Girls.\nArt by Arzonaut"
 		],
 		[
 			"assets/images/fanart/cym.png",
@@ -985,20 +1010,8 @@ class GalleryState extends BaseMenuState
 			"Fanart of the old Clam Girl design.\nArt by TheDyingSun"
 		],
 		[
-			"assets/images/unusedConcept/Girls.png",
-			"Unused concepts for Girls. Besides the echidna.\nArt by Digimin"
-		],
-		[
-			"assets/images/fanart/cym1.jpg",
-			"A fanart sketch of the Slime Girl\nArt by Cymbourine"
-		],
-		[
 			"assets/images/fanart/snackers.png",
 			"Fanart of Echidna gf./nArt by Snackers"
-		],
-		[
-			"assets/images/unusedConcept/spr_mush.png",
-			"Early concept sketch for Mushroom Girl. She might've been the first character designed I believe\nArt by Digimin"
 		],
 		[
 			"assets/images/fanart/snail.png",
@@ -1013,8 +1026,8 @@ class GalleryState extends BaseMenuState
 			"Fanart of mush Girl, some of the first fanart we got!\n Art by Oogtarded"
 		],
 		[
-			"assets/images/fanart/Arzonaut.png",
-			"Fanart of the Slime and Bat Girls.\nArt by Arzonaut"
+			"assets/images/fanart/cym1.jpg",
+			"A fanart sketch of the Slime Girl\nArt by Cymbourine"
 		],
 		/*In-game Art*/
 		[
