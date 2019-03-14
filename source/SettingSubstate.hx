@@ -45,11 +45,11 @@ class SettingSubstate extends FlxSubState
 		[0, 0, 0, 0, false],
 		[1, 1, 1, 1, true]
 	];
-	
+	/*
 	#if switch
 		settingsArray.push("Flip Portrait");
 	#end
-	
+	*/
 	private var _selection:Int = 0;
 	private var _selector:FlxSpriteGroup;
 	private var _selLeft:FlxText;
