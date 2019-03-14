@@ -3,6 +3,8 @@
 ### SOMEWHAT NSFW
 An infinite runner game made with HaxeFlixel. This code is a little commented, but some comments may be misleading/out of date so be careful. Also if you go back to the commits before around Feb 18th 2018, the game was originally a turn based RPG! Some of that code is leftover.
 
+You can play the game in your browser on [Newgrounds](https://www.newgrounds.com/portal/view/707498), and it's available for purchase at a variety of storefronts for 3$. [Itch.io](https://ninja-muffin24.itch.io/monster-mashing) gets you a [Steam](https://store.steampowered.com/app/998770/Monster_Mashing_Deluxe/) key, as well as native builds for Windows, Mac, and Android. However if you purchase it on [Nutaku](https://www.nutaku.net/games/download/monster-mashing/), you get native builds for Windows, Mac, and Android with full uncensored nudity. Or you can buy the game on all three sites for just 9$ and give us money heheheh
+
 ### [Changelog](changelog.md)
 ### How to build
 You need [Haxe](http://haxe.org), and [HaxeFlixel](http://haxeflixel.com/documentation/getting-started/) installed. The HaxeFlixel install guide should help you get things up and running http://haxeflixel.com/documentation/install-haxeflixel/
