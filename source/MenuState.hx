@@ -172,12 +172,13 @@ class MenuState extends BaseMenuState
 	private function initSteamShit():Void
 	{
 		Steam.init(998770, SteamNotificationPosition.TopLeft);
+		Steam.downloadLeaderboardScore("Distance", LeaderboardDownloadType.Global, 1, 20);
 		Steam.whenAchievementStored = steamWrap_onAchievementStored;
 		Steam.whenLeaderboardScoreDownloaded = steamWrap_onLeaderboardScoreDownloaded;
 		Steam.whenLeaderboardScoreUploaded = steamUpload;
-
+		
 		Steam.whenTrace = steamTrace;
-
+		
 	}
 
 	private static function steamTrace(str:String)
@@ -198,6 +199,7 @@ class MenuState extends BaseMenuState
 	private static function steamWrap_onLeaderboardScoreDownloaded(score:Array<LeaderboardScore>)
 	{
 		trace("Leaderboard score downloaded: " + score.toString());
+		ScoreState.steamScores = score;
 	}
 	#end
 
