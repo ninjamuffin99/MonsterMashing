@@ -102,6 +102,7 @@
 	<classpath path="source/djFlixel"/>
 	<classpath path="APIStuff.hx"/>
 	
+	<!--if this is set to windows its debug-->
 	<section if="windows">
 		<haxedef name="steam"/>
 		<haxelib name="steamwrap"/>
