@@ -25,7 +25,8 @@ class ScoreState extends FlxSubState
 	private var txtCurrentScoreboard:FlxText;
 	private var bountyTxt:FlxText;
 	private var _grpText:FlxSpriteGroup;
-	private var _grpTextScores:FlxSpriteGroup;
+	private var _grpScoresNewgrounds:FlxSpriteGroup;
+	private var _grpScoresSteam:FlxSpriteGroup;
 	
 	private var scoreboardInitialized:Bool = false;
 	private var scoreboardTypes:Array<String> = ["Newgrounds", "Steam"];
@@ -57,7 +58,11 @@ class ScoreState extends FlxSubState
 		_grpText = new FlxSpriteGroup();
 		add(_grpText);
 		
-		_grpTextScores = new FlxSpriteGroup();
+		_grpScoresSteam = new FlxSpriteGroup();
+		add(_grpScoresSteam);
+		
+		_grpScoresNewgrounds = new FlxSpriteGroup();
+		add(_grpScoresNewgrounds);
 		
 		hallOfShame = new FlxText(0, 8, 0, "HALL OF SHAME", 32);
 		hallOfShame.alignment = CENTER;
@@ -87,24 +92,19 @@ class ScoreState extends FlxSubState
 			if (NGio.isLoggedIn && NGio.scoreboardsLoaded)
 			{
 				checkNGScores();
-				
 			}
 			else
 			{
-				
 				hallOfShame.text += "\n\nYou are not \nlogged into the NG API\n Head to settings!\n\n";
 				hallOfShame.screenCenter(X);
 				hallOfShame.alignment = FlxTextAlign.CENTER;
-				
-				
 			}
 		}
-		else
-		{
-			#if steam
-			
-			#end
-		}
+		
+		#if steam
+			namesSteam(steamScores);
+		#end
+		
 		
 	}
 	
@@ -177,7 +177,7 @@ class ScoreState extends FlxSubState
 			var text:String = Std.string(leaderBoardPlacement + ". " + userName + " - " + dispScore);
 			
 			var name:FlxText = new FlxText(20, 60 + (34 * leaderBoardPlacement), FlxG.width - 20, text, 24);
-			_grpText.add(name);
+			_grpScoresNewgrounds.add(name);
 			
 			if (dev)
 			{
@@ -205,6 +205,7 @@ class ScoreState extends FlxSubState
 			var isPlayer:Bool = false;
 			var userName:String = score.name;
 			
+			
 			if (Steam.getPersonaName() == userName)
 			{
 				isPlayer = true;
@@ -221,11 +222,9 @@ class ScoreState extends FlxSubState
 					if (!shameMedal.unlocked)
 						shameMedal.sendUnlock();
 				}
-				
-				
 			}
 			
-			if (userName == "ninjamuffin99" || userName == "BrandyBuizel" || userName == "DIGIMIN")
+			if (userName == "Ninja_Muffin2.4" || userName == "BrandyBuizel" || userName == "DIGIMIN")
 			{
 				dev = true;
 				userName += " (dev)";
@@ -235,7 +234,7 @@ class ScoreState extends FlxSubState
 			var text:String = Std.string(leaderBoardPlacement + ". " + userName + " - " + dispScore);
 			
 			var name:FlxText = new FlxText(20, 60 + (34 * leaderBoardPlacement), FlxG.width - 20, text, 24);
-			_grpText.add(name);
+			_grpScoresSteam.add(name);
 			
 			if (dev)
 			{
@@ -290,26 +289,31 @@ class ScoreState extends FlxSubState
 		if (FlxG.keys.anyJustPressed(["LEFT", "RIGHT", "A", "D", "J", "L"]))
 		{
 			currentScoreboard += 1;
-			_grpText.forEach(function(s:FlxSprite){_grpText.remove(s, true); });
-			_grpText.forEach(function(s:FlxSprite){_grpText.remove(s, true); });
-			_grpText.forEach(function(s:FlxSprite){_grpText.remove(s, true); });
-			//triple check lmao
-			
-			if (currentScoreboard == 0 && NGio.scoreboardsLoaded)
-			{
-				namesPlacement(NGio.scoreboardArray);
-			}
-			else
-			{
-				namesSteam(steamScores);
-			}
 		}
+	
+		
 		
 		
 		if (currentScoreboard >= scoreboardTypes.length)
 		{
 			currentScoreboard = 0;
 		}
+		
+		
+		if (currentScoreboard == 0)
+		{
+			_grpScoresSteam.visible = false;
+			_grpScoresNewgrounds.visible = true;
+		}
+		
+		if (currentScoreboard == 1)
+		{
+			_grpScoresSteam.visible = true;
+			_grpScoresNewgrounds.visible = false;
+			hallOfShame.text = "HALL OF SHAME";
+			hallOfShame.screenCenter(X);
+		}
+		
 		
 		if (FlxG.onMobile)
 		{
