@@ -61,6 +61,13 @@ class ScoreState extends FlxSubState
 		_grpScoresSteam = new FlxSpriteGroup();
 		add(_grpScoresSteam);
 		
+		#if !steam
+		var name:FlxText = new FlxText(20, 90, FlxG.width - 20, "Steam leaderboard unavailable on this version of the game", 24);
+		name.alignment = CENTER;
+		name.screenCenter(X);
+		_grpScoresSteam.add(name);
+		#end
+		
 		_grpScoresNewgrounds = new FlxSpriteGroup();
 		add(_grpScoresNewgrounds);
 		
@@ -78,8 +85,6 @@ class ScoreState extends FlxSubState
 		FlxG.log.redirectTraces = true;
 		
 		checkScores();
-		
-		trace(steamScores);
 		
 		super.create();
 	}
@@ -129,6 +134,10 @@ class ScoreState extends FlxSubState
 		scoreboardInitialized = true;
 	}
 	
+	/**
+	 * For placing names from Newgrounds
+	 * @param	scoreArray	an array of scores, usually from NG.core.scoreboards.get(342342) or whatever IDK the exact code
+	 */
 	private function namesPlacement(scoreArray:Array<Score>):Void
 	{
 		var leaderBoardPlacement:Int = 1;
@@ -155,21 +164,11 @@ class ScoreState extends FlxSubState
 				
 			}
 			
-			#if !steam
 			if (userName == "ninjamuffin99" || userName == "BrandyBuizel" || userName == "DIGIMIN")
 			{
 				dev = true;
 				userName += " (dev)";
 			}
-			#end
-			
-			#if steam
-			if (userID == "ninjamuffin99" || userID == "STEAM_1:0:33731368" || userID == "DIGIMIN")
-			{
-				dev = true;
-				userName += " (dev)";
-			}
-			#end
 			
 			var dispScore:String = "";
 			
@@ -203,7 +202,7 @@ class ScoreState extends FlxSubState
 		}
 		
 	}
-	
+	#if steam
 	private function namesSteam(scoreArray:Array<LeaderboardScore>):Void
 	{
 		var leaderBoardPlacement:Int = 1;
@@ -260,7 +259,7 @@ class ScoreState extends FlxSubState
 		}
 		
 	}
-	
+	#end
 	override public function update(elapsed:Float):Void 
 	{
 		#if steam
