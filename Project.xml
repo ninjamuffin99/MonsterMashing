@@ -26,13 +26,15 @@
 	<window if="mobile" orientation="portrait" fullscreen="true" width="0" height="0" resizable="true" />
 	
 	<!--Switch-specific-->
-	<window if="switch" orientation="portrait" fullscreen="true" width="0" height="0" resizable="true" />
+	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
 	
 	<!-- _____________________________ Path Settings ____________________________ -->
 	
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
+	
 	<classpath name="source" />
+	
 	<assets path="assets/images"/>
 	<assets path="assets/data"/>
 	

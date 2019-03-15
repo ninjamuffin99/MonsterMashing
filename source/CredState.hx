@@ -131,7 +131,7 @@ class CredState extends FlxState
 			
 		#end
 		
-		#if (html5 || mobile)
+		#if (html5 || mobile || switch)
 			if (FlxG.onMobile)
 				mobileShit();
 		#end
@@ -154,14 +154,14 @@ class CredState extends FlxState
 				FlxG.switchState(new MenuState());
 			}
 		#end
-		/*
+		
 		#if switch
 			if (touch.justPressed) 
 			{
 				FlxG.switchState(new MenuState());
 			}
 		#end
-		*/
+		
 	}
 	
 	private var credsArray:Array<Dynamic> = 

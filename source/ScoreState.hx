@@ -81,7 +81,6 @@ class ScoreState extends FlxSubState
 		
 		trace(steamScores);
 		
-		
 		super.create();
 	}
 	
@@ -156,11 +155,21 @@ class ScoreState extends FlxSubState
 				
 			}
 			
+			#if !steam
 			if (userName == "ninjamuffin99" || userName == "BrandyBuizel" || userName == "DIGIMIN")
 			{
 				dev = true;
 				userName += " (dev)";
 			}
+			#end
+			
+			#if steam
+			if (userID == "ninjamuffin99" || userID == "STEAM_1:0:33731368" || userID == "DIGIMIN")
+			{
+				dev = true;
+				userName += " (dev)";
+			}
+			#end
 			
 			var dispScore:String = "";
 			
