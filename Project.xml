@@ -105,8 +105,8 @@
 	<classpath path="APIStuff.hx"/>
 	
 	<!--if this is set to windows its debug-->
-	<section if="windows">
-		<haxedef name="steam"/>
+	<section if="steam">
+		<!--<haxedef name="steam"/>-->
 		<haxelib name="steamwrap"/>
 	 
 		<!-- Replace the question marks with your Steam App ID -->
