@@ -7,6 +7,15 @@ import flixel.addons.text.FlxTextField;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import io.newgrounds.NG;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxAngle;
+import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
+import flixel.math.FlxVector;
+import flixel.ui.FlxSpriteButton;
+import flixel.util.FlxColor;
 
 
 #if steam
@@ -128,6 +137,16 @@ class CredState extends FlxState
 				}
 			}
 			#end
+				
+			#if switch
+			if (gamepad != null)
+			{
+				if (gamepad.anyJustPressed(["START"]))
+				{
+					FlxG.switchState(new MenuState());
+				}
+			}
+			#end
 			
 		#end
 		
@@ -153,15 +172,7 @@ class CredState extends FlxState
 			{
 				FlxG.switchState(new MenuState());
 			}
-		#end
-		
-		#if switch
-			if (touch.justPressed) 
-			{
-				FlxG.switchState(new MenuState());
-			}
-		#end
-		
+		#end		
 	}
 	
 	private var credsArray:Array<Dynamic> = 
