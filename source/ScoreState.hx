@@ -334,6 +334,16 @@ class ScoreState extends FlxSubState
 			}
 		}
 		
+		#if switch
+			for (touch in FlxG.touches.list)
+			{
+				if (touch.justPressed)
+				{
+					close();
+				}
+			}
+		#end
+		
 		super.update(elapsed);
 	}
 }

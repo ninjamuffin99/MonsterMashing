@@ -151,8 +151,7 @@ class CredState extends FlxState
 		#end
 		
 		#if (html5 || mobile || switch)
-			if (FlxG.onMobile)
-				mobileShit();
+			mobileShit();
 		#end
 		super.update(elapsed);
 	}

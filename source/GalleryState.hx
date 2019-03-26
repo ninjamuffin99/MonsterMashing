@@ -310,6 +310,10 @@ class GalleryState extends BaseMenuState
 			gamepadControls();
 		#end
 		
+		#if switch
+			gamepadControls();
+		#end
+		
 				
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
@@ -486,7 +490,7 @@ class GalleryState extends BaseMenuState
 			#end
 			
 			#if switch
-				if (gamepad.anyJustPressed(["A"]))
+				if (gamepad.anyJustPressed(["X"]))
 				{
 					if (isOpen)
 					{

@@ -97,7 +97,7 @@ class Player extends FlxSprite
 		#end
 		
 		#if switch
-		for (touch in FlxG.touches.list)
+			for (touch in FlxG.touches.list)
 			{
 				if (touch.pressed) 
 				{
@@ -174,11 +174,8 @@ class Player extends FlxSprite
 				mA = 0;
 			}
 			
-			
-			
 			velocity.set(speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
-			
 			
 			/*
 			if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)

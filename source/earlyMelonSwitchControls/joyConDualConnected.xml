@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamepad>
+  <name>switch_dual_connected</name>
+  <id>???</id>
+
+  <B>
+    <button id="5"/>
+  </B>
+  <Y>
+    <button id="7"/>
+  </Y>
+   <A>
+    <button id="4"/>
+  </A>
+  <X>
+    <button id="6"/>
+  </X>
+  <R>
+    <button id="9"/>
+  </R>
+  <L>
+    <button id="8"/>
+  </L>
+
+  <left>
+    <pov id="2"/>
+    <axis id="x" threshold="-.5"/>
+  </left>
+  <right>
+    <pov id="3"/>
+    <axis id="x" threshold=".5"/>
+  </right>
+  <up>
+    <pov id="0"/>
+    <axis id="y" threshold="-.8"/>
+  </up>
+  <down>
+    <pov id="1"/>
+    <axis id="y" threshold=".8"/>
+  </down>
+
+  <Plus>
+    <button id="14"/>
+  </Plus>
+  <Minus>
+    <button id="15"/>
+  </Minus>
+   <ZR>
+    <button id="11"/>
+  </ZR>
+
+</gamepad>

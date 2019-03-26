@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamepad>
+  <name>switch_single_joy_right</name>
+  <id>???</id>
+  
+    <B>
+    <button id="0"/>
+  </B>
+  <Y>
+    <button id="1"/>
+  </Y>
+   <A>
+    <button id="2"/>
+  </A>
+  <X>
+    <button id="3"/>
+  </X>
+  <SR>
+    <button id="9"/>
+  </SR>
+  <SL>
+    <button id="8"/>
+  </SL>
+
+   <left>
+    <pov id="pov"/>
+    <axis id="x" threshold="-.5"/>
+  </left>
+  <right>
+    <pov id="pov"/>
+    <axis id="x" threshold=".5"/>
+  </right>
+  <up>
+    <pov id="pov"/>
+    <axis id="y" threshold="-.8"/>
+  </up>
+  <down>
+    <pov id="pov"/>
+    <axis id="y" threshold=".8"/>
+  </down>
+
+  <Plus>
+    <button id="7"/>
+  </Plus>
+  <Minus>
+    <button id="4"/>
+  </Minus>
+   <ZR>
+    <button id="5"/>
+  </ZR>
+</gamepad>
