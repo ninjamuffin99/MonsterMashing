@@ -14,6 +14,9 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
+#if steam
+import steamwrap.api.Steam;
+#end
 
 /**
  * ...
@@ -40,6 +43,8 @@ class GalleryState extends BaseMenuState
 	private var timerClosing:Float = 0.4;
 	
 	private var titleText:FlxText;
+	
+	
 	
 	override public function create():Void 
 	{
@@ -127,6 +132,10 @@ class GalleryState extends BaseMenuState
 			
 		}
 		
+		
+		//this would get set to false later
+		var unlockEverything:Bool = true;
+		
 		for (i in 0...grid.length)
 		{
 			var gridPos:FlxPoint = new FlxPoint(120 * (i % 4) + 30, (120 * Std.int(i / 4)) + 80);
@@ -192,10 +201,16 @@ class GalleryState extends BaseMenuState
 			{
 				gridBG.loadGraphic(AssetPaths.MM_GalleryFrame_Locked1__png);
 				gridThing.makeGraphic(1, 1, FlxColor.TRANSPARENT);
+				unlockEverything = false
 			}
 			gridBG.scrollFactor.set(1, 1);
 			_grpThumbnails.add(gridBG);
 			_grpThumbPics.add(gridThing);
+		}
+		
+		if (unlockEverything && Steam.active)
+		{
+			Steam.setAchievement("COMPLETE_COLLECTION");
 		}
 		
 		FlxG.camera.setScrollBounds(0, FlxG.width, 0, _grpThumbnails.members[_grpThumbnails.members.length - 1].y + 150);
