@@ -111,13 +111,40 @@ class PauseSubstate extends FlxSubState
 			{
 				selected -= 1;
 				
-				FlxG.sound.play("assets/sounds/menuUp." + MenuState.soundEXT, 0.5 * SettingState.masterVol * SettingState.soundVol);
+				FlxG.sound.play("assets/sounds/menuUp." + MenuState.soundEXT, 0.5 * SettingSubstate.masterVol * SettingSubstate.soundVol);
 			}
 			if (FlxG.keys.anyJustPressed(["S", "DOWN", "K"]))
 			{
 				selected += 1;
-				FlxG.sound.play("assets/sounds/menuDown." + MenuState.soundEXT, 0.5 * SettingState.masterVol * SettingState.soundVol);
+				FlxG.sound.play("assets/sounds/menuDown." + MenuState.soundEXT, 0.5 * SettingSubstate.masterVol * SettingSubstate.soundVol);
 			}
+			
+			var gamepad = FlxG.gamepads.lastActive;
+			if (gamepad != null)
+			{
+				if (gamepad.anyJustPressed(["DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
+				{
+					selected += 1;
+					FlxG.sound.play("assets/sounds/menuDown." + MenuState.soundEXT, 0.5 * SettingSubstate.masterVol * SettingSubstate.soundVol);
+				}
+				if (gamepad.anyJustPressed(["DPAD_UP", "LEFT_STICK_DIGITAL_UP"]))
+				{
+					selected -= 1;
+					FlxG.sound.play("assets/sounds/menuUp." + MenuState.soundEXT, 0.5 * SettingSubstate.masterVol * SettingSubstate.soundVol);
+				}
+				
+				if (gamepad.anyJustPressed(["A"]))
+				{
+					menuSelection(selected);
+				}
+				
+				if (gamepad.justPressed.START)
+				{
+					close();
+				}
+				
+			}
+			
 		#else
 			
 			for (i in 0..._grpMenu.members.length)
@@ -143,23 +170,21 @@ class PauseSubstate extends FlxSubState
 		
 		FlxG.watch.addQuick("selected 2: ", selected);
 		
-		if (FlxG.keys.anyJustPressed(["ENTER", "Z", "SPACE"]))
+		if (FlxG.keys.anyJustPressed(["Z", "SPACE"]))
 		{
-			var sound:FlxSound = new FlxSound();
-			sound.persist = true;
-			sound.loadEmbedded("assets/sounds/menuConfirm." + MenuState.soundEXT, false, true);
-			sound.volume = 1 * SettingState.masterVol * SettingState.soundVol;
-			sound.group = FlxG.sound.defaultSoundGroup;
-			sound.play();
-			
 			menuSelection(selected);
-			
-			
 		}
 	}
 	
 	private function menuSelection(daSelection:Int):Void
 	{
+		var sound:FlxSound = new FlxSound();
+		sound.persist = true;
+		sound.loadEmbedded("assets/sounds/menuConfirm." + MenuState.soundEXT, false, true);
+		sound.volume = 1 * SettingSubstate.masterVol * SettingSubstate.soundVol;
+		sound.group = FlxG.sound.defaultSoundGroup;
+		sound.play();
+			
 		var theSelection:String = menuItems[daSelection];
 		
 		switch (theSelection) 
@@ -167,7 +192,7 @@ class PauseSubstate extends FlxSubState
 				case "Resume":
 					close();
 				case "Settings":
-					// go to settings here
+					openSubState(new SettingSubstate(0xFF000000));
 				case "Exit":
 					FlxG.switchState(new MenuState());
 				default:

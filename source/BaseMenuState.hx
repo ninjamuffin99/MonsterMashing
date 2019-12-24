@@ -69,10 +69,12 @@ class BaseMenuState extends FlxState
 		
 		_mFloors = _map.loadTilemap("assets/data/tile_temple_" + curTilemap + ".png", 16, 16, "Floor");
 		_mFloors.scrollFactor.set();
+		_mFloors.screenCenter(X);
 		_grpTilemaps.add(_mFloors);
 		
 		_mWalls = _map.loadTilemap("assets/data/tile_temple_" + curTilemap + ".png", 16, 16, "Walls");
 		_mWalls.scrollFactor.set();
+		_mWalls.screenCenter(X);
 		_grpWalls.add(_mWalls);
 		
 		//loads a new oel for the _map variable
@@ -81,21 +83,25 @@ class BaseMenuState extends FlxState
 		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_" + curTilemap + ".png", 16, 16, "Floor");
 		_mFloors2.y -= 16 * scaleFixin;
 		_mFloors2.scrollFactor.set();
+		_mFloors.screenCenter(X);
 		_grpTilemaps.add(_mFloors2);
 		
 		_mWalls2 = _map.loadTilemap("assets/data/tile_temple_" + curTilemap + ".png", 16, 16, "Walls");
 		_mWalls2.y -= 16 * scaleFixin;
+		_mWalls2.screenCenter(X);
 		_mWalls2.scrollFactor.set();
 		_grpWalls.add(_mWalls2);
 		
 		_mFloors3 = _map.loadTilemap("assets/data/tile_temple_" + curTilemap + ".png", 16, 16, "Floor");
 		_mFloors3.y -= 16 * scaleFixin * 2;
 		_mFloors3.scrollFactor.set();
+		_mFloors3.screenCenter(X);
 		_grpTilemaps.add(_mFloors3);
 		
 		_mWalls3 = _map.loadTilemap("assets/data/tile_temple_" + curTilemap + ".png", 16, 16, "Walls");
 		_mWalls3.y -= 16 * scaleFixin * 2;
 		_mWalls3.scrollFactor.set();
+		_mWalls3.screenCenter(X);
 		_grpWalls.add(_mWalls3);
 		
 		_grpTilemaps.forEach(scaleUp);

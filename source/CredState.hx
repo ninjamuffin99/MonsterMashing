@@ -7,6 +7,20 @@ import flixel.addons.text.FlxTextField;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import io.newgrounds.NG;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxAngle;
+import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
+import flixel.math.FlxVector;
+import flixel.ui.FlxSpriteButton;
+import flixel.util.FlxColor;
+
+
+#if steam
+import steamwrap.api.Steam;
+#end
 
 /**
  * ...
@@ -25,7 +39,7 @@ class CredState extends FlxState
 	{
 		
 		FlxG.sound.playMusic("assets/music/credits." + MenuState.soundEXT);
-		FlxG.sound.music.fadeIn(4, 0, 1);
+		FlxG.sound.music.fadeIn(4, 0, 1 * SettingSubstate.masterVol * SettingSubstate.musicVol);
 		
 		
 		creds = new FlxText(0, 0, FlxG.width - 24, "", 24);
@@ -38,6 +52,20 @@ class CredState extends FlxState
 		}
 		
 		creds.screenCenter();
+		
+		#if steam
+			if (Steam.active)
+			{
+				Steam.setAchievement("The_Degenerates_Responsible");
+			}
+		#end 
+		
+		if (NGio.isLoggedIn)
+		{
+			var hornyMedal = NG.core.medals.get(54286);
+			if (!hornyMedal.unlocked)
+				hornyMedal.sendUnlock();
+		}
 		
 		#if flash
 			/*
@@ -63,108 +91,6 @@ class CredState extends FlxState
 		super.create();
 	}
 	
-	private var credsArray:Array<Dynamic> = 
-	[
-		[
-			"Monster Mashing",
-			"",
-			"Created and Designed by:",
-			"BrandyBuizel (@BrandyBuizel)",
-			"Digimin (@deegeemin)",
-			"ninja_muffin99 (@ninja_muffin99)",
-			"",
-			"Made with HaxeFlixel",
-		],
-		[
-			"Programming:",
-			"ninja_muffin99",
-			"BrandyBuizel",
-			"",
-			"Art:",
-			"Digimin",
-			"BrandyBuizel",
-			"FuShark",
-		],
-		[
-			"Main Music: Silverline by tripledigit on Newgrounds",
-			"",
-			"Credits Music by ninja_muffin99",
-		],	
-		[
-			"Moans:",
-			"Jack McMillian",
-			"Cymbourine",
-			"pecheng",
-			"the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
-			"",
-			"Misc. sounds found/made/idk by PhantomArcade",
-			"",
-			"Preloader hunk: Phantom \"lil D thick bitch\" Arcade",
-		],
-		[
-			"Github Sourcecode: https://github.com/ninjamuffin99/MonsterMashing",
-			"",
-			"For Strawberry Jam 2 on Itch.io: https://itch.io/jam/strawberry-jam-2",
-		],
-		[
-			"Additional code:",
-			"",
-			"Newgrounds.hx library made by Geokureli",
-			"@Geokureli", //im pretty sure thats his twitter handle
-			"https://github.com/Geokureli/Newgrounds.hx",
-			"",
-			"djFlixel effects (just this credits fade stuff lol) made by John Dimitriadis",
-			"@jondmt",
-			"https://github.com/johndimi/djFlixel/"
-		],
-		[
-			"Gallery fanart",
-			"",
-			"Peeper",
-			"Oogtarded",
-			"Irri",
-			"Snackers",
-			"LoganPhresh",
-			"IvoAnimations",
-			"Cymbourine"
-		],
-		[
-			"If you are reading this Tom Fulp i lov u",
-			"In loving memory of EiGiBeast",
-		],
-		[
-			"SPECIAL THANKS",
-			"Tom Fulp",
-			"Newgrounds.com community",
-			"",
-			"Nutaku",
-			"specifically Renaud",
-			"",
-			"",
-			"Wanda"
-		],
-		[
-			"God",
-			"",
-			"TMoneyBloodCrip",
-			"aka",
-			"Trevord70",
-			"aka",
-			"Soulja Boy",
-			"aka",
-			"a",
-		],
-		[
-			"Community Creds:",
-			"Hall of Shame suggested by BurstAppendix",
-			"Total Score tracker suggested by Cyberdevil",
-			"One of the logo's created by RGPAnims",
-			"Gallery mode suggested by a few people, but implemented because of Nutaku lolol",
-			"",
-			"",
-			"Press Z to go back"
-		]
-	];
 	
 	override public function update(elapsed:Float):Void 
 	{
@@ -199,11 +125,33 @@ class CredState extends FlxState
 			{
 				FlxG.switchState(new MenuState());
 			}
+			
+			var gamepad = FlxG.gamepads.lastActive;
+			
+			#if !switch
+			if (gamepad != null)
+			{
+				if (gamepad.anyJustPressed(["A", "B", "START", "BACK"]))
+				{
+					FlxG.switchState(new MenuState());
+				}
+			}
+			#end
+				
+			#if switch
+			if (gamepad != null)
+			{
+				if (gamepad.anyJustPressed(["START"]))
+				{
+					FlxG.switchState(new MenuState());
+				}
+			}
+			#end
+			
 		#end
 		
-		#if (html5 || mobile)
-			if (FlxG.onMobile)
-				mobileShit();
+		#if (html5 || mobile || switch)
+			mobileShit();
 		#end
 		super.update(elapsed);
 	}
@@ -223,7 +171,129 @@ class CredState extends FlxState
 			{
 				FlxG.switchState(new MenuState());
 			}
-		#end
+		#end		
 	}
+	
+	private var credsArray:Array<Dynamic> = 
+	[
+		[
+			"Monster Mashing",
+			"",
+			"Created and Designed by:",
+			"BrandyBuizel (@BrandyBuizel)",
+			"Digimin (@deegeemin)",
+			"ninja_muffin99 (@ninja_muffin99)",
+			"",
+			"Made with HaxeFlixel",
+		],
+		[
+			"Programming:",
+			"ninja_muffin99",
+			"BrandyBuizel",
+			"",
+			"Art:",
+			"Digimin",
+			"BrandyBuizel",
+			"FuShark",
+		],
+		[
+			"Main Music: Silverline by tripledigit on Newgrounds",
+			"",
+			"Credits Music by ninja_muffin99",
+		],	
+		[
+			"Moans:",
+			"Jack McMillian",
+			"Cymbourine",
+			"pecheng",
+			"",
+			"the Mimi Soundpack 1 by Gia F. Simone: https://giafsimone.itch.io/mimimoansoundpack1",
+			"",
+			"Misc. sounds found/made/idk by PhantomArcade",
+			"",
+			"Preloader hunk: Phantom \"lil D thick bitch\" Arcade",
+		],
+		[
+			"Github Sourcecode: https://github.com/ninjamuffin99/MonsterMashing",
+			"",
+			"For Strawberry Jam 2 on Itch.io: https://itch.io/jam/strawberry-jam-2",
+		],
+		[
+			"Additional code:",
+			"",
+			"Newgrounds.hx library made by Geokureli",
+			"@Geokureli", //im pretty sure thats his twitter handle
+			"https://github.com/Geokureli/Newgrounds.hx",
+			"",
+			"djFlixel effects (just this credits fade stuff lol) made by John Dimitriadis",
+			"@jondmt",
+			"https://github.com/johndimi/djFlixel/",
+			"",
+			"Mac port help",
+			"mucctucc"
+		],
+		[
+			"MORE Additional code:",
+			"",
+			"Steamwrap Steamworks SDK stuff was made by Lucas Pope for 'Papers, Please'",
+			"and further extended and supported by Lars Doucet",
+			"https://github.com/larsiusprime/Steamwrap"
+		],
+		[
+			"Gallery fanart",
+			"",
+			"Peeper",
+			"Oogtarded",
+			"Irri",
+			"Snackers",
+			"LoganPhresh",
+			"IvoAnimations",
+			"Cymbourine",
+			"Arzonaut",
+			"Snailpirate",
+			"TheDyingSun"
+		],
+		[
+			"If you are reading this Tom Fulp i lov u",
+			"In loving memory of EiGiBeast",
+		],
+		[
+			"SPECIAL THANKS",
+			"Tom Fulp",
+			"Newgrounds.com community",
+			"",
+			"Nutaku",
+			"specifically Renaud",
+			"",
+			"",
+			"Wanda"
+		],
+		[
+			"'Sun is down, freezin' cold\nThat's how we already know winter's here' -Drake, Sicko Mode",
+			"",
+			"for Foamymuffin"
+		],
+		[
+			"God",
+			"",
+			"TMoneyBloodCrip",
+			"aka",
+			"Trevord70",
+			"aka",
+			"Soulja Boy",
+			"aka",
+			"a",
+		],
+		[
+			"Community Creds:",
+			"Hall of Shame suggested by BurstAppendix",
+			"Total Score tracker suggested by Cyberdevil",
+			"One of the logo's created by RGPAnims",
+			"Gallery mode suggested by a few people, but implemented because of Nutaku lolol",
+			"",
+			"",
+			"Press Z to go back"
+		]
+	];
 	
 }

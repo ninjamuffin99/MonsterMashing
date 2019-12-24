@@ -9,17 +9,16 @@ import flixel.util.FlxTimer;
 
 /**
  * ...
- * @author NInjaMuffin99
+ * @author NinjaMuffin99 & Friiiiieeeennndds
  */
 class IntroCutsceneState extends FlxState 
 {
-	
 	private var introText:FlxTypeText;
 	private var curLore:Int = 0;
 	
 	private var waitTime = 2.5;
 
-	override public function create():Void 
+	override public function create():Void
 	{
 		introText = new FlxTypeText(0, 0, Std.int(FlxG.width * 0.9), lore[curLore], 24);
 		introText.alignment = FlxTextAlign.CENTER;
@@ -29,7 +28,6 @@ class IntroCutsceneState extends FlxState
 		introText.start(0.06, false, false, null, newText);
 		
 		add(introText);
-		
 		
 		var ext:String;
 		#if flash

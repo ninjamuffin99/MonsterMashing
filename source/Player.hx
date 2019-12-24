@@ -11,6 +11,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * The class for the topdown player sprite. Has all the code and shit
  * @author ninjaMuffin
  */
+
 class Player extends FlxSprite
 {
 	private var speed:Float = 180;
@@ -95,6 +96,47 @@ class Player extends FlxSprite
 			mobileChecks();
 		#end
 		
+		#if switch
+			for (touch in FlxG.touches.list)
+			{
+				if (touch.pressed) 
+				{
+					if (touch.x > x + 3)
+					{
+						_right = true;
+					}
+					else if (touch.x < x - 3)
+					{
+						_left  = true;
+					}
+					else
+					{
+						_left = _right = false;
+					}
+				}
+				else
+				{
+					_right = false;
+					_left = false;
+				}
+			}
+		#end
+		
+		var gamepad = FlxG.gamepads.lastActive;
+		if (gamepad != null)
+		{
+			if (gamepad.anyPressed(["LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT", "LEFT_SHOULDER", "LEFT_TRIGGER"]))
+			{
+				_left = true;
+			}
+			
+			if (gamepad.anyPressed(["RIGHT", "DPAD_RIGHT","LEFT_STICK_DIGITAL_RIGHT", "RIGHT_SHOULDER", "RIGHT_TRIGGER"]))
+			{
+				_right = true;
+			}
+		}
+		
+		
 		if (_left || _right)
 		{
 			/**
@@ -132,11 +174,8 @@ class Player extends FlxSprite
 				mA = 0;
 			}
 			
-			
-			
 			velocity.set(speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
-			
 			
 			/*
 			if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)

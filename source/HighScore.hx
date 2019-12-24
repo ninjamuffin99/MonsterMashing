@@ -42,11 +42,11 @@ class HighScore
 		FlxG.save.data.score = score;
 		FlxG.save.data.totalScore = totalScore;
 		
-		FlxG.save.data.masterVol = SettingState.masterVol;
-		FlxG.save.data.moanVol = SettingState.moanVol;
-		FlxG.save.data.musicVol = SettingState.musicVol;
-		FlxG.save.data.soundVol = SettingState.soundVol;
-		FlxG.save.data.mashHold = SettingState.mashHold;
+		FlxG.save.data.masterVol = SettingSubstate.masterVol;
+		FlxG.save.data.moanVol = SettingSubstate.moanVol;
+		FlxG.save.data.musicVol = SettingSubstate.musicVol;
+		FlxG.save.data.soundVol = SettingSubstate.soundVol;
+		FlxG.save.data.mashHold = SettingSubstate.mashHold;
 		FlxG.save.data.shiniesSeen = HighScore.shiniesSeen;
 		
 		FlxG.save.flush();
@@ -54,15 +54,16 @@ class HighScore
 	
 	public static function load():Void
 	{
+		
 		if (FlxG.save.data.totalScore != null)
 		{
 			score = FlxG.save.data.score;
 			totalScore = FlxG.save.data.totalScore;
 			
-			SettingState.masterVol = FlxG.save.data.masterVol;
-			SettingState.moanVol = FlxG.save.data.moanVol;
-			SettingState.musicVol = FlxG.save.data.musicVol;
-			SettingState.soundVol = FlxG.save.data.soundVol;
+			SettingSubstate.masterVol = FlxG.save.data.masterVol;
+			SettingSubstate.moanVol = FlxG.save.data.moanVol;
+			SettingSubstate.musicVol = FlxG.save.data.musicVol;
+			SettingSubstate.soundVol = FlxG.save.data.soundVol;
 			
 			// super specific code for older savefiles
 			if (FlxG.save.data.shiniesSeen != null)

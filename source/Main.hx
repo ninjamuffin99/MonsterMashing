@@ -10,6 +10,7 @@ import openfl.Assets;
 
 class Main extends Sprite
 {
+	
 	var gameWidth:Int = 544; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 864; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var initialState:Class<FlxState> = MenuState; // The FlxState the game starts with.

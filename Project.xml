@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 	
-	<app title="Monster Mashing" file="MonsterMashing" main="Main" version="1.2.0" package="com.Demins.monstermashing" company="Demins" />
+	<app title="Monster Mashing Deluxe" file="MonsterMashing" main="Main" version="1.2.0" package="com.demins.monstermashing" company="Demins" />
 	
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -25,11 +25,16 @@
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="portrait" fullscreen="true" width="0" height="0" resizable="true" />
 	
+	<!--Switch-specific-->
+	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
+	
 	<!-- _____________________________ Path Settings ____________________________ -->
 	
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
+	
 	<classpath name="source" />
+	
 	<assets path="assets/images"/>
 	<assets path="assets/data"/>
 	
@@ -53,7 +58,6 @@
 	
 	<!--for vibration!!-->
 	<haxelib name="haxe-hardware" if="android" />
-
 	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 	
@@ -67,7 +71,7 @@
 	<!--<haxedef name="FLX_NO_NATIVE_CURSOR" />-->
 	
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
-	<haxedef name="FLX_NO_MOUSE" if="mobile" />
+	<!--<haxedef name="FLX_NO_MOUSE" if="mobile" />-->
 	<!--<haxedef name="FLX_NO_KEYBOARD" if="mobile" />-->
 	<!--<haxedef name="FLX_NO_TOUCH" if="desktop" />-->
 	<!--haxedef name="FLX_NO_GAMEPAD" /-->
@@ -91,7 +95,8 @@
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 
-	<icon path="assets/images/icon.png" />
+	<icon path="assets/images/icon.png" unless="switch" />
+	<icon path="assets/images/iconSwitch.png" if="switch" />
 	
 	<!--SHOUTOUT TO MY BOY GEOKURELI FOR MAKIN THIS-->
 	<!--https://github.com/Geokureli/Newgrounds.hx-->
@@ -99,15 +104,18 @@
 	<classpath path="source/djFlixel"/>
 	<classpath path="APIStuff.hx"/>
 	
+	<!--if this is set to windows its debug-->
 	<section if="steam">
+		<!--<haxedef name="steam"/>-->
 		<haxelib name="steamwrap"/>
 	 
-	   <!-- Replace the question marks with your Steam App ID -->
-	   <setenv name="STEAM_APP_ID" value="998770" />
+		<setenv name="STEAM_APP_ID" value="998770" />
 		
-	   <!-- OS X only: Set this value to the same value as the file property of your <app> node, this is needed to embed things into the generated .app file -->
-	   <!-- Setting this for other platforms won't do any harm, so you can safely leave it enabled for everything -->
-	   <!--<set name="APP_FILE" value="??????" />-->
+		<!-- OS X only: Set this value to the same value as the file property of your <app> node, this is needed to embed things into the generated .app file -->
+		<!-- Setting this for other platforms won't do any harm, so you can safely leave it enabled for everything -->
+		<!--<set name="APP_FILE" value="??????" />-->
    </section>
+	
+	<template path="PlatformSwitch" if="switch" />
 	
 </project>

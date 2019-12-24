@@ -26,7 +26,9 @@ class PlayState extends FlxState
 	 */
 	private var speed:Float = 3;
 	
-	// maxSpeed, pretty self explanitory. Limits how high the speed variable can get
+	/**
+	   maxSpeed, pretty self explanitory. Limits how high the speed variable can get
+	**/
 	private var maxSpeed:Float = 9;
 	
 	/**
@@ -36,8 +38,6 @@ class PlayState extends FlxState
 	
 	// where he starts on the screen, gets set when the tilemap data is loaded so this 0 means nothin
 	private var playerYPosInit:Float = 0;
-	// dunno if this enemy does anything but i dont wanna delete it just incase lol
-	public var _enemy:Enemy;
 	
 	// the main entities group, just holds the player and the enemies
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
@@ -48,19 +48,6 @@ class PlayState extends FlxState
 	 * The map data, loaded from Ogmo
 	 */
 	private var _map:FlxOgmoLoader;
-	
-	// There are 3 tilemaps that get looped around and regenerated to create an infinite runner effect.
-	// Instead of creating new tilemaps everytime you need one 
-	
-	private var _mWalls:FlxTilemap;
-	private var _mFloors:FlxTilemap;
-	//The second group of tilemaps
-	private var _mWalls2:FlxTilemap;
-	private var _mFloors2:FlxTilemap;
-	
-	private var _mWalls3:FlxTilemap;
-	private var _mFloors3:FlxTilemap;
-	
 	private var _grpTilemaps:FlxTypedGroup<FlxTilemap>;
 	private var _grpWalls:FlxTypedGroup<FlxTilemap>;
 	
@@ -82,7 +69,7 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
-		//FlxG.timeScale = SettingState.gameSpeed;
+		//FlxG.timeScale = SettingSubstate.gameSpeed;
 		FlxG.log.redirectTraces = true;
 		
 		//Set zoom on map, 3x relative to whatever the zoom set in Main.hx was
@@ -141,11 +128,9 @@ class PlayState extends FlxState
 		FlxG.worldBounds.set(0, -300, FlxG.width, FlxG.height * 2);
 		
 		// Some shit that runs if you're playing on the flash target, if not, it plays the OGG version of the song
-		#if flash
-			FlxG.sound.playMusic(AssetPaths.Silverline__mp3, 0.7 * SettingState.musicVol * SettingState.masterVol);
-		#else
-			FlxG.sound.playMusic(AssetPaths.Silverline__ogg, 0.7 * SettingState.musicVol * SettingState.masterVol);
-        #end
+
+		FlxG.sound.playMusic("assets/music/Silverline." + MenuState.soundEXT, 0.7 * SettingSubstate.musicVol * SettingSubstate.masterVol);
+
 		
 		// makesit so that every item in this FlxState's little display list thing, only shows on the main gameplay camera, not the mashstate camera
 		forEach(function(b:FlxBasic){b.cameras = [FlxG.camera]; });
@@ -177,35 +162,21 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		_map.loadEntities(placeEntities, "Entities");
 		
-		// loads the "Floor" and "Walls" layers from the Ogmo tilemap as seperate things (_mFloors and _mWalls)
-		// I think that was to do collisions a bit easier
-		_mFloors = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_grpTilemaps.add(_mFloors);
-		
-		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_grpWalls.add(_mWalls);
-		
-		//loads a new oel to use, this time one with seamless tops and bottoms
-		_map = new FlxOgmoLoader("assets/data/chunk1.oel");
-		
-		// this bit below loads 2 more tilemap chunks, each being moved up 12 tiles further than the last
-		
-		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_mFloors2.y -= 16 * 12;
-		_grpTilemaps.add(_mFloors2);
-		
-		_mWalls2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_mWalls2.y -= 16 * 12;
-		_grpWalls.add(_mWalls2);
-		
-		_mFloors3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_mFloors3.y -= 16 * 12 * 2;
-		_grpTilemaps.add(_mFloors3);
-		
-		_mWalls3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_mWalls3.y -= 16 * 12 * 2;
-		_grpWalls.add(_mWalls3);
-		
+		for (i in 0...3)
+		{
+			if (i > 0)
+				_map = new FlxOgmoLoader("assets/data/chunk1.oel");
+			
+			var floor = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
+			floor.y -= 16 * 12 * i;
+			_grpTilemaps.add(floor);
+			
+			var wall = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
+			wall.y -= 16 * 12 * i;
+			_grpWalls.add(wall);
+			
+			FlxG.log.add("INIT TILEMAP: " + i);
+		}
 	}
 	
 	/**
@@ -265,10 +236,26 @@ class PlayState extends FlxState
 		if (FlxG.keys.anyJustPressed(["ENTER", "ESCAPE"]))
 			openSubState(new PauseSubstate());
 		
+		
+		var gamepad = FlxG.gamepads.lastActive;
+		if (gamepad != null)
+		{
+			if (gamepad.justPressed.START)
+			{
+				openSubState(new PauseSubstate());
+			}
+		}
+		
 		//if speed is greater than maxSpeed(15 as of writing), it lowers it to maxSpeed
 		if (speed > maxSpeed)
 		{
 			speed = maxSpeed;
+			#if steam
+				if (Steam.active && Steam.getAchievement("HORNY_AF"))
+				{
+					Steam.setAchievement("HORNY_AF");
+				}
+			#end 
 			// if logged into the Newgrounds API, it unlocks the Peak horny medal
 			if (NGio.isLoggedIn)
 			{
@@ -286,6 +273,12 @@ class PlayState extends FlxState
 		#end
 		if (score >= 10000)
 		{
+			#if steam
+				if (Steam.active && !Steam.getAchievement("Horny_God"))
+				{
+					Steam.setAchievement("Horny_God");
+				}
+			#end 
 			if (NGio.isLoggedIn)
 			{
 				var hornyGodMedal = NG.core.medals.get(54300);
@@ -312,9 +305,6 @@ class PlayState extends FlxState
 		// LOL no it wont i wrote this shit like back in March lmao November 2018 gang where yall at
 		if (speed < 0.2 || _player.y > 247)
 		{
-			
-			
-			
 			/*
 			if (speed < 0.2)
 			{
@@ -410,7 +400,7 @@ class PlayState extends FlxState
 				
 				
 				// at most, you can have an 80% chance to see tiddy i think
-				var scoreMax:Float = 50000;
+				var scoreMax:Float = 40000;
 				
 				if (score * 1.2 > scoreMax)
 				{
@@ -546,13 +536,28 @@ class PlayState extends FlxState
 			//also spawns enemy
 			//picks a random amount of enemies from 0-3
 			var enemyAmount:Int = FlxG.random.int(1, 3);
-			
+			var posArray:Array<Dynamic> = [[-1, -1]];
 			//loops in a single frame as long as the enemyAmount variable is higher than 0
 			while (enemyAmount > 0)
 			{
 				// adds an enemy at a somewhat random position on this tilemap
 				// also picks a random girl
-				_grpEnemies.add(new Enemy(t.x + (16 * FlxG.random.int(2, 6)), t.y + (16 * FlxG.random.int(-12, 12)), FlxG.random.int(0, 6)));
+				var randomX = 16 * FlxG.random.int(2, 6);
+				var randomY = 16 * FlxG.random.int( -11, 11);
+				
+				for (i in 0...posArray.length)
+				{
+					while (randomX == posArray[i][0] && randomY == posArray[i][1])
+					{
+						randomX = 16 * FlxG.random.int(2, 6);
+						randomY = 16 * FlxG.random.int( -12, 12);
+						FlxG.log.add("NEW POSITION");
+					}
+					
+				}
+				
+				posArray.push([randomX, randomY]);
+				_grpEnemies.add(new Enemy(t.x + randomX, t.y + randomY, FlxG.random.int(0, 6)));
 				
 				// decrease the enemyAmount variable so the while loop doesnt freeze the game lol
 				enemyAmount -= 1;

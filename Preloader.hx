@@ -19,11 +19,11 @@ import flash.text.TextFormat;
 @:bitmap("assets/images/preloaderArt.png") class LogoImage extends BitmapData { }
 class Preloader extends FlxBasePreloader 
 {
-	override public function new(MinDisplayTime:Float=4, ?AllowedURLs:Array<String>) 
+	override public function new(MinDisplayTime:Float=4, ?AllowedURLs:Array<String>)
 	{
 		super(MinDisplayTime, AllowedURLs);
 	}
-	
+
 	private var logo:Sprite;
 	var text:TextField;
 	private var _buffer:Sprite;
@@ -31,9 +31,9 @@ class Preloader extends FlxBasePreloader
 	
 	override private function create():Void
 	{	
-		#if (flash || html5)
-			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
-		#end
+		//#if (newgrounds)
+			//var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
+		//#end
 		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
@@ -53,7 +53,6 @@ class Preloader extends FlxBasePreloader
 		_bmpBar.x = 4;
 		_bmpBar.y = _height - 17;
 		//_buffer.addChild(_bmpBar);
-		
 		
 		super.create();
 	}
