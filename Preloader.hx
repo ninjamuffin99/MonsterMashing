@@ -19,7 +19,7 @@ import flash.text.TextFormat;
 @:bitmap("assets/images/preloaderArt.png") class LogoImage extends BitmapData { }
 class Preloader extends FlxBasePreloader 
 {
-	override public function new(MinDisplayTime:Float=4, ?AllowedURLs:Array<String>)
+	override public function new(MinDisplayTime:Float=0, ?AllowedURLs:Array<String>)
 	{
 		super(MinDisplayTime, AllowedURLs);
 	}

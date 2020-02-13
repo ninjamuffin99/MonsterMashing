@@ -340,7 +340,7 @@ class SettingSubstate extends FlxSubState
 		if (_selection < 4)
 		{
 			#if !switch
-				FlxG.sound.play("assets/sounds/smack1.mp3", 1 * settingsArray[1][_selection] * masterVol);
+				FlxG.sound.play("assets/sounds/menuUp." + MenuState.soundEXT, 1 * settingsArray[1][_selection] * masterVol);
 			#end
 		}
 		

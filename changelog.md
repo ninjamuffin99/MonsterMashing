@@ -12,6 +12,13 @@ Monster Mashing - Changelog
 - Initial Release on Steam: TBD 2019
 
 #----------------------------#
+Version 1.2.X - February XX - TWO YEAR ANNIVERSARY FIXINS
+#----------------------------#
+- TWO YEAR ANNIVERSARY
+- Some antialiasing fixes for resized images
+- Updated to Flixel 4.6.3 (was on like 4.3.0 or somethin before), OpenFL to 8.9.5, and Lime to 7.6.3. All of these upgrades should make performance slightly better
+
+#----------------------------#
 Version 1.2.0 - March 1st 2019 - DELUXE EDITION UPDATE
 #----------------------------#
 - ONE YEAR ANNIVERSARY

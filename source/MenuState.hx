@@ -1,5 +1,6 @@
 package;
 
+import lime.app.Application;
 import djFlixel.fx.PixelFader;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -208,6 +209,7 @@ class MenuState extends BaseMenuState
 
 		sprMonster = new FlxSprite(0, 30).loadGraphic(AssetPaths.mmLogo__png, false, 492, 166);
 		sprMonster.screenCenter(X);
+		sprMonster.antialiasing = true;
 		add(sprMonster);
 
 	}
@@ -266,6 +268,7 @@ class MenuState extends BaseMenuState
 			mScore.text += "\nRecent Score: " + HighScore.recentScore;
 		}
 		mScore.screenCenter(X);
+		currentVersion = Application.current.meta.get('version');
 
 		//What device are you on?
 		debugInfo = new FlxText(8, FlxG.height - 20, 0, currentVersion, 16);
