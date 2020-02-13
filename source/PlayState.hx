@@ -26,12 +26,18 @@ class PlayState extends FlxState
 	 */
 	private var speed:Float = 3;
 	
+	/**
+	   maxSpeed, pretty self explanitory. Limits how high the speed variable can get
+	**/
+	private var maxSpeed:Float = 9;
+	
+	/**
+	 * player variable, if you want to see his movement code, check out the Player.hx class
 	 */
+	private var _player:Player;
 	
 	// where he starts on the screen, gets set when the tilemap data is loaded so this 0 means nothin
 	private var playerYPosInit:Float = 0;
-	// dunno if this enemy does anything but i dont wanna delete it just incase lol
-	public var _enemy:Enemy;
 	
 	// the main entities group, just holds the player and the enemies
 	private var _grpEntities:FlxTypedGroup<FlxObject>;
@@ -42,19 +48,6 @@ class PlayState extends FlxState
 	 * The map data, loaded from Ogmo
 	 */
 	private var _map:FlxOgmoLoader;
-	
-	// There are 3 tilemaps that get looped around and regenerated to create an infinite runner effect.
-	// Instead of creating new tilemaps everytime you need one 
-	
-	private var _mWalls:FlxTilemap;
-	private var _mFloors:FlxTilemap;
-	//The second group of tilemaps
-	private var _mWalls2:FlxTilemap;
-	private var _mFloors2:FlxTilemap;
-	
-	private var _mWalls3:FlxTilemap;
-	private var _mFloors3:FlxTilemap;
-	
 	private var _grpTilemaps:FlxTypedGroup<FlxTilemap>;
 	private var _grpWalls:FlxTypedGroup<FlxTilemap>;
 	
@@ -169,35 +162,21 @@ class PlayState extends FlxState
 		_map = new FlxOgmoLoader("assets/data/start.oel");
 		_map.loadEntities(placeEntities, "Entities");
 		
-		// loads the "Floor" and "Walls" layers from the Ogmo tilemap as seperate things (_mFloors and _mWalls)
-		// I think that was to do collisions a bit easier
-		_mFloors = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_grpTilemaps.add(_mFloors);
-		
-		_mWalls = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_grpWalls.add(_mWalls);
-		
-		//loads a new oel to use, this time one with seamless tops and bottoms
-		_map = new FlxOgmoLoader("assets/data/chunk1.oel");
-		
-		// this bit below loads 2 more tilemap chunks, each being moved up 12 tiles further than the last
-		
-		_mFloors2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_mFloors2.y -= 16 * 12;
-		_grpTilemaps.add(_mFloors2);
-		
-		_mWalls2 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_mWalls2.y -= 16 * 12;
-		_grpWalls.add(_mWalls2);
-		
-		_mFloors3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
-		_mFloors3.y -= 16 * 12 * 2;
-		_grpTilemaps.add(_mFloors3);
-		
-		_mWalls3 = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
-		_mWalls3.y -= 16 * 12 * 2;
-		_grpWalls.add(_mWalls3);
-		
+		for (i in 0...3)
+		{
+			if (i > 0)
+				_map = new FlxOgmoLoader("assets/data/chunk1.oel");
+			
+			var floor = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Floor");
+			floor.y -= 16 * 12 * i;
+			_grpTilemaps.add(floor);
+			
+			var wall = _map.loadTilemap("assets/data/tile_temple_0.png", 16, 16, "Walls");
+			wall.y -= 16 * 12 * i;
+			_grpWalls.add(wall);
+			
+			FlxG.log.add("INIT TILEMAP: " + i);
+		}
 	}
 	
 	/**
