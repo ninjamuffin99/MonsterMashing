@@ -201,6 +201,7 @@ class GalleryState extends BaseMenuState
 		FlxG.camera.setScrollBounds(0, FlxG.width, 0, _grpThumbnails.members[_grpThumbnails.members.length - 1].y + 150);
 		
 		add(bigImage);
+		bigImage.antialiasing = true;
 		bigImage.visible = false;
 		bigImage.scrollFactor.set();
 		
