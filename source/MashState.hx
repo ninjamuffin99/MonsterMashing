@@ -55,7 +55,7 @@ class MashState extends FlxSubState
 		if (NUDE)
 			isNude = 1;
 		
-		#if !nude
+		#if !nutaku
 			isNude = 0;
 		#end
 		

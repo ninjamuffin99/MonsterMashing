@@ -115,9 +115,9 @@ class MenuState extends BaseMenuState
 		initImages();
 		initText();
 
-		FlxTween.tween(mScore, {y: mScore.y + 24}, 0.86, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+		FlxTween.tween(mScore, {y: mScore.y + 24}, 0.86, {type:FlxTweenType.PINGPONG, ease:FlxEase.quadInOut});
 		//FlxTween.tween(sprMashing, {y: sprMashing.y + 20}, 1.2, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
-		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTween.PINGPONG, ease:FlxEase.quadInOut});
+		FlxTween.tween(sprMonster.scale, {y: sprMonster.scale.y * 1.07, x: sprMonster.scale.x * 1.075}, 1.2 * 0.75, {type:FlxTweenType.PINGPONG, ease:FlxEase.quadInOut});
 
 		#if steam
 		initSteamShit();

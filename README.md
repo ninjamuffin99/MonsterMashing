@@ -25,6 +25,9 @@ class APIStuff
 For the vibration on Android, we used [Haxe-Hardware](https://github.com/ktravis/haxe-hardware)
 
 Install using `haxelib install git https://github.com/ktravis/haxe-hardware.git` or something like that
+	
+### Website shit
+Is in the /docs folder, and can be viewed in action at [ninjamuffin99.github.io/MonsterMashing](https://ninjamuffin99.github.io/MonsterMashing)
 
 ### Credits
 

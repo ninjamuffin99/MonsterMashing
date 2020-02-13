@@ -54,7 +54,7 @@ class CredState extends FlxState
 		creds.screenCenter();
 		
 		#if steam
-			if (Steam.active)
+			if (Steam.active && Steam.getAchievement("The_Degenerates_Responsible"))
 			{
 				Steam.setAchievement("The_Degenerates_Responsible");
 			}
@@ -94,6 +94,10 @@ class CredState extends FlxState
 	
 	override public function update(elapsed:Float):Void 
 	{
+		#if steam
+			Steam.onEnterFrame();
+		#end
+		
 		credTimer -= FlxG.elapsed;
 		
 		
