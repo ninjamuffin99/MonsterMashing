@@ -76,10 +76,9 @@ class SettingSubstate extends FlxSubState
 		FlxG.camera.zoom = FlxG.initialZoom;
 		
 		NGAPI = new FlxText(32, 350, FlxG.width - 32, "Press N to log into the Newgrounds API!", 28);
-		#if !nutaku
+		
 		NGAPI.scrollFactor.set();
 		add(NGAPI);
-		#end
 		
 		deleteText = new FlxText(32, 420, FlxG.width - 32, "\nPress P to delete all data!", 28);
 		deleteText.scrollFactor.set();
@@ -340,7 +339,7 @@ class SettingSubstate extends FlxSubState
 		if (_selection < 4)
 		{
 			#if !switch
-				FlxG.sound.play("assets/sounds/smack1.mp3", 1 * settingsArray[1][_selection] * masterVol);
+				FlxG.sound.play("assets/sounds/menuUp." + MenuState.soundEXT, 1 * settingsArray[1][_selection] * masterVol);
 			#end
 		}
 		
